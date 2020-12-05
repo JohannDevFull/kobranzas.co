@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <link rel="icon" href="images/seguro.ico">
-  <title>kobranzas.com | Home</title>   
+  <link rel="icon" href="storage/img/seguro.ico">
+  <title>{{ config('app.name', 'Laravel') }} | Home</title>   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -63,7 +62,7 @@
   <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <div class="container">
       <a href="#" class="navbar-brand">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        <img src="http://kobranzas.co/storage/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
         <span class="brand-text font-weight-light">kobranzas.com</span>
       </a>
@@ -149,7 +148,7 @@
         <div class="carousel-inner" style="margin-top:5px;"> 
 
           <div class="carousel-item active" data-interval="2000">
-            <img src="images/img0.png" alt="Los Angeles" width="1100" height="500">
+            <img src="http://kobranzas.co/storage/img/img0.png" alt="Los Angeles" width="1100" height="500">
             <div class="container">
               <div class="carousel-caption text-left">
                 <h1>Example headline.</h1>
@@ -159,7 +158,7 @@
             </div>
           </div>
           <div class="carousel-item" data-interval="2500">
-            <img src="images/img1.webp" alt="Chicago" width="1100" height="500">
+            <img src="http://kobranzas.co/storage/img/img1.webp" alt="Chicago" width="1100" height="500">
             <div class="container">
               <div class="carousel-caption">
                 <h1>Another example headline.</h1>
@@ -169,7 +168,7 @@
             </div>
           </div>
           <div class="carousel-item" data-interval="2500">
-            <img src="images/img5.jpg" alt="New York" width="1100" height="500">
+            <img src="http://kobranzas.co/storage/img/img5.jpg" alt="New York" width="1100" height="500">
             <div class="carousel-caption text-right">
                 <h1>One more for good measure.</h1>
                 <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
@@ -177,7 +176,7 @@
               </div>
           </div>
           <div class="carousel-item" data-interval="2500">
-            <img src="images/img3.png" alt="Bogota" width="1100" height="500">
+            <img src="http://kobranzas.co/storage/img/img3.png" alt="Bogota" width="1100" height="500">
             <div class="carousel-caption text-right">
                 <h1>One more for good measure.</h1>
                 <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
@@ -246,7 +245,7 @@
             <p><a class="btn kk" href="#" role="button">View details &raquo;</a></p>
           </div><!-- /.col-lg-4 -->
           <div class="col-lg-4">
-            <img class="rounded-circle" src="images/johann.jpg" alt="Generic placeholder image" width="140" height="140">
+            <img class="rounded-circle" src="http://kobranzas.co/storage/img/johann.jpg" alt="Generic placeholder image" width="140" height="140">
             <h2>Johann Ramirez</h2>
             <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
             <p><a class="btn kk" href="#" role="button">View details &raquo;</a></p>

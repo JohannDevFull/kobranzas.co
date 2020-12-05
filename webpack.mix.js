@@ -31,9 +31,12 @@ mix.styles([
 ], 'public/css/all.css');
  
 
-
+// DIRECTORIO DE IMAGENES
 mix.copyDirectory('resources/assets/img', 'storage/app/public/img');
+// DIRECTORIO DE PLUGINS DE ADMINLTE3
 mix.copyDirectory('resources/assets/plugins', 'public/plugins');
+// DIRECTORIO DE CSS
 mix.copyDirectory('resources/assets/css', 'public/css');
+// DIRECTORIO DE JAVASCRITPS
 mix.copyDirectory('resources/assets/js', 'public/js');
 

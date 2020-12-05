@@ -11,13 +11,12 @@
     <!-- CONTENT-WRAPPER -->
     <div class="content-wrapper">
         
-        <!-- CONTENT-HEADER -->
-        <tituig/>
+        
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content" style="padding-top:20px; ">
           
-          <div class="container-fluid">
+          <div class="container-fluid" style="">
                 <!-- CONTENT-SECTION -->
                 <main >
                     <!-- CONTENT-FLUID -->
@@ -45,15 +44,13 @@
 <script>
     import Menud from '@/Shared/Menud'
     import Asider from '@/Shared/Asider' 
-    import Footig from '@/Shared/Footer' 
-    import Tituig from '@/Shared/HeaderSection' 
+    import Footig from '@/Shared/Footer'  
 
     export default {
         components: {
             Menud,
             Asider, 
-            Footig, 
-            Tituig
+            Footig,  
         },
 
         data() {
