@@ -54,11 +54,12 @@
             </li>
 
             <li class="nav-item has-treeview">
+              <i class="nav-item fas fa-users"></i>
               <jet-nav-link
                 :href="route('user.index')"
                 :active="route().current('user.index')"
               >
-                Users
+                Usuarios
               </jet-nav-link>
             </li>
 

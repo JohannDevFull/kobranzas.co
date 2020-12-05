@@ -4316,6 +4316,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -49247,6 +49248,8 @@ var render = function() {
                   "li",
                   { staticClass: "nav-item has-treeview" },
                   [
+                    _c("i", { staticClass: "nav-item fas fa-users" }),
+                    _vm._v(" "),
                     _c(
                       "jet-nav-link",
                       {
@@ -49255,7 +49258,7 @@ var render = function() {
                           active: _vm.route().current("user.index")
                         }
                       },
-                      [_vm._v("\n              Users\n            ")]
+                      [_vm._v("\n              Usuarios\n            ")]
                     )
                   ],
                   1
