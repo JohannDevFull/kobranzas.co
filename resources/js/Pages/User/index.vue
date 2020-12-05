@@ -1,0 +1,37 @@
+<template>
+  <app-layout>
+    <div class="py-12">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+          <h2>Usuarios</h2>
+          <!-- <pre>{{users}}</pre> -->
+          <ul v-for="(user,id) of users" :key="id">
+            <li>
+              {{ user.name }} - {{ user.email }} {{id}}
+              <button class="btn btn-sm btn-info">
+                <jet-nav-link
+                  :href="route('user.show',{id})"
+                  :active="route().current('user.show')">
+                  Ver
+                </jet-nav-link>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </app-layout>
+</template>
+
+<script>
+import AppLayout from "@/Layouts/AppLayout";
+import JetNavLink from "@/Jetstream/NavLink";
+
+export default {
+  props: ["users"],
+  components: {
+    AppLayout,
+    JetNavLink,
+  },
+};
+</script>
