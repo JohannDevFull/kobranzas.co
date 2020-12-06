@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\BuildController;
 use App\Http\Controllers\LlamadasController;
+use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;                  
  
@@ -29,6 +30,8 @@ Route::get('construir', BuildController::class)->name('construir');
 
 
 
+
+// PERMISOS USUARIO
 Route::middleware(['auth'])->group(function () {
    
     Route::post('user/store', [UserController::class,'store'])->name('user.store')
@@ -76,4 +79,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::put('llamadas/{user}/restore', [LlamadasController::class, 'restore'])
         ->name('llamadas.restore'); 
+});
+
+
+// GISTION DE ROLES Y PERMISSOS
+Route::middleware(['auth'])->group(function () {
+    
+    Route::get('/crear/{nom}', [PermisosController::class, 'crearPermiso'])->name('crear');
+
+    Route::get('rol/{nom}', [PermisosController::class, 'crearRol'])->name('rol');
 });
