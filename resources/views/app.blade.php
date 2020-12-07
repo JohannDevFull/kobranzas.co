@@ -6,10 +6,11 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="icon" href="http://kobranzas.co/storage/img/seguro.ico">
         <title>{{ config('app.name', 'Laravel') }}</title>
+
         <link rel="stylesheet" type="text/css" href="http://kobranzas.co/plugins/fontawesome-free/css/all.min.css">
 
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
- 
+        <link rel="icon" type="image/vnd.microsoft.icon" href="http://kobranzas.co/storage/img/seguro.ico"> 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
@@ -54,4 +55,5 @@
         <!-- AdminLTE for demo purposes -->
         <script src="http://kobranzas.co/js/demo.js"></script>
     </body>
+    
 </html>

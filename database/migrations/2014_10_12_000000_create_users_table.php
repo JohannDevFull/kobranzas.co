@@ -17,6 +17,10 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->enum('doc_type',['cedula_ciudadania','cedula_extrangeria','otro']);
+            $table->string('phone_one');
+            $table->string('phone_two')->nullable();
+            $table->string('document')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

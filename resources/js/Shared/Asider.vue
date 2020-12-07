@@ -146,13 +146,16 @@
   </div>
 </template>
 
-<script>  
-import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
+           
 
+<script>
+import JetResponsiveNavLink from "@/Jetstream/ResponsiveNavLink";
+import JetNavLink from "@/Jetstream/NavLink";
 
-    export default {
-        components: { 
-          JetResponsiveNavLink,
-        }
-    }
+export default {
+  components: {
+    JetResponsiveNavLink,
+    JetNavLink,
+  },
+};
 </script>

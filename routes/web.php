@@ -4,7 +4,7 @@ use App\Http\Controllers\LlamadasController;
 use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;                  
- 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,19 +23,17 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
-
+ 
 // PAGINA EN CONSTRUCCION
 Route::get('construir', BuildController::class)->name('construir');
 
 
 
 
-
-// PERMISOS USUARIO
+// PERMISOS USUARIO 
 Route::middleware(['auth'])->group(function () {
    
     Route::post('user/store', [UserController::class,'store'])->name('user.store')
-                                                        ->middleware('permission:user.create');
 
     Route::get('user', [UserController::class,'index'])->name('user.index')
                                                         ->middleware('permission:user.index');
@@ -88,4 +86,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/crear/{nom}', [PermisosController::class, 'crearPermiso'])->name('crear');
 
     Route::get('rol/{nom}', [PermisosController::class, 'crearRol'])->name('rol');
-});
+
+    Route::get('user', [UserController::class,'index'])->name('user.index')
+                                                        ->middleware('permission:user.index');
+    Route::get('user/create', [UserController::class,'create'])->name('user.create')
+                                                        ->middleware('permission:user.create');
+    Route::put('user/{id}', [UserController::class,'update'])->name('user.update')
+                                                        ->middleware('permission:user.edit');
+    Route::get('user/{id}', [UserController::class,'show'])->name('user.show')
+                                                        ->middleware('permission:user.show');
+    Route::delete('user/{id}', [UserController::class,'destroy'])->name('user.destroy')
+                                                        ->middleware('permission:user.destroy');
+    Route::get('user/{id}/edit', [UserController::class,'edit'])->name('user.edit')
+                                                        ->middleware('permission:user.edit');
+}); 
