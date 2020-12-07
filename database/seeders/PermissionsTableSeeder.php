@@ -24,7 +24,7 @@ class PermissionsTableSeeder extends Seeder
          Permission::create(['name' => 'user.destroy']);
  
          //Admin
-         $admin = Role::create(['name' => 'Administrador']);
+         $admin = Role::create(['name' => 'Admin']);
  
          $admin->givePermissionTo([
              'user.index',
@@ -45,6 +45,6 @@ class PermissionsTableSeeder extends Seeder
  
          //User Admin
          $user = User::find(1); 
-         $user->assignRole('Administrador');
+         $user->assignRole('Admin');
     }
 }

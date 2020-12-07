@@ -5,16 +5,15 @@
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
           <h2>Usuarios</h2>
           <!-- <pre>{{users}}</pre> -->
-          <ul v-for="(user,id) of users" :key="id">
+          <ul v-for="(user, id) of users" :key="id">
             <li>
-              {{ user.name }} - {{ user.email }} {{id}}
-              <button class="btn btn-sm btn-info">
-                <jet-nav-link
-                  :href="route('user.show',{id})"
-                  :active="route().current('user.show')">
-                  Ver
-                </jet-nav-link>
-              </button>
+              {{ user.name }} - {{ user.email }}
+              <jet-nav-link
+                :href="route('user.show', user.id)"
+                :active="route().current('user.show')"
+              >
+                <button class="btn btn-sm btn-info">Ver</button>
+              </jet-nav-link>
             </li>
           </ul>
         </div>
