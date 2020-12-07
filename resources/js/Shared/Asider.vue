@@ -127,14 +127,16 @@
                   </inertia-link> 
                 </li>
                 
-                <li class="nav-item">
-                  <inertia-link class="nav-link" :href="route('construir')"> 
-                    <i class="nav-icon fas fa-th"></i>
+                
+
+                <li class="nav-item has-treeview">
+                  <inertia-link class="nav-link" :href="route('permisos')"> 
+                    <i class="nav-icon fas fa-user-shield"></i>
                     <p>
-                      Widgets
+                      Permisos 
                       <span class="right badge badge-danger">New</span>
                     </p>
-                  </inertia-link> 
+                  </inertia-link>
                 </li>
                 
               </ul>
@@ -146,16 +148,13 @@
   </div>
 </template>
 
-           
+<script>  
+import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
 
-<script>
-import JetResponsiveNavLink from "@/Jetstream/ResponsiveNavLink";
-import JetNavLink from "@/Jetstream/NavLink";
 
-export default {
-  components: {
-    JetResponsiveNavLink,
-    JetNavLink,
-  },
-};
+    export default {
+        components: { 
+          JetResponsiveNavLink,
+        }
+    }
 </script>

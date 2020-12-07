@@ -4331,7 +4331,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_ResponsiveNavLink__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/ResponsiveNavLink */ "./resources/js/Jetstream/ResponsiveNavLink.vue");
-/* harmony import */ var _Jetstream_NavLink__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/NavLink */ "./resources/js/Jetstream/NavLink.vue");
 //
 //
 //
@@ -4482,12 +4481,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    JetResponsiveNavLink: _Jetstream_ResponsiveNavLink__WEBPACK_IMPORTED_MODULE_0__["default"],
-    JetNavLink: _Jetstream_NavLink__WEBPACK_IMPORTED_MODULE_1__["default"]
+    JetResponsiveNavLink: _Jetstream_ResponsiveNavLink__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -49361,20 +49358,20 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "li",
-                  { staticClass: "nav-item" },
+                  { staticClass: "nav-item has-treeview" },
                   [
                     _c(
                       "inertia-link",
                       {
                         staticClass: "nav-link",
-                        attrs: { href: _vm.route("construir") }
+                        attrs: { href: _vm.route("permisos") }
                       },
                       [
-                        _c("i", { staticClass: "nav-icon fas fa-th" }),
+                        _c("i", { staticClass: "nav-icon fas fa-user-shield" }),
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "\n                    Widgets\n                    "
+                            "\n                    Permisos \n                    "
                           ),
                           _c(
                             "span",
