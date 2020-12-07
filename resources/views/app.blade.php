@@ -4,9 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="icon" href="http://kobranzas.co/storage/img/seguro.ico">
-        <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <title>{{ config('app.name', 'kobranzas') }}</title>
         <link rel="stylesheet" type="text/css" href="http://kobranzas.co/plugins/fontawesome-free/css/all.min.css">
 
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -34,7 +33,9 @@
         <script src="http://kobranzas.co/plugins/chart.js/Chart.min.js"></script>
         <!-- Sparkline -->
         <script src="http://kobranzas.co/plugins/sparklines/sparkline.js"></script>
-        
+        <!-- JQVMap -->
+        <script src="http://kobranzas.co/plugins/jqvmap/jquery.vmap.min.js"></script>
+        <script src="http://kobranzas.co/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
         <!-- jQuery Knob Chart -->
         <script src="http://kobranzas.co/plugins/jquery-knob/jquery.knob.min.js"></script>
         <!-- daterangepicker -->
@@ -52,6 +53,7 @@
         <script src="http://kobranzas.co/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
         <!-- AdminLTE App -->
         <script src="http://kobranzas.co/js/adminlte.min.js"></script>
+        <script src="http://kobranzas.co/js/pages/dashboard.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="http://kobranzas.co/js/demo.js"></script>
     </body>
