@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Permisos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
@@ -12,24 +16,59 @@ use Spatie\Permission\PermissionRegistrar;
 class PermisosController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * VISTA PERMISOS
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $rol=1;
+        $data=DB::select('SELECT * FROM roles');
+        $rolPermisos = new Permisos;
+        $permisos=$rolPermisos->rolPermisos($rol);
+
+        return Inertia::render('SuperAdmin/Permisos',[
+            'data' => $data,
+            'perm' => $permisos,
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * VER ROLES Y SUS PERMISOS
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function storeRP(Request $request)
     {
-        //
-        return "";
+        
+        $rol=1;
+        $data=DB::select('SELECT * FROM roles');
+        $rolPermisos = new Permisos;
+        $permisos=$rolPermisos->rolPermisos($rol);
+
+        return Inertia::render('SuperAdmin/Permisos',[
+            'data' => $data,
+            'perm' => $permisos,
+        ]);
+    }
+
+    /**
+     * TESTING: VER ROLES Y SUS PERMISOS
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function testIP(Request $request)
+    {
+        
+        $rol=1;
+        $roles=DB::select('SELECT * FROM roles');
+        $rolPermisos = new Permisos;
+        $permisos=$rolPermisos->rolPermisos($rol);
+
+        return Inertia::render('SuperAdmin/IndexPermiso',[
+            'roles'=>$roles,
+            'permisos'=> $permisos,
+        ]);
     }
 
     /**
@@ -37,55 +76,32 @@ class PermisosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function crearPermiso($nom)
+    public function createRol(Request $request)
     {
-        //
-        Permission::create(['name' => $nom]);
-        return "Permiso creado correctamente";
+        Role::create(['name' =>$request->name]);
+        return Redirect::route('permisos');
     }
-
+    
     /**
      * CREAR PERMISO
      *
      * @return \Illuminate\Http\Response
      */
-    public function crearRol($nom)
+    public function createPermiso(Request $request)
     {
         //
-        //Role::create(['name' =>$nom]);
-        $user = Auth::user();
-        return "Rol creado correctamente".$user->id;
+        Permission::create(['name' =>$request->name]);
+        return Redirect::route('permisos');
     }
-
+    
     /**
-     * Store a newly created resource in storage.
+     * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function updateRol(Request $request, $id)
     {
         //
     }
@@ -97,7 +113,7 @@ class PermisosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updatePermiso(Request $request, $id)
     {
         //
     }

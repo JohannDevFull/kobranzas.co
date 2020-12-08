@@ -53,7 +53,9 @@
         <script src="http://kobranzas.co/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
         <!-- AdminLTE App -->
         <script src="http://kobranzas.co/js/adminlte.min.js"></script>
-        <script src="http://kobranzas.co/js/pages/dashboard.js"></script>
+
+        <!-- <script src="http://kobranzas.co/js/pages/dashboard.js"></script> -->
+        
         <!-- AdminLTE for demo purposes -->
         <script src="http://kobranzas.co/js/demo.js"></script>
     </body>
