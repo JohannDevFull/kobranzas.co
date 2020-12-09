@@ -20,6 +20,7 @@ Route::get('/', function (){
     return view('welcome');
 });
 
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
@@ -29,6 +30,7 @@ Route::get('construir', BuildController::class)->name('construir');
 
 // PERMISOS USUARIO 
 Route::middleware(['auth'])->group(function () {
+    Route::get('permission/show/{user}',[PermisosController::class,'getRol']);  
    
     Route::post('user/store', [UserController::class,'store'])->name('user.store')
                                                         ->middleware('permission:user.create');

@@ -10,7 +10,6 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Registro de usuarios</h3>
-              
             </div>
 
             <form role="form" method="POST" @submit.prevent="store">
@@ -28,7 +27,16 @@
                       checked=""
                       :value="'client'"
                     />
-                    <label for="cliente">Cliente</label>
+                    <label for="cliente"
+                      >Cliente
+                      <a class="toolip"
+                        ><i class="fas fa-question-circle"></i
+                        ><span class="tooltiptext"
+                          >El rol cliente permiritirá ver los pagos
+                          realizados.</span
+                        ></a
+                      ></label
+                    >
                     <input
                       v-model="checked"
                       class="input100"
@@ -37,7 +45,16 @@
                       type="radio"
                       :value="'employee'"
                     />
-                    <label for="trabajador">Trabajador</label>
+                    <label for="trabajador"
+                      >Trabajador
+                      <a class="toolip"
+                        ><i class="fas fa-question-circle"></i
+                        ><span class="tooltiptext"
+                          >El rol trabajador permiritirá administrar llamadas,
+                          tareas y acuerdos.</span
+                        ></a
+                      ></label
+                    >
                     <input
                       v-model="checked"
                       class="input100"
@@ -46,7 +63,17 @@
                       type="radio"
                       :value="'groupadmin'"
                     />
-                    <label for="adminConjunto">Admin de conjunto</label>
+                    <label for="adminConjunto"
+                      >Admin de conjunto
+                      <a class="toolip"
+                        ><i class="fas fa-question-circle"></i
+                        ><span class="tooltiptext"
+                          >El rol administrado Conjunto permiritirá ver la lista
+                          de los usuarios de un conjunto y los estados de
+                          cuenta.</span
+                        ></a
+                      ></label
+                    >
                     <input
                       v-model="checked"
                       class="input100"
@@ -55,14 +82,22 @@
                       type="radio"
                       :value="'admin'"
                     />
-                    <label for="admin">Administrador</label>
+                    <label for="admin"
+                      >Administrador
+                      <a class="toolip"
+                        ><i class="fas fa-question-circle"></i
+                        ><span class="tooltiptext"
+                          >El rol administrador permitirá administrar y crear
+                          usuarios, conjuntos, registros y llamadas.</span
+                        ></a
+                      ></label
+                    >
                   </div>
                 </div>
                 <div class="form-group">
                   <label>Nombres:</label>
                   <span class="required">*</span>
                   <input
-                    name="name"
                     type="text"
                     class="form-control"
                     placeholder="Ingrese el nombre"
@@ -159,9 +194,15 @@
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Registrar</button>
               </div>
-              <span v-for="error in errors" class="text-danger">{{
-                error
-              }}</span>
+              
+              
+                <ul v-for="error in errors.errors">
+                  <li class="required">{{ error[0] }}</li>
+                </ul>
+              
+              <!-- <span  class="text-danger">{{
+                error[0]
+              }}</span> -->
             </form>
           </div>
         </div>
@@ -195,37 +236,36 @@ export default {
     };
   },
   methods: {
-    reset(){
-      this.name='';
-      this.email='';
-      this.pass='';
-      this.selected='';
-      this.document='';
-      this.phone_one='';
-      this.phone_two='';
-      this.client_code='';
-      this.contract_number='';
+    reset() {
+      this.name = "";
+      this.email = "";
+      this.pass = "";
+      this.selected = "";
+      this.document = "";
+      this.phone_one = "";
+      this.phone_two = "";
+      this.client_code = "";
+      this.contract_number = "";
     },
     store() {
       var url = "/user/store";
       axios
         .post(url, {
           role: this.checked,
-          name: this.name,
-          email: this.email,
-          password: this.pass,
-          doc_type: this.selected,
-          document: this.document,
-          phone_one: this.phone_one,
+          nombre: this.name,
+          correo: this.email,
+          contraseña: this.pass,
+          tipo_de_documento: this.selected,
+          documento: this.document,
+          telefono: this.phone_one,
           phone_two: this.phone_two,
-          client_code: this.client_code,
-          contract_number: this.contract_number,
+          codigo_de_cliente: this.client_code,
+          numero_de_contrato: this.contract_number,
         })
         .then((response) => {
           this.reset();
           this.errors = [];
           // toastr.success("Usuario Registrado");
-          
         })
         .catch((error) => {
           this.errors = error.response.data;
