@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permisos;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -82,5 +83,10 @@ class LlamadasController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function test($value='')
+    {
+        Permisos::roles();
     }
 }

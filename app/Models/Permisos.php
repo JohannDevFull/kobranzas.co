@@ -54,4 +54,10 @@ class Permisos extends Model
         bbb:
         return $arregloRP;
     }
+
+    public static function roles($value='')
+    {
+       $roles=DB::select('SELECT id,name FROM roles');
+       echo  json_encode($roles, JSON_FORCE_OBJECT);
+    }
 }

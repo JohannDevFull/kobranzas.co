@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (){
     return view('welcome');
 });
 
@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
    
     Route::get('llamadas', [LlamadasController::class, 'index'])
-    ->name('llamadas');
+        ->name('llamadas');
 
     Route::get('llamadas/create', [LlamadasController::class, 'create'])
         ->name('llamadas.create');
@@ -78,20 +78,24 @@ Route::middleware(['auth'])->group(function () {
 // GISTION DE ROLES Y PERMISSOS
 Route::middleware(['auth'])->group(function () {
     
-    // OK  
+    // GET INDEX :Vista permisos
     Route::get('/permisos', [PermisosController::class,'index'])->name('permisos');
-    // OK
-    Route::post('/rol',[PermisosController::class,'createRol'])->name('rol');
-    // OK
-    Route::post('/permiso', [PermisosController::class,'createPermiso'])->name('permiso');
-    // proceso
-    Route::get('/rol', [PermisosController::class,'storeRP'])->name('rol.permisos');
+    // POST STORE ROL :Crear rol
+    Route::post('/rol', [PermisosController::class,'storeRol'])->name('rol');
+    // POST SOTORE PERMISO :Crear permiso
+    Route::post('/permiso', [PermisosController::class,'storePermiso'])->name('permiso');
+    // *** POST SOTORE : Asiganar rol a un usuario por id
+    Route::post('/asignar', [PermisosController::class,'test'])->name('asignar');
 
 
 
+
+    // TEST=  STORE ROL
+    Route::post('/create/rol',[PermisosController::class,'storeRol'])->name('create.rol');
+    Route::post('/permisos/crear', [PermisosController::class,'test'])->name('rol.permisos');
 
     // Testing  
-    Route::get('/permisos/dos', [PermisosController::class,'testIP'])->name('permisos.dos');
+    // Route::post('/permisos', [PermisosController::class,'testIP'])->name('permisos.dos');
     // // 
     // Route::get('/asigna', [PermisosController::class,'asignaT'])->name('asigna');
     // // 
@@ -99,16 +103,9 @@ Route::middleware(['auth'])->group(function () {
 
     // Route::get('/permisos/show', [PermisosController::class, 'index'])->name('permisos.show');
 
-    // Route::get('user', [UserController::class,'index'])->name('user.index')
-    //                                                     ->middleware('permission:user.index');
-    // Route::get('user/create', [UserController::class,'create'])->name('user.create')
-    //                                                     ->middleware('permission:user.create');
-    // Route::put('user/{id}', [UserController::class,'update'])->name('user.update')
-    //                                                     ->middleware('permission:user.edit');
-    // Route::get('user/{id}', [UserController::class,'show'])->name('user.show')
-    //                                                     ->middleware('permission:user.show');
-    // Route::delete('user/{id}', [UserController::class,'destroy'])->name('user.destroy')
-    //                                                     ->middleware('permission:user.destroy');
-    // Route::get('user/{id}/edit', [UserController::class,'edit'])->name('user.edit')
-    //                                                     ->middleware('permission:user.edit');
+    
 }); 
+
+// Route to test
+// Route::get('prueba', [PermisosController::class,'test'])->name('prueba');
+

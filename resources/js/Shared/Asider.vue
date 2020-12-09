@@ -22,7 +22,7 @@
               <div class="info"> 
                 <!-- PARA TRAER PAGINA:  -->
                 <jet-responsive-nav-link :href="route('profile.show')" class="d-block" :active="route().current('profile.show')"> 
-                     Johann Ramirez 
+                     {{$page.user.name}}
                 </jet-responsive-nav-link> 
               </div>
             </div>
@@ -130,7 +130,7 @@
                 
 
                 <li class="nav-item has-treeview">
-                  <inertia-link class="nav-link" :href="route('permisos.dos')"> 
+                  <inertia-link class="nav-link" :href="route('permisos')"> 
                     <i class="nav-icon fas fa-user-shield"></i>
                     <p>
                       Permisos 

@@ -8,7 +8,7 @@
             <div class="card-tools">
                 <ul class="nav nav-pills ml-auto">
                   <li class="nav-item">
-                    <a href="" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modalAsignar">
+                    <a href="" class="btn btn-block btn-primary"  data-toggle="modal" data-target="#modalAsignarRol">
                       Asignar permisos a Usuario
                     </a>
                   </li>
@@ -27,7 +27,7 @@
                   <div class="custom-control custom-checkbox" style="padding: 10px;margin-right: 10px">
                     <div class="text-center">
                         <a href="" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modalRol">
-                          Nuevo rol
+                          Nuevo rol 
                         </a>
                     </div>
                   </div> 
@@ -44,13 +44,12 @@
                     </td>
 
                     <td width="130"  style="width: 150px" >
-                        <button @click="edit(row)" class="btn btn-sm btn-primary">Edit</button>
+                        <button @click="saludar()" class="btn btn-sm btn-primary">Edit</button>
                         <button @click="deleteRow(row)" class="btn btn-sm btn-danger">Del</button>
                     </td>
                   </tr>
                 </div>  
-                            
-                             
+                      
               </table>
             </div>
 
@@ -70,7 +69,7 @@
                   <DIV id=”menu_wrapper”>
                     <ul>
                       <li>
-                        <tr v-for="rot in perm"  class="hover:bg-gray-100 focus-within:bg-gray-100">
+                        <tr v-for="rot in permisos"  class="hover:bg-gray-100 focus-within:bg-gray-100">
                            
                            
                           <td v-if="rot.check==true">
@@ -92,22 +91,21 @@
                     </ul>         
                               
                   </DIV>
-
-                          
-                            
+      
                 </div>
+ 
             </div>
 
           </div>
 
-        </div>     
-      
+        </div>          
       </div>
     </div>
 
-    <modalr/>
 
-    <modalp/>
+    <modal-rol/>
+    <modal-permiso/>
+    <modal-asignar-rol v-bind:select="datos" />
 
   </app-layout>
 </template>
@@ -115,17 +113,28 @@
 <script> 
   import AppLayout from '@/Layouts/AppLayout' 
   // import Listr from '@/Kobranzas/ListRoles' 
-  import Modalr from '@/Kobranzas/ModalRol' 
-  import Modalp from '@/Kobranzas/ModalPermiso'
+  import ModalRol from '@/Kobranzas/ModalRol' 
+  import ModalPermiso from '@/Kobranzas/ModalPermiso'
+  import ModalAsignarRol from '@/Kobranzas/ModalAsignarRol'
 
   export default {
     props:['roles','permisos'],
 
+    data(){
+      return{
+        datos: this.roles, 
+      }
+    },
+
     components: {
         AppLayout, 
         //Listr, 
-        Modalr, 
-        Modalp, 
-    },  
+        ModalRol, 
+        ModalPermiso, 
+        ModalAsignarRol, 
+    },
+    methods:{
+      
+    }
   }
 </script>

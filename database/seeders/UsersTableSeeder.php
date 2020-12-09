@@ -24,7 +24,18 @@ class UsersTableSeeder extends Seeder
             'document'=>'1020304050'
 
         ]);
-        User::factory(15)->create();
+        User::create([
+            'name'=>'Johann Ramirez',
+            'email'=>'admin@kobranzas.co',
+            'password'=>bcrypt(123),
+            'phone_one'=>'987654321',
+            'phone_two'=>'311256464',
+            'doc_type'=>'cedula_ciudadania',
+            'document'=>'1976546765'
+
+        ]);
+
+        //User::factory(15)->create();
     
     }
 }

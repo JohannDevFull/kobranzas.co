@@ -5,6 +5,7 @@
             <div class="modal fade" id="modalRol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
+                        
                         <div class="modal-header text-center">
                             <h4 class="modal-title w-100 font-weight-bold">Crear Rol</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -12,13 +13,13 @@
                             </button>
                         </div>
 
-                          <div class="modal-body mx-3">
-                            <div class="md-form mb-5">
-                              <i class="fas fa-envelope prefix grey-text"></i>
-                                <label for="first_name">Nombre rol:</label>
-                                <input id="first_name" v-model="form.name" />
-                            </div>
+                        <div class="modal-body mx-3">
+                          <div class="md-form mb-5">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                              <label for="first_name">Nombre rol:</label>
+                              <input id="first_name" v-model="form.name" />
                           </div>
+                        </div>
 
                       <div class="modal-footer d-flex justify-content-center">
                         <button class="btn btn-primary" type="submit">Crear Rol</button> 
@@ -32,8 +33,7 @@
     </div>
 </template>
 
-<script> 
-import { Inertia } from '@inertiajs/inertia'
+<script>  
     export default {
         components: { 
         },

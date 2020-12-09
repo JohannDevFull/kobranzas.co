@@ -23,13 +23,13 @@ class PermisosController extends Controller
     public function index()
     {
         $rol=1;
-        $data=DB::select('SELECT * FROM roles');
+        $roles=DB::select('SELECT * FROM roles');
         $rolPermisos = new Permisos;
         $permisos=$rolPermisos->rolPermisos($rol);
 
-        return Inertia::render('SuperAdmin/Permisos',[
-            'data' => $data,
-            'perm' => $permisos,
+        return Inertia::render('SuperAdmin/IndexPermiso',[
+            'roles' => $roles,
+            'permisos' => $permisos,
         ]);
     }
 
@@ -38,58 +38,46 @@ class PermisosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function storeRP(Request $request)
+    public function indexID(Request $request,$rol)
     {
         
-        $rol=1;
-        $data=DB::select('SELECT * FROM roles');
-        $rolPermisos = new Permisos;
-        $permisos=$rolPermisos->rolPermisos($rol);
-
-        return Inertia::render('SuperAdmin/Permisos',[
-            'data' => $data,
-            'perm' => $permisos,
-        ]);
-    }
-
-    /**
-     * TESTING: VER ROLES Y SUS PERMISOS
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function testIP(Request $request)
-    {
-        
-        $rol=1;
+        $id=$rol;
         $roles=DB::select('SELECT * FROM roles');
         $rolPermisos = new Permisos;
-        $permisos=$rolPermisos->rolPermisos($rol);
+        $permisos=$rolPermisos->rolPermisos($id);
 
         return Inertia::render('SuperAdmin/IndexPermiso',[
-            'roles'=>$roles,
-            'permisos'=> $permisos,
+            'roles' => $roles,
+            'permisos' => $permisos,
         ]);
     }
 
     /**
-     * CREAR PERMISO
+     * CREAR ROL
      *
      * @return \Illuminate\Http\Response
      */
-    public function createRol(Request $request)
+    public function storeRol(Request $request)
     {
         Role::create(['name' =>$request->name]);
         return Redirect::route('permisos');
     }
+
+
+
+
+
+
+
+
     
     /**
      * CREAR PERMISO
      *
      * @return \Illuminate\Http\Response
      */
-    public function createPermiso(Request $request)
+    public function storePermiso(Request $request)
     {
-        //
         Permission::create(['name' =>$request->name]);
         return Redirect::route('permisos');
     }
@@ -103,7 +91,7 @@ class PermisosController extends Controller
      */
     public function updateRol(Request $request, $id)
     {
-        //
+        
     }
 
     /**
@@ -128,4 +116,39 @@ class PermisosController extends Controller
     {
         //
     }
+
+    
+
+
+
+
+
+    public function test(Request $request,$value='')
+    {
+        $rol=$request->rol;
+        $userId=$request->id;
+
+        echo "ID del ro: ".$rol;
+        echo "ID del usuario: ".$userId;
+    }
+        
+    /**
+     * TESTING: VER ROLES Y SUS PERMISOS
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function testIP(Request $request)
+    {
+        
+        $rol=1;
+        $roles=DB::select('SELECT * FROM roles');
+        $rolPermisos = new Permisos;
+        $permisos=$rolPermisos->rolPermisos($rol);
+
+        return Inertia::render('SuperAdmin/IndexPermiso',[
+            'roles'=>$roles,
+            'permisos'=> $permisos,
+        ]);
+    }
+
 }
