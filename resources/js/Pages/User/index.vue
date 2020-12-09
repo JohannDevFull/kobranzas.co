@@ -12,7 +12,7 @@
                 :href="route('user.show', user.id)"
                 :active="route().current('user.show')"
               >
-                <button class="btn btn-sm btn-info">Ver</button>
+                <button class="btn btn-sm btn-info">Ver&nbsp;<i class="nav-icon fas fa-eye "></i></button>
               </jet-nav-link> 
             </li>
           </ul>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserInfo;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 
@@ -27,33 +28,43 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'role' => 'required',
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'doc_type' => 'required',
-            'document' => 'required',
-            'phone_one' => 'required',
+            'nombre' => 'required',
+            'correo' => 'required',
+            'contraseña' => 'required',
+            'tipo_de_documento' => 'required',
+            'documento' => 'required',
+            'telefono' => 'required',
 
         ]);
         if($request['role']=='client'){
             $this->validate($request, [
-                'client_code' => 'required',
-                'contract_number' => 'required',
+                'codigo_de_cliente' => 'required',
+                'numero_de_contrato' => 'required',
     
             ]);
         }
 
-        $request['password']=bcrypt($request['password']);
+        $request['contraseña']=bcrypt($request['contraseña']);
 
-        $user = User::create($request->all());
+        $user = User::create([
+            'name' => $request->nombre,
+            'email' => $request->correo,
+            'password' => $request->contraseña,
+            'doc_type' => $request->tipo_de_documento,
+           'document' => $request->documento,
+            'phone_one' => $request->telefono,
+            'phone_two '=> $request->phone_two,       
+            ]);
+           
+    
         $user_id =  DB::getPdo()->lastInsertId();
         switch ($request['role']) {
             case 'client':
                 $user = User::find($user_id); 
                 $user->assignRole('Cliente');
                 $client=Client::create([
-                    'client_code'=>$request->client_code,
-                    'contract_number'=>$request->contract_number,
+                    'client_code'=>$request->codigo_de_cliente,
+                    'contract_number'=>$request->numero_de_contrato,
                     'user_id'=>$user_id,
 
                 ]);
@@ -82,9 +93,10 @@ class UserController extends Controller
         
 
     public function show(User $user,$id)
-    {
-        return Inertia::render('User/show',[ 
-            'user' => User::with('roles:name')->find($id), 
+    {   
+
+        return Inertia::render('User/show',[
+            'userinfo' => User::with('roles:name')->find($id),
         ]);
         
       

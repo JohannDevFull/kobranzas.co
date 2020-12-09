@@ -4563,6 +4563,47 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4583,15 +4624,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     reset: function reset() {
-      this.name = '';
-      this.email = '';
-      this.pass = '';
-      this.selected = '';
-      this.document = '';
-      this.phone_one = '';
-      this.phone_two = '';
-      this.client_code = '';
-      this.contract_number = '';
+      this.name = "";
+      this.email = "";
+      this.pass = "";
+      this.selected = "";
+      this.document = "";
+      this.phone_one = "";
+      this.phone_two = "";
+      this.client_code = "";
+      this.contract_number = "";
     },
     store: function store() {
       var _this = this;
@@ -4599,15 +4640,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var url = "/user/store";
       axios.post(url, {
         role: this.checked,
-        name: this.name,
-        email: this.email,
-        password: this.pass,
-        doc_type: this.selected,
-        document: this.document,
-        phone_one: this.phone_one,
+        nombre: this.name,
+        correo: this.email,
+        contraseña: this.pass,
+        tipo_de_documento: this.selected,
+        documento: this.document,
+        telefono: this.phone_one,
         phone_two: this.phone_two,
-        client_code: this.client_code,
-        contract_number: this.contract_number
+        codigo_de_cliente: this.client_code,
+        numero_de_contrato: this.contract_number
       }).then(function (response) {
         _this.reset();
 
@@ -4751,10 +4792,64 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["user"],
+  props: ["userinfo"],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
     JetNavLink: _Jetstream_NavLink__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -4766,7 +4861,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     toggle: function toggle() {
-      this.disabled = false;
+      this.disabled = !this.disabled;
     }
   }
 });
@@ -4933,10 +5028,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     JetResponsiveNavLink: _Jetstream_ResponsiveNavLink__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      showingNavigationDropdown: false,
+      info: "",
+      rol: ""
+    };
+  },
+  created: function created() {
+    this.getRol();
+  },
+  methods: {
+    getRol: function getRol() {
+      var _this = this;
+
+      var url = "/permission/show/" + this.$page.user.id;
+      axios.get(url).then(function (response) {
+        _this.info = response.data;
+        _this.rol = _this.info[0].roles[0].name;
+      });
+    }
   }
 });
 
@@ -4951,6 +5081,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -49858,7 +49993,15 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("label", { attrs: { for: "cliente" } }, [
-                          _vm._v("Cliente")
+                          _vm._v("Cliente\n                    "),
+                          _c("a", { staticClass: "toolip" }, [
+                            _c("i", { staticClass: "fas fa-question-circle" }),
+                            _c("span", { staticClass: "tooltiptext" }, [
+                              _vm._v(
+                                "El rol cliente permiritirá ver los pagos\n                        realizados."
+                              )
+                            ])
+                          ])
                         ]),
                         _vm._v(" "),
                         _c("input", {
@@ -49888,7 +50031,15 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("label", { attrs: { for: "trabajador" } }, [
-                          _vm._v("Trabajador")
+                          _vm._v("Trabajador\n                    "),
+                          _c("a", { staticClass: "toolip" }, [
+                            _c("i", { staticClass: "fas fa-question-circle" }),
+                            _c("span", { staticClass: "tooltiptext" }, [
+                              _vm._v(
+                                "El rol trabajador permiritirá administrar llamadas,\n                        tareas y acuerdos."
+                              )
+                            ])
+                          ])
                         ]),
                         _vm._v(" "),
                         _c("input", {
@@ -49918,7 +50069,15 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("label", { attrs: { for: "adminConjunto" } }, [
-                          _vm._v("Admin de conjunto")
+                          _vm._v("Admin de conjunto\n                    "),
+                          _c("a", { staticClass: "toolip" }, [
+                            _c("i", { staticClass: "fas fa-question-circle" }),
+                            _c("span", { staticClass: "tooltiptext" }, [
+                              _vm._v(
+                                "El rol administrado Conjunto permiritirá ver la lista\n                        de los usuarios de un conjunto y los estados de\n                        cuenta."
+                              )
+                            ])
+                          ])
                         ]),
                         _vm._v(" "),
                         _c("input", {
@@ -49948,7 +50107,15 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("label", { attrs: { for: "admin" } }, [
-                          _vm._v("Administrador")
+                          _vm._v("Administrador\n                    "),
+                          _c("a", { staticClass: "toolip" }, [
+                            _c("i", { staticClass: "fas fa-question-circle" }),
+                            _c("span", { staticClass: "tooltiptext" }, [
+                              _vm._v(
+                                "El rol administrador permitirá administrar y crear\n                        usuarios, conjuntos, registros y llamadas."
+                              )
+                            ])
+                          ])
                         ])
                       ])
                     ]),
@@ -49969,7 +50136,6 @@ var render = function() {
                         ],
                         staticClass: "form-control",
                         attrs: {
-                          name: "name",
                           type: "text",
                           placeholder: "Ingrese el nombre"
                         },
@@ -50281,9 +50447,11 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _vm._l(_vm.errors, function(error) {
-                    return _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(error))
+                  _vm._l(_vm.errors.errors, function(error) {
+                    return _c("ul", [
+                      _c("li", { staticClass: "required" }, [
+                        _vm._v(_vm._s(error[0]))
+                      ])
                     ])
                   })
                 ],
@@ -50349,7 +50517,8 @@ var render = function() {
                       },
                       [
                         _c("button", { staticClass: "btn btn-sm btn-info" }, [
-                          _vm._v("Ver")
+                          _vm._v("Ver "),
+                          _c("i", { staticClass: "nav-icon fas fa-eye " })
                         ])
                       ]
                     )
@@ -50397,27 +50566,88 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Nombre")]),
+          _c("label", [_vm._v("Nombre:")]),
           _vm._v(" "),
           _c("input", {
             staticClass: "form-control",
             attrs: { type: "text", disabled: _vm.disabled },
-            domProps: { value: _vm.user.name },
-            on: {
-              click: function($event) {
-                return _vm.toggle()
-              }
-            }
+            domProps: { value: _vm.userinfo.name }
           })
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Correo")]),
+          _c("label", [_vm._v("Correo:")]),
           _vm._v(" "),
           _c("input", {
             staticClass: "form-control",
             attrs: { type: "text", disabled: _vm.disabled },
-            domProps: { value: _vm.user.email },
+            domProps: { value: _vm.userinfo.email }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", [_vm._v("Contraseña:")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", disabled: _vm.disabled },
+            domProps: { value: _vm.userinfo.password }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", [_vm._v("Telefono:")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", disabled: _vm.disabled },
+            domProps: { value: _vm.userinfo.phone_one }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", [_vm._v("Segundo Telefono:")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", disabled: _vm.disabled },
+            domProps: { value: _vm.userinfo.phone_two }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", [_vm._v("Tipo de Documento")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              staticClass: "form-control",
+              attrs: { disabled: _vm.disabled },
+              domProps: { value: _vm.userinfo.doc_type }
+            },
+            [
+              _c("option", { attrs: { value: "", disabled: "" } }, [
+                _vm._v("Seleccione...")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "cedula_ciudadania" } }, [
+                _vm._v("Cédula de Ciudadanía")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "cedula_extrangeria" } }, [
+                _vm._v("Cédula de Extrangería")
+              ])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", [_vm._v("Documento:")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", disabled: _vm.disabled },
+            domProps: { value: _vm.userinfo.document },
             on: {
               click: function($event) {
                 return _vm.toggle()
@@ -50456,7 +50686,7 @@ var render = function() {
                 staticClass: "btn btn-sm btn-danger",
                 on: {
                   click: function($event) {
-                    _vm.disabled = true
+                    return _vm.toggle()
                   }
                 }
               },
@@ -50465,7 +50695,7 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "card bg-gradient-info  my-2 mx-4" }, [
+      _c("div", { staticClass: "card bg-gradient-info my-2 mx-4" }, [
         _c("div", { staticClass: "card-header" }, [
           _c("h3", { staticClass: "card-title" }, [_vm._v("Mas información")]),
           _vm._v(" "),
@@ -50484,19 +50714,35 @@ var render = function() {
         _c(
           "div",
           { staticClass: "card-body", staticStyle: { display: "block" } },
-          [_vm._v("Rol: " + _vm._s(_vm.user.roles[0].name))]
+          [
+            _vm._v(
+              "\n       Rol: " + _vm._s(_vm.userinfo.roles[0].name) + "\n      "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
           "div",
           { staticClass: "card-body", staticStyle: { display: "block" } },
-          [_vm._v("Creado el: " + _vm._s(_vm.user.created_at))]
+          [
+            _vm._v(
+              "\n        Creado el: " +
+                _vm._s(_vm.userinfo.created_at) +
+                "\n      "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
           "div",
           { staticClass: "card-body", staticStyle: { display: "block" } },
-          [_vm._v("Actualizado el: " + _vm._s(_vm.user.updated_at))]
+          [
+            _vm._v(
+              "\n        Actualizado el: " +
+                _vm._s(_vm.userinfo.updated_at) +
+                "\n      "
+            )
+          ]
         )
       ])
     ])
@@ -50558,7 +50804,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      " \n                   Johann Ramirez \n              "
+                      "\n            " +
+                        _vm._s(_vm.$page.user.name) +
+                        "\n          "
                     )
                   ]
                 )
@@ -50594,167 +50842,191 @@ var render = function() {
                           staticClass: "nav-icon fas fa-tachometer-alt"
                         }),
                         _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "\n                    Dashboard \n                  "
-                          )
-                        ])
+                        _c("p", [_vm._v("Dashboard")])
                       ]
                     )
                   ],
                   1
                 ),
                 _vm._v(" "),
-                _c(
-                  "li",
-                  { staticClass: "nav-item has-treeview " },
-                  [
-                    _c(
-                      "inertia-link",
-                      {
-                        staticClass: "nav-link",
-                        attrs: { href: _vm.route("user.index") }
-                      },
-                      [
-                        _c("i", { staticClass: "nav-icon fas fa-users" }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "\n                    Usuarios \n                    "
-                          ),
+                _vm.rol == "Admin"
+                  ? _c("li", { staticClass: "nav-item has-treeview" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "ul",
+                        {
+                          staticClass: "nav nav-treeview",
+                          staticStyle: { display: "none" }
+                        },
+                        [
                           _c(
-                            "span",
-                            { staticClass: "badge badge-info right" },
-                            [_vm._v("6")]
+                            "li",
+                            { staticClass: "nav-item" },
+                            [
+                              _c(
+                                "inertia-link",
+                                {
+                                  staticClass: "nav-link",
+                                  attrs: { href: _vm.route("user.index") }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "nav-icon fas fa-address-book text-success"
+                                  }),
+                                  _vm._v(" "),
+                                  _c("p", [_vm._v("Ver Usuarios")])
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            { staticClass: "nav-item" },
+                            [
+                              _c(
+                                "inertia-link",
+                                {
+                                  staticClass: "nav-link",
+                                  attrs: { href: _vm.route("user.create") }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "nav-icon fas fa-user-plus text-success"
+                                  }),
+                                  _vm._v(" "),
+                                  _c("p", [_vm._v("Crear Usuarios")])
+                                ]
+                              )
+                            ],
+                            1
                           )
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                ),
+                        ]
+                      )
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
-                _c(
-                  "li",
-                  { staticClass: "nav-item has-treeview" },
-                  [
-                    _c(
-                      "inertia-link",
-                      {
-                        staticClass: "nav-link",
-                        attrs: { href: _vm.route("construir") }
-                      },
+                _vm.rol == "Admin"
+                  ? _c(
+                      "li",
+                      { staticClass: "nav-item has-treeview" },
                       [
-                        _c("i", { staticClass: "nav-icon far fa-building" }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "\n                    Conjuntos  \n                  "
-                          )
-                        ])
-                      ]
+                        _c(
+                          "inertia-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { href: _vm.route("construir") }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "nav-icon far fa-building"
+                            }),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Conjuntos")])
+                          ]
+                        )
+                      ],
+                      1
                     )
-                  ],
-                  1
-                ),
+                  : _vm._e(),
                 _vm._v(" "),
-                _c(
-                  "li",
-                  { staticClass: "nav-item has-treeview" },
-                  [
-                    _c(
-                      "inertia-link",
-                      {
-                        staticClass: "nav-link",
-                        attrs: { href: _vm.route("construir") }
-                      },
+                _vm.rol == "Admin"
+                  ? _c(
+                      "li",
+                      { staticClass: "nav-item has-treeview" },
                       [
-                        _c("i", { staticClass: "nav-icon fas fa-user-shield" }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "\n                    Trabajadores \n                  "
-                          )
-                        ])
-                      ]
+                        _c(
+                          "inertia-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { href: _vm.route("construir") }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "nav-icon fas fa-user-shield"
+                            }),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Trabajadores")])
+                          ]
+                        )
+                      ],
+                      1
                     )
-                  ],
-                  1
-                ),
+                  : _vm._e(),
                 _vm._v(" "),
-                _c(
-                  "li",
-                  { staticClass: "nav-item has-treeview" },
-                  [
-                    _c(
-                      "inertia-link",
-                      {
-                        staticClass: "nav-link",
-                        attrs: { href: _vm.route("llamadas") }
-                      },
+                _vm.rol == "Admin" || _vm.rol == "Trabajador"
+                  ? _c(
+                      "li",
+                      { staticClass: "nav-item has-treeview" },
                       [
-                        _c("i", { staticClass: "nav-icon fas fa-phone" }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "\n                      Llamadas \n                    "
-                          )
-                        ])
-                      ]
+                        _c(
+                          "inertia-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { href: _vm.route("llamadas") }
+                          },
+                          [
+                            _c("i", { staticClass: "nav-icon fas fa-phone" }),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Llamadas")])
+                          ]
+                        )
+                      ],
+                      1
                     )
-                  ],
-                  1
-                ),
+                  : _vm._e(),
                 _vm._v(" "),
-                _c(
-                  "li",
-                  { staticClass: "nav-item" },
-                  [
-                    _c(
-                      "inertia-link",
-                      {
-                        staticClass: "nav-link",
-                        attrs: { href: _vm.route("construir") }
-                      },
+                _vm.rol == "Trabajador"
+                  ? _c(
+                      "li",
+                      { staticClass: "nav-item" },
                       [
-                        _c("i", {
-                          staticClass: "nav-icon fas fa-hands-helping"
-                        }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "\n                    Acuerdos\n                  "
-                          )
-                        ])
-                      ]
+                        _c(
+                          "inertia-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { href: _vm.route("construir") }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "nav-icon fas fa-hands-helping"
+                            }),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Acuerdos")])
+                          ]
+                        )
+                      ],
+                      1
                     )
-                  ],
-                  1
-                ),
+                  : _vm._e(),
                 _vm._v(" "),
-                _c(
-                  "li",
-                  { staticClass: "nav-item has-treeview" },
-                  [
-                    _c(
-                      "inertia-link",
-                      {
-                        staticClass: "nav-link",
-                        attrs: { href: _vm.route("construir") }
-                      },
+                _vm.rol == "Admin"
+                  ? _c(
+                      "li",
+                      { staticClass: "nav-item has-treeview" },
                       [
-                        _c("i", { staticClass: "nav-icon fas fa-chart-pie" }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "\n                    Reportes \n                  "
-                          )
-                        ])
-                      ]
+                        _c(
+                          "inertia-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { href: _vm.route("construir") }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "nav-icon fas fa-chart-pie"
+                            }),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Reportes")])
+                          ]
+                        )
+                      ],
+                      1
                     )
-                  ],
-                  1
-                ),
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "li",
@@ -50773,7 +51045,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "\n                    Calendar\n                    "
+                            "\n                Calendar\n                "
                           ),
                           _c(
                             "span",
@@ -50800,11 +51072,7 @@ var render = function() {
                       [
                         _c("i", { staticClass: "nav-icon fas fa-book" }),
                         _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "\n                    Pages \n                  "
-                          )
-                        ])
+                        _c("p", [_vm._v("Pages")])
                       ]
                     )
                   ],
@@ -50825,9 +51093,7 @@ var render = function() {
                         _c("i", { staticClass: "nav-icon far fa-envelope" }),
                         _vm._v(" "),
                         _c("p", [
-                          _vm._v(
-                            "\n                    Mailbox\n                    "
-                          ),
+                          _vm._v("\n                Mailbox\n                "),
                           _c(
                             "span",
                             { staticClass: "right badge badge-danger" },
@@ -50855,7 +51121,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "\n                    Permisos \n                    "
+                            "\n                Permisos\n                "
                           ),
                           _c(
                             "span",
@@ -50884,7 +51150,7 @@ var staticRenderFns = [
     return _c("a", { staticClass: "brand-link", attrs: { href: "/" } }, [
       _c("img", {
         staticClass: "brand-image img-circle elevation-3",
-        staticStyle: { opacity: ".8" },
+        staticStyle: { opacity: "0.8" },
         attrs: {
           src: "http://kobranzas.co/storage/img/AdminLTELogo.png",
           alt: "AdminLTE Logo"
@@ -50893,6 +51159,19 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("span", { staticClass: "brand-text font-weight-light" }, [
         _vm._v("kobranzas")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "nav-link", attrs: { href: "" } }, [
+      _c("i", { staticClass: "nav-icon fas fa-users" }),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v("\n                Usuarios\n\n                "),
+        _c("i", { staticClass: "right fas fa-angle-left" })
       ])
     ])
   }
@@ -51005,7 +51284,9 @@ var staticRenderFns = [
               _vm._v("More info "),
               _c("i", { staticClass: "fas fa-arrow-circle-right" })
             ])
-          ])
+          ]),
+          _vm._v(" "),
+          _c("div")
         ])
       ]),
       _vm._v(" "),
@@ -66379,6 +66660,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_inertiajs_inertia_vue__WEBPACK_I
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(laravel_jetstream__WEBPACK_IMPORTED_MODULE_2__["InertiaForm"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(portal_vue__WEBPACK_IMPORTED_MODULE_3___default.a);
 var app = document.getElementById('app');
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin("can", function (permissionName) {
+  var hasAccess;
+  axios.get("/permission/show/".concat(permissionName)).then(function () {
+    hasAccess = true;
+  })["catch"](function () {
+    hasAccess = false;
+  });
+  return hasAccess;
+});
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   render: function render(h) {
     return h(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_1__["InertiaApp"], {
