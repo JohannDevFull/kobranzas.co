@@ -51,9 +51,5 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-    public function getById($id){
-       $userInfo = DB::select('select * from users where id = '.$id);
 
-        return $userInfo;
-    }
 }

@@ -12691,8 +12691,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 
 .nav-sidebar .nav-link p {
   display: inline-block;
-  -webkit-animation-name: fadeIn;
-  animation-name: fadeIn;
+
   -webkit-animation-duration: 0.3s;
   animation-duration: 0.3s;
   -webkit-animation-fill-mode: both;
