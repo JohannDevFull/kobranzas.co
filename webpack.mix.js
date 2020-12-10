@@ -39,6 +39,8 @@ mix.copyDirectory('resources/assets/plugins', 'public/plugins');
 mix.copyDirectory('resources/assets/css', 'public/css');
 // DIRECTORIO DE JAVASCRITPS
 mix.copyDirectory('resources/assets/js', 'public/js');
+//Inertiajs
+mix.copy('resources/assets/Response.php', 'vendor/inertiajs/inertia-laravel/src/Response.php');
 
 
 

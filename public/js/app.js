@@ -4967,24 +4967,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      showingNavigationDropdown: false,
-      info: "",
-      rol: ""
+      showingNavigationDropdown: false
     };
-  },
-  created: function created() {
-    this.getRol();
-  },
-  methods: {
-    getRol: function getRol() {
-      var _this = this;
-
-      var url = "/permission/show/" + this.$page.user.id;
-      axios.get(url).then(function (response) {
-        _this.info = response.data;
-        _this.rol = _this.info[0].roles[0].name;
-      });
-    }
   }
 });
 
@@ -4999,6 +4983,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -50592,7 +50578,7 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _vm.rol == "Admin"
+                _vm.$inertia.page.rol == "Admin"
                   ? _c("li", { staticClass: "nav-item has-treeview" }, [
                       _vm._m(1),
                       _vm._v(" "),
@@ -50653,10 +50639,10 @@ var render = function() {
                     ])
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.rol == "Admin"
+                _vm.$inertia.page.rol == "Admin"
                   ? _c(
                       "li",
-                      { staticClass: "nav-item has-treeview" },
+                      { staticClass: "nav-item" },
                       [
                         _c(
                           "inertia-link",
@@ -50677,7 +50663,7 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.rol == "Admin"
+                _vm.$inertia.page.rol == "Admin"
                   ? _c(
                       "li",
                       { staticClass: "nav-item has-treeview" },
@@ -50701,7 +50687,7 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.rol == "Admin" || _vm.rol == "Trabajador"
+                _vm.$inertia.page.rol == "Admin" || _vm.rol == "Trabajador"
                   ? _c(
                       "li",
                       { staticClass: "nav-item has-treeview" },
@@ -50747,29 +50733,18 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.rol == "Admin"
-                  ? _c(
-                      "li",
-                      { staticClass: "nav-item has-treeview" },
-                      [
-                        _c(
-                          "inertia-link",
-                          {
-                            staticClass: "nav-link",
-                            attrs: { href: _vm.route("construir") }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "nav-icon fas fa-chart-pie"
-                            }),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Reportes")])
-                          ]
-                        )
-                      ],
-                      1
-                    )
-                  : _vm._e(),
+                _c(
+                  "inertia-link",
+                  {
+                    staticClass: "nav-link",
+                    attrs: { href: _vm.route("construir") }
+                  },
+                  [
+                    _c("i", { staticClass: "nav-icon fas fa-chart-pie" }),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("Reportes")])
+                  ]
+                ),
                 _vm._v(" "),
                 _c(
                   "li",
@@ -50877,7 +50852,8 @@ var render = function() {
                   ],
                   1
                 )
-              ]
+              ],
+              1
             )
           ])
         ])

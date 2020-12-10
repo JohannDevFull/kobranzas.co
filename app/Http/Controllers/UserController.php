@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\UserInfo;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 

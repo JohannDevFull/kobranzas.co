@@ -2,5 +2,8 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/all.css": "/css/all.css",
-    "/vendor/inertiajs/inertia-laravel/src/Ejemplo.php": "/vendor/inertiajs/inertia-laravel/src/Ejemplo.php"
+
+    "/vendor/inertiajs/inertia-laravel/src/Ejemplo.php": "/vendor/inertiajs/inertia-laravel/src/Ejemplo.php",
+    "/vendor/inertiajs/inertia-laravel/src/Response.php": "/vendor/inertiajs/inertia-laravel/src/Response.php"
+
 }

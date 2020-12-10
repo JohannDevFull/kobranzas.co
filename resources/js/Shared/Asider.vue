@@ -54,7 +54,7 @@
               </inertia-link>
             </li>
 
-            <li class="nav-item has-treeview" v-if="rol == 'Admin'">
+            <li class="nav-item has-treeview" v-if="$inertia.page.rol == 'Admin'">
               <a href="" class="nav-link">
                 
                 <i class="nav-icon fas fa-users"></i>
@@ -80,23 +80,23 @@
               </ul>
             </li>
 
-            <li class="nav-item has-treeview" v-if="rol == 'Admin'">
+            <li class="nav-item" v-if="$inertia.page.rol == 'Admin'">
               <inertia-link class="nav-link" :href="route('construir')">
                 <i class="nav-icon far fa-building"></i>
                 <p>Conjuntos</p>
               </inertia-link>
             </li>
 
-            <li class="nav-item has-treeview" v-if="rol == 'Admin'">
+            <li class="nav-item has-treeview" v-if="$inertia.page.rol == 'Admin'">
               <inertia-link class="nav-link" :href="route('construir')">
-                <i class="nav-icon fas fa-user-shield"></i>
+                <i class="nav-icon fas fa-user-shield"></i> 
                 <p>Trabajadores</p>
               </inertia-link>
             </li>
 
             <li
               class="nav-item has-treeview"
-              v-if="rol == 'Admin' || rol == 'Trabajador'"
+              v-if="$inertia.page.rol =='Admin' || rol == 'Trabajador'"
             >
               <inertia-link class="nav-link" :href="route('llamadas')">
                 <i class="nav-icon fas fa-phone"></i>
@@ -110,7 +110,7 @@
               </inertia-link>
             </li>
 
-            <li class="nav-item has-treeview" v-if="rol == 'Admin'">
+            <li class="nav-item has-treeview" v-if="$inertia.page.rol == 'Admin'"
               <inertia-link class="nav-link" :href="route('construir')">
                 <i class="nav-icon fas fa-chart-pie"></i>
                 <p>Reportes</p>
@@ -156,7 +156,7 @@
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
-      </div>
+      </div> 
       <!-- /.sidebar -->
     </aside>
   </div>
@@ -171,21 +171,8 @@ export default {
   data() {
     return {
       showingNavigationDropdown: false,
-      info: "",
-      rol: "",
+      
     };
-  },
-  created() {
-    this.getRol();
-  },
-  methods: {
-    getRol() {
-      const url = "/permission/show/" + this.$page.user.id;
-      axios.get(url).then((response) => {
-        this.info = response.data;
-        this.rol = this.info[0].roles[0].name;
-      });
-    },
   },
 };
 </script>
