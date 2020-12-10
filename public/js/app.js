@@ -4481,8 +4481,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-<<<<<<< HEAD
-=======
 //
 //
 //
@@ -4524,118 +4522,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
->>>>>>> 6da2a1107ad8cfe1de6df5806af575b2deceb5e2
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4656,17 +4542,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     reset: function reset() {
-<<<<<<< HEAD
-      this.name = '';
-      this.email = '';
-      this.pass = '';
-      this.selected = '';
-      this.document = '';
-      this.phone_one = '';
-      this.phone_two = '';
-      this.client_code = '';
-      this.contract_number = '';
-=======
       this.name = "";
       this.email = "";
       this.pass = "";
@@ -4676,7 +4551,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.phone_two = "";
       this.client_code = "";
       this.contract_number = "";
->>>>>>> 6da2a1107ad8cfe1de6df5806af575b2deceb5e2
     },
     store: function store() {
       var _this = this;
@@ -4684,17 +4558,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var url = "/user/store";
       axios.post(url, {
         role: this.checked,
-<<<<<<< HEAD
-        name: this.name,
-        email: this.email,
-        password: this.pass,
-        doc_type: this.selected,
-        document: this.document,
-        phone_one: this.phone_one,
-        phone_two: this.phone_two,
-        client_code: this.client_code,
-        contract_number: this.contract_number
-=======
         nombre: this.name,
         correo: this.email,
         contraseña: this.pass,
@@ -4704,7 +4567,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         phone_two: this.phone_two,
         codigo_de_cliente: this.client_code,
         numero_de_contrato: this.contract_number
->>>>>>> 6da2a1107ad8cfe1de6df5806af575b2deceb5e2
       }).then(function (response) {
         _this.reset();
 
@@ -50685,15 +50547,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-<<<<<<< HEAD
-                      " \n                   " +
-                        _vm._s(_vm.$page.user.name) +
-                        "\n              "
-=======
                       "\n            " +
                         _vm._s(_vm.$page.user.name) +
                         "\n          "
->>>>>>> 6da2a1107ad8cfe1de6df5806af575b2deceb5e2
                     )
                   ]
                 )

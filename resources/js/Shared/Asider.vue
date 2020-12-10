@@ -145,7 +145,7 @@
             </li>
 
             <li class="nav-item has-treeview">
-              <inertia-link class="nav-link" :href="route('permisos.dos')">
+              <inertia-link class="nav-link" :href="route('permisos')">
                 <i class="nav-icon fas fa-user-shield"></i>
                 <p>
                   Permisos
