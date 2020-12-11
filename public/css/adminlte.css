@@ -105,6 +105,16 @@ input[type=checkbox], input[type=radio] {
   box-sizing: border-box;
   padding: 0;
 }
+.styleDoc{
+  background: transparent; 
+    text-align: transparent;
+    text-decoration: none;
+    border: 0px;
+    color: black;
+    text-indent: 0.01px;
+    appearance: none;
+
+}
 
 .input100 {
   display: none;

@@ -9,7 +9,7 @@
             <div class="small-box bg-info">
               <div class="inner">
                 <h3>10</h3>
-
+ 
                 <p>Nuevos acuerdos</p>
               </div>
               <div class="icon">

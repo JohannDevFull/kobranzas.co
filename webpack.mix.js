@@ -12,14 +12,15 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
-        
+
     ])
     .webpackConfig(require('./webpack.config'));
 
 // CSS
-mix.styles([  
+mix.styles([
     'resources/assets/plugins/overlayScrollbars/css/OverlayScrollbars.css',
     'resources/assets/css/adminlte.css',
     'resources/assets/css/mycss.css',
@@ -29,7 +30,7 @@ mix.styles([
     'resources/assets/plugins/daterangepicker/daterangepicker.css',
     'resources/assets/plugins/summernote/summernote-bs4.css'
 ], 'public/css/all.css');
- 
+
 
 // DIRECTORIO DE IMAGENES
 mix.copyDirectory('resources/assets/img', 'storage/app/public/img');

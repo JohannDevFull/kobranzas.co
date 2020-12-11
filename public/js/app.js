@@ -4565,11 +4565,385 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+<<<<<<< HEAD
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['sessions'],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"]
+=======
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
+    JetNavLink: _Jetstream_NavLink__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      name: "",
+      show: 10,
+      users: [],
+      pagination: {
+        total: 0,
+        current_page: 0,
+        per_page: 0,
+        last_page: 0,
+        from: 0,
+        to: 0
+      },
+      offset: 3
+    };
+  },
+  created: function created() {
+    this.getUsers();
+  },
+  computed: {
+    count: function count() {
+      var counted = 0;
+      counted = this.pagination.from + parseInt(this.show) - 1;
+
+      if (counted > this.pagination.total) {
+        counted = this.pagination.total;
+      }
+
+      return counted;
+    },
+    isActived: function isActived() {
+      return this.pagination.current_page;
+    },
+    pagesNumber: function pagesNumber() {
+      if (!this.pagination.to) {
+        return [];
+      }
+
+      var from = this.pagination.current_page - this.offset;
+
+      if (from < 1) {
+        from = 1;
+      }
+
+      var to = from + this.offset * 2;
+
+      if (to >= this.pagination.last_page) {
+        to = this.pagination.last_page;
+      }
+
+      var pagesArray = [];
+
+      while (from <= to) {
+        pagesArray.push(from);
+        from++;
+      }
+
+      return pagesArray;
+    },
+    searchUser: function searchUser() {
+      var _this = this;
+
+      return this.users.filter(function (user) {
+        return user.name.toLowerCase().includes(_this.name.toLowerCase()) || user.document.includes(_this.name);
+      });
+    }
+  },
+  methods: {
+    getUsers: function getUsers(page) {
+      var _this2 = this;
+
+      axios.get("user/paginate?page=" + page + "&show=" + this.show).then(function (response) {
+        _this2.pagination = response.data.pagination;
+        _this2.users = response.data.users.data;
+      });
+    },
+    changePage: function changePage(page) {
+      this.pagination.current_page = page;
+      this.getUsers(page);
+    },
+    deleteUser: function deleteUser(idUser) {
+      var _this3 = this;
+
+      var swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: "¿Estás Seguro que quieres eliminar a este usuario?",
+        text: "Una vez eliminado el usuario NO podras ver su informacion de nuevo!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, Eliminar!",
+        cancelButtonText: "No, Cancelar!",
+        reverseButtons: true,
+        showLoaderOnConfirm: true
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          axios["delete"]("user/".concat(idUser)).then(function (response) {
+            _this3.getUsers();
+
+            swalWithBootstrapButtons.fire("Eliminado!", "El usuario ha sido eliminado.", "success");
+          });
+        } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire("Cancelado", "El usuario NO se ha eliminado ten más cuidado.", "error");
+        }
+      });
+    }
+>>>>>>> c70106181aa435072f2f7f712c84715759239d14
   }
 });
 
@@ -4714,6 +5088,110 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+<<<<<<< HEAD
+=======
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["userinfo"],
+  components: {
+    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
+    JetNavLink: _Jetstream_NavLink__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      disabled: true,
+      selected: this.userinfo.doc_type,
+      name: this.userinfo.name,
+      email: this.userinfo.email,
+      document: this.userinfo.document,
+      phone_one: this.userinfo.phone_one,
+      phone_two: this.userinfo.phone_two,
+      errors: []
+    };
+  },
+  methods: {
+    toggle: function toggle() {
+      this.disabled = !this.disabled;
+    },
+    cancel: function cancel() {
+      this.toggle();
+      this.selected = this.userinfo.doc_type;
+      this.name = this.userinfo.name;
+      this.email = this.userinfo.email;
+      this.document = this.userinfo.document;
+      this.phone_one = this.userinfo.phone_one;
+      this.phone_two = this.userinfo.phone_two;
+      this.errors = [];
+    },
+    updateUser: function updateUser(idUser) {
+      var _this = this;
+
+      axios.put("/user/".concat(idUser), {
+        nombre: this.name,
+        correo: this.email,
+        tipo_de_documento: this.selected,
+        documento: this.document,
+        telefono: this.phone_one,
+        phone_two: this.phone_two
+      }).then(function (response) {
+        _this.$inertia.visit("/user/".concat(_this.userinfo.id));
+      })["catch"](function (error) {
+        _this.errors = error.response.data;
+      });
+    },
+    deleteUser: function deleteUser(idUser) {
+      var _this2 = this;
+
+      var swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: "¿Estás Seguro que quieres eliminar a este usuario?",
+        text: "Una vez eliminado el usuario NO podras ver su informacion de nuevo!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, Eliminar!",
+        cancelButtonText: "No, Cancelar!",
+        reverseButtons: true,
+        showLoaderOnConfirm: true
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          axios["delete"]("/user/".concat(idUser)).then(function (response) {
+            _this2.$inertia.visit("/user");
+
+            swalWithBootstrapButtons.fire("Eliminado!", "El usuario ha sido eliminado.", "success");
+          });
+        } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire("Cancelado", "El usuario NO se ha eliminado ten más cuidado.", "error");
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Shared/Asider.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Shared/Asider.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Jetstream_ResponsiveNavLink__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/ResponsiveNavLink */ "./resources/js/Jetstream/ResponsiveNavLink.vue");
+>>>>>>> c70106181aa435072f2f7f712c84715759239d14
 //
 //
 //
@@ -50990,49 +51468,640 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("app-layout", [
-    _c("div", { staticClass: "py-12" }, [
-      _c("div", { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" }, [
-        _c(
-          "div",
-          { staticClass: "bg-white overflow-hidden shadow-xl sm:rounded-lg" },
-          [
-            _c("h2", [_vm._v("Usuarios")]),
-            _vm._v(" "),
-            _vm._l(_vm.users, function(user, id) {
-              return _c("ul", { key: id }, [
+    _c("section", { staticClass: "content" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _c(
+              "div",
+              { staticClass: "card-header" },
+              [
                 _c(
-                  "li",
+                  "inertia-link",
+                  { attrs: { href: _vm.route("user.create") } },
                   [
-                    _vm._v(
-                      "\n            " +
-                        _vm._s(user.name) +
-                        " - " +
-                        _vm._s(user.email) +
-                        "\n            "
-                    ),
-                    _c(
-                      "jet-nav-link",
-                      {
-                        attrs: {
-                          href: _vm.route("user.show", user.id),
-                          active: _vm.route().current("user.show")
-                        }
-                      },
-                      [
-                        _c("button", { staticClass: "btn btn-sm btn-info" }, [
-                          _vm._v("Ver "),
-                          _c("i", { staticClass: "nav-icon fas fa-eye " })
+                    _c("button", { staticClass: "btn btn-dark float-right" }, [
+                      _c("i", { staticClass: "fas fa-plus" }),
+                      _vm._v(" Agregar Usuario\n            ")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("h3", { staticClass: "card-title" }, [
+                  _vm._v("Listado de Usuarios")
+                ])
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "dataTables_wrapper dt-bootstrap4",
+                  attrs: { id: "example1_wrapper" }
+                },
+                [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-12 col-md-6" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "dataTables_length",
+                          attrs: { id: "example1_length" }
+                        },
+                        [
+                          _c("label", [
+                            _vm._v(
+                              "Filtrar por Cantidad\n                      "
+                            ),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.show,
+                                    expression: "show"
+                                  }
+                                ],
+                                staticClass:
+                                  "custom-select custom-select-sm form-control form-control-sm",
+                                attrs: {
+                                  name: "example1_length",
+                                  "aria-controls": "example1"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.getUsers(1, _vm.show)
+                                  },
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.show = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  }
+                                }
+                              },
+                              [
+                                _c("option", { attrs: { value: "5" } }, [
+                                  _vm._v("5")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "10" } }, [
+                                  _vm._v("10")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "25" } }, [
+                                  _vm._v("25")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "50" } }, [
+                                  _vm._v("50")
+                                ])
+                              ]
+                            ),
+                            _vm._v("\n                      Registros")
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-12 col-md-6" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "dataTables_filter float-right",
+                          attrs: { id: "example1_filter" }
+                        },
+                        [
+                          _c("label", [
+                            _vm._v("Buscar por nombre o documento:"),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.name,
+                                  expression: "name"
+                                }
+                              ],
+                              staticClass: "form-control form-control-sm",
+                              attrs: {
+                                type: "search",
+                                placeholder: "",
+                                "aria-controls": "example1"
+                              },
+                              domProps: { value: _vm.name },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.name = $event.target.value
+                                }
+                              }
+                            })
+                          ])
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-12" }, [
+                      _c(
+                        "table",
+                        {
+                          staticClass:
+                            "table table-bordered table-striped dataTable",
+                          attrs: {
+                            id: "example1",
+                            role: "grid",
+                            "aria-describedby": "example1_info"
+                          }
+                        },
+                        [
+                          _c("thead", [
+                            _c("tr", { attrs: { role: "row" } }, [
+                              _c(
+                                "th",
+                                {
+                                  staticClass: "sorting_asc",
+                                  staticStyle: { width: "170px" },
+                                  attrs: {
+                                    tabindex: "0",
+                                    "aria-controls": "example1",
+                                    rowspan: "1",
+                                    colspan: "1",
+                                    "aria-sort": "ascending",
+                                    "aria-label":
+                                      "Rendering engine: activate to sort column descending"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                          Nombre\n                        "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "th",
+                                {
+                                  staticClass: "sorting",
+                                  staticStyle: { width: "219px" },
+                                  attrs: {
+                                    tabindex: "0",
+                                    "aria-controls": "example1",
+                                    rowspan: "1",
+                                    colspan: "1",
+                                    "aria-label":
+                                      "Browser: activate to sort column ascending"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                          Correo\n                        "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "th",
+                                {
+                                  staticClass: "sorting",
+                                  staticStyle: { width: "194px" },
+                                  attrs: {
+                                    tabindex: "0",
+                                    "aria-controls": "example1",
+                                    rowspan: "1",
+                                    colspan: "1",
+                                    "aria-label":
+                                      "Platform(s): activate to sort column ascending"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                          Tipo de Documento\n                        "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "th",
+                                {
+                                  staticClass: "sorting",
+                                  staticStyle: { width: "143px" },
+                                  attrs: {
+                                    tabindex: "0",
+                                    "aria-controls": "example1",
+                                    rowspan: "1",
+                                    colspan: "1",
+                                    "aria-label":
+                                      "Engine version: activate to sort column ascending"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                          Documento\n                        "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "th",
+                                {
+                                  staticClass: "sorting",
+                                  staticStyle: { width: "101px" },
+                                  attrs: {
+                                    tabindex: "0",
+                                    "aria-controls": "example1",
+                                    rowspan: "1",
+                                    colspan: "1",
+                                    "aria-label":
+                                      "Telefono: activate to sort column ascending"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                          Telefono\n                        "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "th",
+                                {
+                                  staticClass: "sorting",
+                                  staticStyle: { width: "101px" },
+                                  attrs: {
+                                    tabindex: "0",
+                                    "aria-controls": "example1",
+                                    rowspan: "1",
+                                    colspan: "1",
+                                    "aria-label":
+                                      "Telefono: activate to sort column ascending"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                          Acción\n                        "
+                                  )
+                                ]
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.searchUser, function(user, id) {
+                              return _c(
+                                "tr",
+                                {
+                                  key: id,
+                                  staticClass: "odd",
+                                  attrs: { role: "row" }
+                                },
+                                [
+                                  _c("td", { staticClass: "sorting_1" }, [
+                                    _vm._v(_vm._s(user.name))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(user.email))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c(
+                                      "select",
+                                      {
+                                        staticClass: "styleDoc",
+                                        attrs: { disabled: "" },
+                                        domProps: { value: user.doc_type }
+                                      },
+                                      [
+                                        _c(
+                                          "option",
+                                          {
+                                            attrs: { value: "", disabled: "" }
+                                          },
+                                          [_vm._v("Seleccione...")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "option",
+                                          {
+                                            attrs: {
+                                              value: "cedula_ciudadania"
+                                            }
+                                          },
+                                          [
+                                            _c("b", [
+                                              _vm._v(" Cédula de Ciudadanía")
+                                            ])
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "option",
+                                          {
+                                            attrs: {
+                                              value: "cedula_extrangeria"
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                              Cédula de Extrangería\n                            "
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(user.document))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(user.phone_one))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "jet-nav-link",
+                                        {
+                                          attrs: {
+                                            href: _vm.route(
+                                              "user.show",
+                                              user.id
+                                            ),
+                                            active: _vm
+                                              .route()
+                                              .current("user.show")
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass: "btn btn-sm btn-info"
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                              Ver "
+                                              ),
+                                              _c("i", {
+                                                staticClass:
+                                                  "nav-icon fas fa-eye"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm.$inertia.page.rol == "Admin"
+                                        ? _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-danger btn-sm",
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.deleteUser(user.id)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                            Eliminar"
+                                              ),
+                                              _c("i", {
+                                                staticClass:
+                                                  "nav-icon fas fa-trash"
+                                              })
+                                            ]
+                                          )
+                                        : _vm._e()
+                                    ],
+                                    1
+                                  )
+                                ]
+                              )
+                            }),
+                            0
+                          ),
+                          _vm._v(" "),
+                          _vm.name == ""
+                            ? _c("tfoot", [
+                                _c("tr", [
+                                  _c(
+                                    "th",
+                                    { attrs: { rowspan: "1", colspan: "1" } },
+                                    [_vm._v("Nombre")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "th",
+                                    { attrs: { rowspan: "1", colspan: "1" } },
+                                    [_vm._v("Correo")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "th",
+                                    { attrs: { rowspan: "1", colspan: "1" } },
+                                    [_vm._v("Tipo de Documento")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "th",
+                                    { attrs: { rowspan: "1", colspan: "1" } },
+                                    [_vm._v("Documento")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "th",
+                                    { attrs: { rowspan: "1", colspan: "1" } },
+                                    [_vm._v("Telefono")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "th",
+                                    { attrs: { rowspan: "1", colspan: "1" } },
+                                    [_vm._v("Acción")]
+                                  )
+                                ])
+                              ])
+                            : _vm._e()
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm.name == ""
+                    ? _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-sm-12 col-md-5" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "dataTables_info",
+                              attrs: {
+                                id: "example1_info",
+                                role: "status",
+                                "aria-live": "polite"
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                    Se muestran " +
+                                  _vm._s(_vm.pagination.from) +
+                                  " de " +
+                                  _vm._s(_vm.count) +
+                                  " de un\n                    total de\n                    " +
+                                  _vm._s(_vm.pagination.total) +
+                                  "\n                    registros.\n                  "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-12 col-md-7" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "dataTables_paginate paging_simple_numbers",
+                              attrs: { id: "example1_paginate" }
+                            },
+                            [
+                              _c(
+                                "ul",
+                                { staticClass: "pagination" },
+                                [
+                                  _vm.pagination.current_page > 1
+                                    ? _c(
+                                        "li",
+                                        {
+                                          staticClass:
+                                            "paginate_button page-item previous",
+                                          attrs: { id: "example1_previous" }
+                                        },
+                                        [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "page-link",
+                                              attrs: {
+                                                href: "#",
+                                                "aria-controls": "example1",
+                                                "data-dt-idx": "0",
+                                                tabindex: "0"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.changePage(
+                                                    _vm.pagination
+                                                      .current_page - 1
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("Atras")]
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.pagesNumber, function(page) {
+                                    return _c(
+                                      "li",
+                                      {
+                                        key: page,
+                                        staticClass:
+                                          "paginate_button page-item",
+                                        class: [
+                                          page == _vm.isActived ? "active" : ""
+                                        ]
+                                      },
+                                      [
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "page-link",
+                                            attrs: {
+                                              href: "#",
+                                              "aria-controls": "example1",
+                                              "data-dt-idx": "1",
+                                              tabindex: "0"
+                                            },
+                                            on: {
+                                              click: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.changePage(page)
+                                              }
+                                            }
+                                          },
+                                          [_vm._v(_vm._s(page))]
+                                        )
+                                      ]
+                                    )
+                                  }),
+                                  _vm._v(" "),
+                                  _vm.pagination.current_page <
+                                  _vm.pagination.last_page
+                                    ? _c(
+                                        "li",
+                                        {
+                                          staticClass:
+                                            "paginate_button page-item next",
+                                          attrs: { id: "example1_next" }
+                                        },
+                                        [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "page-link",
+                                              attrs: {
+                                                href: "#",
+                                                "aria-controls": "example1",
+                                                "data-dt-idx": "7",
+                                                tabindex: "0"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.changePage(
+                                                    _vm.pagination
+                                                      .current_page + 1
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("Siguiente")]
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ],
+                                2
+                              )
+                            ]
+                          )
                         ])
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ])
-            })
-          ],
-          2
-        )
+                      ])
+                    : _vm._e()
+                ]
+              )
+            ])
+          ])
+        ])
       ])
     ])
   ])
@@ -51072,9 +52141,25 @@ var render = function() {
           _c("label", [_vm._v("Nombre:")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.name,
+                expression: "name"
+              }
+            ],
             staticClass: "form-control",
             attrs: { type: "text", disabled: _vm.disabled },
-            domProps: { value: _vm.userinfo.name }
+            domProps: { value: _vm.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.name = $event.target.value
+              }
+            }
           })
         ]),
         _vm._v(" "),
@@ -51082,19 +52167,25 @@ var render = function() {
           _c("label", [_vm._v("Correo:")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.email,
+                expression: "email"
+              }
+            ],
             staticClass: "form-control",
             attrs: { type: "text", disabled: _vm.disabled },
-            domProps: { value: _vm.userinfo.email }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Contraseña:")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text", disabled: _vm.disabled },
-            domProps: { value: _vm.userinfo.password }
+            domProps: { value: _vm.email },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.email = $event.target.value
+              }
+            }
           })
         ]),
         _vm._v(" "),
@@ -51102,9 +52193,25 @@ var render = function() {
           _c("label", [_vm._v("Telefono:")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.phone_one,
+                expression: "phone_one"
+              }
+            ],
             staticClass: "form-control",
             attrs: { type: "text", disabled: _vm.disabled },
-            domProps: { value: _vm.userinfo.phone_one }
+            domProps: { value: _vm.phone_one },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.phone_one = $event.target.value
+              }
+            }
           })
         ]),
         _vm._v(" "),
@@ -51112,9 +52219,25 @@ var render = function() {
           _c("label", [_vm._v("Segundo Telefono:")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.phone_two,
+                expression: "phone_two"
+              }
+            ],
             staticClass: "form-control",
             attrs: { type: "text", disabled: _vm.disabled },
-            domProps: { value: _vm.userinfo.phone_two }
+            domProps: { value: _vm.phone_two },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.phone_two = $event.target.value
+              }
+            }
           })
         ]),
         _vm._v(" "),
@@ -51124,9 +52247,31 @@ var render = function() {
           _c(
             "select",
             {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selected,
+                  expression: "selected"
+                }
+              ],
               staticClass: "form-control",
               attrs: { disabled: _vm.disabled },
-              domProps: { value: _vm.userinfo.doc_type }
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.selected = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
             },
             [
               _c("option", { attrs: { value: "", disabled: "" } }, [
@@ -51148,55 +52293,99 @@ var render = function() {
           _c("label", [_vm._v("Documento:")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.document,
+                expression: "document"
+              }
+            ],
             staticClass: "form-control",
             attrs: { type: "text", disabled: _vm.disabled },
-            domProps: { value: _vm.userinfo.document },
+            domProps: { value: _vm.document },
             on: {
-              click: function($event) {
-                return _vm.toggle()
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.document = $event.target.value
               }
             }
           })
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "card-footer" }, [
-        _vm.disabled
-          ? _c(
-              "button",
-              {
-                staticClass: "btn btn-sm btn-warning",
-                on: {
-                  click: function($event) {
-                    return _vm.toggle()
+      _c(
+        "div",
+        { staticClass: "card-footer" },
+        [
+          _vm.disabled
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-sm btn-warning",
+                  on: {
+                    click: function($event) {
+                      return _vm.toggle()
+                    }
                   }
-                }
-              },
-              [_vm._v("\n        Editar\n      ")]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        !_vm.disabled
-          ? _c("button", { staticClass: "btn btn-sm btn-info" }, [
-              _vm._v("Actualizar")
+                },
+                [_vm._v("\n        Editar\n      ")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.disabled
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-sm btn-info",
+                  on: {
+                    click: function($event) {
+                      return _vm.updateUser(_vm.userinfo.id)
+                    }
+                  }
+                },
+                [_vm._v("Actualizar")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._l(_vm.errors.errors, function(error) {
+            return _c("ul", [
+              _c("li", { staticClass: "required" }, [_vm._v(_vm._s(error[0]))])
             ])
-          : _vm._e(),
-        _vm._v(" "),
-        !_vm.disabled
-          ? _c(
-              "button",
-              {
-                staticClass: "btn btn-sm btn-danger",
-                on: {
-                  click: function($event) {
-                    return _vm.toggle()
+          }),
+          _vm._v(" "),
+          !_vm.disabled
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-sm btn-danger",
+                  on: {
+                    click: function($event) {
+                      return _vm.cancel()
+                    }
                   }
+                },
+                [_vm._v("\n        Cancelar\n      ")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-sm btn-outline-danger float-right",
+              on: {
+                click: function($event) {
+                  return _vm.deleteUser(_vm.userinfo.id)
                 }
-              },
-              [_vm._v("\n        Cancelar\n      ")]
-            )
-          : _vm._e()
-      ]),
+              }
+            },
+            [_vm._v("\n        Eliminar\n      ")]
+          )
+        ],
+        2
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "card bg-gradient-info my-2 mx-4" }, [
         _c("div", { staticClass: "card-header" }, [
@@ -51219,7 +52408,9 @@ var render = function() {
           { staticClass: "card-body", staticStyle: { display: "block" } },
           [
             _vm._v(
-              "\n       Rol: " + _vm._s(_vm.userinfo.roles[0].name) + "\n      "
+              "\n        Rol: " +
+                _vm._s(_vm.userinfo.roles[0].name) +
+                "\n      "
             )
           ]
         ),
@@ -51461,7 +52652,12 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
+<<<<<<< HEAD
                 _vm.$inertia.page.rol == "Empleado"
+=======
+                _vm.$inertia.page.rol == "Admin" ||
+                _vm.$inertia.page.rol == "Trabajador"
+>>>>>>> c70106181aa435072f2f7f712c84715759239d14
                   ? _c(
                       "li",
                       { staticClass: "nav-item has-treeview" },
@@ -51483,7 +52679,11 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
+<<<<<<< HEAD
                 _vm.rol == "Empleado"
+=======
+                _vm.$inertia.page.rol == "Trabajador"
+>>>>>>> c70106181aa435072f2f7f712c84715759239d14
                   ? _c(
                       "li",
                       { staticClass: "nav-item" },
@@ -67242,15 +68442,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_inertiajs_inertia_vue__WEBPACK_I
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(laravel_jetstream__WEBPACK_IMPORTED_MODULE_2__["InertiaForm"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(portal_vue__WEBPACK_IMPORTED_MODULE_3___default.a);
 var app = document.getElementById('app');
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin("can", function (permissionName) {
-  var hasAccess;
-  axios.get("/permission/show/".concat(permissionName)).then(function () {
-    hasAccess = true;
-  })["catch"](function () {
-    hasAccess = false;
-  });
-  return hasAccess;
-});
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   render: function render(h) {
     return h(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_1__["InertiaApp"], {

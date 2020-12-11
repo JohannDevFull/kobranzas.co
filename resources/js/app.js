@@ -14,15 +14,6 @@ Vue.use(InertiaForm);
 Vue.use(PortalVue);
 
 const app = document.getElementById('app');
-Vue.mixin("can", (permissionName) => {
-    let hasAccess;
-    axios.get(`/permission/show/${permissionName}`).then(()=> {
-            hasAccess = true;
-        }).catch(()=> {
-            hasAccess = false;
-        }); 
-    return hasAccess;
-});
 
 new Vue({
     render: (h) =>

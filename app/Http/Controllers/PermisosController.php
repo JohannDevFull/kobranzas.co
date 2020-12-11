@@ -33,14 +33,6 @@ class PermisosController extends Controller
             'permisos' => $permisos,
         ]);
     }
-    public function getRol(User $user)
-    {
-        
-        $user=User::select('id','name')->with('roles:name')->find($user);
-      
-        return $user;
-    }
-
 
     /**
      * VER ROLES Y SUS PERMISOS

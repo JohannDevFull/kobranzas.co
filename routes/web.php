@@ -30,8 +30,10 @@ Route::get('construir', BuildController::class)->name('construir');
 
 // PERMISOS USUARIO 
 Route::middleware(['auth'])->group(function () {
-    Route::get('permission/show/{user}',[PermisosController::class,'getRol']);  
+    
    
+    Route::get('user/paginate', [UserController::class,'paginate'])->name('user.paginate')
+    ->middleware('permission:user.index');
     Route::post('user/store', [UserController::class,'store'])->name('user.store')
                                                         ->middleware('permission:user.create');
     Route::get('user', [UserController::class,'index'])->name('user.index')
@@ -44,8 +46,8 @@ Route::middleware(['auth'])->group(function () {
                                                         ->middleware('permission:user.show');
     Route::delete('user/{id}', [UserController::class,'destroy'])->name('user.destroy')
                                                         ->middleware('permission:user.destroy');
-    Route::get('user/{id}/edit', [UserController::class,'edit'])->name('user.edit')
-                                                        ->middleware('permission:user.edit');
+    // Route::get('user/{id}/edit', [UserController::class,'edit'])->name('user.edit')
+    //                                                     ->middleware('permission:user.edit');
 });
 
 // PERMISOS LLAMADAS 

@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
@@ -94,20 +94,23 @@
               </inertia-link>
             </li>
 
-            <li class="nav-item has-treeview" v-if="$inertia.page.rol == 'Empleado'">
+            <li
+              class="nav-item has-treeview"
+              v-if="$inertia.page.rol =='Admin' || $inertia.page.rol == 'Trabajador'"
+            >
               <inertia-link class="nav-link" :href="route('llamadas')">
                 <i class="nav-icon fas fa-phone"></i>
                 <p>Llamadas</p>
               </inertia-link>
             </li>
-            <li class="nav-item" v-if="rol == 'Empleado'">
+            <li class="nav-item" v-if="$inertia.page.rol == 'Trabajador'">
               <inertia-link class="nav-link" :href="route('construir')">
                 <i class="nav-icon fas fa-hands-helping"></i>
                 <p>Acuerdos</p>
               </inertia-link>
             </li>
 
-            <li class="nav-item has-treeview" v-if="$inertia.page.rol == 'Admin'">
+            <li class="nav-item has-treeview" v-if="$inertia.page.rol == 'Admin'"
               <inertia-link class="nav-link" :href="route('construir')">
                 <i class="nav-icon fas fa-chart-pie"></i>
                 <p>Reportes</p>
@@ -142,7 +145,7 @@
             </li>
 
             <li class="nav-item has-treeview">
-              <inertia-link class="nav-link" :href="route('permisos')" v-if="$inertia.page.rol == 'Admin'">
+              <inertia-link class="nav-link" :href="route('permisos')">
                 <i class="nav-icon fas fa-user-shield"></i>
                 <p>
                   Permisos

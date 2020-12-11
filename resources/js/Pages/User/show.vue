@@ -11,7 +11,7 @@
           <input
             type="text"
             class="form-control"
-            :value="userinfo.name"
+            v-model="name"
             :disabled="disabled"
           />
         </div>
@@ -20,11 +20,11 @@
           <input
             type="text"
             class="form-control"
-            :value="userinfo.email"
+            v-model="email"
             :disabled="disabled"
           />
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label>Contraseña:</label>
           <input
             type="text"
@@ -32,13 +32,13 @@
             :value="userinfo.password"
             :disabled="disabled"
           />
-        </div>
+        </div> -->
         <div class="form-group">
           <label>Telefono:</label>
           <input
             type="text"
             class="form-control"
-            :value="userinfo.phone_one"
+            v-model="phone_one"
             :disabled="disabled"
           />
         </div>
@@ -47,19 +47,13 @@
           <input
             type="text"
             class="form-control"
-            :value="userinfo.phone_two"
+            v-model="phone_two"
             :disabled="disabled"
-            
           />
         </div>
         <div class="form-group">
           <label>Tipo de Documento</label>
-          <select
-            class="form-control"
-            :value="userinfo.doc_type"
-            :disabled="disabled"
-            
-          >
+          <select class="form-control" v-model="selected" :disabled="disabled">
             <option value="" disabled>Seleccione...</option>
             <option value="cedula_ciudadania">Cédula de Ciudadanía</option>
             <option value="cedula_extrangeria">Cédula de Extrangería</option>
@@ -70,9 +64,8 @@
           <input
             type="text"
             class="form-control"
-            :value="userinfo.document"
+            v-model="document"
             :disabled="disabled"
-            @click="toggle()"
           />
         </div>
       </div>
@@ -84,13 +77,23 @@
         >
           Editar
         </button>
-        <button class="btn btn-sm btn-info" v-if="!disabled">Actualizar</button>
+
+        <button class="btn btn-sm btn-info" v-if="!disabled" @click="updateUser(userinfo.id)">Actualizar</button>
+        <ul v-for="error in errors.errors">
+          <li class="required">{{ error[0] }}</li>
+        </ul>
         <button
           class="btn btn-sm btn-danger"
           v-if="!disabled"
-          @click="toggle()"
+          @click="cancel()"
         >
           Cancelar
+        </button>
+        <button
+          class="btn btn-sm btn-outline-danger float-right"
+          @click="deleteUser(userinfo.id)"
+        >
+          Eliminar
         </button>
       </div>
 
@@ -111,7 +114,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body" style="display: block">
-         Rol: {{userinfo.roles[0].name}}
+          Rol: {{ userinfo.roles[0].name }}
         </div>
         <div class="card-body" style="display: block">
           Creado el: {{ userinfo.created_at }}
@@ -137,11 +140,88 @@ export default {
   data() {
     return {
       disabled: true,
+      selected: this.userinfo.doc_type,
+      name: this.userinfo.name,
+      email: this.userinfo.email,
+      document: this.userinfo.document,
+      phone_one: this.userinfo.phone_one,
+      phone_two: this.userinfo.phone_two,
+      errors: [],
     };
   },
   methods: {
     toggle() {
       this.disabled = !this.disabled;
+    },
+    cancel() {
+      this.toggle();
+      this.selected = this.userinfo.doc_type;
+      this.name = this.userinfo.name;
+      this.email = this.userinfo.email;
+      this.document = this.userinfo.document;
+      this.phone_one = this.userinfo.phone_one;
+      this.phone_two = this.userinfo.phone_two;
+      this.errors=[];
+    },
+    updateUser(idUser) {
+      axios
+        .put(`/user/${idUser}`, {
+          nombre: this.name,
+          correo: this.email,
+          tipo_de_documento: this.selected,
+          documento: this.document,
+          telefono: this.phone_one,
+          phone_two: this.phone_two,
+        })
+        .then((response) => {
+          this.$inertia.visit(`/user/${this.userinfo.id}`);
+        })
+        .catch((error) => {
+          this.errors = error.response.data;
+        });
+    },
+    deleteUser(idUser) {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger",
+        },
+        buttonsStyling: false,
+      });
+
+      swalWithBootstrapButtons
+        .fire({
+          title: "¿Estás Seguro que quieres eliminar a este usuario?",
+          text:
+            "Una vez eliminado el usuario NO podras ver su informacion de nuevo!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Sí, Eliminar!",
+          cancelButtonText: "No, Cancelar!",
+          reverseButtons: true,
+          showLoaderOnConfirm: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            axios.delete(`/user/${idUser}`).then((response) => {
+              this.$inertia.visit("/user");
+              swalWithBootstrapButtons.fire(
+                "Eliminado!",
+                `El usuario ha sido eliminado.`,
+                "success"
+              );
+            });
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              "Cancelado",
+              "El usuario NO se ha eliminado ten más cuidado.",
+              "error"
+            );
+          }
+        });
     },
   },
 };

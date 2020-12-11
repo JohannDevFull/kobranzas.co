@@ -58,6 +58,8 @@
         
         <!-- AdminLTE for demo purposes -->
         <script src="http://kobranzas.co/js/demo.js"></script>
+        <!--SweetAlert-->
+        <script src="{{asset('js/sweetalert2.js')}}"></script>
     </body>
     
 </html>
