@@ -96,14 +96,14 @@
 
             <li
               class="nav-item has-treeview"
-              v-if="$inertia.page.rol =='Admin' || rol == 'Trabajador'"
+              v-if="$inertia.page.rol =='Admin' || $inertia.page.rol == 'Trabajador'"
             >
               <inertia-link class="nav-link" :href="route('llamadas')">
                 <i class="nav-icon fas fa-phone"></i>
                 <p>Llamadas</p>
               </inertia-link>
             </li>
-            <li class="nav-item" v-if="rol == 'Trabajador'">
+            <li class="nav-item" v-if="$inertia.page.rol == 'Trabajador'">
               <inertia-link class="nav-link" :href="route('construir')">
                 <i class="nav-icon fas fa-hands-helping"></i>
                 <p>Acuerdos</p>
