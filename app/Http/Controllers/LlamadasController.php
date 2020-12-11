@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Permisos;
+use App\Models\User;
+use Illuminate\Database\Query\orderBy;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,9 +17,13 @@ class LlamadasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-        return Inertia::render('Trabajador/Index');
+    {   
+
+        return Inertia::render('Trabajador/IndexLlamada', [
+            // 'filters' => Request::all('search'),
+            'clientes' => User::role('Cliente')->get()  
+                ->only('id', 'name', 'phone_one','email' ),
+        ]);
     }
 
     /**

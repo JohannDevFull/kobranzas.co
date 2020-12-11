@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Permisos;
+use App\Models\Pruebas;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -133,11 +134,14 @@ class PermisosController extends Controller
 
     public function test(Request $request,$value='')
     {
-        $rol=$request->rol;
-        $userId=$request->id;
+        // $rol=$request->rol;
+        // $userId=$request->id;
 
-        echo "ID del ro: ".$rol;
-        echo "ID del usuario: ".$userId;
+        // echo "ID del ro: ".$rol;
+        // echo "ID del usuario: ".$userId;
+
+
+           Pruebas::pruebaUsuario();
     }
         
     /**

@@ -65,9 +65,9 @@ class UserController extends Controller
                     'client_code'=>$request->codigo_de_cliente,
                     'contract_number'=>$request->numero_de_contrato,
                     'user_id'=>$user_id,
-
+ 
                 ]);
-
+ 
                 break;
             case 'employee':
                 $user = User::find($user_id); 

@@ -109,5 +109,5 @@ Route::middleware(['auth'])->group(function () {
 }); 
 
 // Route to test
-// Route::get('prueba', [PermisosController::class,'test'])->name('prueba');
+Route::get('prueba', [PermisosController::class,'test'])->name('prueba');
 

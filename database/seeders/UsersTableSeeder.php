@@ -25,8 +25,8 @@ class UsersTableSeeder extends Seeder
 
         ]);
         User::create([
-            'name'=>'Johann Ramirez',
-            'email'=>'admin@kobranzas.co',
+            'name'=>'Cliente Usuario',
+            'email'=>'cliene@kobranzas.co',
             'password'=>bcrypt(123),
             'phone_one'=>'987654321',
             'phone_two'=>'311256464',
@@ -34,8 +34,27 @@ class UsersTableSeeder extends Seeder
             'document'=>'1976546765'
 
         ]);
+        User::create([
+            'name'=>'Empleado Usuario',
+            'email'=>'empleado@kobranzas.co',
+            'password'=>bcrypt(123),
+            'phone_one'=>'922324321',
+            'phone_two'=>'311111464',
+            'doc_type'=>'cedula_ciudadania',
+            'document'=>'13336765'
 
-        //User::factory(15)->create();
-    
+        ]);
+        User::create([
+            'name'=>'Cliente Usuario',
+            'email'=>'administrador@kobranzas.co',
+            'password'=>bcrypt(123),
+            'phone_one'=>'9888881',
+            'phone_two'=>'37777764',
+            'doc_type'=>'cedula_ciudadania',
+            'document'=>'19999965'
+
+        ]);
+
+        User::factory(50)->create();
     }
 }

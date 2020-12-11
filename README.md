@@ -88,6 +88,12 @@ php artisan migrate
 _Listos a correr la la aplicacion_
 
 ```
+php artisan db:seed
+```
+
+_Listos a correr la la aplicacion_
+
+```
 php artisan server
 ```
 

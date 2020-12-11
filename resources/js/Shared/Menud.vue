@@ -9,6 +9,13 @@
                   <i class="fas fa-bars"></i>
                 </a>
               </li>
+              <li class="nav-item">
+                <h3 class="nav-link">
+                  {{$inertia.page.rol}}
+                </h3>
+                  
+              </li>
+
             </ul>
 
             
