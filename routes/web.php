@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\BuildController;
+use App\Http\Controllers\ConjuntosController;
 use App\Http\Controllers\LlamadasController;
 use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\UserController;
@@ -34,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
    
     Route::get('user/paginate', [UserController::class,'paginate'])->name('user.paginate')
     ->middleware('permission:user.index');
+
     Route::post('user/store', [UserController::class,'store'])->name('user.store')
                                                         ->middleware('permission:user.create');
     Route::get('user', [UserController::class,'index'])->name('user.index')
@@ -50,16 +52,18 @@ Route::middleware(['auth'])->group(function () {
     //                                                     ->middleware('permission:user.edit');
 });
 
-// PERMISOS LLAMADAS 
-Route::middleware(['auth'])->group(function () {
+// RUTAS LLAMADAS 
+Route::middleware(['auth'])->group(function (){
    
+    Route::get('/buscar', [LlamadasController::class,'cargarClientes']);
+
     Route::get('llamadas', [LlamadasController::class, 'index'])
         ->name('llamadas');
 
-    Route::get('llamadas/create', [LlamadasController::class, 'create'])
+    Route::get('llamadas/create/{id}', [LlamadasController::class, 'create'])
         ->name('llamadas.create');
 
-    Route::post('llamadas', [LlamadasController::class, 'store'])
+    Route::post('llamadas/store', [LlamadasController::class, 'store'])
         ->name('llamadas.store');
 
     Route::get('llamadas/{user}/edit', [LlamadasController::class, 'edit'])
@@ -79,6 +83,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+
 // GISTION DE ROLES Y PERMISSOS
 Route::middleware(['auth'])->group(function () {
     
@@ -92,23 +97,53 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/asignar', [PermisosController::class,'test'])->name('asignar');
 
 
-
-
     // TEST=  STORE ROL
     Route::post('/create/rol',[PermisosController::class,'storeRol'])->name('create.rol');
+    
     Route::post('/permisos/crear', [PermisosController::class,'test'])->name('rol.permisos');
 
     // Testing  
-    // Route::post('/permisos', [PermisosController::class,'testIP'])->name('permisos.dos');
+    // Route::post('/permisos',[PermisosController::class,'testIP'])->name('permisos.dos');
     // // 
     // Route::get('/asigna', [PermisosController::class,'asignaT'])->name('asigna');
     // // 
     // Route::get('asigna/permisos', [PermisosController::class, 'asignaTP'])->name('asigna.permisos');
 
     // Route::get('/permisos/show', [PermisosController::class, 'index'])->name('permisos.show');
-
     
+    Route::get('iframe', [PermisosController::class,'iframe'])->name('iframe');
+    Route::get('/ventana', [LlamadasController::class,'indexVentana'])->name('ventana');
+    Route::get('/ventana/create', [LlamadasController::class,'ventanaIndes'])->name('ventana.create');
 }); 
+
+// RUTAS CONJUNTOS
+Route::middleware(['auth'])->group(function (){
+   
+    Route::get('/buscar/conjuntos', [ConjuntosController::class,'cargarConjuntos']);
+    Route::get('/buscar/conjunto', [ConjuntosController::class,'cargarConjunto']);
+    Route::get('/buscar/administradores', [ConjuntosController::class,'cargarAdministradores']);
+
+    Route::get('/conjuntos', [ConjuntosController::class, 'index'])
+        ->name('conjuntos');
+
+    Route::get('/conjuntos/create/{id}', [ConjuntosController::class, 'create'])
+        ->name('conjuntos.create');
+
+    Route::post('/conjuntos/store', [ConjuntosController::class, 'store'])
+        ->name('conjuntos.store');
+
+    Route::get('conjuntos/{user}/edit', [ConjuntosController::class, 'edit'])
+        ->name('conjuntos.edit');
+
+    Route::put('conjuntos/{user}', [ConjuntosController::class, 'update'])
+        ->name('conjuntos.update'); 
+
+    Route::delete('conjuntos/{user}', [ConjuntosController::class, 'destroy'])
+        ->name('conjuntos.destroy'); 
+
+    Route::put('conjuntos/{user}/restore', [ConjuntosController::class, 'restore'])
+        ->name('conjuntos.restore'); 
+});
 
 // Route to test
 Route::get('prueba', [PermisosController::class,'test'])->name('prueba');

@@ -164,7 +164,7 @@
                               :active="route().current('user.show')"
                             >
                               <button class="btn btn-sm btn-info">
-                                Ver&nbsp;<i class="nav-icon fas fa-eye"></i>
+                                <i class="nav-icon fas fa-eye"></i>
                               </button>
                             </jet-nav-link>
                             <button
@@ -172,7 +172,7 @@
                               @click="deleteUser(user.id)"
                               v-if="$inertia.page.rol == 'Admin'"
                             >
-                              Eliminar<i class="nav-icon fas fa-trash"></i>
+                              <i class="nav-icon fas fa-trash"></i>
                             </button>
                           </td>
                         </tr>

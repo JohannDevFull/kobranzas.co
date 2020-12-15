@@ -2,24 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Llamada;
 use App\Models\User;
-use App\Models\llamadas;
-use Illuminate\Database\Query\orderBy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
-class LlamadasController extends Controller
+class ConjuntosController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {   
-        return Inertia::render('Empleado/Index');
+    public function index()
+    {
+        return Inertia::render('Admin/Conjuntos/Index');
     }
 
     /**
@@ -27,24 +24,39 @@ class LlamadasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function cargarClientes(Request $request)
+    public function cargarConjunto($id)
+    {   
+        $buscar=$id;
+        $conjunto=DB::select('SELECT * FROM buildings WHERE id_building='.$buscar);
+
+        return response()->json($conjunto);
+
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cargarConjuntos(Request $request)
     {   
         $buscar=$request->buscar;
-        $users_cliente=User::role('Cliente')
-                        ->where('name', 'like', '%'.$buscar.'%')
-                        ->get();
-        return response()->json($users_cliente);
+        $conjuntos=DB::select('SELECT * FROM buildings');
+
+        return response()->json($conjuntos);
 
     }
 
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexVentana(Request $request)
-    {   
-        return Inertia::render('Empleado/VentanaIndex');
+    public function cargarAdministradores()
+    {    
+        $administradores=User::role('AdminConjunto')->get(); 
+        return response()->json($administradores);
     }
 
     /**
@@ -52,27 +64,9 @@ class LlamadasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        $user=User::find($id); 
-        return Inertia::render('Empleado/Llamada', [
-            'cliente' => $user, 
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function ventanaCreate($id)
-    {
-        
-        $user= User::find($id); 
-        
-        return Inertia::render('Empleado/Llamada', [
-            'cliente' => $user, 
-        ]);
+        return Inertia::render('Admin/Conjuntos/Create');
     }
 
     /**
@@ -83,7 +77,11 @@ class LlamadasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // crear metodo en el modelo
+        DB::insert('INSERT INTO buildings (name,address_building,phone_building,administrator_id) 
+                    values (?,?,?,?)', 
+                    [$request->nombre, $request->direccion,$request->telefono,$request->administrador]);
+
     }
 
     /**
@@ -94,7 +92,8 @@ class LlamadasController extends Controller
      */
     public function show($id)
     {
-        
+        //
+        echo "<h1>*** holaaaa mi mundoo desde ConjuntosController/show***</h1>";
     }
 
     /**
@@ -106,6 +105,11 @@ class LlamadasController extends Controller
     public function edit($id)
     {
         //
+        $buscar=$id;
+        $conjunto=DB::select('SELECT * FROM buildings WHERE id_building='.$buscar);
+        return Inertia::render('Admin/Conjuntos/Edit',[
+            'conjunto' => $conjunto,
+        ]); 
     }
 
     /**
@@ -129,10 +133,5 @@ class LlamadasController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function test($value='')
-    {
-        Permisos::roles();
     }
 }

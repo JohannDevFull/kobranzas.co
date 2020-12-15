@@ -13,11 +13,10 @@ class UserController extends Controller
 {
     public function index()
     {
-
         return Inertia::render('User');
     }
+    
     public function paginate(Request $request)
-
     {
         $show = $request['show'];
         $user = User::orderBy('id', 'DESC')->paginate($show);
@@ -74,7 +73,8 @@ class UserController extends Controller
 
 
         $user_id =  DB::getPdo()->lastInsertId();
-        switch ($request['role']) {
+
+        switch ($request['role']){
             case 'client':
                 $user = User::find($user_id);
                 $user->assignRole('Cliente');
@@ -85,12 +85,12 @@ class UserController extends Controller
 
                 ]);
 
-                break;
+            break;
             case 'employee':
                 $user = User::find($user_id);
                 $user->assignRole('Empleado');
-                break;
-            case 'groupAdmin':
+            break;
+            case 'group':
                 $user = User::find($user_id);
                 $user->assignRole('AdminConjunto');
                 break;
@@ -105,8 +105,6 @@ class UserController extends Controller
                 break;
         }
     }
-
-
 
     public function show(User $user, $id)
     {

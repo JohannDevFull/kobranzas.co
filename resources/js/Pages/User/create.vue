@@ -27,16 +27,16 @@
                       checked=""
                       :value="'client'"
                     />
-                    <label for="cliente"
-                      >Cliente
-                      <a class="toolip"
-                        ><i class="fas fa-question-circle"></i
-                        ><span class="tooltiptext"
-                          >El rol cliente permiritirá ver los pagos
-                          realizados.</span
-                        ></a
-                      ></label
-                    >
+                    <label for="cliente">
+                      Cliente
+                      <a class="toolip">
+                        <i class="fas fa-question-circle"></i>
+                        <span class="tooltiptext">
+                          El rol cliente permiritirá ver los pagos
+                          realizados.
+                        </span>
+                      </a>
+                    </label>
                     <input
                       v-model="checked"
                       class="input100"
@@ -45,35 +45,31 @@
                       type="radio"
                       :value="'employee'"
                     />
-                    <label for="trabajador"
-                      >Trabajador
-                      <a class="toolip"
-                        ><i class="fas fa-question-circle"></i
-                        ><span class="tooltiptext"
-                          >El rol trabajador permiritirá administrar llamadas,
-                          tareas y acuerdos.</span
-                        ></a
-                      ></label
-                    >
+                    <label for="trabajador">Trabajador
+                      <a class="toolip"><i class="fas fa-question-circle"></i>
+                        <span class="tooltiptext">
+                          El rol trabajador permiritirá administrar llamadas,
+                          tareas y acuerdos.
+                        </span>
+                      </a>
+                    </label>
                     <input
                       v-model="checked"
                       class="input100"
                       id="adminConjunto"
                       name="doc_type"
                       type="radio"
-                      :value="'groupadmin'"
+                      :value="'group'"
                     />
-                    <label for="adminConjunto"
-                      >Admin de conjunto
-                      <a class="toolip"
-                        ><i class="fas fa-question-circle"></i
-                        ><span class="tooltiptext"
-                          >El rol administrado Conjunto permiritirá ver la lista
+                    <label for="adminConjunto">Admin de conjunto
+                      <a class="toolip"><i class="fas fa-question-circle"></i>
+                        <span class="tooltiptext">
+                          El rol administrado Conjunto permiritirá ver la lista
                           de los usuarios de un conjunto y los estados de
-                          cuenta.</span
-                        ></a
-                      ></label
-                    >
+                          cuenta.
+                        </span>
+                      </a>
+                    </label>
                     <input
                       v-model="checked"
                       class="input100"
@@ -82,16 +78,14 @@
                       type="radio"
                       :value="'admin'"
                     />
-                    <label for="admin"
-                      >Administrador
-                      <a class="toolip"
-                        ><i class="fas fa-question-circle"></i
-                        ><span class="tooltiptext"
-                          >El rol administrador permitirá administrar y crear
-                          usuarios, conjuntos, registros y llamadas.</span
-                        ></a
-                      ></label
-                    >
+                    <label for="admin">Administrador
+                      <a class="toolip"><i class="fas fa-question-circle"></i>
+                        <span class="tooltiptext">
+                          El rol administrador permitirá administrar y crear
+                          usuarios, conjuntos, registros y llamadas.
+                        </span>
+                      </a>
+                    </label>
                   </div>
                 </div>
                 <div class="form-group">

@@ -23,6 +23,9 @@
 
                       <div class="modal-footer d-flex justify-content-center">
                         <button class="btn btn-primary" type="submit">Crear Rol</button> 
+                        <button type="button" class="btn btn-success toastsDefaultSuccess">
+                          Este es: Success Toast
+                        </button>
                       </div>
                     </div>
                 </div>
@@ -51,11 +54,20 @@
 
               this.$inertia.post('rol',this.form,{
                 onSuccess:()=>{
-                  alert("Exíto a crear Rol");
+                  $('.toastsDefaultSuccess').click(function() {
+                    $(document).Toasts('create', {
+                      class: 'bg-success', 
+                      title: 'Rol creado',
+                      subtitle: 'ok',
+                      body: 'Exito al crear nuevo rol.'
+                    })
+                  });
                 },
               })
-              
+
+
             },
+
         },
     }
 </script>

@@ -29,101 +29,100 @@
 
  
           <div class="card-body"> 
-
-            <div class="row">
-                
-              <div class="col-sm-6">
+             <form @submit.prevent="submit">
+              <div   class="row">
                   
-                <div class="form-group">
-                  <label>Nombre persona llamada</label>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Username">
-                  </div>
-                </div>
-                  
-                <div class="form-group">
-                  <label>Telefono llamada</label>
-
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                    </div>
-                    <input type="text" class="form-control"
-                           data-inputmask="'mask': ['999-999-9999 [x99999]', '+099 99 99 9999[9]-9999']" data-mask>
-                  </div>
-                  <!-- /.input group -->
-                </div>
-
-                <div class="form-group">
-                  <label>Descripcion de la llamada</label>
-                  <textarea class="form-control" rows="0" placeholder="Escribir una breve descripcion...">
-                  </textarea>
-                </div>
-
-                <div class="row p-2">
-                  <div class="col-sm-6">
-                    <button type="button" class="btn  btn-info ">
-                          Crer nuevo acuerdo
-                    </button> 
-                  </div>
-                  <div class="col-sm-6">
-                    <button type="button" class="btn  btn-success " style="float: right;">
-                          Guardar llamada
-                    </button>
-                  </div>
-                </div>
-
-
-
-              </div>
-
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label>Detalles cliente</label>
-                  <!-- Widget: user widget style 2 -->
-                  <div class="card card-widget widget-user-2">
-                    <!-- Add the bg color to the header using any of the bg-* classes -->
-                    <div class="widget-user-header " style="background-color: #e9ecef">
-                      <div class="widget-user-image">
-                        <img class="img-circle elevation-2" src="storage/img/johann.jpg" alt="User Avatar">
+                <div class="col-sm-6">
+                    
+                  <div class="form-group">
+                    <label>Nombre persona llamada</label>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
                       </div>
-                      <!-- /.widget-user-image -->
-                      <h2 class="widget-user-username">Johann Ramirez </h2> 
-                      <h4 class="widget-user-desc">Conjunto : Altos de alameda </h4>
-                      <h6 class="widget-user-desc">Apartamento: 104 interio 9 </h6>
-                    </div>
-                    <div class="card-footer p-0">
-                      <ul class="nav flex-column">
-                        <li class="nav-item"> 
-                            Telefono uno : 2354657432 
-                        </li>
-                        <li class="nav-item"> 
-                            Telefono dos : 430979429 
-                        </li>
-                        <li class="nav-item"> 
-                            Telefono tres : 9737827 
-                        </li>
-                        <li class="nav-item">
-                          <a href="#" class="nav-link">
-                            Otra informacion <span class="float-right badge bg-success">12</span>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a href="#" class="nav-link">
-                            Estado cuenta <span class="float-right badge bg-danger">1.349.000</span>
-                          </a>
-                        </li>
-                      </ul>
+                      <input type="text" class="form-control" placeholder="Username" v-model="form.name" >
                     </div>
                   </div>
-                  <!-- /.widget-user -->
-                </div> 
-              </div>
+                    
+                  <div class="form-group">
+                    <label>Telefono llamada</label>
 
-            </div>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                      </div>
+                      <input type="text" class="form-control" v-model="form.phone" data-inputmask="'mask': ['999-999-9999 [x99999]', '+099 99 99 9999[9]-9999']" data-mask>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+
+                  <div class="form-group">
+                    <label>Descripcion de la llamada</label>
+                    <textarea v-model="form.text" class="form-control" rows="0" placeholder="Escribir una breve descripcion...">
+                    </textarea>
+                  </div>
+
+                  <div class="row p-2">
+                    <div class="col-sm-6">
+                      <button type="button" class="btn  btn-info ">
+                            Crer nuevo acuerdo
+                      </button> 
+                    </div>
+                    <div class="col-sm-6">
+                      <button  class="btn  btn-success" type="submit">
+                        Guardar llamada
+                      </button> 
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Detalles cliente</label>
+                    <!-- Widget: user widget style 2 -->
+                    <div class="card card-widget widget-user-2">
+                      <!-- Add the bg color to the header using any of the bg-* classes -->
+                      <div class="widget-user-header " style="background-color: #e9ecef">
+                        <div class="widget-user-image">
+                          <img class="img-circle elevation-2" v-bind:src="image" v-bind:alt="text">
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <h2 class="widget-user-username">{{ cliente.name }} </h2> 
+                        <h4 class="widget-user-desc">Conjunto : Altos de alameda </h4>
+                        <h6 class="widget-user-desc">Apartamento: 104 interio 9 </h6>
+                      </div>
+                      <div class="card-footer p-0">
+                        <ul class="nav flex-column">
+                          <li class="nav-item"> 
+                              Telefono uno : {{ cliente.phone_one }}
+                          </li>
+                          <li class="nav-item"> 
+                              Telefono dos : {{ cliente.phone_two }}
+                          </li>
+                          <li class="nav-item"> 
+                              Telefono tres : {{ cliente.phone_two }}
+                          </li>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link">
+                              Otra informacion <span class="float-right badge bg-success">12</span>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link">
+                              Estado cuenta <span class="float-right badge bg-danger">1.349.000</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- /.widget-user -->
+                  </div> 
+                </div>
+              </div>
+             </form>
 
           </div>
 
@@ -232,7 +231,7 @@
           </div>
         </div>
         <!-- /.row -->
-</section>
+    </section>
     
 
   </div>
@@ -243,10 +242,34 @@
     import AppLayout from '@/Layouts/AppLayout' 
 
     export default {
-        props: ['sessions'],
+        props: ['cliente'],
 
         components: {
             AppLayout, 
+        },
+        data() {
+          return { 
+            form: {
+              name: this.cliente.name,
+              phone: this.cliente.phone_one,
+              text: null,
+              
+            },
+            image: "../../storage/img/avatar.png",
+            text: "Logo de Javascript"
+
+          }
+        },
+        methods: {
+            submit(form){
+              
+              this.$inertia.post('llamada', this.form,{
+                onSuccess:()=>{
+                  alert("Llamada registrada");
+                },
+              })
+                   
+            },
         },
     }
 </script>

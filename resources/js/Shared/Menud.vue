@@ -9,16 +9,14 @@
                   <i class="fas fa-bars"></i>
                 </a>
               </li>
-              <li class="nav-item">
-                <h3 class="nav-link">
+              <li class="nav-item" style="padding: 5px;">
+                <h6 >
                   {{$inertia.page.rol}}
-                </h3>
+                </h6>
                   
               </li>
 
             </ul>
-
-            
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">

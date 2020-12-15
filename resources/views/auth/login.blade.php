@@ -31,10 +31,7 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <a href="register">
-        <p class="login-box-msg">Regístrese para iniciar su sesión</p>
-      </a>
-
+       
       @if (session('status'))
             <div class="mb-4 font-medium text-sm text-green-600">
               {{ session('status') }} 

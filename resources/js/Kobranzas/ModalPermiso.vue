@@ -1,8 +1,7 @@
 <template>
     <div class="md:grid md:grid-cols-3 md:gap-6">
         <form @submit.prevent="submit">
-            
-              
+                       
             <div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">

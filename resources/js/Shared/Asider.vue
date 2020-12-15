@@ -81,36 +81,25 @@
             </li>
 
             <li class="nav-item" v-if="$inertia.page.rol == 'Admin'">
-              <inertia-link class="nav-link" :href="route('construir')">
+              <inertia-link class="nav-link" :href="route('conjuntos')">
                 <i class="nav-icon far fa-building"></i>
                 <p>Conjuntos</p>
               </inertia-link>
-            </li>
-
-            <li class="nav-item has-treeview" v-if="$inertia.page.rol == 'Admin'">
-              <inertia-link class="nav-link" :href="route('construir')">
-                <i class="nav-icon fas fa-user-shield"></i> 
-                <p>Trabajadores</p>
-              </inertia-link>
-            </li>
-
-            <li
-              class="nav-item has-treeview"
-              v-if="$inertia.page.rol =='Admin' || $inertia.page.rol == 'Trabajador'"
-            >
+            </li> 
+            <li class="nav-item has-treeview" v-if="$inertia.page.rol =='Admin' || $inertia.page.rol == 'Empleado'">
               <inertia-link class="nav-link" :href="route('llamadas')">
                 <i class="nav-icon fas fa-phone"></i>
                 <p>Llamadas</p>
               </inertia-link>
             </li>
-            <li class="nav-item" v-if="$inertia.page.rol == 'Trabajador'">
+            <li class="nav-item" v-if="$inertia.page.rol =='Admin' || $inertia.page.rol ==  'Empleado'">
               <inertia-link class="nav-link" :href="route('construir')">
                 <i class="nav-icon fas fa-hands-helping"></i>
                 <p>Acuerdos</p>
               </inertia-link>
             </li>
 
-            <li class="nav-item has-treeview" v-if="$inertia.page.rol == 'Admin'"
+            <li class="nav-item has-treeview" v-if="$inertia.page.rol == 'Admin'">
               <inertia-link class="nav-link" :href="route('construir')">
                 <i class="nav-icon fas fa-chart-pie"></i>
                 <p>Reportes</p>
@@ -128,7 +117,7 @@
             </li>
 
             <li class="nav-item has-treeview">
-              <inertia-link class="nav-link" :href="route('construir')">
+              <inertia-link class="nav-link" :href="route('iframe')">
                 <i class="nav-icon fas fa-book"></i>
                 <p>Pages</p>
               </inertia-link>
@@ -145,7 +134,7 @@
             </li>
 
             <li class="nav-item has-treeview">
-              <inertia-link class="nav-link" :href="route('permisos')">
+              <inertia-link class="nav-link" :href="route('permisos')" v-if="$inertia.page.rol == 'Admin'">
                 <i class="nav-icon fas fa-user-shield"></i>
                 <p>
                   Permisos

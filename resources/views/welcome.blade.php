@@ -116,12 +116,6 @@
                         <li style="padding-right:5px;margin-right: 5px">
                           <a href="{{ route('login') }}" class="btn btn-block btn-outline-success"  >Ingresar</a>
                         </li> 
-
-                        @if (Route::has('register'))
-                           <li>
-                              <a href="{{ route('register') }}" class="btn btn-block btn-outline-info">Registrase</a>
-                            </li>
-                        @endif
                     @endauth
                 </ul>
       @endif

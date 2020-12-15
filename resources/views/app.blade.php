@@ -10,17 +10,19 @@
 
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         <link rel="icon" type="image/vnd.microsoft.icon" href="http://kobranzas.co/storage/img/seguro.ico"> 
+        <link rel="stylesheet" href="http://kobranzas.co/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/all.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/all.css') }}">
         <!-- Scripts -->
-        @routes
-        <script src="{{ mix('js/app.js') }}" defer></script>
+        @routes 
     </head>
     <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
         @inertia
+        <script src="{{ asset('js/app.js') }}"></script>
         <script src="http://kobranzas.co/plugins/jquery/jquery.min.js"></script>
         <!-- jQuery UI 1.11.4 -->
         <script src="http://kobranzas.co/plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -29,8 +31,7 @@
           $.widget.bridge('uibutton', $.ui.button)
         </script>
         <!-- Bootstrap 4 -->
-        <script src="http://kobranzas.co/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="http://kobranzas.co/plugins/chart.js/Chart.min.js"></script>
+        <script src="http://kobranzas.co/plugins/bootstrap/js/bootstrap.bundle.min.js"></script> 
         <!-- Sparkline -->
         <script src="http://kobranzas.co/plugins/sparklines/sparkline.js"></script>
         <!-- JQVMap -->
@@ -46,10 +47,7 @@
         <!-- Summernote -->
         <script src="http://kobranzas.co/plugins/summernote/summernote-bs4.min.js"></script>
         <!-- overlayScrollbars -->
-        <script src="http://kobranzas.co/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-
-
-        <!-- overlayScrollbars -->
+        <script src="http://kobranzas.co/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script> 
         <script src="http://kobranzas.co/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
         <!-- AdminLTE App -->
         <script src="http://kobranzas.co/js/adminlte.min.js"></script>

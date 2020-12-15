@@ -118,21 +118,19 @@ class PermisosController extends Controller
         //
     }
 
-    
-
-
-
+    public function iframe(Request $request,$value='')
+    {
+           return Inertia::render('SuperAdmin/Iframe');
+    }
+     public function ventana(Request $request,$value='')
+    {
+        echo "holaaaas";
+           return Inertia::render('SuperAdmin/VentanaLlamada');
+    }
 
 
     public function test(Request $request,$value='')
     {
-        // $rol=$request->rol;
-        // $userId=$request->id;
-
-        // echo "ID del ro: ".$rol;
-        // echo "ID del usuario: ".$userId;
-
-
            Pruebas::pruebaUsuario();
     }
         
