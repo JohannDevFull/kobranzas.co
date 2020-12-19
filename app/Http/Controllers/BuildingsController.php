@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Buildings;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,6 +16,20 @@ class BuildingsController extends Controller
     public function index()
     {
         return Inertia::render('Admin/Conjuntos/Index');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cargarConjuntos(Request $request)
+    {   
+        $buscar=$request->id; 
+        $conjuntos=Buildings::select('*')
+                            ->join('users','buildings.administrator_id', '=', 'users.id')
+                            ->get();
+        return response()->json($conjuntos);
     }
 
     /**
