@@ -45,7 +45,7 @@ class UsersTableSeeder extends Seeder
 
         ]);
         User::create([
-            'name'=>'Cliente Usuario',
+            'name'=>'Administrador Conjunto Usuario',
             'email'=>'administrador@kobranzas.co',
             'password'=>bcrypt(123),
             'phone_one'=>'9888881',

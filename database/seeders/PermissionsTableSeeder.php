@@ -104,7 +104,7 @@ class PermissionsTableSeeder extends Seeder
         $users= User::all();
 
         $tamano=sizeof($users);
-        for ($i=0; $i < $tamano ; $i++) 
+        for ($i=4; $i < $tamano ; $i++) 
         { 
             $usuario = User::find($users[$i]->id); 
             $usuario->assignRole('Cliente');   
