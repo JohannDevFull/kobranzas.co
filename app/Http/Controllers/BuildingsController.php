@@ -77,7 +77,13 @@ class BuildingsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $buscar=$id; 
+
+        $conjunto=Buildings::find($buscar);  
+
+        return Inertia::render('Admin/Conjuntos/Edit',[
+            'conjunto' => $conjunto,
+        ]);
     }
 
     /**
@@ -87,9 +93,19 @@ class BuildingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
+        //  
+
+        $conjunto = Buildings::find($id);
+
+        $conjunto->name_building = $request->nombre;
+        $conjunto->address_building = $request->direccion;
+        $conjunto->phone_building = $request->telefono;
+        $conjunto->administrator_id = $request->administrador;
+
+        $conjunto->save();
+
     }
 
     /**
@@ -101,5 +117,6 @@ class BuildingsController extends Controller
     public function destroy($id)
     {
         //
+
     }
 }
