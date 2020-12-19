@@ -12,7 +12,7 @@
 
                 <div class="card-tools"> 
                       <div class="input-group-append">
-                        <inertia-link :href="route('conjuntos.create',0)">
+                        <inertia-link :href="route('conjuntos.create')">
                           <button class="btn btn-dark float-right">
                             <i class="fas fa-plus"></i> Agregar Conjunto
                           </button>
