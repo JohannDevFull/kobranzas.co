@@ -49,8 +49,13 @@ class BuildingsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    { 
+        $flight = Buildings::create([ 
+            'name_building'=>$request->nombre,
+            'address_building'=> $request->direccion, 
+            'phone_building'=>$request->telefono,
+            'administrator_id'=>$request->administrador,
+        ]);
     }
 
     /**
