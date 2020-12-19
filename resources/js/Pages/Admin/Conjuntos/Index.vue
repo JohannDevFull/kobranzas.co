@@ -58,9 +58,11 @@
                         <inertia-link class="" :href="route('conjuntos.edit',row.id_building)">
                             <i class="nav-icon fas fa-edit text-success" style="padding:6px;"></i>  
                         </inertia-link>
-                        <inertia-link class="" :href="route('conjuntos.create',row.id_building)">
+                        
+                        <!-- <inertia-link class="" :href="route('conjuntos.create',row.id_building)">
                             <i class="nav-icon fas fa-trash text-danger" style="padding:6px;"></i> 
-                        </inertia-link>
+                        </inertia-link> -->
+                        
                       </td>
 
                       
