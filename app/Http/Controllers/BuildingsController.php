@@ -39,7 +39,7 @@ class BuildingsController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Conjuntos/Create');
     }
 
     /**
