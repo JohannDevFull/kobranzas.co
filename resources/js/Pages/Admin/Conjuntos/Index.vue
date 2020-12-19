@@ -40,13 +40,13 @@
                           {{ row.id_building }} 
                       </td>
                       <td> 
-                          {{ row.name }} 
+                          {{ row.name_building }} 
                       </td>
                       <td> 
                           {{ row.address_building }}  
                       </td>
                       <td> 
-                          {{ row.administrator_id}} 
+                          {{ row.name}} 
                       </td>
                       
 
