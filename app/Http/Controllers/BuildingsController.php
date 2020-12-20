@@ -66,7 +66,17 @@ class BuildingsController extends Controller
      */
     public function show($id)
     {
-        //
+        $buscar=$id;
+ 
+        $conj=Buildings::select('*')
+                            ->where('id_building',$buscar)
+                            ->join('users', 'administrator_id', '=', 'id')
+                            ->get();
+        $conjunto=$conj[0];     
+
+        return Inertia::render('Admin/Conjuntos/Show',[
+            'conjunto' => $conjunto,
+        ]);
     }
 
     /**
