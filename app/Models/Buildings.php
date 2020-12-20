@@ -18,4 +18,9 @@ class Buildings extends Model
         'administrator_id',
     ];
 
+    public function administrator()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
