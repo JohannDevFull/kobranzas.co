@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\BuildController;
+use App\Http\Controllers\BuildingsController;
 use App\Http\Controllers\ConjuntosController;
 use App\Http\Controllers\LlamadasController;
 use App\Http\Controllers\PermisosController;
@@ -119,27 +120,30 @@ Route::middleware(['auth'])->group(function () {
 // RUTAS CONJUNTOS
 Route::middleware(['auth'])->group(function (){
    
-    Route::get('/buscar/conjuntos', [ConjuntosController::class,'cargarConjuntos']);
+    Route::get('/buscar/conjuntos', [BuildingsController::class,'cargarConjuntos']);
     Route::get('/buscar/conjunto', [ConjuntosController::class,'cargarConjunto']);
     Route::get('/buscar/administradores', [ConjuntosController::class,'cargarAdministradores']);
 
-    Route::get('/conjuntos', [ConjuntosController::class, 'index'])
+    Route::get('/conjuntos', [BuildingsController::class, 'index'])
         ->name('conjuntos');
 
-    Route::get('/conjuntos/create/{id}', [ConjuntosController::class, 'create'])
+    Route::get('conjuntos/show/{id}', [BuildingsController::class, 'show'])
+        ->name('conjuntos.show');
+
+    Route::get('/conjuntos/create', [BuildingsController::class, 'create'])
         ->name('conjuntos.create');
 
-    Route::post('/conjuntos/store', [ConjuntosController::class, 'store'])
+    Route::post('/conjuntos/store', [BuildingsController::class, 'store'])
         ->name('conjuntos.store');
 
-    Route::get('conjuntos/{user}/edit', [ConjuntosController::class, 'edit'])
+    Route::get('conjuntos/{id}/edit', [BuildingsController::class, 'edit'])
         ->name('conjuntos.edit');
 
-    Route::put('conjuntos/{user}', [ConjuntosController::class, 'update'])
+    Route::put('conjuntos/update/{id}', [BuildingsController::class, 'update'])
         ->name('conjuntos.update'); 
 
-    Route::delete('conjuntos/{user}', [ConjuntosController::class, 'destroy'])
-        ->name('conjuntos.destroy'); 
+    // Route::delete('conjuntos/{user}', [ConjuntosController::class, 'destroy'])
+    //     ->name('conjuntos.destroy'); 
 
     Route::put('conjuntos/{user}/restore', [ConjuntosController::class, 'restore'])
         ->name('conjuntos.restore'); 
