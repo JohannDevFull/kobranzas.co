@@ -51,7 +51,7 @@
                       
 
                       <td> 
-                        <inertia-link class="" :href="route('conjuntos.create',row.id_building)" > 
+                        <inertia-link class="" :href="route('conjuntos.show',row.id_building)" > 
                             <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
                         </inertia-link>
 
