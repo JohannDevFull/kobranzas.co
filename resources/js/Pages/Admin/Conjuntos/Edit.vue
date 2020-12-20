@@ -12,10 +12,7 @@
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header text-white"
                      style="background: url('/storage/img/photo1.png') center center;height: 200px;">
-                </div> 
-                <li >
-                  
-                </li>
+                </div>  
                 <form  role="form" method="POST" @submit.prevent="update">
 
                   <div class="card-body row"> 
