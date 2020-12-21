@@ -3874,9 +3874,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['conjunto'],
+  props: ['conjunto', 'clientes', 'num'],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -3885,7 +3891,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      clientes: [],
+      usuariosc: [],
       buscar: '',
       setTimeoutBuscador: '',
       img: '/storage/' + this.conjunto.profile_photo_path
@@ -3900,7 +3906,7 @@ __webpack_require__.r(__webpack_exports__);
           buscar: this.buscar
         }
       }).then(function (res) {
-        _this.clientes = res.data;
+        _this.usuariosc = res.data;
       })["catch"](function (error) {
         console.log(error.response);
       });
@@ -6282,6 +6288,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6293,12 +6319,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _ref;
 
     return _ref = {
+      conjuntos: [],
+      estados: [],
       selected: "",
       checked: "client",
       name: "",
       email: "",
       pass: ""
-    }, _defineProperty(_ref, "selected", ""), _defineProperty(_ref, "document", ""), _defineProperty(_ref, "phone_one", ""), _defineProperty(_ref, "phone_two", ""), _defineProperty(_ref, "client_code", ""), _defineProperty(_ref, "contract_number", ""), _defineProperty(_ref, "errors", []), _ref;
+    }, _defineProperty(_ref, "selected", ""), _defineProperty(_ref, "selestado", ""), _defineProperty(_ref, "selected_conjunto", ""), _defineProperty(_ref, "document", ""), _defineProperty(_ref, "phone_one", ""), _defineProperty(_ref, "phone_two", ""), _defineProperty(_ref, "client_code", ""), _defineProperty(_ref, "contract_number", ""), _defineProperty(_ref, "errors", []), _ref;
+  },
+  created: function created() {
+    this.buscarEstados();
+    this.buscarConjuntos();
   },
   methods: {
     reset: function reset() {
@@ -6306,14 +6338,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.email = "";
       this.pass = "";
       this.selected = "";
+      this.selected_conjunto = "";
+      this.selestado = "";
       this.document = "";
       this.phone_one = "";
       this.phone_two = "";
       this.client_code = "";
       this.contract_number = "";
     },
-    store: function store() {
+    buscarEstados: function buscarEstados() {
       var _this = this;
+
+      axios.get('/buscar/estados', {}).then(function (resp) {
+        _this.estados = resp.data;
+      })["catch"](function (error) {
+        console.log(error.response);
+      });
+    },
+    buscarConjuntos: function buscarConjuntos() {
+      var _this2 = this;
+
+      axios.get('/buscar/conjuntos', {}).then(function (res) {
+        _this2.conjuntos = res.data;
+      })["catch"](function (error) {
+        console.log(error.response);
+      });
+    },
+    store: function store() {
+      var _this3 = this;
 
       var url = "/user/store";
       axios.post(url, {
@@ -6326,13 +6378,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         telefono: this.phone_one,
         phone_two: this.phone_two,
         codigo_de_cliente: this.client_code,
-        numero_de_contrato: this.contract_number
+        numero_de_contrato: this.contract_number,
+        conjunto: this.selected_conjunto,
+        estado: this.selestado
       }).then(function (response) {
-        _this.reset();
+        _this3.reset();
 
-        _this.errors = []; // toastr.success("Usuario Registrado");
+        _this3.errors = [];
+        $(document).Toasts('create', {
+          "class": 'bg-success',
+          title: 'Usuario creado',
+          subtitle: 'ok',
+          body: 'Exito al crear Usuario .'
+        }); // toastr.success("Usuario Registrado");
       })["catch"](function (error) {
-        _this.errors = error.response.data;
+        _this3.errors = error.response.data;
       });
     }
   }
@@ -50846,7 +50906,7 @@ var render = function() {
               _c("div", { staticClass: "col-sm-4 border-right" }, [
                 _c("div", { staticClass: "description-block" }, [
                   _c("h5", { staticClass: "description-header" }, [
-                    _vm._v("30")
+                    _vm._v("x")
                   ]),
                   _vm._v(" "),
                   _c("span", { staticClass: "description-text" }, [
@@ -50856,21 +50916,49 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-4 border-right" }, [
-                _c("div", { staticClass: "description-block" }, [
-                  _c("h5", { staticClass: "description-header" }, [
-                    _vm._v("34")
-                  ]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "description-text" }, [
-                    _vm._v("Clientes")
-                  ])
-                ])
+                _vm.num === 0
+                  ? _c("div", { staticClass: "description-block" }, [
+                      _c("h5", { staticClass: "description-header" }, [
+                        _vm._v(_vm._s(_vm.num))
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { type: "submit" }
+                        },
+                        [_vm._v("Cargar clientes")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-info",
+                          attrs: { type: "submit" }
+                        },
+                        [_vm._v("Descargar plantilla")]
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.num > 0
+                  ? _c("div", { staticClass: "description-block" }, [
+                      _c("h5", { staticClass: "description-header" }, [
+                        _vm._v(_vm._s(_vm.num))
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "description-text" }, [
+                        _vm._v("Clientes")
+                      ])
+                    ])
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-4" }, [
                 _c("div", { staticClass: "description-block" }, [
                   _c("h5", { staticClass: "description-header" }, [
-                    _vm._v("4")
+                    _vm._v("x")
                   ]),
                   _vm._v(" "),
                   _c("span", { staticClass: "description-text" }, [
@@ -50973,7 +51061,7 @@ var render = function() {
                           _c("td", [
                             _vm._v(
                               " \n                        " +
-                                _vm._s(row.id) +
+                                _vm._s(row.id_client) +
                                 " \n                    "
                             )
                           ]),
@@ -55578,6 +55666,132 @@ var render = function() {
                         }
                       })
                     ]),
+                    _vm._v(" "),
+                    _vm.checked == "client"
+                      ? _c("div", { staticClass: "form-group" }, [
+                          _c("label", [_vm._v("Estado")]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "required" }, [
+                            _vm._v("*")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.selestado,
+                                  expression: "selestado"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.selestado = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                { attrs: { value: "", disabled: "" } },
+                                [_vm._v("Seleccione Estado")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.estados, function(option) {
+                                return _c(
+                                  "option",
+                                  { domProps: { value: option.id_state } },
+                                  [
+                                    _vm._v(
+                                      "\n                          " +
+                                        _vm._s(option.description) +
+                                        "\n                        "
+                                    )
+                                  ]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.checked == "client"
+                      ? _c("div", { staticClass: "form-group" }, [
+                          _c("label", [_vm._v("Conjunto")]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "required" }, [
+                            _vm._v("*")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.selected_conjunto,
+                                  expression: "selected_conjunto"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.selected_conjunto = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                { attrs: { value: "", disabled: "" } },
+                                [_vm._v("Seleccione Conjunto")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.conjuntos, function(opt) {
+                                return _c(
+                                  "option",
+                                  { domProps: { value: opt.id_building } },
+                                  [
+                                    _vm._v(
+                                      "\n                          " +
+                                        _vm._s(opt.name_building) +
+                                        "\n                        "
+                                    )
+                                  ]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
                     _vm.checked == "client"
                       ? _c("div", [

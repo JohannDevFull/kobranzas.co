@@ -14,11 +14,11 @@ class CreateBuildingsTable extends Migration
     public function up()
     {
         Schema::create('buildings', function (Blueprint $table) {
-            $table->increments('id_building');
+            $table->bigIncrements('id_building');
             $table->string('name_building');
             $table->string('address_building');
             $table->string('phone_building');
-            $table->foreignId('administrator_id')->references('id')->on('users'); 
+            $table->foreignId('administrator_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

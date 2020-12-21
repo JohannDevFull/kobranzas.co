@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Buildings;
+use App\Models\Clients;
 use App\Models\Permisos;
 use App\Models\Pruebas;
+use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -129,10 +132,29 @@ class PermisosController extends Controller
     }
 
 
-    public function test(Request $request,$value='')
+    public function test(Request $request,$id='')
     {
-           Pruebas::pruebaUsuario();
+
+       $clients=Clients::select('*')
+                            ->where('building_id',$id)
+                            ->join('users', 'user_id', '=', 'id')
+                            ->get();
+        $clientes=$clients;
+
+        $num=sizeof($clientes);
+        print_r($num);
+        echo "<br>";
+        echo "--------------------------------------------------------------------------------";
+        for ($i=0; $i < $num ; $i++) 
+        { 
+            echo "<br>";
+            echo "--------------------------------------------------------------------------------";
+            print_r($clientes[$i]);
+            echo "<br>";
+        }
+
     }
+
         
     /**
      * TESTING: VER ROLES Y SUS PERMISOS
@@ -141,7 +163,7 @@ class PermisosController extends Controller
      */
     public function testIP(Request $request)
     {
-        
+         
         $rol=1;
         $roles=DB::select('SELECT * FROM roles');
         $rolPermisos = new Permisos;

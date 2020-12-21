@@ -110,6 +110,9 @@ class PermissionsTableSeeder extends Seeder
             $usuario->assignRole('Cliente');   
         }
 
+        $usuarioAdminConjunto = User::find($tamano); 
+        $usuarioAdminConjunto->assignRole('AdminConjunto'); 
+
 
     }
 

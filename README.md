@@ -34,12 +34,12 @@ _Que cosas necesitas para instalar el software y como instalarlas_
 ```
 
 ### Instalación 🔧
-_Una serie de ejemplos paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
+_Este es un paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
 
 _Clonar repositorio_
 
 ```
-cd d:\xampp\htdocs\> clone git https://github.com/johannDevFull/kobranzas.co.git
+cd c:\xampp\htdocs\>  git clone https://github.com/johannDevFull/kobranzas.co.git
 ```
 
 _Cargar dependencias de composer_

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buildings;
+use App\Models\Clients;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -27,7 +28,7 @@ class BuildingsController extends Controller
     {   
         $buscar=$request->id; 
         $conjuntos=Buildings::select('*')
-                            ->join('users','buildings.administrator_id', '=', 'users.id')
+                            ->join('users','buildings.administrator_id', '=', 'id')
                             ->get();
         return response()->json($conjuntos);
     }
@@ -70,12 +71,23 @@ class BuildingsController extends Controller
  
         $conj=Buildings::select('*')
                             ->where('id_building',$buscar)
-                            ->join('users', 'administrator_id', '=', 'id')
+                            ->join('users', 'administrator_id', '=', 'users.id')
                             ->get();
         $conjunto=$conj[0];     
 
+
+        $clients=Clients::select('*')
+                            ->where('building_id',$buscar)
+                            ->join('users', 'user_id', '=', 'id')
+                            ->get();
+        
+
+        $num=sizeof($clients);  
+
         return Inertia::render('Admin/Conjuntos/Show',[
             'conjunto' => $conjunto,
+            'clientes' => $clients,
+            'num' => $num,
         ]);
     }
 

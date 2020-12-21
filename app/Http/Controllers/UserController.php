@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Client;
-use Illuminate\Http\Request;
+ 
+use App\Models\Clients;
 use App\Models\User;
-use Inertia\Inertia;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -55,7 +55,6 @@ class UserController extends Controller
             $this->validate($request, [
                 'codigo_de_cliente' => 'required',
                 'numero_de_contrato' => 'required',
-
             ]);
         }
 
@@ -78,10 +77,13 @@ class UserController extends Controller
             case 'client':
                 $user = User::find($user_id);
                 $user->assignRole('Cliente');
-                $client = Client::create([
+                
+                $client = Clients::create([
                     'client_code' => $request->codigo_de_cliente,
-                    'contract_number' => $request->numero_de_contrato,
+                    'contract_number' => $request->numero_de_contrato, 
+                    'state_id' => $request->estado, 
                     'user_id' => $user_id,
+                    'building_id' => $request->conjunto,
 
                 ]);
 

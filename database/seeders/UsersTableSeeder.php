@@ -56,5 +56,16 @@ class UsersTableSeeder extends Seeder
         ]);
 
         User::factory(50)->create();
+
+        User::create([
+            'name'=>'Administrador Conjunto Cataleya',
+            'email'=>'cataleya@kob.co',
+            'password'=>bcrypt(123),
+            'phone_one'=>'78658627',
+            'phone_two'=>'78675648',
+            'doc_type'=>'cedula_ciudadania',
+            'document'=>'655575'
+
+        ]);
     }
 }

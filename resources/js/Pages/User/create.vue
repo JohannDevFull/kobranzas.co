@@ -160,6 +160,26 @@
                     v-model="phone_two"
                   />
                 </div>
+                <div class="form-group" v-if="checked == 'client'">
+                        <label>Estado</label>
+                        <span class="required">*</span>
+                        <select class="form-control" v-model="selestado">
+                          <option value="" disabled>Seleccione Estado</option>
+                          <option v-for="option in estados" v-bind:value="option.id_state">
+                            {{ option.description }}
+                          </option>
+                        </select>
+                </div>
+                <div class="form-group" v-if="checked == 'client'">
+                        <label>Conjunto</label>
+                        <span class="required">*</span>
+                        <select class="form-control" v-model="selected_conjunto">
+                          <option value="" disabled>Seleccione Conjunto</option>
+                          <option v-for="opt in conjuntos" v-bind:value="opt.id_building">
+                            {{ opt.name_building }}
+                          </option>
+                        </select>
+                </div>
                 <div v-if="checked == 'client'">
                   <div class="form-group">
                     <label>Código del Cliente:</label>
@@ -208,19 +228,23 @@
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 
-export default {
-  components: {
+export default { 
+  components: { 
     AppLayout,
     JetNavLink,
   },
   data() {
     return {
+      conjuntos: [],
+      estados: [],
       selected: "",
       checked: "client",
       name: "",
       email: "",
       pass: "",
       selected: "",
+      selestado: "",
+      selected_conjunto: "",
       document: "",
       phone_one: "",
       phone_two: "",
@@ -229,17 +253,45 @@ export default {
       errors: [],
     };
   },
+  created(){ 
+    this.buscarEstados()
+    this.buscarConjuntos()
+  },
   methods: {
     reset() {
       this.name = "";
       this.email = "";
       this.pass = "";
       this.selected = "";
+      this.selected_conjunto = "";
+      this.selestado = "";
       this.document = "";
       this.phone_one = "";
       this.phone_two = "";
       this.client_code = "";
       this.contract_number = "";
+    },
+    buscarEstados(){
+      axios.get('/buscar/estados',{
+            
+      })
+      .then( resp => { 
+          this.estados=resp.data  
+      })
+      .catch( error => {
+          console.log( error.response )
+      });
+    },
+    buscarConjuntos(){
+      axios.get('/buscar/conjuntos',{
+        
+      })
+      .then( res => { 
+          this.conjuntos=res.data  
+      })
+      .catch( error => {
+          console.log( error.response )
+      });
     },
     store() {
       var url = "/user/store";
@@ -255,10 +307,18 @@ export default {
           phone_two: this.phone_two,
           codigo_de_cliente: this.client_code,
           numero_de_contrato: this.contract_number,
+          conjunto: this.selected_conjunto,
+          estado: this.selestado,
         })
         .then((response) => {
           this.reset();
           this.errors = [];
+          $(document).Toasts('create', {
+            class: 'bg-success', 
+            title: 'Usuario creado',
+            subtitle: 'ok',
+            body: 'Exito al crear Usuario .'
+          });
           // toastr.success("Usuario Registrado");
         })
         .catch((error) => {

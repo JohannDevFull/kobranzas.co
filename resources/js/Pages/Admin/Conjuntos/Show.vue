@@ -29,23 +29,29 @@
                 <div class="row">
                   <div class="col-sm-4 border-right">
                     <div class="description-block">
-                      <h5 class="description-header">30</h5>
+                      <h5 class="description-header">x</h5>
                       <span class="description-text">Acuerdos</span>
                     </div>
                     <!-- /.description-block -->
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-4 border-right">
-                    <div class="description-block">
-                      <h5 class="description-header">34</h5>
+                    <div class="description-block" v-if="num === 0">
+                      <h5 class="description-header">{{num}}</h5>
+                      <button type="submit" class="btn btn-primary">Cargar clientes</button>
+                      <button type="submit" class="btn btn-info">Descargar plantilla</button> 
+                    </div>
+                    <div class="description-block" v-if="num > 0">
+                      <h5 class="description-header">{{num}}</h5>
                       <span class="description-text">Clientes</span>
                     </div>
+                    
                     <!-- /.description-block -->
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-4">
                     <div class="description-block">
-                      <h5 class="description-header">4</h5>
+                      <h5 class="description-header">x</h5>
                       <span class="description-text">Pendientes</span>
                     </div>
                     <!-- /.description-block -->
@@ -97,7 +103,7 @@
                   <tbody>
                     <tr v-for="row in clientes" >
                       <td> 
-                          {{ row.id }} 
+                          {{ row.id_client }} 
                       </td>
                       <td> 
                           {{ row.name }} 
@@ -145,7 +151,7 @@
 import AppLayout from "@/Layouts/AppLayout"; 
 
 export default {
-  props: ['conjunto'],
+  props: ['conjunto','clientes','num'],
   components: {
     AppLayout, 
   },
@@ -154,7 +160,7 @@ export default {
   },
   data(){
     return {
-      clientes:[],
+      usuariosc:[],
       buscar:'',
       setTimeoutBuscador: '',
       img: '/storage/'+this.conjunto.profile_photo_path,
@@ -170,7 +176,7 @@ export default {
             }
           })
           .then( res => { 
-              this.clientes=res.data 
+              this.usuariosc=res.data 
           })
           .catch( error => {
               console.log( error.response )
