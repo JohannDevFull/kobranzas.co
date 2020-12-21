@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ClientsImport;
 use App\Models\Clients;
 use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Excel;
 
 class ClientsController extends Controller
 {
@@ -47,6 +49,27 @@ class ClientsController extends Controller
         $buscar=$request->buscar;
         $users_cliente=Clients::role('Cliente')->get();
         return response()->json($users_cliente);
+
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function importClients(Request $request)
+    { 
+
+        $archivo=$request->file('miarchivo');
+
+        // Excel::import(new ClientsImport,$archivo);
+
+        print_r($archivo);
+         
+
+        // $res=['{nombre:johann ramirez,phone:76857,state:200}'];
+
+        // return response()->json($res);
 
     }
 }
