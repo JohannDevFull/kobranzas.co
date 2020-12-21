@@ -36,6 +36,8 @@
     <!-- Modal Portal -->
     <portal-target name="modal" multiple>
     </portal-target>
+    
+    <ChatWidget  v-if="$inertia.page.rol != 'Admin'"></ChatWidget>
 
 </div>
 
@@ -44,13 +46,15 @@
 <script>
     import Menud from '@/Shared/Menud'
     import Asider from '@/Shared/Asider' 
-    import Footig from '@/Shared/Footer'  
+    import Footig from '@/Shared/Footer'
+        import ChatWidget from '@/Chat/ChatWidget'  
 
     export default {
         components: {
             Menud,
             Asider, 
             Footig,  
+            ChatWidget
         },
 
         data() {
