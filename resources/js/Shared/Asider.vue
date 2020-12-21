@@ -54,9 +54,11 @@
               </inertia-link>
             </li>
 
-            <li class="nav-item has-treeview" v-if="$inertia.page.rol == 'Admin'">
+            <li
+              class="nav-item has-treeview"
+              v-if="$inertia.page.rol == 'Admin'"
+            >
               <a href="" class="nav-link">
-                
                 <i class="nav-icon fas fa-users"></i>
                 <p>
                   Usuarios
@@ -67,7 +69,7 @@
               <ul class="nav nav-treeview" style="display: none">
                 <li class="nav-item">
                   <inertia-link class="nav-link" :href="route('user.index')">
-                    <i class="nav-icon fas fa-address-book text-success"></i>   
+                    <i class="nav-icon fas fa-address-book text-success"></i>
                     <p>Ver Usuarios</p>
                   </inertia-link>
                 </li>
@@ -85,24 +87,46 @@
                 <i class="nav-icon far fa-building"></i>
                 <p>Conjuntos</p>
               </inertia-link>
-            </li> 
-            <li class="nav-item has-treeview" v-if="$inertia.page.rol =='Admin' || $inertia.page.rol == 'Empleado'">
+            </li>
+            <li
+              class="nav-item has-treeview"
+              v-if="
+                $inertia.page.rol == 'Admin' || $inertia.page.rol == 'Empleado'
+              "
+            >
               <inertia-link class="nav-link" :href="route('llamadas')">
                 <i class="nav-icon fas fa-phone"></i>
                 <p>Llamadas</p>
               </inertia-link>
             </li>
-            <li class="nav-item" v-if="$inertia.page.rol =='Admin' || $inertia.page.rol ==  'Empleado'">
+            <li
+              class="nav-item"
+              v-if="
+                $inertia.page.rol == 'Admin' || $inertia.page.rol == 'Empleado'
+              "
+            >
               <inertia-link class="nav-link" :href="route('construir')">
                 <i class="nav-icon fas fa-hands-helping"></i>
                 <p>Acuerdos</p>
               </inertia-link>
             </li>
 
-            <li class="nav-item has-treeview" v-if="$inertia.page.rol == 'Admin'">
+            <li
+              class="nav-item has-treeview"
+              v-if="$inertia.page.rol == 'Admin'"
+            >
               <inertia-link class="nav-link" :href="route('construir')">
                 <i class="nav-icon fas fa-chart-pie"></i>
                 <p>Reportes</p>
+              </inertia-link>
+            </li>
+            <li
+              class="nav-item has-treeview"
+              v-if="$inertia.page.rol == 'Admin'"
+            >
+              <inertia-link class="nav-link" :href="route('chat.index')">
+                <i class="nav-icon fas fa-comment-dots"></i>
+                <p>Chat de Soporte</p>
               </inertia-link>
             </li>
 
@@ -134,7 +158,11 @@
             </li>
 
             <li class="nav-item has-treeview">
-              <inertia-link class="nav-link" :href="route('permisos')" v-if="$inertia.page.rol == 'Admin'">
+              <inertia-link
+                class="nav-link"
+                :href="route('permisos')"
+                v-if="$inertia.page.rol == 'Admin'"
+              >
                 <i class="nav-icon fas fa-user-shield"></i>
                 <p>
                   Permisos
@@ -145,7 +173,7 @@
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
-      </div> 
+      </div>
       <!-- /.sidebar -->
     </aside>
   </div>
@@ -160,7 +188,6 @@ export default {
   data() {
     return {
       showingNavigationDropdown: false,
-      
     };
   },
 };
