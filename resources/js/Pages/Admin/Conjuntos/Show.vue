@@ -35,12 +35,27 @@
                     <!-- /.description-block -->
                   </div>
                   <!-- /.col -->
+                  
+
+
                   <div class="col-sm-4 border-right">
-                    <div class="description-block" v-if="num === 0">
-                      <h5 class="description-header">{{num}}</h5>
-                      <button type="submit" class="btn btn-primary">Cargar clientes</button>
-                      <button type="submit" class="btn btn-info">Descargar plantilla</button> 
+                    <div class="description-block" v-if="num === 0"> 
+
+                      <form   @submit.prevent="importar" enctype="multipart/form-data">
+                        <div class="custom-file">
+                          <input type="file" @change="previewFiles" class="custom-file-input" :v-model="archivo" aria-describedby="inputGroupFileAddon01">
+                          <label class="custom-file-label" for="inputGroupFile01">Cargar archivo</label>
+                        </div>
+                        <div style="padding: 5px;margin: auto;">
+                          <button type="submit" class="btn btn-success">Cargar clientes</button>
+                          <button type="button" class="btn btn-info">Descargar plantilla</button> 
+                        </div>
+                      </form>
+                          
+
+
                     </div>
+                    
                     <div class="description-block" v-if="num > 0">
                       <h5 class="description-header">{{num}}</h5>
                       <span class="description-text">Clientes</span>
@@ -48,6 +63,8 @@
                     
                     <!-- /.description-block -->
                   </div>
+
+
                   <!-- /.col -->
                   <div class="col-sm-4">
                     <div class="description-block">
@@ -162,12 +179,15 @@ export default {
     return {
       usuariosc:[],
       buscar:'',
+      archivo:[],
       setTimeoutBuscador: '',
       img: '/storage/'+this.conjunto.profile_photo_path,
     }
   },
   methods: {
-
+      previewFiles(event){
+        console.log("Archivo cargado");
+      },
       buscarResultados(){
 
           axios.get('/buscar',{
@@ -176,7 +196,7 @@ export default {
             }
           })
           .then( res => { 
-              this.usuariosc=res.data 
+            console.log("exito al cargar resultados" );
           })
           .catch( error => {
               console.log( error.response )
@@ -188,6 +208,35 @@ export default {
       },
       buscarONC(){
         this.buscarResultados()
+      },
+      importar(){
+        var url = "/importar/clientes";
+        axios
+        .post(url, { 
+          miarchivo: this.archivo, 
+        })
+        .then((response) => { 
+          this.errors = [];
+          
+          $(document).Toasts('create', {
+              class: 'bg-success', 
+              title: 'Repuesta con exito',
+              subtitle: 'ok',
+              body: 'Exito .'
+          });
+ 
+           console.log('Exito al enviar archivo:'+response.data);
+          
+        })
+        .catch((error) => {
+           $(document).Toasts('create', {
+              class: 'bg-danger', 
+              title: 'Repuesta error',
+              subtitle: 'fallo',
+              body: 'Error .'
+          });
+           console.log('Error al enviar archivo:'+error);
+        });
       },
   }
 

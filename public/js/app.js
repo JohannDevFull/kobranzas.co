@@ -3880,6 +3880,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['conjunto', 'clientes', 'num'],
@@ -3893,20 +3910,22 @@ __webpack_require__.r(__webpack_exports__);
     return {
       usuariosc: [],
       buscar: '',
+      archivo: [],
       setTimeoutBuscador: '',
       img: '/storage/' + this.conjunto.profile_photo_path
     };
   },
   methods: {
+    previewFiles: function previewFiles(event) {
+      console.log("Archivo cargado");
+    },
     buscarResultados: function buscarResultados() {
-      var _this = this;
-
       axios.get('/buscar', {
         params: {
           buscar: this.buscar
         }
       }).then(function (res) {
-        _this.usuariosc = res.data;
+        console.log("exito al cargar resultados");
       })["catch"](function (error) {
         console.log(error.response);
       });
@@ -3917,6 +3936,31 @@ __webpack_require__.r(__webpack_exports__);
     },
     buscarONC: function buscarONC() {
       this.buscarResultados();
+    },
+    importar: function importar() {
+      var _this = this;
+
+      var url = "/importar/clientes";
+      axios.post(url, {
+        miarchivo: this.archivo
+      }).then(function (response) {
+        _this.errors = [];
+        $(document).Toasts('create', {
+          "class": 'bg-success',
+          title: 'Repuesta con exito',
+          subtitle: 'ok',
+          body: 'Exito .'
+        });
+        console.log('Exito al enviar archivo:' + response.data);
+      })["catch"](function (error) {
+        $(document).Toasts('create', {
+          "class": 'bg-danger',
+          title: 'Repuesta error',
+          subtitle: 'fallo',
+          body: 'Error .'
+        });
+        console.log('Error al enviar archivo:' + error);
+      });
     }
   }
 });
@@ -50918,26 +50962,63 @@ var render = function() {
               _c("div", { staticClass: "col-sm-4 border-right" }, [
                 _vm.num === 0
                   ? _c("div", { staticClass: "description-block" }, [
-                      _c("h5", { staticClass: "description-header" }, [
-                        _vm._v(_vm._s(_vm.num))
-                      ]),
-                      _vm._v(" "),
                       _c(
-                        "button",
+                        "form",
                         {
-                          staticClass: "btn btn-primary",
-                          attrs: { type: "submit" }
+                          attrs: { enctype: "multipart/form-data" },
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return _vm.importar($event)
+                            }
+                          }
                         },
-                        [_vm._v("Cargar clientes")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-info",
-                          attrs: { type: "submit" }
-                        },
-                        [_vm._v("Descargar plantilla")]
+                        [
+                          _c("div", { staticClass: "custom-file" }, [
+                            _c("input", {
+                              staticClass: "custom-file-input",
+                              attrs: {
+                                type: "file",
+                                "v-model": _vm.archivo,
+                                "aria-describedby": "inputGroupFileAddon01"
+                              },
+                              on: { change: _vm.previewFiles }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "custom-file-label",
+                                attrs: { for: "inputGroupFile01" }
+                              },
+                              [_vm._v("Cargar archivo")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticStyle: { padding: "5px", margin: "auto" } },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-success",
+                                  attrs: { type: "submit" }
+                                },
+                                [_vm._v("Cargar clientes")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-info",
+                                  attrs: { type: "button" }
+                                },
+                                [_vm._v("Descargar plantilla")]
+                              )
+                            ]
+                          )
+                        ]
                       )
                     ])
                   : _vm._e(),
