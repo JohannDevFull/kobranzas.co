@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="560" height="560" viewBox="0 0 560 560">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #16a85e;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #42a6f3;
+      }
+
+      .cls-3, .cls-5 {
+        fill: #f6ff00;
+      }
+
+      .cls-3 {
+        stroke: #25b46c;
+        stroke-width: 1px;
+      }
+
+      .cls-4, .cls-6 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        filter: url(#filter);
+      }
+
+      .cls-6 {
+        filter: url(#filter-2);
+      }
+
+      .cls-7 {
+        opacity: 0.08;
+      }
+    </style>
+    <filter id="filter" x="110" y="47" width="413" height="403" filterUnits="userSpaceOnUse">
+      <feOffset result="offset" dx="7.217" dy="8.302" in="SourceAlpha"/>
+      <feGaussianBlur result="blur" stdDeviation="2.828"/>
+      <feFlood result="flood" flood-opacity="0.44"/>
+      <feComposite result="composite" operator="in" in2="blur"/>
+      <feBlend result="blend" in="SourceGraphic"/>
+      <feGaussianBlur result="blur-2" stdDeviation="2.646" in="SourceAlpha"/>
+      <feFlood result="flood-2" flood-opacity="0.34"/>
+      <feComposite result="composite-2" operator="out" in2="blur-2"/>
+      <feOffset result="offset-2" dx="1.968" dy="2.264"/>
+      <feComposite result="composite-3" operator="in" in2="SourceAlpha"/>
+      <feBlend result="blend-2" mode="multiply" in2="blend"/>
+    </filter>
+    <filter id="filter-2" x="105.719" y="298.5" width="210.281" height="58.5" filterUnits="userSpaceOnUse">
+      <feOffset result="offset" dx="7.217" dy="8.302" in="SourceAlpha"/>
+      <feGaussianBlur result="blur" stdDeviation="2.828"/>
+      <feFlood result="flood" flood-opacity="0.44"/>
+      <feComposite result="composite" operator="in" in2="blur"/>
+      <feBlend result="blend" in="SourceGraphic"/>
+      <feGaussianBlur result="blur-2" stdDeviation="2.646" in="SourceAlpha"/>
+      <feFlood result="flood-2" flood-opacity="0.74"/>
+      <feComposite result="composite-2" operator="out" in2="blur-2"/>
+      <feOffset result="offset-2" dx="1.968" dy="2.264"/>
+      <feComposite result="composite-3" operator="in" in2="SourceAlpha"/>
+      <feBlend result="blend-2" mode="multiply" in2="blend"/>
+    </filter>
+  </defs>
+  <path id="Elipse_1" data-name="Elipse 1" class="cls-1" d="M279,0C433.64,0,559,125.36,559,280S433.64,560,279,560-1,434.64-1,280,124.36,0,279,0ZM108,58L497,452"/>
+  <path id="Rectángulo_redondeado_1" data-name="Rectángulo redondeado 1" class="cls-2" d="M70,239H328a10,10,0,0,1,10,10V390a10,10,0,0,1-10,10H70a10,10,0,0,1-10-10V249A10,10,0,0,1,70,239Zm0,0H328a10,10,0,0,1,10,10V390a10,10,0,0,1-10,10H70a10,10,0,0,1-10-10V249A10,10,0,0,1,70,239Zm0,0H328a10,10,0,0,1,10,10V390a10,10,0,0,1-10,10H70a10,10,0,0,1-10-10V249A10,10,0,0,1,70,239Z"/>
+  <path id="Rectángulo_redondeado_1-2" data-name="Rectángulo redondeado 1" class="cls-1" d="M183.854,117.933l152.2-.866c3.291-.019,6.041,4.637,6.14,10.411l2.61,152.34c0.105,6.166-2.577,11.161-5.99,11.141l-157.766-.9c-3.341-.019-5.962-4.988-5.855-11.085L177.835,128.3C177.935,122.588,180.629,117.952,183.854,117.933Zm0,0,152.2-.866c3.291-.019,6.041,4.637,6.14,10.411l2.61,152.34c0.105,6.166-2.577,11.161-5.99,11.141l-157.766-.9c-3.341-.019-5.962-4.988-5.855-11.085L177.835,128.3C177.935,122.588,180.629,117.952,183.854,117.933Zm0,0,152.2-.866c3.291-.019,6.041,4.637,6.14,10.411l2.61,152.34c0.105,6.166-2.577,11.161-5.99,11.141l-157.766-.9c-3.341-.019-5.962-4.988-5.855-11.085L177.835,128.3C177.935,122.588,180.629,117.952,183.854,117.933Z"/>
+  <path id="Rectángulo_redondeado_1-3" data-name="Rectángulo redondeado 1" class="cls-3" d="M196,119H454a10,10,0,0,1,10,10V270a10,10,0,0,1-10,10H196a10,10,0,0,1-10-10V129A10,10,0,0,1,196,119Zm0,0H454a10,10,0,0,1,10,10V270a10,10,0,0,1-10,10H196a10,10,0,0,1-10-10V129A10,10,0,0,1,196,119Zm0,0H454a10,10,0,0,1,10,10V270a10,10,0,0,1-10,10H196a10,10,0,0,1-10-10V129A10,10,0,0,1,196,119Z"/>
+  <path id="Elipse_2" data-name="Elipse 2" class="cls-4" d="M322.125,178.5c10.718,0,19.406,9.248,19.406,20.656s-8.688,20.657-19.406,20.657-19.406-9.249-19.406-20.657S311.407,178.5,322.125,178.5Zm-74,1c10.718,0,19.406,9.248,19.406,20.656s-8.688,20.657-19.406,20.657-19.406-9.249-19.406-20.657S237.407,179.5,248.125,179.5Zm155-1c10.718,0,19.406,9.248,19.406,20.656s-8.688,20.657-19.406,20.657-19.406-9.249-19.406-20.657S392.407,178.5,403.125,178.5ZM110,47L508,434"/>
+  <path id="Rectángulo_1" data-name="Rectángulo 1" class="cls-2" d="M118.882,339.471l46.783,63.212,2.711,63.46L67.792,377.282Z"/>
+  <path id="Rectángulo_1-2" data-name="Rectángulo 1" class="cls-5" d="M399.882,227.672l-46.066,50.9L350.78,344.8l94.837-78.088Z"/>
+  <path id="Elipse_2-2" data-name="Elipse 2" class="cls-6" d="M197.125,299.5c10.718,0,19.406,9.248,19.406,20.656s-8.688,20.657-19.406,20.657-19.406-9.249-19.406-20.657S186.407,299.5,197.125,299.5Zm-72-1c10.718,0,19.406,9.248,19.406,20.656s-8.688,20.657-19.406,20.657-19.406-9.249-19.406-20.657S114.407,298.5,125.125,298.5Zm156,0c10.718,0,19.406,9.248,19.406,20.656s-8.688,20.657-19.406,20.657-19.406-9.249-19.406-20.657S270.407,298.5,281.125,298.5Z"/>
+  <path id="Rectángulo_2" data-name="Rectángulo 2" class="cls-7" d="M445.5,832.318l-372.552-348L458.365,71.708l372.552,348Z"/>
+</svg>
