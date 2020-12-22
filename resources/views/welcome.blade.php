@@ -443,8 +443,8 @@
     </footer>
 
     <audio id="myAudio">
-      <source src="/storage/img/pop.ogg" type="audio/ogg">
-      <source src="/storage/img/pop.mp3" type="audio/mpeg">
+      <source src="storage/img/pop.ogg" type="audio/ogg">
+      <source src="storage/img/pop.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
 
@@ -501,7 +501,7 @@
   <script src="{{asset('js/script.js')}}"></script>
 
   <!-- AdminLTE App -->
-  <script src="dist/js/adminlte.min.js"></script>
+  <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
 </body>
 
 </html>
