@@ -243,7 +243,7 @@
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 import pop from "@/Chat/pop";
-
+Pusher.logToConsole = true;
 export default {
   components: {
     AppLayout,
