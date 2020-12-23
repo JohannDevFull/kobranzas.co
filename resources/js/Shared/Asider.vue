@@ -140,13 +140,6 @@
               </inertia-link>
             </li>
 
-            <li class="nav-item has-treeview">
-              <inertia-link class="nav-link" :href="route('iframe')">
-                <i class="nav-icon fas fa-book"></i>
-                <p>Pages</p>
-              </inertia-link>
-            </li>
-
             <li class="nav-item">
               <inertia-link class="nav-link" :href="route('construir')">
                 <i class="nav-icon far fa-envelope"></i>
