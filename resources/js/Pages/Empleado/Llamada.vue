@@ -32,7 +32,7 @@
              <form @submit.prevent="submit">
               <div   class="row">
                   
-                <div class="col-sm-6">
+                <div class="col-sm-6"> 
                     
                   <div class="form-group">
                     <label>Nombre persona llamada</label>
@@ -56,12 +56,23 @@
                     <!-- /.input group -->
                   </div>
 
+
                   <div class="form-group">
                     <label>Descripcion de la llamada</label>
-                    <textarea v-model="form.text" class="form-control" rows="0" placeholder="Escribir una breve descripcion...">
+                    <textarea v-model="form.texto" class="form-control" rows="0" placeholder="Escribir una breve descripcion...">
                     </textarea>
                   </div>
 
+                  <div class="form-group" >
+                        <label>Estado</label>
+                        <span class="required">*</span>
+                        <select class="form-control" v-model="selestado">
+                          <option value="" disabled>Seleccione Estado</option>
+                          <option v-for="option in estados" v-bind:value="option.id_state">
+                            {{ option.description }}
+                          </option>
+                        </select>
+                 </div>
                   <div class="row p-2">
                     <div class="col-sm-6">
                       <button type="button" class="btn  btn-info ">
@@ -87,32 +98,36 @@
                       <!-- Add the bg color to the header using any of the bg-* classes -->
                       <div class="widget-user-header " style="background-color: #e9ecef">
                         <div class="widget-user-image">
-                          <img class="img-circle elevation-2" v-bind:src="image" v-bind:alt="text">
+                          <img class="img-circle elevation-2" v-bind:src="image" v-bind:alt="nameimg">
                         </div>
                         <!-- /.widget-user-image -->
                         <h2 class="widget-user-username">{{ cliente.name }} </h2> 
-                        <h4 class="widget-user-desc">Conjunto : Altos de alameda </h4>
-                        <h6 class="widget-user-desc">Apartamento: 104 interio 9 </h6>
+                        <h4 class="widget-user-desc">Conjunto : {{ conj }}  </h4>
+                        <h6 class="widget-user-desc">Apartamento:  </h6>
                       </div>
                       <div class="card-footer p-0">
                         <ul class="nav flex-column">
+                          <li class="nav-item"> 
+                              Cedula  : {{ cliente.document }}
+                          </li>
+                          <li class="nav-item"> 
+                              Correo  : {{ cliente.email }}
+                          </li>
                           <li class="nav-item"> 
                               Telefono uno : {{ cliente.phone_one }}
                           </li>
                           <li class="nav-item"> 
                               Telefono dos : {{ cliente.phone_two }}
                           </li>
-                          <li class="nav-item"> 
-                              Telefono tres : {{ cliente.phone_two }}
-                          </li>
                           <li class="nav-item">
                             <a href="#" class="nav-link">
-                              Otra informacion <span class="float-right badge bg-success">12</span>
+                              Acuerdo actual 
+                              <span class="float-right badge bg-danger" style="margin: auto;">ACUERDO ROTO</span>
                             </a>
                           </li>
                           <li class="nav-item">
                             <a href="#" class="nav-link">
-                              Estado cuenta <span class="float-right badge bg-danger">1.349.000</span>
+                              Estado cuenta <span class="float-right badge bg-info">1.349.000</span>
                             </a>
                           </li>
                         </ul>
@@ -158,70 +173,38 @@
                 <table class="table table-head-fixed text-nowrap">
                   <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>User</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                      <th>Reason</th>
+                      <th>ID </th>
+                      <th>Persona llamada</th>
+                      <th>Telefono</th>
+                      <th>Fecha / Hora</th>
+                      <th>Nombre Empleado</th>
+                      <th >Descripcion</th>
+                      <th>Ver</th>
                     </tr>
                   </thead>
+
                   <tbody>
+ 
                     <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>219</td>
-                      <td>Alexander Pierce</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-warning">Pending</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>657</td>
-                      <td>Bob Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-primary">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>175</td>
-                      <td>Mike Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-danger">Denied</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>134</td>
-                      <td>Jim Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>494</td>
-                      <td>Victoria Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-warning">Pending</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>832</td>
-                      <td>Michael Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-primary">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>982</td>
-                      <td>Rocky Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-danger">Denied</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
+
+                      <td style="width:5%">183</td>
+                      <td style="width:7%">John Doe</td>
+                      <td style="width:7%"><button data-toggle="tooltip" data-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>">
+                          Tooltip with HTML
+                        </button></td>
+                      <td style="width:6%">11-7-2014</td>
+                      <td style="width:16%">Johan Reyes</td>
+                      <td style="position: absolute;"><div style='width:300px; overflow:hidden;'>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</div><span style="position: absolute;left: 97%;top: 25% color: red">...</span>
+                      </td>
+                      <td style="width:4%">
+                        <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
+                            <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
+                            
+                        </button>
+
+                      </td>
+                    </tr>  
+                   
                   </tbody>
                 </table>
               </div>
@@ -233,43 +216,83 @@
         <!-- /.row -->
     </section>
     
+    <call-modal/>
 
   </div>
 </app-layout>
 </template>
 
 <script>
-    import AppLayout from '@/Layouts/AppLayout' 
+  import AppLayout from '@/Layouts/AppLayout'
+  import CallModal from '@/Kobranzas/CallModal'  
 
-    export default {
-        props: ['cliente'],
+  export default {
+    props: ['cliente','empleadoid','conjunto'],
 
-        components: {
-            AppLayout, 
+    components: {
+        AppLayout, 
+        CallModal,
+    },
+    created(){ 
+      this.buscarEstados() 
+    },
+    data() {
+      return { 
+        estados:[],
+        form: {
+          name: this.cliente.name,
+          phone: this.cliente.phone_one,
+          texto: null,
+          
         },
-        data() {
-          return { 
-            form: {
-              name: this.cliente.name,
-              phone: this.cliente.phone_one,
-              text: null,
-              
-            },
-            image: "../../storage/img/avatar.png",
-            text: "Logo de Javascript"
+        selestado:"",
+        image: "../../storage/img/avatar.png", 
+        nameimg: " avatar user", 
+        empleado:this.empleadoid, 
+        conj:this.conjunto, 
 
-          }
-        },
-        methods: {
-            submit(form){
-              
-              this.$inertia.post('llamada', this.form,{
-                onSuccess:()=>{
-                  alert("Llamada registrada");
-                },
-              })
+      }
+    },
+    methods: {
+      submit(form){
+            
+        var url = "/llamadas/store";
+        axios
+        .post(url, { 
+          nombre: this.form.name,
+          telefono: this.form.phone, 
+          descripcion: this.form.texto,
+          estado: this.selestado, 
+          cliente: this.cliente.id, 
+          idempleado: this.empleado, 
+        })
+        .then((response) => {   
+
+          $(document).Toasts('create', {
+            class: 'bg-success', 
+            title: 'Llamada creada',
+            subtitle: 'ok',
+            body: 'Llamada se a guardado con exito .'
+          }); 
+ 
+          
+        })
+        .catch((error) => {
+          this.errors = error.response.data;
+        });
                    
             },
-        },
-    }
+            buscarEstados(){
+              axios.get('/buscar/estados',{
+                    
+              })
+              .then( resp => { 
+                  this.estados=resp.data  
+              })
+              .catch( error => {
+                  console.log( error.response )
+              });
+            },
+    },
+  }
 </script>
