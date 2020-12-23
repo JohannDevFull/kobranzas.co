@@ -120,7 +120,7 @@
                   <tbody>
                     <tr v-for="row in clientes" >
                       <td> 
-                          {{ row.id_client }} 
+                          {{ row.id }} 
                       </td>
                       <td> 
                           {{ row.name }} 
