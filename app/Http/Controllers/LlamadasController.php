@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Calls;
 use App\Models\Llamada;
 use App\Models\User;
 use App\Models\llamadas;
 use Illuminate\Database\Query\orderBy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -54,10 +56,20 @@ class LlamadasController extends Controller
      */
     public function create($id)
     {
+        $empleado = Auth::id();
         $user=User::find($id); 
+        
+        $clients=DB::select('SELECT building_id FROM clients where user_id='.$id);
+        $cli=DB::select('SELECT name_building FROM buildings where id_building='.$clients[0]->building_id);
+        
+        $conjuntoNombre=$cli[0]->name_building; 
+        
         return Inertia::render('Empleado/Llamada', [
             'cliente' => $user, 
+            'empleadoid' => $empleado, 
+            'conjunto' => $conjuntoNombre, 
         ]);
+
     }
 
     /**
@@ -83,7 +95,14 @@ class LlamadasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $call= Calls::create([  
+            'client_id'=>$request->cliente,
+            'name_call'=>$request->nombre,
+            'phone_call'=>$request->telefono,
+            'employee_id'=>$request->idempleado,
+            'description'=>$request->descripcion,
+            'state_id'=>$request->estado,
+        ]);
     }
 
     /**
