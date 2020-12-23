@@ -57,11 +57,11 @@
                       
 
                       <td> 
-                        <inertia-link class="" :href="route('llamadas.create',row.id)" > 
+                        <inertia-link class="" :href="route('llamadas.client',row.id)" > 
                             <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
                         </inertia-link>
 
-                        <inertia-link class="" :href="route('llamadas.create',row.id)">
+                        <inertia-link class="" :href="route('llamadas.agreement',row.id)">
                             <i class="nav-icon fas fa-hands-helping text-success" style="padding:6px;"></i>  
                         </inertia-link>
                         <inertia-link class="" :href="route('llamadas.create',row.id)">
