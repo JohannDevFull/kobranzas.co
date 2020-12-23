@@ -25,6 +25,38 @@ class LlamadasController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function agreement($id)
+    {
+        // $buscar=$id;
+ 
+        // $conj=Buildings::select('*')
+        //                     ->where('id_building',$buscar)
+        //                     ->join('users', 'administrator_id', '=', 'users.id')
+        //                     ->get();
+        // $conjunto=$conj[0];     
+
+
+        // $clients=Clients::select('*')
+        //                 ->where('building_id',$buscar)
+        //                 ->join('users', 'user_id', '=', 'id')
+        //                 ->get();
+        
+
+        // $num=sizeof($clients);  
+
+        return Inertia::render('Empleado/AcuerdoCuenta/AgreementAccount',[
+            // 'conjunto' => $conjunto,
+            // 'clientes' => $clients,
+            // 'num' => $num,
+        ]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -68,6 +100,21 @@ class LlamadasController extends Controller
             'cliente' => $user, 
             'empleadoid' => $empleado, 
             'conjunto' => $conjuntoNombre, 
+        ]);
+
+    }
+
+
+
+    public function client($id)
+    {
+        $empleado = Auth::id();
+        $user=User::find($id); 
+         
+        
+        return Inertia::render('Empleado/AcuerdoCuenta/Client', [
+            'cliente' => $user, 
+            'empleadoid' => $empleado,  
         ]);
 
     }
