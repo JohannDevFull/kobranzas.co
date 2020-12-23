@@ -116,7 +116,7 @@ export default {
     };
   },
   methods: {
-    buscarResultados(){
+    buscarResultados(){ 
       axios.get('/buscar/administradores',{
             params:{
               buscar:this.buscar
