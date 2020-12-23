@@ -15,7 +15,16 @@ class ClientsSeeder extends Seeder
      */
     public function run()
     {
-        $users= User::all();
+        $users= User::all(); 
+
+        Clients::create([
+                    'client_code'=>random_int($min=1000000000,$max=9999999999),
+                    'contract_number'=>random_int($min=1000000000,$max=9999999999),
+                    'state_id'=>rand(1,15),
+                    'user_id'=>'2',
+                    'building_id'=>'1',
+
+        ]); 
         
         $tamano=sizeof($users);
         for ($i=4; $i < $tamano ; $i++) 
