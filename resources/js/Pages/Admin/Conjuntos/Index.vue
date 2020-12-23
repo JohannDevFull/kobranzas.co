@@ -37,7 +37,7 @@
                   <tbody>
                     <tr v-for="row in conjuntos"  >
                       <td> 
-                          {{ row.id_building }} 
+                          {{ row.id_building }}  
                       </td>
                       <td> 
                           {{ row.name_building }} 
