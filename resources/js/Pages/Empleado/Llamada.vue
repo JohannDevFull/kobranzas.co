@@ -189,16 +189,14 @@
 
                       <td style="width:5%">183</td>
                       <td style="width:7%">John Doe</td>
-                      <td style="width:7%"><button data-toggle="tooltip" data-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>">
-                          Tooltip with HTML
-                        </button></td>
+                      <td style="width:7%">3123456453</td>
                       <td style="width:6%">11-7-2014</td>
                       <td style="width:16%">Johan Reyes</td>
-                      <td style="position: absolute;"><div style='width:300px; overflow:hidden;'>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</div><span style="position: absolute;left: 97%;top: 25% color: red">...</span>
+                      <td style="position: absolute;"><div style='width:300px; overflow:hidden;'>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</div> 
                       </td>
                       <td style="width:4%">
-                        <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
-                            <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
+                        <button type="button" style="margin-top:-4px" class="btn" data-toggle="modal" data-target="#exampleModal">
+                            <i class="nav-icon fas fa-eye text-info"  ></i>  
                             
                         </button>
 
