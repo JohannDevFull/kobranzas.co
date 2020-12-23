@@ -135,23 +135,29 @@ class PermisosController extends Controller
     public function test(Request $request,$id='')
     {
 
-       $clients=Clients::select('*')
-                            ->where('building_id',$id)
-                            ->join('users', 'user_id', '=', 'id')
-                            ->get();
-        $clientes=$clients;
+       // $clients=Clients::select('*')
+       //                      ->where('building_id',$id)
+       //                      ->join('users', 'user_id', '=', 'id')
+       //                      ->get();
+       //  $clientes=$clients;
 
-        $num=sizeof($clientes);
-        print_r($num);
+        $clients=DB::select('SELECT building_id FROM clients where user_id='.$id);
+
+        $cli=DB::select('SELECT name_building FROM buildings where id_building='.$clients[0]->building_id);
+        // $num=sizeof($clientes);
+
+
+        print_r($cli[0]->name_building);
         echo "<br>";
-        echo "--------------------------------------------------------------------------------";
-        for ($i=0; $i < $num ; $i++) 
-        { 
-            echo "<br>";
-            echo "--------------------------------------------------------------------------------";
-            print_r($clientes[$i]);
-            echo "<br>";
-        }
+        echo "------------------------------------**** colombia ***--------------------------------------------";
+
+        // for ($i=0; $i < $num ; $i++) 
+        // { 
+        //     echo "<br>";
+        //     echo "--------------------------------------------------------------------------------";
+        //     print_r($clientes[$i]);
+        //     echo "<br>";
+        // }
 
     }
 
