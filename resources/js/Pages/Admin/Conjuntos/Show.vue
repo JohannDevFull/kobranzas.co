@@ -291,7 +291,7 @@ export default {
           .then((response) => {
             if (response.status === 200) {
               Swal.fire({
-                position: "top-end",
+                // position: "top-end",
                 icon: "success",
                 title: "Los Clientes han sido subidos",
                 showConfirmButton: false,

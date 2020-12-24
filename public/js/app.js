@@ -4591,7 +4591,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (response) {
           if (response.status === 200) {
             Swal.fire({
-              position: "top-end",
+              // position: "top-end",
               icon: "success",
               title: "Los Clientes han sido subidos",
               showConfirmButton: false,
