@@ -32439,6 +32439,125 @@ p {
       font-size: 0.8rem;
     }
   }
+  .fileExist {
+    border-color: #28a745 !important;
+  }
+  .buttonWhenIsActived {
+    background: #28a745 !important;
+    color: white !important;
+  }
+  .buttonWhenIsActived:hover {
+    background: #28a745 !important;
+    color: white !important;
+  }
+  .file-info {
+    margin-left: 6px;
+  }
+  .uploadFile {
+    display: block;
+    text-align: center;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+  }
+  .uploadFile .fileSel {
+    display: block;
+    border: 2px solid #bbc1c7;
+    color: #34495e;
+    cursor: pointer;
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    background: #ffffff;
+    overflow: hidden;
+    position: relative;
+    border-top-left-radius: 2% 15%;
+    border-top-right-radius: 2% 15%;
+    border-bottom-left-radius: 2% 15%;
+    border-bottom-right-radius: 2% 15%;
+  }
+  .uploadFile .fileSel .fileSel-button {
+    background: #bbc1c7;
+    padding: 0 10px;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+  }
+  .uploadFile .fileSel .fileSel-name {
+    line-height: 40px;
+    display: inline-block;
+    padding: 0 10px;
+  }
+  .uploadFile .fileSel:hover {
+    border-color: #34495e;
+    transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+  }
+  .uploadFile .fileSel:hover .fileSel-button {
+    background: #34495e;
+    color: #ffffff;
+    transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+  }
+  .uploadFile.active .fileSel {
+    border-color: #3fa46a;
+    transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+  }
+  .uploadFile.active .fileSel .fileSel-button {
+    background: #3fa46a;
+    color: #ffffff;
+    transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+  }
+  .uploadFile .fileSel input[type="file"] {
+    z-index: 100;
+    cursor: pointer;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+  }
+  .uploadFile .fileSel.fileSel-dis {
+    opacity: 0.65; 
+  }
+  .uploadFile .fileSel.fileSel-dis:hover {
+    cursor: default;
+    display: block;
+    border: 2px solid #dce4ec;
+    color: #34495e;
+    cursor: pointer;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 5px;
+    text-align: left;
+    background: #ffffff;
+    overflow: hidden;
+    position: relative;
+  }
+  .uploadFile .fileSel.fileSel-dis:hover .fileSel-button {
+    background: #dce4ec;
+    color: #666666;
+    padding: 0 10px;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+  }
+  .uploadFile .fileSel.file-select-dis:hover .file-select-name {
+    line-height: 40px;
+    display: inline-block;
+    padding: 0 10px;
+  }
 /*@preserve
  * Tempus Dominus Bootstrap4 v5.1.2 (https://tempusdominus.github.io/bootstrap-4/)
  * Copyright 2016-2018 Jonathan Peterson

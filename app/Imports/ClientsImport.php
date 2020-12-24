@@ -3,24 +3,22 @@
 namespace App\Imports;
  
 use App\Models\Clients;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
+use App\Models\User;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class ClientsImport implements ToModel
+class ClientsImport implements WithMultipleSheets
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
-    public function model(array $row)
+    public function sheets(): array
     {
-
-        return new Clients([
-            'client_code'=> $row[0],
-            'contract_number'=> $row[1],
-            'state_id'=> $row[2],
-            'user_id'=> $row[3],
-            'building_id'=> $row[4],
-        ]);
+        return [
+            0 => new FirstSheetImport(),
+          
+        ];
     }
+   
 }

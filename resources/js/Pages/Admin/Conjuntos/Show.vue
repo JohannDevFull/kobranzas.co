@@ -1,247 +1,338 @@
 <template>
   <app-layout>
     <div>
-      
       <div class="py-12">
-            <!-- Widget: user widget style 1 -->
-            <div class="card card-widget widget-user" >
-              <div class="card-header">
-                <h3 class="card-title">Detalles conjunto</h3>
+        <!-- Widget: user widget style 1 -->
+        <div class="card card-widget widget-user">
+          <div class="card-header">
+            <h3 class="card-title">Detalles conjunto</h3>
 
-                <div class="card-tools"> 
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" style="border: 1px gray solid ;height: 100%;margin:0px; ">
-                      <i class="fas fa-minus"></i>
-                    </button> 
-                </div>
-              </div>
-              <div class="card-body" style="padding: 0px;"> 
-                <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="widget-user-header text-white"
-                     style="background: url('/storage/img/photo1.png') center center;height: 300px;">
-                  <h3 class="widget-user-username text-right">{{conjunto.name}}</h3>
-                  <h5 class="widget-user-desc text-right">Conjunto : {{conjunto.name_building}}</h5>
-                </div>
-                <div class="widget-user-image" style="position: absolute;top: 300px;">
-                  <img class="img-circle"  v-bind:src="img" alt="User Avatar">
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="row">
-                  <div class="col-sm-4 border-right">
-                    <div class="description-block">
-                      <h5 class="description-header">x</h5>
-                      <span class="description-text">Acuerdos</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <!-- /.col -->
-                  
-
-
-                  <div class="col-sm-4 border-right">
-                    <div class="description-block" v-if="num === 0"> 
-
-                      <form   @submit.prevent="importar" enctype="multipart/form-data">
-                        <div class="custom-file">
-                          <input type="file" @change="previewFiles" class="custom-file-input" :v-model="archivo" aria-describedby="inputGroupFileAddon01">
-                          <label class="custom-file-label" for="inputGroupFile01">Cargar archivo</label>
-                        </div>
-                        <div style="padding: 5px;margin: auto;">
-                          <button type="submit" class="btn btn-success">Cargar clientes</button>
-                          <button type="button" class="btn btn-info">Descargar plantilla</button> 
-                        </div>
-                      </form>
-                          
-
-
-                    </div>
-                    
-                    <div class="description-block" v-if="num > 0">
-                      <h5 class="description-header">{{num}}</h5>
-                      <span class="description-text">Clientes</span>
-                    </div>
-                    
-                    <!-- /.description-block -->
-                  </div>
-
-
-                  <!-- /.col -->
-                  <div class="col-sm-4">
-                    <div class="description-block">
-                      <h5 class="description-header">x</h5>
-                      <span class="description-text">Pendientes</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <!-- /.col -->
-                </div>
-                <!-- /.row -->
-              </div>
+            <div class="card-tools">
+              <button
+                type="button"
+                class="btn btn-tool"
+                data-card-widget="collapse"
+                style="border: 1px gray solid; height: 100%; margin: 0px"
+              >
+                <i class="fas fa-minus"></i>
+              </button>
             </div>
-            <!-- /.widget-user -->
-      </div>
-      
-      <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Lista de  clientes</h3>
+          </div>
+          <div class="card-body" style="padding: 0px">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div
+              class="widget-user-header text-white"
+              style="
+                background: url('/storage/img/photo1.png') center center;
+                height: 300px;
+              "
+            >
+              <h3 class="widget-user-username text-right">
+                {{ conjunto.name }}
+              </h3>
+              <h5 class="widget-user-desc text-right">
+                Conjunto : {{ conjunto.name_building }}
+              </h5>
+            </div>
+            <div
+              class="widget-user-image"
+              style="position: absolute; top: 300px"
+            >
+              <img class="img-circle" v-bind:src="img" alt="User Avatar" />
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="row">
+              <div class="col-sm-4 border-right">
+                <div class="description-block">
+                  <h5 class="description-header">x</h5>
+                  <span class="description-text">Acuerdos</span>
+                </div>
+                <!-- /.description-block -->
+              </div>
+              <!-- /.col -->
 
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 250px;">
-                      <input
-                          class="form-control  float-right"
-                          type="search"
-                          placeholder="Buscar por nombre ..."
-                          aria-label="Search"
-                          v-model="buscar"
-                          @keyup="buscarKUP"
+              <div class="col-sm-4 border-right">
+                <div class="description-block" v-if="num === 0">
+                  <div class="uploadFile">
+                    <div class="fileSel" :class="filexist">
+                      <div
+                        class="fileSel-button"
+                        :class="button"
+                        style="float: right"
                       >
-                      <div class="input-group-append">
-                        <button v-on:click="buscarONC" class="btn btn-default">
-                          <i class="fas fa-search"></i>
-                        </button>
+                        Cargar Archivo
                       </div>
+                      <input
+                        type="file"
+                        name="file"
+                        id="file"
+                        ref="file"
+                        @change="onFileChange"
+                        accept="xls,xlsx"
+                      />
+                      <span class="file-info" v-if="!files || !files.length"
+                        >Ningún Archivo Seleccionado...</span
+                      >
+                      <div v-else>
+                        <span
+                          class="file-info"
+                          v-for="file in files"
+                          :key="file.name"
+                        >
+                          {{ file.name }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="padding: 5px; margin: auto">
+                    <button
+                      type="submit"
+                      class="btn btn-success"
+                      @click="importar()"
+                    >
+                      Cargar clientes
+                    </button>
+
+                    <button
+                      @click="exportar()"
+                      type="button"
+                      class="btn btn-info"
+                    >
+                      Descargar plantilla
+                      
+                    </button>
+
+                    <ul v-for="error in errors.errors">
+                      <li class="required">{{ error[0] }}</li>
+                    </ul>
                   </div>
                 </div>
+
+                <div class="description-block" v-if="num > 0">
+                  <h5 class="description-header">{{ num }}</h5>
+                  <span class="description-text">Clientes</span>
+                </div>
+
+                <!-- /.description-block -->
               </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0" style="height: 400px;">
-                <table class="table table-head-fixed text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Nombre </th>
-                      <th>Correo</th>
-                      <th>Estado</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  
-                  <tbody>
-                    <tr v-for="row in clientes" >
-                      <td> 
-                          {{ row.id_client }} 
-                      </td>
-                      <td> 
-                          {{ row.name }} 
-                      </td>
-                      <td> 
-                          {{ row.email}} 
-                      </td>
-                      <td> 
-                          {{ row.phone_one }}  
-                      </td>
-                      
 
-                      <td> 
-                        <inertia-link class="" :href="route('llamadas.create',row.id)" > 
-                            <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
-                        </inertia-link>
-
-                        <inertia-link class="" :href="route('llamadas.create',row.id)">
-                            <i class="nav-icon fas fa-hands-helping text-success" style="padding:6px;"></i>  
-                        </inertia-link>
-                        <inertia-link class="" :href="route('llamadas.create',row.id)">
-                            <i class="nav-icon fas fa-phone text-success" style="padding:6px;"></i> 
-                        </inertia-link>
-                      </td>
-
-                      
-                    </tr>
-                    <tr >  
-
-                    </tr>
-                  </tbody>
-                </table>
-
+              <!-- /.col -->
+              <div class="col-sm-4">
+                <div class="description-block">
+                  <h5 class="description-header">x</h5>
+                  <span class="description-text">Pendientes</span>
+                </div>
+                <!-- /.description-block -->
               </div>
-              <!-- /.card-body -->
-              <div class="card-footer">
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+        </div>
+        <!-- /.widget-user -->
+      </div>
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Lista de clientes</h3>
+
+            <div class="card-tools">
+              <div class="input-group input-group-sm" style="width: 250px">
+                <input
+                  class="form-control float-right"
+                  type="search"
+                  placeholder="Buscar por nombre ..."
+                  aria-label="Search"
+                  v-model="buscar"
+                  @keyup="buscarKUP"
+                />
+                <div class="input-group-append">
+                  <button v-on:click="buscarONC" class="btn btn-default">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
               </div>
             </div>
-            <!-- /.card -->    
-      </div> 
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0" style="height: 400px">
+            <table class="table table-head-fixed text-nowrap">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr v-for="row in clientes">
+                  <td>
+                    {{ row.id_client }}
+                  </td>
+                  <td>
+                    {{ row.name }}
+                  </td>
+                  <td>
+                    {{ row.email }}
+                  </td>
+                  <td>
+                    {{ row.phone_one }}
+                  </td>
+
+                  <td>
+                    <inertia-link
+                      class=""
+                      :href="route('llamadas.create', row.id)"
+                    >
+                      <i
+                        class="nav-icon fas fa-eye text-info"
+                        style="padding: 3px"
+                      ></i>
+                    </inertia-link>
+
+                    <inertia-link
+                      class=""
+                      :href="route('llamadas.create', row.id)"
+                    >
+                      <i
+                        class="nav-icon fas fa-hands-helping text-success"
+                        style="padding: 6px"
+                      ></i>
+                    </inertia-link>
+                    <inertia-link
+                      class=""
+                      :href="route('llamadas.create', row.id)"
+                    >
+                      <i
+                        class="nav-icon fas fa-phone text-success"
+                        style="padding: 6px"
+                      ></i>
+                    </inertia-link>
+                  </td>
+                </tr>
+                <tr></tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer"></div>
+        </div>
+        <!-- /.card -->
+      </div>
     </div>
   </app-layout>
 </template>
 <script>
-import AppLayout from "@/Layouts/AppLayout"; 
+import AppLayout from "@/Layouts/AppLayout";
 
 export default {
-  props: ['conjunto','clientes','num'],
+  props: ["conjunto", "clientes", "num"],
   components: {
-    AppLayout, 
+    AppLayout,
   },
-  created(){ 
-    this.buscarResultados()
+  created() {
+    this.buscarResultados();
   },
-  data(){
+  data() {
     return {
-      usuariosc:[],
-      buscar:'',
-      archivo:[],
-      setTimeoutBuscador: '',
-      img: '/storage/'+this.conjunto.profile_photo_path,
-    }
+      files: null,
+      usuariosc: [],
+      buscar: "",
+      import_file: "",
+      setTimeoutBuscador: "",
+      img: "/storage/" + this.conjunto.profile_photo_path,
+      errors: {},
+    };
   },
   methods: {
-      previewFiles(event){
-        console.log("Archivo cargado");
-      },
-      buscarResultados(){
-
-          axios.get('/buscar',{
-            params:{
-              buscar:this.buscar
-            }
-          })
-          .then( res => { 
-            console.log("exito al cargar resultados" );
-          })
-          .catch( error => {
-              console.log( error.response )
-          });
-      },
-      buscarKUP(){
-          clearTimeout( this.setTimeoutBuscador )
-          this.setTimeoutBuscador=setTimeout( this.buscarResultados ,360) 
-      },
-      buscarONC(){
-        this.buscarResultados()
-      },
-      importar(){
-        var url = "/importar/clientes";
-        axios
-        .post(url, { 
-          miarchivo: this.archivo, 
+    buscarResultados() {
+      axios
+        .get("/buscar", {
+          params: {
+            buscar: this.buscar,
+          },
         })
-        .then((response) => { 
-          this.errors = [];
-          
-          $(document).Toasts('create', {
-              class: 'bg-success', 
-              title: 'Repuesta con exito',
-              subtitle: 'ok',
-              body: 'Exito .'
-          });
- 
-           console.log('Exito al enviar archivo:'+response.data);
-          
+        .then((res) => {
+          console.log("exito al cargar resultados");
         })
         .catch((error) => {
-           $(document).Toasts('create', {
-              class: 'bg-danger', 
-              title: 'Repuesta error',
-              subtitle: 'fallo',
-              body: 'Error .'
-          });
-           console.log('Error al enviar archivo:'+error);
+          console.log(error.response);
         });
-      },
-  }
+    },
+    buscarKUP() {
+      clearTimeout(this.setTimeoutBuscador);
+      this.setTimeoutBuscador = setTimeout(this.buscarResultados, 360);
+    },
+    buscarONC() {
+      this.buscarResultados();
+    },
+    onFileChange(event) {
+      this.files = event.target.files;
+    },
+    exportar() {
+      var page = window.location.origin + "/conjuntos/template";
+      window.open(page);
+    },
+    importar() {
+      if (this.files) {
+        let formData = new FormData();
+        formData.append("file", this.files[0]);
 
-
-     
-  
+        axios
+          .post("/importar/clientes", formData, {
+            headers: { "content-type": "multipart/form-data" },
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Los Clientes han sido subidos",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              this.errors = {};
+              this.files = null;
+              console.log("subido");
+            }
+          })
+          .catch((error) => {
+            this.uploading = false;
+            this.errors = error.response.data;
+            console.log("check error: ", this.errors);
+          });
+      } else {
+        this.errors = {
+          
+            errors: [["No se ha subido ningún archivo."]],
+          
+        };
+        return;
+      }
+    },
+  },
+  computed: {
+    filexist() {
+      return {
+        fileExist: this.files != null,
+        "": this.files == null,
+      };
+    },
+    button() {
+      return {
+        buttonWhenIsActived: this.files != null,
+        "": this.files == null,
+      };
+    },
+  },
 };
 </script>
+<style lang="css">
+
+</style>

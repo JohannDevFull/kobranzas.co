@@ -17,6 +17,8 @@ class PermissionsTableSeeder extends Seeder
     public function run()
     {
         Permission::create(['name' => 'chat.index']);
+        Permission::create(['name' => 'conjuntos.export']);
+        Permission::create(['name' => 'clients.import']);
         //Permission Admin 
         Permission::create(['name' => 'user.index']);
         Permission::create(['name' => 'user.edit']);
@@ -60,7 +62,9 @@ class PermissionsTableSeeder extends Seeder
             'user.show',
             'user.create',
             'user.destroy',
-            'chat.index'
+            'chat.index',
+            'conjuntos.export',
+            'clients.import'
         ]);
         // *****
 
@@ -68,7 +72,7 @@ class PermissionsTableSeeder extends Seeder
         $cliente->givePermissionTo([
             'user.index',
             'user.edit',
-            'user.show'
+            'user.show',
         ]);
         // *****
 
