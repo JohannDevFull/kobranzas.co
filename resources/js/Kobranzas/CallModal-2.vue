@@ -22,7 +22,9 @@
                     <div class="card-tools">
                       
                     </div>
-                  </div> 
+                  </div>
+                  <h1>ID: {{llamadas[ides].state_id}}</h1> 
+                  {{llamadas[ides]}}
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-6">
@@ -42,7 +44,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label for="inputDescription">Descripcion llamada</label>
-                          <textarea id="inputDescription" v-bind:value="llamadas[ides].description" class="form-control" rows="3" disabled>
+                          <textarea id="inputDescription" v-bind:value="llamadas[ides].description" class="form-control" rows="3">
                           </textarea> 
                         </div>
                       </div>
@@ -50,8 +52,8 @@
                       <div class="col-md-3"> 
                         <label>Estado</label>
                         <span class="required">*</span>
-                        <select class="form-control" v-bind:value="id" disabled>
-                          <option value="" >Seleccione Estado</option>
+                        <select class="form-control" v-bind:value="llamadas[ides].state_id">
+                          <option value="" disabled>Seleccione Estado</option>
                           <option v-for="option in estados" v-bind:value="option.id_state">
                             {{ option.description }}
                           </option>
@@ -62,13 +64,13 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label for="inputClientCompany">Empleado</label>
-                          <input type="text" v-bind:value="llamadas[ides].employee_id" class="form-control" value="Deveint Inc" disabled>
+                          <input type="text" v-bind:value="llamadas[ides].employee_id" class="form-control" value="Deveint Inc">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="inputProjectLeader">Fecha / Hora</label>
-                          <input type="text" v-bind:value="llamadas[ides].created_at" class="form-control" value="Tony Chicken" disabled>
+                          <input type="text" v-bind:value="llamadas[ides].created_at" class="form-control" value="Tony Chicken">
                         </div>
                       </div>
                     </div>
@@ -94,7 +96,7 @@
 <script>  
   
   export default { 
-      props: ['llamadas','ides','id','name'],
+      props: ['llamadas','ides','name'],
       
       components:{
 
@@ -106,7 +108,6 @@
       data() {
           return {  
             estados:[],  
-            sel:this.id,  
           }
       },
       methods: {

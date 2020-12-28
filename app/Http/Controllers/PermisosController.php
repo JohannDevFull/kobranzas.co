@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buildings;
+use App\Models\Calls;
 use App\Models\Clients;
 use App\Models\Permisos;
 use App\Models\Pruebas;
@@ -134,31 +135,19 @@ class PermisosController extends Controller
 
     public function test(Request $request,$id='')
     {
-
-       // $clients=Clients::select('*')
-       //                      ->where('building_id',$id)
-       //                      ->join('users', 'user_id', '=', 'id')
-       //                      ->get();
-       //  $clientes=$clients;
-
-        $clients=DB::select('SELECT building_id FROM clients where user_id='.$id);
-
-        $cli=DB::select('SELECT name_building FROM buildings where id_building='.$clients[0]->building_id);
-        // $num=sizeof($clientes);
-
-
-        print_r($cli[0]->name_building);
+ 
+        $llamadas = Calls::select('*')
+                            ->where('client_id',$id) 
+                            ->get();
+  
         echo "<br>";
-        echo "------------------------------------**** colombia ***--------------------------------------------";
+        echo "------------------------------------**** PRUEBAS JOHANN ***--------------------------------------------";
+        echo "<br>";
+        
+            print_r($llamadas);
 
-        // for ($i=0; $i < $num ; $i++) 
-        // { 
-        //     echo "<br>";
-        //     echo "--------------------------------------------------------------------------------";
-        //     print_r($clientes[$i]);
-        //     echo "<br>";
-        // }
-
+        echo "<br>";
+        
     }
 
         

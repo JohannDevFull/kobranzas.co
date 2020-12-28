@@ -10,7 +10,8 @@ use Illuminate\Database\Query\orderBy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Inertia\Inertia;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia; 
 
 class LlamadasController extends Controller
 {
@@ -70,6 +71,22 @@ class LlamadasController extends Controller
         return response()->json($users_cliente);
 
     }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function searchCall(Request $request)
+    {   
+        $id=$request->id;
+        $call = Calls::select('*') 
+                    ->where('id_call',$id) 
+                    ->get();
+        return response()->json($call);
+
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -89,16 +106,21 @@ class LlamadasController extends Controller
     public function create($id)
     {
         $empleado = Auth::id();
-        $user=User::find($id); 
+        $cliente=User::find($id); 
+        $llamadas = Calls::select('*')
+                            ->orderBy('id_call', 'DESC')
+                            ->where('client_id',$id) 
+                            ->get();
         
-        $clients=DB::select('SELECT building_id FROM clients where user_id='.$id);
-        $cli=DB::select('SELECT name_building FROM buildings where id_building='.$clients[0]->building_id);
+        $id_building=DB::select('SELECT building_id FROM clients where user_id='.$id);
+        $conjunto=DB::select('SELECT name_building FROM buildings where id_building='.$id_building[0]->building_id);
         
-        $conjuntoNombre=$cli[0]->name_building; 
+        $conjuntoNombre=$conjunto[0]->name_building;  
         
-        return Inertia::render('Empleado/Llamada', [
-            'cliente' => $user, 
+        return Inertia::render('Empleado/Llamada',[
             'empleadoid' => $empleado, 
+            'cliente' => $cliente, 
+            'llamadas' => $llamadas, 
             'conjunto' => $conjuntoNombre, 
         ]);
 
@@ -142,6 +164,17 @@ class LlamadasController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'cliente'=>'required',
+            'nombre'=>'required',
+            'telefono'=>'required',
+            'idempleado'=>'required',
+            'descripcion'=>'required',
+            'estado'=>'required',
+
+        ]);
+
         $call= Calls::create([  
             'client_id'=>$request->cliente,
             'name_call'=>$request->nombre,
@@ -149,7 +182,8 @@ class LlamadasController extends Controller
             'employee_id'=>$request->idempleado,
             'description'=>$request->descripcion,
             'state_id'=>$request->estado,
-        ]);
+        ]); 
+  
     }
 
     /**

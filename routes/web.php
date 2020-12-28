@@ -79,6 +79,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/buscar', [LlamadasController::class, 'cargarClientes']);
 
+    Route::get('/llamadas/buscar', [LlamadasController::class, 'searchCall']);
+
     Route::get('llamadas', [LlamadasController::class, 'index'])
         ->name('llamadas');
 
@@ -93,7 +95,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('llamadas/create/{id}', [LlamadasController::class, 'create'])
         ->name('llamadas.create');
-
 
     Route::post('/llamadas/store', [LlamadasController::class, 'store'])
         ->name('llamadas.store');
@@ -150,7 +151,7 @@ Route::middleware(['auth'])->group(function (){
 
 
 
-// RUTAS controladorr cliente
+// RUTAS controlador cliente
 Route::middleware(['auth'])->group(function (){
     
     Route::get('/buscar/estados/', [ClientsController::class,'estados']);
