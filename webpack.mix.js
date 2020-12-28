@@ -43,6 +43,7 @@ mix.copyDirectory('resources/assets/css', 'public/css');
 mix.copyDirectory('resources/assets/js', 'public/js');
 //Inertiajs
 mix.copy('resources/assets/Response.php', 'vendor/inertiajs/inertia-laravel/src/Response.php');
+mix.copy('resources/assets/Failure.php', 'vendor/maatwebsite/excel/src/Validators/Failure.php');
 
 
 

@@ -7,15 +7,16 @@ use App\Models\Clients;
 use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Excel;
+
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClientsController extends Controller
 {
-    
+
     public function estados(Request $request)
-    {   
-        $buscar=$request->id; 
-        $sta= DB::table('state')->get();
+    {
+        $buscar = $request->id;
+        $sta = DB::table('state')->get();
         return response()->json($sta);
     }
 
@@ -25,7 +26,7 @@ class ClientsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function cargarClientes(Request $request)
-    {   
+    {
         // $buscar=$request->buscar;
         // $users_cliente=User::role('Cliente')
         //                 ->where('name', 'like', '%'.$buscar.'%')
@@ -33,23 +34,22 @@ class ClientsController extends Controller
         // return response()->json($users_cliente);
 
 
-    	$buscar=$id;
- 
-        $conj=Clients::select('*')
-                            ->where('id_building',$buscar)
-                            ->join('users', 'administrator_id', '=', 'users.id')
-                            ->get();
-        $conjunto=$conj[0];     
+        $buscar = $id;
 
-        return Inertia::render('Admin/Conjuntos/Show',[
+        $conj = Clients::select('*')
+            ->where('id_building', $buscar)
+            ->join('users', 'administrator_id', '=', 'users.id')
+            ->get();
+        $conjunto = $conj[0];
+
+        return Inertia::render('Admin/Conjuntos/Show', [
             'conjunto' => $conjunto,
         ]);
 
 
-        $buscar=$request->buscar;
-        $users_cliente=Clients::role('Cliente')->get();
+        $buscar = $request->buscar;
+        $users_cliente = Clients::role('Cliente')->get();
         return response()->json($users_cliente);
-
     }
 
     /**
@@ -58,18 +58,15 @@ class ClientsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function importClients(Request $request)
-    { 
+    {
 
-        $archivo=$request->file('miarchivo');
+        $request->validate([
+            'file' => 'required|file|mimes:xls,xlsx'
+        ]);
 
-        // Excel::import(new ClientsImport,$archivo);
+        $path = $request->file('file');
+        $data = Excel::import(new ClientsImport, $path);
 
-        print_r($archivo);
-         
-
-        // $res=['{nombre:johann ramirez,phone:76857,state:200}'];
-
-        // return response()->json($res);
-
+        return response()->json(['message' => 'Subido'], 200);
     }
 }

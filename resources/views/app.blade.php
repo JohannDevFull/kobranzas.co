@@ -46,6 +46,7 @@
         <script src="http://kobranzas.co/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
         <!-- Summernote -->
         <script src="http://kobranzas.co/plugins/summernote/summernote-bs4.min.js"></script>
+        <script src="http://kobranzas.co/plugins/bootstrap/js/bootstrap.min.js"></script> 
         <!-- overlayScrollbars -->
         <script src="http://kobranzas.co/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script> 
         <script src="http://kobranzas.co/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
@@ -58,6 +59,7 @@
         <script src="http://kobranzas.co/js/demo.js"></script>
         <!--SweetAlert-->
         <script src="{{asset('js/sweetalert2.js')}}"></script>
+        
     </body>
     
 </html>

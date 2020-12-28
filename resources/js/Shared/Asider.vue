@@ -122,7 +122,7 @@
             </li>
             <li
               class="nav-item has-treeview"
-              v-if="$inertia.page.rol == 'Admin'"
+              v-if="$inertia.page.rol == 'Admin'||$inertia.page.rol == 'Empleado'||$inertia.page.rol == 'AdminConjunto'"
             >
               <inertia-link class="nav-link" :href="route('chat.index')">
                 <i class="nav-icon fas fa-comment-dots"></i>

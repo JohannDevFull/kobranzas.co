@@ -10,6 +10,9 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Registro de usuarios</h3>
+              <!--  -->
+            
+              <import-clients />
             </div>
 
             <form role="form" method="POST" @submit.prevent="store">
@@ -32,8 +35,7 @@
                       <a class="toolip">
                         <i class="fas fa-question-circle"></i>
                         <span class="tooltiptext">
-                          El rol cliente permiritirá ver los pagos
-                          realizados.
+                          El rol cliente permiritirá ver los pagos realizados.
                         </span>
                       </a>
                     </label>
@@ -45,8 +47,10 @@
                       type="radio"
                       :value="'employee'"
                     />
-                    <label for="trabajador">Trabajador
-                      <a class="toolip"><i class="fas fa-question-circle"></i>
+                    <label for="trabajador"
+                      >Trabajador
+                      <a class="toolip"
+                        ><i class="fas fa-question-circle"></i>
                         <span class="tooltiptext">
                           El rol trabajador permiritirá administrar llamadas,
                           tareas y acuerdos.
@@ -61,8 +65,10 @@
                       type="radio"
                       :value="'group'"
                     />
-                    <label for="adminConjunto">Admin de conjunto
-                      <a class="toolip"><i class="fas fa-question-circle"></i>
+                    <label for="adminConjunto"
+                      >Admin de conjunto
+                      <a class="toolip"
+                        ><i class="fas fa-question-circle"></i>
                         <span class="tooltiptext">
                           El rol administrado Conjunto permiritirá ver la lista
                           de los usuarios de un conjunto y los estados de
@@ -78,8 +84,10 @@
                       type="radio"
                       :value="'admin'"
                     />
-                    <label for="admin">Administrador
-                      <a class="toolip"><i class="fas fa-question-circle"></i>
+                    <label for="admin"
+                      >Administrador
+                      <a class="toolip"
+                        ><i class="fas fa-question-circle"></i>
                         <span class="tooltiptext">
                           El rol administrador permitirá administrar y crear
                           usuarios, conjuntos, registros y llamadas.
@@ -161,24 +169,30 @@
                   />
                 </div>
                 <div class="form-group" v-if="checked == 'client'">
-                        <label>Estado</label>
-                        <span class="required">*</span>
-                        <select class="form-control" v-model="selestado">
-                          <option value="" disabled>Seleccione Estado</option>
-                          <option v-for="option in estados" v-bind:value="option.id_state">
-                            {{ option.description }}
-                          </option>
-                        </select>
+                  <label>Estado</label>
+                  <span class="required">*</span>
+                  <select class="form-control" v-model="selestado">
+                    <option value="" disabled>Seleccione Estado</option>
+                    <option
+                      v-for="option in estados"
+                      v-bind:value="option.id_state"
+                    >
+                      {{ option.description }}
+                    </option>
+                  </select>
                 </div>
                 <div class="form-group" v-if="checked == 'client'">
-                        <label>Conjunto</label>
-                        <span class="required">*</span>
-                        <select class="form-control" v-model="selected_conjunto">
-                          <option value="" disabled>Seleccione Conjunto</option>
-                          <option v-for="opt in conjuntos" v-bind:value="opt.id_building">
-                            {{ opt.name_building }}
-                          </option>
-                        </select>
+                  <label>Conjunto</label>
+                  <span class="required">*</span>
+                  <select class="form-control" v-model="selected_conjunto">
+                    <option value="" disabled>Seleccione Conjunto</option>
+                    <option
+                      v-for="opt in conjuntos"
+                      v-bind:value="opt.id_building"
+                    >
+                      {{ opt.name_building }}
+                    </option>
+                  </select>
                 </div>
                 <div v-if="checked == 'client'">
                   <div class="form-group">
@@ -208,12 +222,11 @@
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Registrar</button>
               </div>
-              
-              
-                <ul v-for="error in errors.errors">
-                  <li class="required">{{ error[0] }}</li>
-                </ul>
-              
+
+              <ul v-for="error in errors.errors">
+                <li class="required">{{ error[0] }}</li>
+              </ul>
+
               <!-- <span  class="text-danger">{{
                 error[0]
               }}</span> -->
@@ -227,11 +240,13 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
+import ImportClients from "@/Kobranzas/ImportClients";
 
-export default { 
-  components: { 
+export default {
+  components: {
     AppLayout,
     JetNavLink,
+    ImportClients,
   },
   data() {
     return {
@@ -251,11 +266,12 @@ export default {
       client_code: "",
       contract_number: "",
       errors: [],
+      showModal: false,
     };
   },
-  created(){ 
-    this.buscarEstados()
-    this.buscarConjuntos()
+  created() {
+    this.buscarEstados();
+    this.buscarConjuntos();
   },
   methods: {
     reset() {
@@ -271,27 +287,25 @@ export default {
       this.client_code = "";
       this.contract_number = "";
     },
-    buscarEstados(){
-      axios.get('/buscar/estados',{
-            
-      })
-      .then( resp => { 
-          this.estados=resp.data  
-      })
-      .catch( error => {
-          console.log( error.response )
-      });
+    buscarEstados() {
+      axios
+        .get("/buscar/estados", {})
+        .then((resp) => {
+          this.estados = resp.data;
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
     },
-    buscarConjuntos(){
-      axios.get('/buscar/conjuntos',{
-        
-      })
-      .then( res => { 
-          this.conjuntos=res.data  
-      })
-      .catch( error => {
-          console.log( error.response )
-      });
+    buscarConjuntos() {
+      axios
+        .get("/buscar/conjuntos", {})
+        .then((res) => {
+          this.conjuntos = res.data;
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
     },
     store() {
       var url = "/user/store";
@@ -313,17 +327,25 @@ export default {
         .then((response) => {
           this.reset();
           this.errors = [];
-          $(document).Toasts('create', {
-            class: 'bg-success', 
-            title: 'Usuario creado',
-            subtitle: 'ok',
-            body: 'Exito al crear Usuario .'
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "El usuario ha sido creado!",
+            showConfirmButton: false,
+            timer: 1500,
           });
-          // toastr.success("Usuario Registrado");
         })
         .catch((error) => {
           this.errors = error.response.data;
         });
+    },
+    startTransitionModal() {
+      vm.$refs.backdrop.classList.toggle("d-block");
+      vm.$refs.modal.classList.toggle("d-block");
+    },
+    endTransitionModal() {
+      vm.$refs.backdrop.classList.toggle("show");
+      vm.$refs.modal.classList.toggle("show");
     },
   },
 };

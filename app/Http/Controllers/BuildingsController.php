@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\Buildings\MultiSheetTemplate;
 use App\Models\Buildings;
 use App\Models\Clients;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BuildingsController extends Controller
 {
@@ -152,5 +154,10 @@ class BuildingsController extends Controller
     {
         //
 
+    }
+    public function exportTemplate()
+    {
+        
+        return Excel::download(new MultiSheetTemplate, 'plantilla.xlsx');
     }
 }

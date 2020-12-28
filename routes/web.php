@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\BuildController; 
+use App\Http\Controllers\BuildController;
 use App\Http\Controllers\BuildingsController;
-use App\Http\Controllers\ClientsController; 
-use App\Http\Controllers\ChatController; 
+use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ConjuntosController;
 use App\Http\Controllers\LlamadasController;
 use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\UserController;
@@ -46,7 +47,7 @@ Route::get('construir', BuildController::class)->name('construir');
 // PERMISOS USUARIO 
 Route::middleware(['auth'])->group(function () {
     Route::post('chat/getContacts', [ChatController::class, 'getContacts']);
-    
+
 
 
     Route::post('chat/getRequests', [ChatController::class, 'getRequestsChats'])
@@ -114,13 +115,14 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-// RUTAS CONJUNTOS 
+// RUTAS CONJUNTOS  
 Route::middleware(['auth'])->group(function (){
    
     Route::get('/buscar/conjunto', [BuildingsController::class,'cargarConjunto']);
     Route::get('/buscar/conjuntos', [BuildingsController::class,'cargarConjuntos']);
     Route::get('/buscar/conjuntos/short', [BuildingsController::class,'cargarConjuntosShort']);
     Route::get('/buscar/administradores', [BuildingsController::class,'cargarAdministradores']);
+
 
     Route::get('/conjuntos', [BuildingsController::class, 'index'])
         ->name('conjuntos');
@@ -136,32 +138,29 @@ Route::middleware(['auth'])->group(function (){
 
     Route::get('conjuntos/{id}/edit', [BuildingsController::class, 'edit'])
         ->name('conjuntos.edit');
- 
+
     Route::put('conjuntos/update/{id}', [BuildingsController::class, 'update'])
-        ->name('conjuntos.update'); 
+        ->name('conjuntos.update');
 
     // Route::delete('conjuntos/{user}', [ConjuntosController::class, 'destroy'])
     //     ->name('conjuntos.destroy'); 
 
     Route::put('conjuntos/{user}/restore', [ConjuntosController::class, 'restore'])
         ->name('conjuntos.restore');
+    Route::get('conjuntos/template', [BuildingsController::class, 'exportTemplate'])
+    ->middleware('permission:conjuntos.export');
 });
 
 
+// RUTAS controladorr cliente
+Route::middleware(['auth'])->group(function () { 
 
-
-
-// RUTAS controlador cliente
-Route::middleware(['auth'])->group(function (){
-    
-    Route::get('/buscar/estados/', [ClientsController::class,'estados']);
-    Route::get('/buscar/clientes', [ClientsController::class,'cargarClientes']);
-    Route::post('/importar/clientes', [ClientsController::class,'importClients']);
-
+    Route::get('/buscar/estados/', [ClientsController::class, 'estados']);
+    Route::get('/buscar/clientes', [ClientsController::class, 'cargarClientes']);
+    Route::post('/importar/clientes', [ClientsController::class, 'importClients'])->
+    middleware('permission:clients.import');
 });
-
-// Route to test 
-Route::get('prueba/{id}', [PermisosController::class,'test'])->name('prueba');
+ 
 
 
 // GISTION DE ROLES Y PERMISSOS
@@ -194,4 +193,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('iframe', [PermisosController::class,'iframe'])->name('iframe');
     Route::get('/ventana', [LlamadasController::class,'indexVentana'])->name('ventana');
     Route::get('/ventana/create', [LlamadasController::class,'ventanaIndes'])->name('ventana.create');
-});
+}); 
+Route::get('prueba/{id}', [PermisosController::class, 'test'])->name('prueba'); 

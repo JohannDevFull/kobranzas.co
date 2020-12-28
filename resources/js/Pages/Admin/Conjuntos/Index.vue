@@ -121,6 +121,7 @@ export default {
           });
       },
 
+
       buscarKUP(){
           clearTimeout( this.setTimeoutBuscador )
           this.setTimeoutBuscador=setTimeout( this.buscarResultados ,360) 
@@ -128,6 +129,7 @@ export default {
       buscarONC(){
         this.buscarResultados()
       }, 
+      
 
   }
 }

@@ -37,7 +37,7 @@
     <portal-target name="modal" multiple>
     </portal-target>
     
-    <ChatWidget  v-if="$inertia.page.rol != 'Admin'"></ChatWidget>
+    <ChatWidget  v-if="$inertia.page.rol == 'Cliente'"></ChatWidget>
 
 </div>
 
