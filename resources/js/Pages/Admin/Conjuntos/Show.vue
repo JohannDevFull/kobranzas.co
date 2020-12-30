@@ -155,50 +155,72 @@
                   </button>
                 </div>
               </div>
- 
-            <div class="card-body table-responsive p-0" style="height: 400px;">
-                <table class="table table-head-fixed text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Nombre </th>
-                      <th>Correo</th>
-                      <th>Estado</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  
-                  <tbody>
-                    <tr v-for="row in clientes" >
-                      <td> 
-                          {{ row.id }} 
-                      </td>
-                      <td> 
-                          {{ row.name }} 
-                      </td>
-                      <td> 
-                          {{ row.email}} 
-                      </td>
-                      <td> 
-                          {{ row.phone_one }}  
-                      </td>
-                      
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0" style="height: 400px">
+            <table class="table table-head-fixed text-nowrap">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
 
-                      <td> 
-                        <inertia-link class="" :href="route('llamadas.create',row.id)" > 
-                            <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
-                        </inertia-link>
+              <tbody>
+                <tr v-for="row in clientes">
+                  <td>
+                    {{ row.id_client }}
+                  </td>
+                  <td>
+                    {{ row.name }}
+                  </td>
+                  <td>
+                    {{ row.email }}
+                  </td>
+                  <td>
+                    {{ row.phone_one }}
+                  </td>
 
-                        <inertia-link class="" :href="route('llamadas.create',row.id)">
-                            <i class="nav-icon fas fa-hands-helping text-success" style="padding:6px;"></i>  
-                        </inertia-link>
-                        <inertia-link class="" :href="route('llamadas.create',row.id)">
-                            <i class="nav-icon fas fa-phone text-success" style="padding:6px;"></i> 
-                        </inertia-link>
-                      </td>
+                  <td>
+                    <inertia-link
+                      class=""
+                      :href="route('llamadas.create', row.id)"
+                    >
+                      <i
+                        class="nav-icon fas fa-eye text-info"
+                        style="padding: 3px"
+                      ></i>
+                    </inertia-link>
 
-            </div> 
-
+                    <inertia-link
+                      class=""
+                      :href="route('llamadas.create', row.id)"
+                    >
+                      <i
+                        class="nav-icon fas fa-hands-helping text-success"
+                        style="padding: 6px"
+                      ></i>
+                    </inertia-link>
+                    <inertia-link
+                      class=""
+                      :href="route('llamadas.create', row.id)"
+                    >
+                      <i
+                        class="nav-icon fas fa-phone text-success"
+                        style="padding: 6px"
+                      ></i>
+                    </inertia-link>
+                  </td>
+                </tr>
+                <tr></tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
           <div class="card-footer"></div>
         </div>
         <!-- /.card -->
@@ -269,7 +291,7 @@ export default {
           .then((response) => {
             if (response.status === 200) {
               Swal.fire({
-                // position: "top-end",
+                position: "top-end",
                 icon: "success",
                 title: "Los Clientes han sido subidos",
                 showConfirmButton: false,
