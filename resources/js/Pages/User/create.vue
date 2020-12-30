@@ -127,6 +127,16 @@
                   />
                 </div>
                 <div class="form-group">
+                  <label>Confirmar Contraseña:</label>
+                  <span class="required">*</span>
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="Ingrese la contraseña"
+                    v-model="confirmPass"
+                  />
+                </div>
+                <div class="form-group">
                   <label>Tipo de Documento</label>
                   <span class="required">*</span>
                   <select class="form-control" v-model="selected">
@@ -257,6 +267,7 @@ export default {
       name: "",
       email: "",
       pass: "",
+      confirmPass:'',
       selected: "",
       selestado: "",
       selected_conjunto: "",
@@ -278,6 +289,7 @@ export default {
       this.name = "";
       this.email = "";
       this.pass = "";
+      this.confirmPass = "";
       this.selected = "";
       this.selected_conjunto = "";
       this.selestado = "";
@@ -315,6 +327,7 @@ export default {
           nombre: this.name,
           correo: this.email,
           contraseña: this.pass,
+          confirmar_contraseña:this.confirmPass,
           tipo_de_documento: this.selected,
           documento: this.document,
           telefono: this.phone_one,

@@ -122,6 +122,7 @@
         <div class="card-body" style="display: block">
           Actualizado el: {{ userinfo.updated_at }}
         </div>
+      
         <!-- /.card-body -->
       </div>
     </div>

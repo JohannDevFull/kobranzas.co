@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
- 
+
 use App\Models\Clients;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         return Inertia::render('User');
     }
-    
+
     public function paginate(Request $request)
     {
         $show = $request['show'];
@@ -45,7 +45,8 @@ class UserController extends Controller
             'role' => 'required',
             'nombre' => 'required|regex:/^[\pL\s\-]+$/u',
             'correo' => 'required|email|unique:users,email',
-            'contraseña' => 'required',
+            'contraseña' => 'required|min:6|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+            'confirmar_contraseña' => 'required_with:contraseña|same:contraseña|min:6',
             'tipo_de_documento' => 'required',
             'documento' => 'required|unique:users,document',
             'telefono' => 'required',
@@ -67,31 +68,31 @@ class UserController extends Controller
             'doc_type' => $request->tipo_de_documento,
             'document' => $request->documento,
             'phone_one' => $request->telefono,
-            'phone_two ' => $request->phone_two,
+            'phone_two' => $request->phone_two,
         ]);
 
 
         $user_id =  DB::getPdo()->lastInsertId();
 
-        switch ($request['role']){
+        switch ($request['role']) {
             case 'client':
                 $user = User::find($user_id);
                 $user->assignRole('Cliente');
-                
+
                 $client = Clients::create([
                     'client_code' => $request->codigo_de_cliente,
-                    'contract_number' => $request->numero_de_contrato, 
-                    'state_id' => $request->estado, 
+                    'contract_number' => $request->numero_de_contrato,
+                    'state_id' => $request->estado,
                     'user_id' => $user_id,
                     'building_id' => $request->conjunto,
 
                 ]);
 
-            break;
+                break;
             case 'employee':
                 $user = User::find($user_id);
                 $user->assignRole('Empleado');
-            break;
+                break;
             case 'group':
                 $user = User::find($user_id);
                 $user->assignRole('AdminConjunto');
@@ -120,9 +121,9 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'nombre' => 'required|regex:/^[\pL\s\-]+$/u',
-            'correo' => 'required  |email| unique:users,email,'.$id,
+            'correo' => 'required  |email| unique:users,email,' . $id,
             'tipo_de_documento' => 'required',
-            'documento' => 'required| unique:users,document,'.$id,
+            'documento' => 'required| unique:users,document,' . $id,
             'telefono' => 'required',
 
         ]);

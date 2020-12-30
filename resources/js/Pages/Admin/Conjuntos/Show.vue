@@ -28,7 +28,7 @@
               "
             >
               <h3 class="widget-user-username text-right">
-                {{ conjunto.name }}
+                {{ conjuntoinfo.name }}
               </h3>
               <h5 class="widget-user-desc text-right">
                 Conjunto : {{ conjunto.name_building }}
@@ -38,7 +38,9 @@
               class="widget-user-image"
               style="position: absolute; top: 300px"
             >
-              <img class="img-circle" v-bind:src="img" alt="User Avatar" />
+          
+              <img class="img-circle" v-bind:src="conjuntoinfo.profile_photo_url" alt="User Avatar" />
+              
             </div>
           </div>
           <div class="card-footer">
@@ -232,7 +234,7 @@
 import AppLayout from "@/Layouts/AppLayout";
 
 export default {
-  props: ["conjunto", "clientes", "num"],
+  props: ["conjunto", "clientes", "num","conjuntoinfo"],
   components: {
     AppLayout,
   },

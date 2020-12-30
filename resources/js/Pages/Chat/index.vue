@@ -132,6 +132,7 @@
                                 :src="contact.profile_photo_url"
                                 alt="sunil"
                               />
+                            
                             </div>
                             <div class="chat_ib">
                               <h5>

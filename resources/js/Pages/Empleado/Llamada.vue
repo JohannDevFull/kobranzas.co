@@ -85,7 +85,7 @@
                       <div class="widget-user-header " style="background-color: #e9ecef">
                         
                         <div class="widget-user-image">
-                          <img class="img-circle elevation-2" v-bind:src="image" v-bind:alt="nameimg">
+                          <img class="img-circle elevation-2" v-bind:src="cliente.profile_photo_url" v-bind:alt="nameimg">
                         </div>
 
                         <!-- /.widget-user-image -->

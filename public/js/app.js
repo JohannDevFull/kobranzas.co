@@ -4661,9 +4661,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["conjunto", "clientes", "num"],
+  props: ["conjunto", "clientes", "num", "conjuntoinfo"],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -5233,6 +5235,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _Jetstream_NavLink__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/NavLink */ "./resources/js/Jetstream/NavLink.vue");
 /* harmony import */ var _Chat_pop__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Chat/pop */ "./resources/js/Chat/pop.vue");
+//
 //
 //
 //
@@ -8507,6 +8510,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8526,7 +8539,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       checked: "client",
       name: "",
       email: "",
-      pass: ""
+      pass: "",
+      confirmPass: ''
     }, _defineProperty(_ref, "selected", ""), _defineProperty(_ref, "selestado", ""), _defineProperty(_ref, "selected_conjunto", ""), _defineProperty(_ref, "document", ""), _defineProperty(_ref, "phone_one", ""), _defineProperty(_ref, "phone_two", ""), _defineProperty(_ref, "client_code", ""), _defineProperty(_ref, "contract_number", ""), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "showModal", false), _ref;
   },
   created: function created() {
@@ -8538,6 +8552,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.name = "";
       this.email = "";
       this.pass = "";
+      this.confirmPass = "";
       this.selected = "";
       this.selected_conjunto = "";
       this.selestado = "";
@@ -8574,6 +8589,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         nombre: this.name,
         correo: this.email,
         contraseña: this.pass,
+        confirmar_contraseña: this.confirmPass,
         tipo_de_documento: this.selected,
         documento: this.document,
         telefono: this.phone_one,
@@ -9037,6 +9053,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _Jetstream_NavLink__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/NavLink */ "./resources/js/Jetstream/NavLink.vue");
+//
 //
 //
 //
@@ -60741,7 +60758,7 @@ var render = function() {
                   _c("h3", { staticClass: "widget-user-username text-right" }, [
                     _vm._v(
                       "\n              " +
-                        _vm._s(_vm.conjunto.name) +
+                        _vm._s(_vm.conjuntoinfo.name) +
                         "\n            "
                     )
                   ]),
@@ -60765,7 +60782,10 @@ var render = function() {
                 [
                   _c("img", {
                     staticClass: "img-circle",
-                    attrs: { src: _vm.img, alt: "User Avatar" }
+                    attrs: {
+                      src: _vm.conjuntoinfo.profile_photo_url,
+                      alt: "User Avatar"
+                    }
                   })
                 ]
               )
@@ -64596,7 +64616,7 @@ var render = function() {
                                         _c("img", {
                                           staticClass: "img-circle elevation-2",
                                           attrs: {
-                                            src: _vm.image,
+                                            src: _vm.cliente.profile_photo_url,
                                             alt: _vm.nameimg
                                           }
                                         })
@@ -67707,6 +67727,37 @@ var render = function() {
                               return
                             }
                             _vm.pass = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Confirmar Contraseña:")]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.confirmPass,
+                            expression: "confirmPass"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "password",
+                          placeholder: "Ingrese la contraseña"
+                        },
+                        domProps: { value: _vm.confirmPass },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.confirmPass = $event.target.value
                           }
                         }
                       })
