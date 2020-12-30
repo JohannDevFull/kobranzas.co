@@ -15,7 +15,7 @@ class CreateCallsTable extends Migration
     {
         Schema::create('calls', function (Blueprint $table) {
             $table->bigIncrements('id_call');  
-            $table->foreignId('client_id')->references('id_client')->on('clients'); 
+            $table->foreignId('client_id')->references('user_id')->on('clients'); 
             $table->string('name_call');
             $table->string('phone_call');
             $table->bigInteger('employee_id'); 
