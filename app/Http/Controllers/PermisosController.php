@@ -9,6 +9,7 @@ use App\Models\Permisos;
 use App\Models\Pruebas;
 use App\Models\State;
 use App\Models\User;
+use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -135,19 +136,40 @@ class PermisosController extends Controller
 
     public function test(Request $request,$id='')
     {
- 
-        $llamadas = Calls::select('*')
-                            ->where('client_id',$id) 
-                            ->get();
+        $buscar=$id;
+
+        $llamada=DB::select('SELECT * FROM calls WHERE id_call='.$buscar);
   
         echo "<br>";
         echo "------------------------------------**** PRUEBAS JOHANN ***--------------------------------------------";
         echo "<br>";
-        
-            print_r($llamadas);
+         
 
-        echo "<br>";
-        
+        print_r($llamada);  
+
+
+        setlocale(LC_TIME, "spanish");
+        date_default_timezone_set('America/Bogota');
+
+ 
+
+        $cadena = $llamada[0]->created_at;
+
+        // antes de PHP 5.1.0 se debería de comparar con -1, en vez de con false
+        if (($timestamp = strtotime($cadena)) === false) {
+            echo "La cadena ($cadena) es falsa";
+        } 
+        else 
+        {
+            echo "<br><br><br>".date(' dS \o\f F Y h:i:s A', $timestamp);
+        } 
+
+
+
+
+
+
+
     }
 
         
