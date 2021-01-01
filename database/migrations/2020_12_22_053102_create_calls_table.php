@@ -17,8 +17,8 @@ class CreateCallsTable extends Migration
             $table->bigIncrements('id_call');  
             $table->foreignId('client_id')->references('user_id')->on('clients'); 
             $table->string('name_call');
-            $table->string('phone_call');
-            $table->bigInteger('employee_id'); 
+            $table->string('phone_call'); 
+            $table->foreignId('employee_id')->references('id')->on('users');  
             $table->string('description'); 
             $table->integer('state_id'); 
             $table->timestamps();
