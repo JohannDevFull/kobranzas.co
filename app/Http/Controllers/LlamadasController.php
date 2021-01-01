@@ -106,14 +106,11 @@ class LlamadasController extends Controller
     public function create($id)
     {
         $empleado = Auth::id();
-        $cliente=User::find($id); 
+        $cliente=User::find($id);  
 
-        // $llamadas = Calls::select('*')
-        //                     ->orderBy('id_call', 'DESC')
-        //                     ->where('client_id',$id) 
-        //                     ->get();
-
-        $llamadas=DB::select('SELECT * FROM calls WHERE client_id='.$id);
+        $llamadas=DB::select("SELECT id_call,client_id,name_call,phone_call,users.name as 'employee_id',description,state_id,calls.created_at,calls.updated_at FROM calls 
+            INNER JOIN users
+            on calls.employee_id = users.id  WHERE client_id=".$id);
         
         $id_building=DB::select('SELECT building_id FROM clients where user_id='.$id);
         $conjunto=DB::select('SELECT name_building FROM buildings where id_building='.$id_building[0]->building_id);
