@@ -3211,7 +3211,7 @@ __webpack_require__.r(__webpack_exports__);
       alert("numero: " + num);
       var url = "/account/store";
       axios.post(url, {
-        capital_deuda: num,
+        capital_deuda: this.capital_dec,
         intereses: this.intereses,
         cliente_id: this.id_cliente
       }).then(function (response) {
