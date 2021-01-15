@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Calls;
 use App\Models\Llamada;
+use App\Models\Movements;
 use App\Models\User;
 use App\Models\llamadas;
 use Illuminate\Database\Query\orderBy;
@@ -33,27 +34,43 @@ class LlamadasController extends Controller
      */
     public function agreement($id)
     {
-        // $buscar=$id;
+        $buscar=$id;
  
-        // $conj=Buildings::select('*')
-        //                     ->where('id_building',$buscar)
-        //                     ->join('users', 'administrator_id', '=', 'users.id')
-        //                     ->get();
-        // $conjunto=$conj[0];     
+        $cliente=DB::select("SELECT * FROM `clients` 
+                             INNER JOIN users 
+                             ON clients.user_id = users.id  
+                             WHERE user_id=".$id);  
 
-
-        // $clients=Clients::select('*')
-        //                 ->where('building_id',$buscar)
-        //                 ->join('users', 'user_id', '=', 'id')
-        //                 ->get();
+        if ($debito=DB::select("SELECT * FROM movements  WHERE  `user_id`=".$id." LIMIT 1"))
+        {
+            $debito=DB::select("SELECT SUM(valor_movement) AS 'debito' FROM movements 
+                                WHERE  type_movement_id=1 AND `user_id`=".$id);
+            $credito=DB::select("SELECT SUM(valor_movement) AS 'credito' FROM movements 
+                                WHERE  type_movement_id=2 AND `user_id`=".$id);
+            $cuenta=$debito[0]->debito-$credito[0]->credito;
+            
+        }
+        else
+        {  
+            $cuenta=0;
+        }
+            
         
+        $id_building=DB::select('SELECT building_id FROM clients where user_id='.$id);
+        $conjunto=DB::select('SELECT * FROM buildings where id_building='.$id_building[0]->building_id);
 
-        // $num=sizeof($clients);  
+        $estado=$cliente[0]->state_id;
+
+        $acuerdo_actual=DB::select('SELECT description FROM state where id_state='.$estado);
+        
+        $conjuntoNombre=$conjunto[0]->name_building;    
+  
 
         return Inertia::render('Empleado/AcuerdoCuenta/AgreementAccount',[
-            // 'conjunto' => $conjunto,
-            // 'clientes' => $clients,
-            // 'num' => $num,
+             'conjunto' => $conjunto[0],
+             'cliente' => $cliente[0],
+             'cuenta' => $cuenta,
+             'acuerdo' => $acuerdo_actual,
         ]);
     }
 
@@ -69,7 +86,6 @@ class LlamadasController extends Controller
                         ->where('name', 'like', '%'.$buscar.'%')
                         ->get();
         return response()->json($users_cliente);
-
     }
     
     /**
@@ -84,7 +100,6 @@ class LlamadasController extends Controller
                     ->where('id_call',$id) 
                     ->get();
         return response()->json($call);
-
     }
 
 
@@ -104,25 +119,64 @@ class LlamadasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create($id)
-    {
+    { 
         $empleado = Auth::id();
-        $cliente=User::find($id);  
+        
+        if ($debito=DB::select("SELECT * FROM movements  WHERE  `user_id`=".$id." LIMIT 1"))
+        {
+            $debito=DB::select("SELECT SUM(valor_movement) AS 'debito' FROM movements 
+                                WHERE  type_movement_id=1 AND `user_id`=".$id);
+            $credito=DB::select("SELECT SUM(valor_movement) AS 'credito' FROM movements 
+                                WHERE  type_movement_id=2 AND `user_id`=".$id);
+            $saldo=1;
+        }
+        else
+        { 
+            $saldo=0;
+        } 
 
-        $llamadas=DB::select("SELECT id_call,client_id,name_call,phone_call,users.name as 'employee_id',description,state_id,calls.created_at,calls.updated_at FROM calls 
-            INNER JOIN users
-            on calls.employee_id = users.id  WHERE client_id=".$id);
+
+        if ($saldo===0)
+        { 
+            return Redirect::route('llamadas.agreement',['id' => $id]);
+        }
+        else
+        {
+
+            $cliente=DB::select("SELECT * FROM `clients` 
+                                 INNER JOIN users 
+                                 ON clients.user_id = users.id  
+                                 WHERE user_id=".$id);  
+
+            $llamadas=DB::select("SELECT id_call,client_id,name_call,phone_call,users.name as 'employee_id',description,state_id,calls.created_at,calls.updated_at FROM calls 
+                INNER JOIN users
+                on calls.employee_id = users.id  WHERE client_id=".$id);
+            
+            $id_building=DB::select('SELECT building_id FROM clients where user_id='.$id);
+            $conjunto=DB::select('SELECT * FROM buildings where id_building='.$id_building[0]->building_id);
+
+            $estado=$cliente[0]->state_id;  
+
+            $acuerdo_actual=DB::select('SELECT description FROM state where id_state='.$estado);
+            
+            $conjuntoNombre=$conjunto[0]->name_building;  
+
+
+
+            $cuentaTotal=$debito[0]->debito-$credito[0]->credito;
+            
+            return Inertia::render('Empleado/Llamada',[
+                'empleadoid' => $empleado, 
+                'conjunto' => $conjuntoNombre, 
+                'cliente' => $cliente[0], 
+                'acuerdo' => $acuerdo_actual, 
+                'llamadas' => $llamadas, 
+                'cuentaTotal' => $cuentaTotal, 
+                'admin' => $conjunto[0]->valor_administracion, 
+            ]);
+        }
+
         
-        $id_building=DB::select('SELECT building_id FROM clients where user_id='.$id);
-        $conjunto=DB::select('SELECT name_building FROM buildings where id_building='.$id_building[0]->building_id);
-        
-        $conjuntoNombre=$conjunto[0]->name_building;  
-        
-        return Inertia::render('Empleado/Llamada',[
-            'empleadoid' => $empleado, 
-            'cliente' => $cliente, 
-            'llamadas' => $llamadas, 
-            'conjunto' => $conjuntoNombre, 
-        ]);
 
     }
 
@@ -135,6 +189,19 @@ class LlamadasController extends Controller
          
         
         return Inertia::render('Empleado/AcuerdoCuenta/Client', [
+            'cliente' => $user, 
+            'empleadoid' => $empleado,  
+        ]);
+
+    }
+
+    public function account($id)
+    {
+        $empleado = Auth::id();
+        $user=User::find($id); 
+         
+        
+        return Inertia::render('Empleado/AcuerdoCuenta/StateAccount', [
             'cliente' => $user, 
             'empleadoid' => $empleado,  
         ]);
@@ -184,6 +251,48 @@ class LlamadasController extends Controller
             'state_id'=>$request->estado,
         ]); 
   
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeAccount(Request $request)
+    {
+        $id_building=DB::select('SELECT building_id FROM clients where user_id='.$request->cliente_id);
+        $conjunto=DB::select('SELECT * FROM buildings where id_building='.$id_building[0]->building_id);
+
+        $this->validate($request,[
+            'cliente_id'=>'required',
+            'capital_deuda'=>'required',
+            'intereses'=>'required',
+        ]);
+
+        $call= Movements::create([
+            'user_id'=>$request->cliente_id, 
+            'type_movement_id'=>1,
+            'valor_movement'=>$request->capital_deuda,
+            'description_movement'=>'Saldo inicial', 
+        ]);
+
+        $call= Movements::create([
+            'user_id'=>$request->cliente_id, 
+            'type_movement_id'=>1,
+            'valor_movement'=>$request->intereses, 
+            'description_movement'=>'Intereses', 
+        ]); 
+
+        $gastos_cobranzas=(($request->capital_deuda+$request->intereses)*$conjunto[0]->gastos_cobranzas)/100;
+        
+        $call= Movements::create([
+            'user_id'=>$request->cliente_id, 
+            'type_movement_id'=>1,
+            'valor_movement'=>$gastos_cobranzas, 
+            'description_movement'=>'Gastos cobranzas', 
+        ]);
+
     }
 
     /**

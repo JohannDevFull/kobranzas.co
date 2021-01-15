@@ -19,12 +19,12 @@
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header " style="background-color: #e9ecef">
                         <div class="widget-user-image">
-                          <img class="img-circle elevation-2" v-bind:src="img" v-bind:alt="nameimg">
+                          <img class="img-circle elevation-2" v-bind:src="img" >
                         </div>
                         <!-- /.widget-user-image -->
-                        <h2 class="widget-user-username">Nombre:<!-- {{ cliente.name }} --> </h2> 
-                        <h4 class="widget-user-desc">Conjunto : <!-- {{ conj }}  --> </h4>
-                        <h6 class="widget-user-desc">Apartamento:  </h6>
+                        <h2 class="widget-user-username">Nombre:{{ cliente.name }} </h2> 
+                        <h4 class="widget-user-desc">Conjunto : {{ conjunto.name_building }}  </h4>
+                        <h6 class="widget-user-desc">Apartamento: {{ cliente.client_code }} </h6>
                       </div>
                 <div class="widget-user-image" style="position: absolute;top: 200px;">
                   <img class="img-circle"  v-bind:src="img" alt="User Avatar">
@@ -34,7 +34,7 @@
                 <div class="row">
                   <div class="col-sm-4 border-right">
                     <div class="description-block">
-                      <h5 class="description-header">ACUERDO ROTO</h5>
+                      <h5 class="description-header">{{acuerdo[0].description}}</h5>
                       <span class="description-text">Acuerdo</span>
                     </div>
                     <!-- /.description-block -->
@@ -45,23 +45,35 @@
 
                   <div class="col-sm-4 border-right"> 
 
-                    <div class="description-block" >
-                      <h5 class="description-header">1.000.000</h5>
-                      <span class="description-text">Estado cuenta</span>
+                    <inertia-link  :href="route('state.account',cliente.user_id)" v-if="cuenta != 0">
+                    <div class="description-block"  >
+
+                        <h5 class="description-header">{{cuenta}}</h5>
+                        <span class="description-text">Estado cuenta</span>
+                    </div>
+                    </inertia-link> 
+                       
+                    <div class="description-block" v-else>
+                      <button type="button" style="margin-top:-4px" class="btn btn-success" @click="abrir()"  >
+                            Crear Cuenta  
+                      </button>
                     </div>
                     
                     <!-- /.description-block -->
                   </div>
+                        
 
 
                   <!-- /.col -->
                   <div class="col-sm-4">
-                    <div class="description-block">
-                      <h5 class="description-header">
-                        <i class="nav-icon fas fa-phone text-success" style="padding:6px;"></i>
-                      </h5>
-                      <span class="description-text">Llamar</span>
-                    </div>
+                    <inertia-link class="" :href="route('llamadas.create',cliente.user_id)">
+                      <div class="description-block">
+                        <h5 class="description-header">
+                          <i class="nav-icon fas fa-phone text-success" style="padding:6px;"></i>
+                        </h5>
+                        <span class="description-text">Llamar</span>
+                      </div>
+                    </inertia-link> 
                     <!-- /.description-block -->
                   </div>
                   <!-- /.col -->
@@ -77,7 +89,7 @@
               <div class="card-header">
                 <h3 class="card-title">Lista de acuerdos</h3>
 
-                <div class="card-tools"> 
+                <div class="card-tools" v-if="cuenta != 0"> 
                      
                         <inertia-link :href="route('conjuntos.create')">
                           <button class="btn btn-dark float">
@@ -105,23 +117,24 @@
                   </thead>
                   
                   <tbody>
-                    <tr v-for="row in clientes" >
+                    <tr  >
+                    <!-- <tr v-for="row in clientes" > -->
                       <td> 
-                          {{ row.id }} 
+                          {{  }} 
                       </td>
                       <td> 
-                          {{ row.name }} 
+                          {{  }} 
                       </td>
                       <td> 
-                          {{ row.email}} 
+                          {{  }} 
                       </td>
                       <td> 
-                          {{ row.phone_one }}  
+                          {{  }}  
                       </td>
                       
 
                       <td> 
-                        <inertia-link class="" :href="route('llamadas.create',row.id)" > 
+                        <!-- <inertia-link class="" :href="route('llamadas.create',row.id)" > 
                             <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
                         </inertia-link>
 
@@ -130,7 +143,7 @@
                         </inertia-link>
                         <inertia-link class="" :href="route('llamadas.create',row.id)">
                             <i class="nav-icon fas fa-phone text-success" style="padding:6px;"></i> 
-                        </inertia-link>
+                        </inertia-link> -->
                       </td>
 
                       
@@ -154,7 +167,7 @@
               <div class="card-header">
                 <h3 class="card-title">Lista de Pagos</h3>
 
-                <div class="card-tools"> 
+                <div class="card-tools" v-if="cuenta != 0"> 
                      
                         <inertia-link :href="route('conjuntos.create')">
                           <button class="btn btn-dark float">
@@ -174,7 +187,7 @@
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th> Empleado</th>
+                      <th>Empleado</th>
                       <th>Fecha</th>
                       <th>Resivo</th>
                       <th>Acciones</th>
@@ -182,23 +195,24 @@
                   </thead>
                   
                   <tbody>
-                    <tr v-for="row in clientes" >
+                    <tr  >
+                    <!-- <tr v-for="row in clientes" > -->
                       <td> 
-                          {{ row.id }} 
+                          {{  }} 
                       </td>
                       <td> 
-                          {{ row.name }} 
+                          {{  }} 
                       </td>
                       <td> 
-                          {{ row.email}} 
+                          {{  }} 
                       </td>
                       <td> 
-                          {{ row.phone_one }}  
+                          {{  }}  
                       </td>
                       
 
                       <td> 
-                        <inertia-link class="" :href="route('llamadas.create',row.id)" > 
+                        <!-- <inertia-link class="" :href="route('llamadas.create',row.id)" > 
                             <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
                         </inertia-link>
 
@@ -207,7 +221,7 @@
                         </inertia-link>
                         <inertia-link class="" :href="route('llamadas.create',row.id)">
                             <i class="nav-icon fas fa-phone text-success" style="padding:6px;"></i> 
-                        </inertia-link>
+                        </inertia-link> -->
                       </td>
 
                       
@@ -226,17 +240,21 @@
             <!-- /.card -->    
       </div> 
 
+      <create-account v-bind:cliente_id="cliente.user_id"/>
+
 
     </div>
   </app-layout>
 </template>
 <script>
 import AppLayout from "@/Layouts/AppLayout"; 
+import CreateAccount from "@/Kobranzas/CreateAccount"; 
 
 export default {
-  props: ['conjunto','clientes','num'],
+  props: ['conjunto','cliente','cuenta','acuerdo'],
   components: {
     AppLayout, 
+    CreateAccount, 
   },
   created(){ 
     this.buscarResultados()
@@ -251,9 +269,6 @@ export default {
     }
   },
   methods: {
-      previewFiles(event){
-        console.log("Archivo cargado");
-      },
       buscarResultados(){
 
           axios.get('/buscar',{
@@ -272,38 +287,11 @@ export default {
           clearTimeout( this.setTimeoutBuscador )
           this.setTimeoutBuscador=setTimeout( this.buscarResultados ,360) 
       },
-      buscarONC(){
-        this.buscarResultados()
+      abrir(){ 
+        $("#CreateAccountModal").modal();
       },
-      importar(){
-        var url = "/importar/clientes";
-        axios
-        .post(url, { 
-          miarchivo: this.archivo, 
-        })
-        .then((response) => { 
-          this.errors = [];
-          
-          $(document).Toasts('create', {
-              class: 'bg-success', 
-              title: 'Repuesta con exito',
-              subtitle: 'ok',
-              body: 'Exito .'
-          });
- 
-           console.log('Exito al enviar archivo:'+response.data);
-          
-        })
-        .catch((error) => {
-           $(document).Toasts('create', {
-              class: 'bg-danger', 
-              title: 'Repuesta error',
-              subtitle: 'fallo',
-              body: 'Error .'
-          });
-           console.log('Error al enviar archivo:'+error);
-        });
-      },
+     
+
   }
 
 

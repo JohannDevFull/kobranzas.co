@@ -18,6 +18,8 @@ class CreateBuildingsTable extends Migration
             $table->string('name_building');
             $table->string('address_building');
             $table->string('phone_building');
+            $table->integer('gastos_cobranzas');
+            $table->decimal('valor_administracion', $precision = 13, $scale = 2);
             $table->foreignId('administrator_id')->references('id')->on('users');
             $table->timestamps();
         });

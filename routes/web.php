@@ -97,8 +97,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('llamadas/create/{id}', [LlamadasController::class, 'create'])
         ->name('llamadas.create');
 
+    Route::get('/llamadas/account/{id}', [LlamadasController::class, 'account'])
+        ->name('state.account');
+
     Route::post('/llamadas/store', [LlamadasController::class, 'store'])
         ->name('llamadas.store');
+
+    Route::post('/account/store', [LlamadasController::class, 'storeAccount'])
+        ->name('account.store');    
 
     Route::get('llamadas/{user}/edit', [LlamadasController::class, 'edit'])
         ->name('llamadas.edit');

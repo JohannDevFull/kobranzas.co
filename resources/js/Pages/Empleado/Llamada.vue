@@ -91,12 +91,12 @@
                         <!-- /.widget-user-image -->
                         <h2 class="widget-user-username">{{ cliente.name }} </h2> 
                         <h4 class="widget-user-desc">Conjunto : {{ conj }}  </h4>
-                        <h6 class="widget-user-desc">Apartamento:  </h6>
+                        <h6 class="widget-user-desc">Apartamento: {{ cliente.client_code }} </h6>
                       </div>
                       <div class="card-footer p-0">
                         <ul class="nav flex-column">
                           <li class="nav-item"> 
-                              Cedula  : {{ cliente.document }}
+                              Cedula  : {{ cliente.document }} 
                           </li>
                           <li class="nav-item"> 
                               Correo  : {{ cliente.email }}
@@ -110,12 +110,14 @@
                           <li class="nav-item">
                             <a href="#" class="nav-link">
                               Acuerdo actual 
-                              <span class="float-right badge bg-danger" style="margin: auto;">ACUERDO ROTO</span>
+                              <span class="float-right badge bg-danger" style="margin: auto;">
+                               {{ acuerdo[0].description }}
+                              </span>
                             </a>
                           </li>
                           <li class="nav-item">
                             <a href="#" class="nav-link">
-                              Estado cuenta <span class="float-right badge bg-info">1.349.000</span>
+                              Estado cuenta <span class="float-right badge bg-info">{{cuentaTotal}}</span>
                             </a>
                           </li>
                         </ul>
@@ -126,44 +128,81 @@
                 </div>
 
                 <div class="row p-2 collapse" id="collapseExample">   
+                  <div class="row" style="background-color: green;">
+
+                    <div class="col-sm-6">
+                      <div class="form-group ">
+                            <label>Abono</label>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-sort-amount-up-alt"></i></span> 
+                              </div>
+                              <input type="number" class="form-control"   v-model="form.abono" >
+                            </div>
+                      </div>
+                    </div>
                     
-                    <div class="col-sm-3">
+                    <div class="col-sm-6">
+                      <div class="form-group ">
+                            <label>Total deuda</label>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-coins"></i></span>
+                              </div>
+                              <input type="text" class="form-control"  v-model="total" disabled>
+                            </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
                       <div class="form-group ">
                             <label>Cuotas</label>
                             <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-sort-amount-up-alt"></i></span> 
                               </div>
-                              <input type="number" class="form-control" min="1" max="24" placeholder="1" v-model="form.cuotas" >
+                              <input type="number" class="form-control" min="1" max="24"  v-model="form.cuotas" >
                             </div>
                       </div>
                     </div>
 
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                       <div class="form-group ">
-                            <label>Intereses</label>
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-coins"></i></span>
-                              </div>
-                              <input type="text" class="form-control" placeholder="Username" v-model="form.interese" >
-                            </div>
-                      </div>
-                    </div>
-
-                    <div class="col-sm-3">
-                      <div class="form-group ">
-                            <label>Honorarios</label>
+                            <label>Valor subcuota</label>
                             <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                               </div>
-                              <input type="text" class="form-control" placeholder="Username" v-model="form.honorario" >
+                              <input type="text" class="form-control"  v-model="sub_cuota" disabled>
                             </div>
                       </div>
                     </div>
 
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
+                      <div class="form-group ">
+                            <label>Valor administracion</label>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                              </div>
+                              <input type="text" class="form-control" v-model="form.administracion" disabled>
+                            </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group ">
+                            <label>Valor total cuota</label>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                              </div>
+                              <input type="text" class="form-control" v-model="valor_cuota" disabled>
+                            </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
                       <div class="form-group " >
                         <label>Estado</label>
                         <span class="required">*</span>
@@ -175,7 +214,6 @@
                         </select>
                       </div>
                     </div>
-
                     <div class="col-sm-8" style="margin:auto; ">
                       <div class="form-group">
                         <label>Observaciones del acuerdo </label>
@@ -183,6 +221,12 @@
                         </textarea>
                       </div>
                     </div> 
+
+
+                  </div>
+                  <div class="row">
+                    
+                  </div>
                 </div>
 
               </div>
@@ -276,7 +320,7 @@
                       </td>
                       <td >
 
-                        <button type="button" style="margin-top:-4px" class="btn" @click="ver(index)"  >
+                        <button type="button" style="margin-top:-4px" class="btn btn-success" @click="ver(index)"  >
                             <i class="nav-icon fas fa-eye text-info"  ></i>         
                         </button>
 
@@ -306,15 +350,14 @@
   import { Inertia } from '@inertiajs/inertia'
 
   export default {
-    props: ['cliente','empleadoid','conjunto','llamadas'],
+    props: ['cliente','empleadoid','conjunto','admin','llamadas','acuerdo','cuentaTotal'],
 
     components: {
         AppLayout, 
         CallModal,
     },
     created(){ 
-      this.buscarEstados() 
-      // this.callm()  
+      this.buscarEstados()  
     },
     data() {
       return { 
@@ -327,12 +370,20 @@
           phone: this.cliente.phone_one,
           texto: null,
           
-          cuotas: null,
           intereses: null,
           honorarios: null,
           observaciones: null,
-          
+
+          deuda: this.cuentaTotal,
+          abono: 0,
+          total_deuda:0,
+          cuotas: 0,
+          subcuota: 0,
+          administracion: this.admin,
+          valorCuota: 0,
+
         },
+
         selestado:"",
         inde:0,
         index:"",
@@ -343,6 +394,30 @@
         conj:this.conjunto, 
 
       }
+    },
+    computed: {
+      total: function(){
+        return this.form.total_deuda= this.form.deuda-this.form.abono;
+      },
+      sub_cuota: function(){
+        if (this.form.cuotas===0){
+          return this.form.subcuota=0;
+        }else{
+          var num= this.form.total_deuda/this.form.cuotas;
+          var n=num.toFixed(2); 
+          return this.form.subcuota=n;
+        } 
+      },
+      valor_cuota: function(){
+        if (this.form.subcuota===0){
+          return this.form.valorCuota=0;
+        }else{
+          var num= parseFloat(this.form.subcuota)+parseFloat(this.form.administracion);
+          var n=num.toFixed(2); 
+          return this.form.subcuota=n;
+        }
+
+      },
     },
     methods: {
       guardar(){

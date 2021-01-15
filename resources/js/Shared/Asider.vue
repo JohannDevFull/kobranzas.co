@@ -5,12 +5,12 @@
       <!-- Brand Logo -->
       <a href="/" class="brand-link">
         <img
-          src="http://kobranzas.co/storage/img/AdminLTELogo.png"
+          src="/storage/img/logo.png"
           alt="AdminLTE Logo"
           class="brand-image img-circle elevation-3"
           style="opacity: 0.8"
         />
-        <span class="brand-text font-weight-light">kobranzas</span>
+        <span class="brand-text font-weight-light">LSA Abogados</span>
       </a>
 
       <!-- Sidebar -->

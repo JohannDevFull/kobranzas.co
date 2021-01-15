@@ -136,35 +136,17 @@ class PermisosController extends Controller
 
     public function test(Request $request,$id='')
     {
-        $buscar=$id;
 
-        $llamada=DB::select('SELECT * FROM calls WHERE id_call='.$buscar);
+        $debito=DB::select("SELECT * FROM movements WHERE user_id=".$id);
   
         echo "<br>";
-        echo "------------------------------------**** PRUEBAS JOHANN ***--------------------------------------------";
+        echo "<br>------------------------------------**** PRUEBAS JOHANN ***--------------------------------------------";
         echo "<br>";
+        echo "Debito: ";
+        print_r($debito);
+        echo "<br>";
+        echo "Credito: ";
          
-
-        print_r($llamada);  
-
-
-        setlocale(LC_TIME, "spanish");
-        date_default_timezone_set('America/Bogota');
-
- 
-
-        $cadena = $llamada[0]->created_at;
-
-        // antes de PHP 5.1.0 se debería de comparar con -1, en vez de con false
-        if (($timestamp = strtotime($cadena)) === false) {
-            echo "La cadena ($cadena) es falsa";
-        } 
-        else 
-        {
-            echo "<br><br><br>".date(' dS \o\f F Y h:i:s A', $timestamp);
-        } 
-
-
 
 
 

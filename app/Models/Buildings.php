@@ -15,6 +15,8 @@ class Buildings extends Model
         'name_building',
         'address_building' , 
         'phone_building',
+        'gastos_cobranzas',
+        'valor_administracion',
         'administrator_id',
     ];
 

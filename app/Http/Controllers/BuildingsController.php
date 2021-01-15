@@ -69,6 +69,8 @@ class BuildingsController extends Controller
             'name_building'=>$request->nombre,
             'address_building'=> $request->direccion, 
             'phone_building'=>$request->telefono,
+            'valor_administracion'=>$request->administracion,
+            'gastos_cobranzas'=>$request->gastos,
             'administrator_id'=>$request->administrador,
         ]);
     }

@@ -39,9 +39,7 @@
                           v-model="address"
                         />
                       </div>
-                    </div>
-                     
-                    <div class="col-sm-6">
+
                       <div class="form-group">
                         <label>Telefono:</label>
                         <span class="required">*</span>
@@ -50,6 +48,30 @@
                           class="form-control"
                           placeholder="Ingrese un numero de telefono"
                           v-model="phone"
+                        />
+                      </div>
+                    </div>
+                     
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Valor administracion:</label>
+                        <span class="required">*</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Ingrese el valor de la administracion"
+                          v-model="administracion"
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label>% Gastos cobranzas:</label>
+                        <span class="required">*</span>
+                        <input
+                          type="number"
+                          class="form-control" 
+                          min="1" max="20" placeholder="1"
+                          v-model="gastos"
                         />
                       </div>
 
@@ -133,6 +155,8 @@ export default {
       this.name = "";
       this.address = "";  
       this.phone = ""; 
+      this.administracion="";
+      this.gastos="";
       this.selected="";
     },
     store() {
@@ -142,6 +166,8 @@ export default {
           nombre: this.name,
           direccion: this.address,
           telefono: this.phone, 
+          administracion: this.administracion, 
+          gastos: this.gastos, 
           administrador: this.selected, 
         })
         .then((response) => {

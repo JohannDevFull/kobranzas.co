@@ -33,6 +33,12 @@
               <h5 class="widget-user-desc text-right">
                 Conjunto : {{ conjunto.name_building }}
               </h5>
+              <h5 class="widget-user-desc text-right">
+                Valor administracion : {{ conjunto.valor_administracion }}
+              </h5>
+              <h5 class="widget-user-desc text-right">
+                Gastos cobranzas : {{ conjunto.gastos_cobranzas }}%
+              </h5>
             </div>
             <div
               class="widget-user-image"

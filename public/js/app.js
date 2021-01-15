@@ -3065,6 +3065,192 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Kobranzas/CreateAccount.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Kobranzas/CreateAccount.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['cliente_id'],
+  data: function data() {
+    return {
+      files: null,
+      import_file: "",
+      errors: {},
+      capital: "",
+      capital_dec: "",
+      intereses: "",
+      id_cliente: this.cliente_id
+    };
+  },
+  watch: {
+    capital: function capital() {
+      var input_val = this.capital;
+      this.capital_dec = this.capital; // original length
+
+      var original_len = input_val.length; // check for decimal
+
+      if (input_val.indexOf(".") >= 0) {
+        // get position of first decimal
+        // this prevents multiple decimals from
+        // being entered
+        var decimal_pos = input_val.indexOf("."); // split number by decimal point
+
+        var left_side = input_val.substring(0, decimal_pos);
+        var right_side = input_val.substring(decimal_pos); // add commas to left side of number
+
+        left_side = this.formatNumber(left_side); // validate right side
+
+        right_side = this.formatNumber(right_side); // On blur make sure 2 numbers after decimal
+
+        if (blur === "blur") {
+          right_side += "00";
+        } // Limit decimal to only 2 digits
+
+
+        right_side = right_side.substring(0, 2); // join number by .
+
+        input_val = left_side + "." + right_side;
+      } else {
+        // no decimal entered
+        // add commas to number
+        // remove all non-digits
+        input_val = this.formatNumber(input_val); // final formatting
+
+        if (blur === "blur") {
+          input_val += ".00";
+        }
+      }
+
+      this.capital = input_val;
+      return this.capital;
+    }
+  },
+  methods: {
+    guardarCuenta: function guardarCuenta() {
+      var _this = this;
+
+      var num = this.sinFormatNumber(this.capital_dec);
+      alert("numero: " + num);
+      var url = "/account/store";
+      axios.post(url, {
+        capital_deuda: this.capital_dec,
+        intereses: this.intereses,
+        cliente_id: this.id_cliente
+      }).then(function (response) {
+        $(document).Toasts('create', {
+          "class": 'bg-success',
+          title: 'Cuenta',
+          subtitle: 'ok',
+          body: 'Exito al registrar Cuenta.'
+        });
+        $("#CreateAccountModal").modal('hide');
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__["Inertia"].reload({
+          only: ['cuenta']
+        });
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__["Inertia"].visit('/llamadas/agreement/' + _this.id_cliente, {
+          only: ['cuenta']
+        });
+      })["catch"](function (error) {
+        _this.errors = error.response.data;
+        console.log("Este es el error" + error);
+      });
+    },
+    formatear: function formatear(num) {
+      var amount = num; // var numero=new Intl.NumberFormat('in-MX').format(amount);
+
+      var numero = amount;
+      return numero;
+    },
+    formatNumber: function formatNumber(n) {
+      // format number 1000000 to 1,234,567
+      return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    sinFormatNumber: function sinFormatNumber(n) {
+      return n.replace(/,/g, "");
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Kobranzas/ImportClients.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Kobranzas/ImportClients.vue?vue&type=script&lang=js& ***!
@@ -4031,6 +4217,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4071,6 +4279,8 @@ __webpack_require__.r(__webpack_exports__);
       this.name = "";
       this.address = "";
       this.phone = "";
+      this.administracion = "";
+      this.gastos = "";
       this.selected = "";
     },
     store: function store() {
@@ -4081,6 +4291,8 @@ __webpack_require__.r(__webpack_exports__);
         nombre: this.name,
         direccion: this.address,
         telefono: this.phone,
+        administracion: this.administracion,
+        gastos: this.gastos,
         administrador: this.selected
       }).then(function (response) {
         _this2.reset();
@@ -4431,6 +4643,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5790,6 +6008,440 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+/* harmony import */ var _Kobranzas_CreateAccount__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Kobranzas/CreateAccount */ "./resources/js/Kobranzas/CreateAccount.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['conjunto', 'cliente', 'cuenta', 'acuerdo'],
+  components: {
+    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
+    CreateAccount: _Kobranzas_CreateAccount__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  created: function created() {
+    this.buscarResultados();
+  },
+  data: function data() {
+    return {
+      usuariosc: [],
+      buscar: '',
+      archivo: [],
+      setTimeoutBuscador: '',
+      img: '/storage/' + this.conjunto.profile_photo_path
+    };
+  },
+  methods: {
+    buscarResultados: function buscarResultados() {
+      axios.get('/buscar', {
+        params: {
+          buscar: this.buscar
+        }
+      }).then(function (res) {
+        console.log("exito al cargar resultados");
+      })["catch"](function (error) {
+        console.log(error.response);
+      });
+    },
+    buscarKUP: function buscarKUP() {
+      clearTimeout(this.setTimeoutBuscador);
+      this.setTimeoutBuscador = setTimeout(this.buscarResultados, 360);
+    },
+    abrir: function abrir() {
+      $("#CreateAccountModal").modal();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Empleado/AcuerdoCuenta/Client.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Empleado/AcuerdoCuenta/Client.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6024,300 +6676,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['conjunto', 'clientes', 'num'],
+  props: ['sessions'],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  created: function created() {
-    this.buscarResultados();
-  },
-  data: function data() {
-    return {
-      usuariosc: [],
-      buscar: '',
-      archivo: [],
-      setTimeoutBuscador: '',
-      img: '/storage/' + this.conjunto.profile_photo_path
-    };
-  },
-  methods: {
-    previewFiles: function previewFiles(event) {
-      console.log("Archivo cargado");
-    },
-    buscarResultados: function buscarResultados() {
-      axios.get('/buscar', {
-        params: {
-          buscar: this.buscar
-        }
-      }).then(function (res) {
-        console.log("exito al cargar resultados");
-      })["catch"](function (error) {
-        console.log(error.response);
-      });
-    },
-    buscarKUP: function buscarKUP() {
-      clearTimeout(this.setTimeoutBuscador);
-      this.setTimeoutBuscador = setTimeout(this.buscarResultados, 360);
-    },
-    buscarONC: function buscarONC() {
-      this.buscarResultados();
-    },
-    importar: function importar() {
-      var _this = this;
-
-      var url = "/importar/clientes";
-      axios.post(url, {
-        miarchivo: this.archivo
-      }).then(function (response) {
-        _this.errors = [];
-        $(document).Toasts('create', {
-          "class": 'bg-success',
-          title: 'Repuesta con exito',
-          subtitle: 'ok',
-          body: 'Exito .'
-        });
-        console.log('Exito al enviar archivo:' + response.data);
-      })["catch"](function (error) {
-        $(document).Toasts('create', {
-          "class": 'bg-danger',
-          title: 'Repuesta error',
-          subtitle: 'fallo',
-          body: 'Error .'
-        });
-        console.log('Error al enviar archivo:' + error);
-      });
-    }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Empleado/AcuerdoCuenta/Client.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Empleado/AcuerdoCuenta/Client.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -6935,17 +7311,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['cliente', 'empleadoid', 'conjunto', 'llamadas'],
+  props: ['cliente', 'empleadoid', 'conjunto', 'admin', 'llamadas', 'acuerdo', 'cuentaTotal'],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
     CallModal: _Kobranzas_CallModal__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   created: function created() {
-    this.buscarEstados(); // this.callm()  
+    this.buscarEstados();
   },
   data: function data() {
     return {
@@ -6955,10 +7375,16 @@ __webpack_require__.r(__webpack_exports__);
         name: this.cliente.name,
         phone: this.cliente.phone_one,
         texto: null,
-        cuotas: null,
         intereses: null,
         honorarios: null,
-        observaciones: null
+        observaciones: null,
+        deuda: this.cuentaTotal,
+        abono: 0,
+        total_deuda: 0,
+        cuotas: 0,
+        subcuota: 0,
+        administracion: this.admin,
+        valorCuota: 0
       },
       selestado: "",
       inde: 0,
@@ -6969,6 +7395,29 @@ __webpack_require__.r(__webpack_exports__);
       empleado: this.empleadoid,
       conj: this.conjunto
     };
+  },
+  computed: {
+    total: function total() {
+      return this.form.total_deuda = this.form.deuda - this.form.abono;
+    },
+    sub_cuota: function sub_cuota() {
+      if (this.form.cuotas === 0) {
+        return this.form.subcuota = 0;
+      } else {
+        var num = this.form.total_deuda / this.form.cuotas;
+        var n = num.toFixed(2);
+        return this.form.subcuota = n;
+      }
+    },
+    valor_cuota: function valor_cuota() {
+      if (this.form.subcuota === 0) {
+        return this.form.valorCuota = 0;
+      } else {
+        var num = parseFloat(this.form.subcuota) + parseFloat(this.form.administracion);
+        var n = num.toFixed(2);
+        return this.form.subcuota = n;
+      }
+    }
   },
   methods: {
     guardar: function guardar() {
@@ -58434,6 +58883,215 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Kobranzas/CreateAccount.vue?vue&type=template&id=35e4d45f&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Kobranzas/CreateAccount.vue?vue&type=template&id=35e4d45f& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "CreateAccountModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "ClientModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "div",
+                  { staticStyle: { padding: "5px", margin: "auto" } },
+                  [
+                    _c("div", { staticClass: "col-sm-12" }, [
+                      _c("div", { staticClass: "form-group " }, [
+                        _c("label", [_vm._v("Capital Deuda")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-group mb-3" }, [
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.capital,
+                                expression: "capital"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.capital },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.capital = $event.target.value
+                              }
+                            }
+                          })
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-12" }, [
+                      _c("div", { staticClass: "form-group " }, [
+                        _c("label", [_vm._v("Intereses")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-group mb-3" }, [
+                          _vm._m(2),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.intereses,
+                                expression: "intereses"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "number" },
+                            domProps: { value: _vm.intereses },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.intereses = $event.target.value
+                              }
+                            }
+                          })
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.errors.errors, function(error) {
+                      return _c("ul", [
+                        _c("li", { staticClass: "required" }, [
+                          _vm._v(" " + _vm._s(error[0]) + " ")
+                        ])
+                      ])
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("\n            Cancelar\n          ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    staticStyle: { "margin-top": "-4px" },
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.guardarCuenta()
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                          Crear Cuenta  \n          "
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "ClientModalLabel" } },
+        [_vm._v("Agregar cuenta")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [
+        _c("i", { staticClass: "fas fa-sort-amount-up-alt" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [
+        _c("i", { staticClass: "fas fa-coins" })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Kobranzas/ImportClients.vue?vue&type=template&id=42088471&":
 /*!***************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Kobranzas/ImportClients.vue?vue&type=template&id=42088471& ***!
@@ -60054,10 +60712,8 @@ var render = function() {
                                   }
                                 }
                               })
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-sm-6" }, [
+                            ]),
+                            _vm._v(" "),
                             _c("div", { staticClass: "form-group" }, [
                               _c("label", [_vm._v("Telefono:")]),
                               _vm._v(" "),
@@ -60086,6 +60742,77 @@ var render = function() {
                                       return
                                     }
                                     _vm.phone = $event.target.value
+                                  }
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", [_vm._v("Valor administracion:")]),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "required" }, [
+                                _vm._v("*")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.administracion,
+                                    expression: "administracion"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  placeholder:
+                                    "Ingrese el valor de la administracion"
+                                },
+                                domProps: { value: _vm.administracion },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.administracion = $event.target.value
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", [_vm._v("% Gastos cobranzas:")]),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "required" }, [
+                                _vm._v("*")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.gastos,
+                                    expression: "gastos"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  min: "1",
+                                  max: "20",
+                                  placeholder: "1"
+                                },
+                                domProps: { value: _vm.gastos },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.gastos = $event.target.value
                                   }
                                 }
                               })
@@ -60751,6 +61478,22 @@ var render = function() {
                       "\n              Conjunto : " +
                         _vm._s(_vm.conjunto.name_building) +
                         "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "widget-user-desc text-right" }, [
+                    _vm._v(
+                      "\n              Valor administracion : " +
+                        _vm._s(_vm.conjunto.valor_administracion) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "widget-user-desc text-right" }, [
+                    _vm._v(
+                      "\n              Gastos cobranzas : " +
+                        _vm._s(_vm.conjunto.gastos_cobranzas) +
+                        "%\n            "
                     )
                   ])
                 ]
@@ -62787,464 +63530,431 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("app-layout", [
-    _c("div", [
-      _c("div", { staticClass: "py-12" }, [
-        _c("div", { staticClass: "card card-widget widget-user" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _c("h3", { staticClass: "card-title" }, [
-              _vm._v("Cuenta, Acuerdos y Pagos")
+    _c(
+      "div",
+      [
+        _c("div", { staticClass: "py-12" }, [
+          _c("div", { staticClass: "card card-widget widget-user" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _c("h3", { staticClass: "card-title" }, [
+                _vm._v("Cuenta, Acuerdos y Pagos")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-tools" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-tool",
+                    staticStyle: {
+                      border: "1px gray solid",
+                      height: "100%",
+                      margin: "0px"
+                    },
+                    attrs: { type: "button", "data-card-widget": "collapse" }
+                  },
+                  [_c("i", { staticClass: "fas fa-minus" })]
+                )
+              ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-tools" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-tool",
-                  staticStyle: {
-                    border: "1px gray solid",
-                    height: "100%",
-                    margin: "0px"
+            _c(
+              "div",
+              { staticClass: "card-body", staticStyle: { padding: "0px" } },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "widget-user-header ",
+                    staticStyle: { "background-color": "#e9ecef" }
                   },
-                  attrs: { type: "button", "data-card-widget": "collapse" }
-                },
-                [_c("i", { staticClass: "fas fa-minus" })]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-body", staticStyle: { padding: "0px" } },
-            [
-              _c(
-                "div",
-                {
-                  staticClass: "widget-user-header ",
-                  staticStyle: { "background-color": "#e9ecef" }
-                },
-                [
-                  _c("div", { staticClass: "widget-user-image" }, [
+                  [
+                    _c("div", { staticClass: "widget-user-image" }, [
+                      _c("img", {
+                        staticClass: "img-circle elevation-2",
+                        attrs: { src: _vm.img }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("h2", { staticClass: "widget-user-username" }, [
+                      _vm._v("Nombre:" + _vm._s(_vm.cliente.name) + " ")
+                    ]),
+                    _vm._v(" "),
+                    _c("h4", { staticClass: "widget-user-desc" }, [
+                      _vm._v(
+                        "Conjunto : " +
+                          _vm._s(_vm.conjunto.name_building) +
+                          "  "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("h6", { staticClass: "widget-user-desc" }, [
+                      _vm._v(
+                        "Apartamento: " + _vm._s(_vm.cliente.client_code) + " "
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "widget-user-image",
+                    staticStyle: { position: "absolute", top: "200px" }
+                  },
+                  [
                     _c("img", {
-                      staticClass: "img-circle elevation-2",
-                      attrs: { src: _vm.img, alt: _vm.nameimg }
+                      staticClass: "img-circle",
+                      attrs: { src: _vm.img, alt: "User Avatar" }
                     })
-                  ]),
-                  _vm._v(" "),
-                  _c("h2", { staticClass: "widget-user-username" }, [
-                    _vm._v("Nombre:")
-                  ]),
-                  _vm._v(" "),
-                  _c("h4", { staticClass: "widget-user-desc" }, [
-                    _vm._v("Conjunto : ")
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "widget-user-desc" }, [
-                    _vm._v("Apartamento:  ")
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-footer" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-sm-4 border-right" }, [
+                  _c("div", { staticClass: "description-block" }, [
+                    _c("h5", { staticClass: "description-header" }, [
+                      _vm._v(_vm._s(_vm.acuerdo[0].description))
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "description-text" }, [
+                      _vm._v("Acuerdo")
+                    ])
                   ])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "widget-user-image",
-                  staticStyle: { position: "absolute", top: "200px" }
-                },
-                [
-                  _c("img", {
-                    staticClass: "img-circle",
-                    attrs: { src: _vm.img, alt: "User Avatar" }
-                  })
-                ]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-footer" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-sm-4 border-right" }, [
-                _c("div", { staticClass: "description-block" }, [
-                  _c("h5", { staticClass: "description-header" }, [
-                    _vm._v("ACUERDO ROTO")
-                  ]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "description-text" }, [
-                    _vm._v("Acuerdo")
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-4 border-right" }, [
-                _c("div", { staticClass: "description-block" }, [
-                  _c("h5", { staticClass: "description-header" }, [
-                    _vm._v("1.000.000")
-                  ]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "description-text" }, [
-                    _vm._v("Estado cuenta")
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-4" }, [
-                _c("div", { staticClass: "description-block" }, [
-                  _c("h5", { staticClass: "description-header" }, [
-                    _c("i", {
-                      staticClass: "nav-icon fas fa-phone text-success",
-                      staticStyle: { padding: "6px" }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "description-text" }, [
-                    _vm._v("Llamar")
-                  ])
-                ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-sm-4 border-right" },
+                  [
+                    _vm.cuenta != 0
+                      ? _c(
+                          "inertia-link",
+                          {
+                            attrs: {
+                              href: _vm.route(
+                                "state.account",
+                                _vm.cliente.user_id
+                              )
+                            }
+                          },
+                          [
+                            _c("div", { staticClass: "description-block" }, [
+                              _c("h5", { staticClass: "description-header" }, [
+                                _vm._v(_vm._s(_vm.cuenta))
+                              ]),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "description-text" }, [
+                                _vm._v("Estado cuenta")
+                              ])
+                            ])
+                          ]
+                        )
+                      : _c("div", { staticClass: "description-block" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              staticStyle: { "margin-top": "-4px" },
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.abrir()
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                          Crear Cuenta  \n                    "
+                              )
+                            ]
+                          )
+                        ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-sm-4" },
+                  [
+                    _c(
+                      "inertia-link",
+                      {
+                        attrs: {
+                          href: _vm.route(
+                            "llamadas.create",
+                            _vm.cliente.user_id
+                          )
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "description-block" }, [
+                          _c("h5", { staticClass: "description-header" }, [
+                            _c("i", {
+                              staticClass: "nav-icon fas fa-phone text-success",
+                              staticStyle: { padding: "6px" }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "description-text" }, [
+                            _vm._v("Llamar")
+                          ])
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                )
               ])
             ])
           ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _c("h3", { staticClass: "card-title" }, [
-              _vm._v("Lista de acuerdos")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _c("h3", { staticClass: "card-title" }, [
+                _vm._v("Lista de acuerdos")
+              ]),
+              _vm._v(" "),
+              _vm.cuenta != 0
+                ? _c(
+                    "div",
+                    { staticClass: "card-tools" },
+                    [
+                      _c(
+                        "inertia-link",
+                        { attrs: { href: _vm.route("conjuntos.create") } },
+                        [
+                          _c("button", { staticClass: "btn btn-dark float" }, [
+                            _c("i", { staticClass: "fas fa-plus" }),
+                            _vm._v(
+                              " Crear nuevo acuerdo\n                        "
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-tool",
+                          staticStyle: {
+                            border: "1px gray solid",
+                            height: "100%",
+                            margin: "0px"
+                          },
+                          attrs: {
+                            type: "button",
+                            "data-card-widget": "collapse"
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-minus" })]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "card-tools" },
+              {
+                staticClass: "card-body table-responsive p-0",
+                staticStyle: { height: "400px" }
+              },
               [
                 _c(
-                  "inertia-link",
-                  { attrs: { href: _vm.route("conjuntos.create") } },
+                  "table",
+                  { staticClass: "table table-head-fixed text-nowrap" },
                   [
-                    _c("button", { staticClass: "btn btn-dark float" }, [
-                      _c("i", { staticClass: "fas fa-plus" }),
-                      _vm._v(" Crear nuevo acuerdo\n                        ")
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-tool",
-                    staticStyle: {
-                      border: "1px gray solid",
-                      height: "100%",
-                      margin: "0px"
-                    },
-                    attrs: { type: "button", "data-card-widget": "collapse" }
-                  },
-                  [_c("i", { staticClass: "fas fa-minus" })]
-                )
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "card-body table-responsive p-0",
-              staticStyle: { height: "400px" }
-            },
-            [
-              _c(
-                "table",
-                { staticClass: "table table-head-fixed text-nowrap" },
-                [
-                  _c("thead", [
-                    _c("tr", [
-                      _c("th", [_vm._v("ID")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Tipo de acuerdo")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Fecha")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Empleado")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Acciones")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    [
-                      _vm._l(_vm.clientes, function(row) {
-                        return _c("tr", [
-                          _c("td", [
-                            _vm._v(
-                              " \n                        " +
-                                _vm._s(row.id) +
-                                " \n                    "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              " \n                        " +
-                                _vm._s(row.name) +
-                                " \n                    "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              " \n                        " +
-                                _vm._s(row.email) +
-                                " \n                    "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              " \n                        " +
-                                _vm._s(row.phone_one) +
-                                "  \n                    "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            [
-                              _c(
-                                "inertia-link",
-                                {
-                                  attrs: {
-                                    href: _vm.route("llamadas.create", row.id)
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "nav-icon fas fa-eye text-info",
-                                    staticStyle: { padding: "3px" }
-                                  })
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "inertia-link",
-                                {
-                                  attrs: {
-                                    href: _vm.route("llamadas.create", row.id)
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "nav-icon fas fa-hands-helping text-success",
-                                    staticStyle: { padding: "6px" }
-                                  })
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "inertia-link",
-                                {
-                                  attrs: {
-                                    href: _vm.route("llamadas.create", row.id)
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "nav-icon fas fa-phone text-success",
-                                    staticStyle: { padding: "6px" }
-                                  })
-                                ]
-                              )
-                            ],
-                            1
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v("ID")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Tipo de acuerdo")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Fecha")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Empleado")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Acciones")])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("tbody", [
+                      _c("tr", [
+                        _c("td", [
+                          _vm._v(
+                            " \n                        " +
+                              _vm._s() +
+                              " \n                    "
                           )
-                        ])
-                      }),
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " \n                        " +
+                              _vm._s() +
+                              " \n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " \n                        " +
+                              _vm._s() +
+                              " \n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " \n                        " +
+                              _vm._s() +
+                              "  \n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td")
+                      ]),
                       _vm._v(" "),
                       _c("tr")
+                    ])
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-footer" })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _c("h3", { staticClass: "card-title" }, [
+                _vm._v("Lista de Pagos")
+              ]),
+              _vm._v(" "),
+              _vm.cuenta != 0
+                ? _c(
+                    "div",
+                    { staticClass: "card-tools" },
+                    [
+                      _c(
+                        "inertia-link",
+                        { attrs: { href: _vm.route("conjuntos.create") } },
+                        [
+                          _c("button", { staticClass: "btn btn-dark float" }, [
+                            _c("i", { staticClass: "fas fa-plus" }),
+                            _vm._v(" Agregar pago \n                        ")
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-tool",
+                          staticStyle: {
+                            border: "1px gray solid",
+                            height: "100%",
+                            margin: "0px"
+                          },
+                          attrs: {
+                            type: "button",
+                            "data-card-widget": "collapse"
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-minus" })]
+                      )
                     ],
-                    2
+                    1
                   )
-                ]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-footer" })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _c("h3", { staticClass: "card-title" }, [_vm._v("Lista de Pagos")]),
+                : _vm._e()
+            ]),
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "card-tools" },
+              {
+                staticClass: "card-body table-responsive p-0",
+                staticStyle: { height: "400px" }
+              },
               [
                 _c(
-                  "inertia-link",
-                  { attrs: { href: _vm.route("conjuntos.create") } },
+                  "table",
+                  { staticClass: "table table-head-fixed text-nowrap" },
                   [
-                    _c("button", { staticClass: "btn btn-dark float" }, [
-                      _c("i", { staticClass: "fas fa-plus" }),
-                      _vm._v(" Agregar pago \n                        ")
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-tool",
-                    staticStyle: {
-                      border: "1px gray solid",
-                      height: "100%",
-                      margin: "0px"
-                    },
-                    attrs: { type: "button", "data-card-widget": "collapse" }
-                  },
-                  [_c("i", { staticClass: "fas fa-minus" })]
-                )
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "card-body table-responsive p-0",
-              staticStyle: { height: "400px" }
-            },
-            [
-              _c(
-                "table",
-                { staticClass: "table table-head-fixed text-nowrap" },
-                [
-                  _c("thead", [
-                    _c("tr", [
-                      _c("th", [_vm._v("ID")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v(" Empleado")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Fecha")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Resivo")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Acciones")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    [
-                      _vm._l(_vm.clientes, function(row) {
-                        return _c("tr", [
-                          _c("td", [
-                            _vm._v(
-                              " \n                        " +
-                                _vm._s(row.id) +
-                                " \n                    "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              " \n                        " +
-                                _vm._s(row.name) +
-                                " \n                    "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              " \n                        " +
-                                _vm._s(row.email) +
-                                " \n                    "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              " \n                        " +
-                                _vm._s(row.phone_one) +
-                                "  \n                    "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            [
-                              _c(
-                                "inertia-link",
-                                {
-                                  attrs: {
-                                    href: _vm.route("llamadas.create", row.id)
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "nav-icon fas fa-eye text-info",
-                                    staticStyle: { padding: "3px" }
-                                  })
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "inertia-link",
-                                {
-                                  attrs: {
-                                    href: _vm.route("llamadas.create", row.id)
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "nav-icon fas fa-hands-helping text-success",
-                                    staticStyle: { padding: "6px" }
-                                  })
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "inertia-link",
-                                {
-                                  attrs: {
-                                    href: _vm.route("llamadas.create", row.id)
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "nav-icon fas fa-phone text-success",
-                                    staticStyle: { padding: "6px" }
-                                  })
-                                ]
-                              )
-                            ],
-                            1
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v("ID")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Empleado")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Fecha")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Resivo")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Acciones")])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("tbody", [
+                      _c("tr", [
+                        _c("td", [
+                          _vm._v(
+                            " \n                        " +
+                              _vm._s() +
+                              " \n                    "
                           )
-                        ])
-                      }),
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " \n                        " +
+                              _vm._s() +
+                              " \n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " \n                        " +
+                              _vm._s() +
+                              " \n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " \n                        " +
+                              _vm._s() +
+                              "  \n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td")
+                      ]),
                       _vm._v(" "),
                       _c("tr")
-                    ],
-                    2
-                  )
-                ]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-footer" })
-        ])
-      ])
-    ])
+                    ])
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-footer" })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("create-account", { attrs: { cliente_id: _vm.cliente.user_id } })
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -64069,6 +64779,259 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue?vue&type=template&id=197615a3&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue?vue&type=template&id=197615a3& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("app-layout", [
+    _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "invoice p-3 mb-3" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-12" }, [
+                _c("h4", [
+                  _c("i", { staticClass: "fas fa-globe" }),
+                  _vm._v(" LSA Abogados, Inc.\r\n                    "),
+                  _c("small", { staticClass: "float-right" }, [
+                    _vm._v("Date: 2/10/2014")
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row invoice-info" }, [
+              _c("div", { staticClass: "col-sm-4 invoice-col" }, [
+                _vm._v("\r\n                  Extracto\r\n                  "),
+                _c("address", [
+                  _c("strong", [_vm._v("Johann Sebatian Ramirez")]),
+                  _c("br"),
+                  _vm._v("\r\n                    795 Folsom Ave, Suite 600"),
+                  _c("br"),
+                  _vm._v("\r\n                    San Francisco, CA 94107"),
+                  _c("br"),
+                  _vm._v("\r\n                    Phone: (804) 123-5432"),
+                  _c("br"),
+                  _vm._v(
+                    "\r\n                    Email: info@almasaeedstudio.com\r\n                  "
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-12 table-responsive" }, [
+                _c("table", { staticClass: "table table-striped" }, [
+                  _c("thead", [
+                    _c("tr", [
+                      _c("th", [_vm._v("N°. movimiento ")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Movimiento")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Cargue")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Abono")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Subtotal")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tbody", [
+                    _c("tr", [
+                      _c("td", [_vm._v("1")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("Saldo inicial")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("$1,000,000")]),
+                      _vm._v(" "),
+                      _c("td"),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("$1,000,000")])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("td", [_vm._v("2")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("Intereses inicial")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("250,000")]),
+                      _vm._v(" "),
+                      _c("td"),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("$1,250,000")])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("td", [_vm._v("3")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("Gastos cobranzas")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("187,500")]),
+                      _vm._v(" "),
+                      _c("td"),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("$1,437,500")])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("td", [_vm._v("4")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("Abono Pago CU 01")]),
+                      _vm._v(" "),
+                      _c("td"),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("127,900")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("$25.99")])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-6" }, [
+                _c("p", { staticClass: "lead" }, [_vm._v("Payment Methods:")]),
+                _vm._v(" "),
+                _c("img", {
+                  attrs: { src: "/storage/img/credit/visa.png", alt: "Visa" }
+                }),
+                _vm._v(" "),
+                _c("img", {
+                  attrs: {
+                    src: "/storage/img/credit/mastercard.png",
+                    alt: "Mastercard"
+                  }
+                }),
+                _vm._v(" "),
+                _c("img", {
+                  attrs: {
+                    src: "/storage/img/credit/american-express.png",
+                    alt: "American Express"
+                  }
+                }),
+                _vm._v(" "),
+                _c("img", {
+                  attrs: {
+                    src: "/storage/img/credit/paypal2.png",
+                    alt: "Paypal"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "text-muted well well-sm shadow-none",
+                    staticStyle: { "margin-top": "10px" }
+                  },
+                  [
+                    _vm._v(
+                      "\r\n                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem\r\n                    plugg\r\n                    dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.\r\n                  "
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-6" }, [
+                _c("p", { staticClass: "lead" }, [
+                  _vm._v("Amount Due 2/22/2014")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "table-responsive" }, [
+                  _c("table", { staticClass: "table" }, [
+                    _c("tr", [
+                      _c("th", { staticStyle: { width: "50%" } }, [
+                        _vm._v("Subtotal:")
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("$250.30")])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("th", [_vm._v("Tax (9.3%)")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("$10.34")])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("th", [_vm._v("Shipping:")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("$5.80")])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("th", [_vm._v("Total:")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("$265.24")])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row no-print" }, [
+              _c("div", { staticClass: "col-12" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-default",
+                    attrs: { href: "invoice-print.html", target: "_blank" }
+                  },
+                  [_c("i", { staticClass: "fas fa-print" }), _vm._v(" Print")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success float-right",
+                    attrs: { type: "button" }
+                  },
+                  [
+                    _c("i", { staticClass: "far fa-credit-card" }),
+                    _vm._v(
+                      " Submit\r\n                    Payment\r\n                  "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary float-right",
+                    staticStyle: { "margin-right": "5px" },
+                    attrs: { type: "button" }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-download" }),
+                    _vm._v(" Generate PDF\r\n                  ")
+                  ]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Empleado/Index.vue?vue&type=template&id=62c6c957&":
 /*!************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Empleado/Index.vue?vue&type=template&id=62c6c957& ***!
@@ -64624,7 +65587,13 @@ var render = function() {
                                     _c(
                                       "h6",
                                       { staticClass: "widget-user-desc" },
-                                      [_vm._v("Apartamento:  ")]
+                                      [
+                                        _vm._v(
+                                          "Apartamento: " +
+                                            _vm._s(_vm.cliente.client_code) +
+                                            " "
+                                        )
+                                      ]
                                     )
                                   ]
                                 ),
@@ -64635,7 +65604,7 @@ var render = function() {
                                       _vm._v(
                                         " \r\n                              Cedula  : " +
                                           _vm._s(_vm.cliente.document) +
-                                          "\r\n                          "
+                                          " \r\n                          "
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -64681,7 +65650,15 @@ var render = function() {
                                                 "float-right badge bg-danger",
                                               staticStyle: { margin: "auto" }
                                             },
-                                            [_vm._v("ACUERDO ROTO")]
+                                            [
+                                              _vm._v(
+                                                "\r\n                               " +
+                                                  _vm._s(
+                                                    _vm.acuerdo[0].description
+                                                  ) +
+                                                  "\r\n                              "
+                                              )
+                                            ]
                                           )
                                         ]
                                       )
@@ -64704,7 +65681,7 @@ var render = function() {
                                               staticClass:
                                                 "float-right badge bg-info"
                                             },
-                                            [_vm._v("1.349.000")]
+                                            [_vm._v(_vm._s(_vm.cuentaTotal))]
                                           )
                                         ]
                                       )
@@ -64723,279 +65700,489 @@ var render = function() {
                             attrs: { id: "collapseExample" }
                           },
                           [
-                            _c("div", { staticClass: "col-sm-3" }, [
-                              _c("div", { staticClass: "form-group " }, [
-                                _c("label", [_vm._v("Cuotas")]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "input-group mb-3" }, [
-                                  _c(
-                                    "div",
-                                    { staticClass: "input-group-prepend" },
-                                    [
-                                      _c(
-                                        "span",
-                                        { staticClass: "input-group-text" },
-                                        [
-                                          _c("i", {
-                                            staticClass:
-                                              "fas fa-sort-amount-up-alt"
-                                          })
-                                        ]
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.form.cuotas,
-                                        expression: "form.cuotas"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "number",
-                                      min: "1",
-                                      max: "24",
-                                      placeholder: "1"
-                                    },
-                                    domProps: { value: _vm.form.cuotas },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.form,
-                                          "cuotas",
-                                          $event.target.value
-                                        )
-                                      }
-                                    }
-                                  })
-                                ])
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-sm-3" }, [
-                              _c("div", { staticClass: "form-group " }, [
-                                _c("label", [_vm._v("Intereses")]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "input-group mb-3" }, [
-                                  _c(
-                                    "div",
-                                    { staticClass: "input-group-prepend" },
-                                    [
-                                      _c(
-                                        "span",
-                                        { staticClass: "input-group-text" },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fas fa-coins"
-                                          })
-                                        ]
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.form.interese,
-                                        expression: "form.interese"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      placeholder: "Username"
-                                    },
-                                    domProps: { value: _vm.form.interese },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.form,
-                                          "interese",
-                                          $event.target.value
-                                        )
-                                      }
-                                    }
-                                  })
-                                ])
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-sm-3" }, [
-                              _c("div", { staticClass: "form-group " }, [
-                                _c("label", [_vm._v("Honorarios")]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "input-group mb-3" }, [
-                                  _c(
-                                    "div",
-                                    { staticClass: "input-group-prepend" },
-                                    [
-                                      _c(
-                                        "span",
-                                        { staticClass: "input-group-text" },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fas fa-dollar-sign"
-                                          })
-                                        ]
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.form.honorario,
-                                        expression: "form.honorario"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      placeholder: "Username"
-                                    },
-                                    domProps: { value: _vm.form.honorario },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.form,
-                                          "honorario",
-                                          $event.target.value
-                                        )
-                                      }
-                                    }
-                                  })
-                                ])
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-sm-3" }, [
-                              _c("div", { staticClass: "form-group " }, [
-                                _c("label", [_vm._v("Estado")]),
-                                _vm._v(" "),
-                                _c("span", { staticClass: "required" }, [
-                                  _vm._v("*")
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "select",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.selestado,
-                                        expression: "selestado"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    on: {
-                                      change: function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value
-                                            return val
-                                          })
-                                        _vm.selestado = $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "", disabled: "" } },
-                                      [_vm._v("Seleccione Estado")]
-                                    ),
-                                    _vm._v(" "),
-                                    _vm._l(_vm.estados, function(option) {
-                                      return _c(
-                                        "option",
-                                        {
-                                          domProps: { value: option.id_state }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\r\n                            " +
-                                              _vm._s(option.description) +
-                                              "\r\n                          "
-                                          )
-                                        ]
-                                      )
-                                    })
-                                  ],
-                                  2
-                                )
-                              ])
-                            ]),
-                            _vm._v(" "),
                             _c(
                               "div",
                               {
-                                staticClass: "col-sm-8",
-                                staticStyle: { margin: "auto" }
+                                staticClass: "row",
+                                staticStyle: { "background-color": "green" }
                               },
                               [
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c("label", [
-                                    _vm._v("Observaciones del acuerdo ")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("textarea", {
-                                    directives: [
+                                _c("div", { staticClass: "col-sm-6" }, [
+                                  _c("div", { staticClass: "form-group " }, [
+                                    _c("label", [_vm._v("Abono")]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "input-group mb-3" },
+                                      [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass: "input-group-prepend"
+                                          },
+                                          [
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass: "input-group-text"
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass:
+                                                    "fas fa-sort-amount-up-alt"
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.form.abono,
+                                              expression: "form.abono"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: { type: "number" },
+                                          domProps: { value: _vm.form.abono },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.$set(
+                                                _vm.form,
+                                                "abono",
+                                                $event.target.value
+                                              )
+                                            }
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-sm-6" }, [
+                                  _c("div", { staticClass: "form-group " }, [
+                                    _c("label", [_vm._v("Total deuda")]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "input-group mb-3" },
+                                      [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass: "input-group-prepend"
+                                          },
+                                          [
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass: "input-group-text"
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass: "fas fa-coins"
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.total,
+                                              expression: "total"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: { type: "text", disabled: "" },
+                                          domProps: { value: _vm.total },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.total = $event.target.value
+                                            }
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-sm-4" }, [
+                                  _c("div", { staticClass: "form-group " }, [
+                                    _c("label", [_vm._v("Cuotas")]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "input-group mb-3" },
+                                      [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass: "input-group-prepend"
+                                          },
+                                          [
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass: "input-group-text"
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass:
+                                                    "fas fa-sort-amount-up-alt"
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.form.cuotas,
+                                              expression: "form.cuotas"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: {
+                                            type: "number",
+                                            min: "1",
+                                            max: "24"
+                                          },
+                                          domProps: { value: _vm.form.cuotas },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.$set(
+                                                _vm.form,
+                                                "cuotas",
+                                                $event.target.value
+                                              )
+                                            }
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-sm-4" }, [
+                                  _c("div", { staticClass: "form-group " }, [
+                                    _c("label", [_vm._v("Valor subcuota")]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "input-group mb-3" },
+                                      [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass: "input-group-prepend"
+                                          },
+                                          [
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass: "input-group-text"
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass:
+                                                    "fas fa-dollar-sign"
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.sub_cuota,
+                                              expression: "sub_cuota"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: { type: "text", disabled: "" },
+                                          domProps: { value: _vm.sub_cuota },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.sub_cuota =
+                                                $event.target.value
+                                            }
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-sm-4" }, [
+                                  _c("div", { staticClass: "form-group " }, [
+                                    _c("label", [
+                                      _vm._v("Valor administracion")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "input-group mb-3" },
+                                      [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass: "input-group-prepend"
+                                          },
+                                          [
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass: "input-group-text"
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass:
+                                                    "fas fa-dollar-sign"
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.form.administracion,
+                                              expression: "form.administracion"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: { type: "text", disabled: "" },
+                                          domProps: {
+                                            value: _vm.form.administracion
+                                          },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.$set(
+                                                _vm.form,
+                                                "administracion",
+                                                $event.target.value
+                                              )
+                                            }
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-sm-6" }, [
+                                  _c("div", { staticClass: "form-group " }, [
+                                    _c("label", [_vm._v("Valor total cuota")]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "input-group mb-3" },
+                                      [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass: "input-group-prepend"
+                                          },
+                                          [
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass: "input-group-text"
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass:
+                                                    "fas fa-dollar-sign"
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.valor_cuota,
+                                              expression: "valor_cuota"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: { type: "text", disabled: "" },
+                                          domProps: { value: _vm.valor_cuota },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.valor_cuota =
+                                                $event.target.value
+                                            }
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-sm-6" }, [
+                                  _c("div", { staticClass: "form-group " }, [
+                                    _c("label", [_vm._v("Estado")]),
+                                    _vm._v(" "),
+                                    _c("span", { staticClass: "required" }, [
+                                      _vm._v("*")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "select",
                                       {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.form.observaciones,
-                                        expression: "form.observaciones"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      rows: "0",
-                                      placeholder:
-                                        "Escribir una breve descripcion..."
-                                    },
-                                    domProps: { value: _vm.form.observaciones },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.selestado,
+                                            expression: "selestado"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        on: {
+                                          change: function($event) {
+                                            var $$selectedVal = Array.prototype.filter
+                                              .call(
+                                                $event.target.options,
+                                                function(o) {
+                                                  return o.selected
+                                                }
+                                              )
+                                              .map(function(o) {
+                                                var val =
+                                                  "_value" in o
+                                                    ? o._value
+                                                    : o.value
+                                                return val
+                                              })
+                                            _vm.selestado = $event.target
+                                              .multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          }
                                         }
-                                        _vm.$set(
-                                          _vm.form,
-                                          "observaciones",
-                                          $event.target.value
-                                        )
-                                      }
-                                    }
-                                  })
-                                ])
+                                      },
+                                      [
+                                        _c(
+                                          "option",
+                                          {
+                                            attrs: { value: "", disabled: "" }
+                                          },
+                                          [_vm._v("Seleccione Estado")]
+                                        ),
+                                        _vm._v(" "),
+                                        _vm._l(_vm.estados, function(option) {
+                                          return _c(
+                                            "option",
+                                            {
+                                              domProps: {
+                                                value: option.id_state
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\r\n                            " +
+                                                  _vm._s(option.description) +
+                                                  "\r\n                          "
+                                              )
+                                            ]
+                                          )
+                                        })
+                                      ],
+                                      2
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "col-sm-8",
+                                    staticStyle: { margin: "auto" }
+                                  },
+                                  [
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c("label", [
+                                        _vm._v("Observaciones del acuerdo ")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("textarea", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.form.observaciones,
+                                            expression: "form.observaciones"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          rows: "0",
+                                          placeholder:
+                                            "Escribir una breve descripcion..."
+                                        },
+                                        domProps: {
+                                          value: _vm.form.observaciones
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.form,
+                                              "observaciones",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ])
+                                  ]
+                                )
                               ]
-                            )
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "row" })
                           ]
                         )
                       ])
@@ -65197,7 +66384,7 @@ var render = function() {
                                   _c(
                                     "button",
                                     {
-                                      staticClass: "btn",
+                                      staticClass: "btn btn-success",
                                       staticStyle: { "margin-top": "-4px" },
                                       attrs: { type: "button" },
                                       on: {
@@ -69471,14 +70658,11 @@ var staticRenderFns = [
       _c("img", {
         staticClass: "brand-image img-circle elevation-3",
         staticStyle: { opacity: "0.8" },
-        attrs: {
-          src: "http://kobranzas.co/storage/img/AdminLTELogo.png",
-          alt: "AdminLTE Logo"
-        }
+        attrs: { src: "/storage/img/logo.png", alt: "AdminLTE Logo" }
       }),
       _vm._v(" "),
       _c("span", { staticClass: "brand-text font-weight-light" }, [
-        _vm._v("kobranzas")
+        _vm._v("LSA Abogados")
       ])
     ])
   },
@@ -83509,6 +84693,76 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Kobranzas/CreateAccount.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/Kobranzas/CreateAccount.vue ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CreateAccount_vue_vue_type_template_id_35e4d45f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateAccount.vue?vue&type=template&id=35e4d45f& */ "./resources/js/Kobranzas/CreateAccount.vue?vue&type=template&id=35e4d45f&");
+/* harmony import */ var _CreateAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateAccount.vue?vue&type=script&lang=js& */ "./resources/js/Kobranzas/CreateAccount.vue?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _CreateAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _CreateAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CreateAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CreateAccount_vue_vue_type_template_id_35e4d45f___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CreateAccount_vue_vue_type_template_id_35e4d45f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Kobranzas/CreateAccount.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Kobranzas/CreateAccount.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/Kobranzas/CreateAccount.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CreateAccount.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Kobranzas/CreateAccount.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Kobranzas/CreateAccount.vue?vue&type=template&id=35e4d45f&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/Kobranzas/CreateAccount.vue?vue&type=template&id=35e4d45f& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateAccount_vue_vue_type_template_id_35e4d45f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CreateAccount.vue?vue&type=template&id=35e4d45f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Kobranzas/CreateAccount.vue?vue&type=template&id=35e4d45f&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateAccount_vue_vue_type_template_id_35e4d45f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateAccount_vue_vue_type_template_id_35e4d45f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/Kobranzas/ImportClients.vue":
 /*!**************************************************!*\
   !*** ./resources/js/Kobranzas/ImportClients.vue ***!
@@ -83977,6 +85231,8 @@ var map = {
 	"./Empleado/AcuerdoCuenta/AgreementAccount.vue": "./resources/js/Pages/Empleado/AcuerdoCuenta/AgreementAccount.vue",
 	"./Empleado/AcuerdoCuenta/Client": "./resources/js/Pages/Empleado/AcuerdoCuenta/Client.vue",
 	"./Empleado/AcuerdoCuenta/Client.vue": "./resources/js/Pages/Empleado/AcuerdoCuenta/Client.vue",
+	"./Empleado/AcuerdoCuenta/StateAccount": "./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue",
+	"./Empleado/AcuerdoCuenta/StateAccount.vue": "./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue",
 	"./Empleado/Index": "./resources/js/Pages/Empleado/Index.vue",
 	"./Empleado/Index.vue": "./resources/js/Pages/Empleado/Index.vue",
 	"./Empleado/Llamada": "./resources/js/Pages/Empleado/Llamada.vue",
@@ -84941,6 +86197,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Client_vue_vue_type_template_id_ffe73e5c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Client_vue_vue_type_template_id_ffe73e5c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue":
+/*!********************************************************************!*\
+  !*** ./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _StateAccount_vue_vue_type_template_id_197615a3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StateAccount.vue?vue&type=template&id=197615a3& */ "./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue?vue&type=template&id=197615a3&");
+/* harmony import */ var _StateAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StateAccount.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _StateAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _StateAccount_vue_vue_type_template_id_197615a3___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _StateAccount_vue_vue_type_template_id_197615a3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StateAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./StateAccount.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StateAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue?vue&type=template&id=197615a3&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue?vue&type=template&id=197615a3& ***!
+  \***************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StateAccount_vue_vue_type_template_id_197615a3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./StateAccount.vue?vue&type=template&id=197615a3& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Empleado/AcuerdoCuenta/StateAccount.vue?vue&type=template&id=197615a3&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StateAccount_vue_vue_type_template_id_197615a3___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StateAccount_vue_vue_type_template_id_197615a3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
