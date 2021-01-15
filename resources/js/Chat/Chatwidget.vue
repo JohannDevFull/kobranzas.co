@@ -255,21 +255,19 @@ export default {
       if (this.message.trim() == "") {
         this.message = "";
       } else {
+        let msg = this.message;
+        this.messages.push({
+          from: this.userinfo.id,
+          to: this.contactId,
+          text: msg,
+        });
+        this.message = "";
+        this.scroll();
         axios
           .post("messages/sendMessage", {
             id: this.userinfo.id,
             contact_id: this.contactId,
-            text: this.message,
-          })
-          .then((response) => {
-            this.messages.push({
-              from: this.userinfo.id,
-              to: this.contactId,
-              text: this.message,
-            });
-
-            this.message = "";
-            this.scroll(), 4000;
+            text: msg,
           });
       }
     },

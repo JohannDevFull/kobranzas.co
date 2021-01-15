@@ -3,19 +3,34 @@
     <section class="">
       <div class="">
         <div class="fill">
-          <div class="card">
+          <div class="">
             <div>
               <div>
                 <pop />
-                <div class="inbox_msg" style="height: 80vh">
-                  <div class="inbox_people">
+
+                <div class="inbox_msg">
+                  <div
+                    class="inbox_people"
+                    id="contacts"
+                    :style="{ height: window.height - 120 + 'px' }"
+                  >
                     <div class="headind_srch">
                       <div class="recent_heading">
                         <h4>Chat de Soporte</h4>
                       </div>
                       <div class="srch_bar"></div>
+                      <div
+                        class="btn-bars"
+                        id="user-friends"
+                        @click="toggleCollapseBtn()"
+                      >
+                        <i class="fas fa-bars"></i>
+                      </div>
                     </div>
-                    <div class="inbox_chat">
+                    <div
+                      class="inbox_chat"
+                      :style="{ height: window.height - 170 + 'px' }"
+                    >
                       <span v-if="guests != 0" class="spantitle"
                         >Visitantes</span
                       >
@@ -35,7 +50,9 @@
                               guest.user_id
                             ),
                               (isGuest = true),
-                              guest.unread=0
+                              (guest.unread = 0),
+                              isLoad(),
+                              toggleCollapseBtn()
                           "
                         >
                           <div class="chat_people">
@@ -62,7 +79,9 @@
                                 >
                               </h5>
                               <p>Usuario Visitante</p>
-                               <span v-if="guest.unread != 0" class="unread">{{ guest.unread }}</span>
+                              <span v-if="guest.unread != 0" class="unread">{{
+                                guest.unread
+                              }}</span>
                             </div>
                           </div>
                         </div>
@@ -103,7 +122,9 @@
                                   >
                                 </h5>
                                 <p>Usuario Visitante</p>
-                                <span v-if="guest.unread != 0" class="unread">{{ guest.unread }}</span>
+                                <span v-if="guest.unread != 0" class="unread">{{
+                                  guest.unread
+                                }}</span>
                               </div>
                             </div>
                           </div>
@@ -122,7 +143,8 @@
                               contact.profile_photo_url
                             ),
                               updateUnreadCount(contact.id, true),
-                              (isGuest = false)
+                              (isGuest = false),
+                              toggleCollapseBtn()
                           "
                         >
                           <div class="chat_people">
@@ -132,7 +154,6 @@
                                 :src="contact.profile_photo_url"
                                 alt="sunil"
                               />
-                            
                             </div>
                             <div class="chat_ib">
                               <h5>
@@ -158,8 +179,63 @@
                       </div>
                     </div>
                   </div>
-                  <div class="mesgs">
-                    <div class="msg_history" id="messages">
+                  <div class="mesgs" id="inboxChat">
+                    <div class="chat-header">
+                      <div v-if="contactId && !isLoading">
+                        <div style="display:inline-block;">
+                          <img
+                            style="margin-bottom: 4px"
+                            class="img-circle pro"
+                            :src="user_photo"
+                            alt="sunil"
+                          />
+                        </div>
+                        &nbsp; {{ contactName }}
+                        <div
+                        
+                          class="btn-bars"
+                          id="user-friends"
+                          @click="toggleCollapseBtn()"
+                        >
+                          <i class="fas fa-user-friends"></i>
+                        </div>
+                          <button
+                          v-if="isGuest && !isLoading &&window.width > 785"
+                          class="btn btn-danger btn-sm btn-end"
+                          @click="endChat(contactId)"
+                        >
+                          Terminar Chat
+                        </button>
+                        <button
+                        style="margin-right:48px;"
+                          v-if="isGuest && !isLoading &&window.width <= 785"
+                          class="btn btn-danger btn-sm btn-end"
+                          @click="endChat(contactId)"
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="msg_history"
+                      id="messages"
+                      :style="{ height: window.height - 185 + 'px' }"
+                    >
+                      <loading2 v-if="isLoading" />
+                      <div
+                        class="text-noMessages"
+                        v-if="messages.length == 0 && !isLoading"
+                      >
+                        No hay mensajes para mostrar
+                        <div
+                          class="btn-bars"
+                          id="user-friends"
+                          @click="toggleCollapseBtn()"
+                        >
+                          <i class="fas fa-user-friends"></i>
+                        </div>
+                      </div>
+
                       <div
                         class=""
                         :class="
@@ -211,22 +287,32 @@
                           @keyup.enter="sendMessage()"
                         />
                         <button
-                          v-if="isGuest"
-                          style="top: -462px; float: right; position: relative"
-                          class="btn btn-outline-danger btn-sm"
-                          @click="endChat(contactId)"
+                        v-if="!isGuest && contactId"
+                          type="submit"
+                          class="chat-submit send-btn"
+                          id="chat-submit"
+                          @click="sendMessage()"
                         >
-                          Terminar Chat
+                          <i class="far fa-paper-plane"></i>
                         </button>
+
                         <input
-                          v-if="isGuest"
+                          v-if="isGuest && !isLoading"
                           type="text"
                           class="write_msg"
                           placeholder="Escribe un Mesaje de soporte"
                           v-model="messageGuest"
                           @keyup.enter="sendMessageToGuest()"
                         />
-                        
+                        <button
+                        v-if="isGuest && !isLoading"
+                          type="submit"
+                          class="chat-submit send-btn"
+                          id="chat-submit"
+                          @click="sendMessageToGuest()"
+                        >
+                          <i class="far fa-paper-plane"></i>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -244,12 +330,16 @@
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 import pop from "@/Chat/pop";
-Pusher.logToConsole = true;
+import Loading2 from "@/Kobranzas/Loading2";
+import Loading from "../../Kobranzas/Loading.vue";
+// Pusher.logToConsole = true;
 export default {
   components: {
     AppLayout,
     JetNavLink,
     pop,
+    Loading2,
+    Loading,
   },
   data() {
     return {
@@ -262,12 +352,24 @@ export default {
       contactName: "",
       contactId: "",
       user_photo: "",
+      isLoading: false,
+      idChat: "",
+      messageIncoming: false,
+      window: {
+        height: 0 + "px",
+        width:0
+      },
     };
   },
 
   created() {
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
     this.getGuests();
     this.getContacts();
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.handleResize);
   },
   mounted() {
     setTimeout(() => {
@@ -303,17 +405,19 @@ export default {
       });
     }, 100);
     setTimeout(() => {
-      Echo.channel("tempChat").listen("NewTempMessage", (e) => {
+      Echo.channel("joinGuest").listen("guestJoinChat", (e) => {
         this.getGuests();
+        this.noty();
       });
     }, 100);
 
     setTimeout(() => {
       Echo.channel("guestSend").listen("GuestSendMessage", (e) => {
-        
         if (e.message.to == this.$page.user.id && this.isGuest) {
           this.noty();
-          this.updateUnreadCount(e.message.from,false);
+          this.updateUnreadCount(e.message.from, false);
+          this.messageIncoming = true;
+          console.log("asdasd");
           this.chatRoomGuest(
             e.guest[0].idTemp,
             e.guest[0].name,
@@ -321,8 +425,6 @@ export default {
             e.guest[0].user_id
           );
         }
-        this.getGuests();
-        this.noty();
       });
     }, 100);
     setTimeout(() => {
@@ -344,6 +446,19 @@ export default {
     }, 100);
   },
   methods: {
+    handleResize() {
+      this.window.height = window.innerHeight;
+      this.window.width = window.innerWidth;
+
+    },
+    isLoad() {
+      if (this.idChat == this.contactId) {
+        return;
+      } else {
+        this.messages = [];
+        this.isLoading = true;
+      }
+    },
     scroll() {
       setTimeout(() => {
         var container = this.$el.querySelector("#messages");
@@ -368,75 +483,141 @@ export default {
       });
     },
     chatRoomGuest(id, nombre, photo, user_id) {
-      axios
-        .post("messages/getGuestMessages", {
-          from: this.$page.user.id,
-          to: id,
-        })
-        .then((resMessages) => {
-          this.chatMode = true;
-          this.messages = resMessages.data;
-          this.contactName = nombre;
-          this.user_photo = photo;
-          this.contactId = id;
-          this.scroll();
-        })
-        .catch((err) => {
-          console.log("error");
-          console.log(err);
-          this.chatMode = true;
-          this.messages = [];
-        });
+      if (this.idChat == id && this.contactId != "" && !this.messageIncoming) {
+        return;
+      } else {
+        this.idChat = id;
+        axios
+          .post("messages/getGuestMessages", {
+            from: this.$page.user.id,
+            to: id,
+          })
+          .then((resMessages) => {
+            this.chatMode = true;
+            this.messages = resMessages.data;
+            this.contactName = nombre;
+            this.user_photo = photo;
+            this.contactId = id;
+            this.scroll();
+            this.isLoading = false;
+            this.messageIncoming = false;
+          })
+          .catch((err) => {
+            console.log("error");
+            console.log(err);
+            this.chatMode = true;
+            this.messages = [];
+          });
+      }
     },
     chatRoom(id, nombre, photo) {
-      axios
-        .post("messages/getMessages", {
-          from: this.$page.user.id,
-          to: id,
-        })
-        .then((resMessages) => {
-          this.chatMode = true;
-          this.messages = resMessages.data;
-          this.contactName = nombre;
-          this.user_photo = photo;
-          this.contactId = id;
-          this.scroll();
-        })
-        .catch((err) => {
-          console.log("error");
-          console.log(err);
-          this.chatMode = true;
-          this.messages = [];
-        });
+      if (this.idChat == id && this.contactId != "") {
+        return;
+      } else {
+        this.idChat = id;
+        axios
+          .post("messages/getMessages", {
+            from: this.$page.user.id,
+            to: id,
+          })
+          .then((resMessages) => {
+            this.chatMode = true;
+            this.messages = resMessages.data;
+            this.contactName = nombre;
+            this.user_photo = photo;
+            this.contactId = id;
+            //this.isLoading=false;
+            this.scroll();
+          })
+          .catch((err) => {
+            console.log("error");
+            console.log(err);
+            this.chatMode = true;
+            this.messages = [];
+          });
+      }
     },
     sendMessage() {
       if (this.message.trim() == "") {
         this.message = "";
         return;
       } else {
-        axios
-          .post("messages/sendMessage", {
-            id: this.$page.user.id,
-            contact_id: this.contactId,
-            text: this.message,
-          })
-          .then((response) => {
-            this.messages.push({
-              from: this.$page.user.id,
-              to: this.contactId,
-              text: this.message,
-              name: this.$page.user.name,
-            });
-
-            this.message = "";
-          });
+        let msg = this.message;
+        this.messages.push({
+          from: this.$page.user.id,
+          to: this.contactId,
+          text: msg,
+          name: this.$page.user.name,
+        });
+        this.message = "";
+        this.scroll();
+        axios.post("messages/sendMessage", {
+          id: this.$page.user.id,
+          contact_id: this.contactId,
+          text: msg,
+        });
       }
     },
     endChat(idTemp) {
-      alert("adsasd");
-      axios.delete("chat/endChat/" + idTemp).then((response) => {
-        alert("eliminado");
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger",
+        },
+        buttonsStyling: false,
       });
+
+      swalWithBootstrapButtons
+        .fire({
+          title: "¿Estás Seguro que quieres terminar el chat?",
+          text:
+            "Una vez terminado el chat NO podras ver los mensajes de nuevo!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Sí, Terminar!",
+          cancelButtonText: "No, Cancelar!",
+          reverseButtons: true,
+          showLoaderOnConfirm: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.isLoading = true;
+            this.messages = [];
+            this.contactId = "";
+            axios.delete("chat/endChat/" + idTemp).then((response) => {
+              if (window.window.innerWidth > 785) {
+              } else {
+                $("#user-friends").removeClass("hide");
+                $("#inboxChat").removeClass("vis");
+                $("#contacts").removeClass("hide");
+              }
+              this.isLoading = false;
+              swalWithBootstrapButtons.fire(
+                "Eliminado!",
+                `El chat ha sido terminado.`,
+                "success"
+              );
+            });
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              "Cancelado",
+              "El chat NO se ha terminado ten más cuidado.",
+              "error"
+            );
+          }
+        });
+    },
+    toggleCollapseBtn() {
+      if (window.window.innerWidth > 785) {
+        return;
+      } else {
+        $("#user-friends").toggleClass("hide");
+        $("#inboxChat").toggleClass("vis");
+        $("#contacts").toggleClass("hide");
+      }
     },
     noty() {
       var x = document.getElementById("myAudio");
@@ -447,21 +628,19 @@ export default {
         this.messageGuest = "";
         return;
       } else {
-        axios
-          .post("messages/sendMessageToGuest", {
-            id: this.$page.user.id,
-            contact_id: this.contactId,
-            text: this.messageGuest,
-          })
-          .then((response) => {
-            this.messages.push({
-              from: this.$page.user.id,
-              to: this.contactId,
-              text: this.messageGuest,
-            });
-
-            this.messageGuest = "";
-          });
+        let msg = this.messageGuest;
+        this.messages.push({
+          from: this.$page.user.id,
+          to: this.contactId,
+          text: msg,
+        });
+        this.messageGuest = "";
+        this.scroll();
+        axios.post("messages/sendMessageToGuest", {
+          id: this.$page.user.id,
+          contact_id: this.contactId,
+          text: msg,
+        });
       }
     },
     updateUnreadCount(contact, reset) {
@@ -502,8 +681,28 @@ export default {
 };
 </script>
 <style lang="css">
+.hide {
+  display: none !important;
+  visibility: hidden;
+  transition: 5s;
+}
+.chat-header {
+  width: 100%;
+  background: #2d7d46d6;
+  margin: 0px 0px 0px 0px;
+  position: relative;
+  box-shadow: 0px 2px 6px #9c8e8e;
+  color: white;
+}
+.text-noMessages {
+  margin-top: 15px;
+  text-align: center;
+  font-family: "dosis", sans-serif;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
 img {
-  max-width: 100%;
+  max-width: 40px;
 }
 .inbox_people {
   background: #f8f8f8 none repeat scroll 0 0;
@@ -515,28 +714,35 @@ img {
 .inbox_msg {
   border: 1px solid #c4c4c4;
   clear: both;
-  
 }
 .top_spac {
   margin: 20px 0 0;
 }
-
 .recent_heading {
   float: left;
   width: 100%;
+}
+.headind_srch {
+  background: #4e9163;
+  text-align: center;
 }
 .srch_bar {
   display: inline-block;
   text-align: right;
   width: 60%;
-  padding: ;
 }
 
-
 .recent_heading h4 {
-  color: #05728f;
+  top: 10px;
+  color: white;
   font-size: 21px;
   margin: auto;
+  position: relative;
+}
+.send-btn{
+  position: relative;
+    float: right;
+    top: -21px;
 }
 .srch_bar input {
   border: 1px solid #cdcdcd;
@@ -597,6 +803,21 @@ img {
 .inbox_chat::-webkit-scrollbar-thumb {
   background-color: #001f3f;
 }
+
+.msg_history::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+}
+
+.msg_history::-webkit-scrollbar {
+  width: 5px;
+  background-color: #f5f5f5;
+}
+
+.msg_history::-webkit-scrollbar-thumb {
+  background-color: #001f3f;
+}
+
 .chat_list {
   border-bottom: 1px solid #c4c4c4;
   margin: 0;
@@ -625,7 +846,7 @@ img {
   background: #00000063;
   padding: 10px 15px 10px 15px;
   color: white;
-  max-width: 100%;
+  max-width: 60%;
   float: left;
   margin: 0;
   position: relative;
@@ -643,13 +864,13 @@ img {
   width: 100%;
 }
 .received_withd_msg {
-  width: 100%;
+  width: 99%;
 }
 
 .mesgs {
-      float: left;
-    padding: 7px 0px 0 8px;
-    width: 60%;
+  float: left;
+
+  width: 60%;
 }
 
 .sent_msg p {
@@ -660,25 +881,28 @@ img {
 }
 .outgoing_msg {
   overflow: hidden;
-  margin: 26px 0 26px;
+  margin: 8px 0 8px;
 }
 .sent_msg {
   float: right;
-  width: 50%;
+  width: 100%;
 }
 .input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-    border: medium none;
-    color: #4c4c4c;
-    font-size: 15px;
-    min-height: 48px;
-    width: 100%;
-    /* top: -67px; */
-    position: absolute;
-    height: 14px;
-    border-bottom: 1px solid #a9a1a1;
+  border: medium none;
+  color: #4c4c4c;
+  font-size: 15px;
+  min-height: 30px;
+  width: 97%;
+  top: -24px;
+  position: absolute;
+  margin: 13px 0px -1px 3px;
+  height: 14px;
+  border-bottom: 1px solid #a9a1a1;
 }
-
+.input_msg_write input:focus {
+  outline: none;
+}
 .type_msg {
   position: relative;
 }
@@ -699,7 +923,6 @@ img {
   padding: 0 0 50px 0;
 }
 .msg_history {
-  height: 475px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -716,7 +939,8 @@ img {
   z-index: 0;
 } */
 .fill {
-  margin: -19px, -15px;
+  position: relative;
+  top: -22px;
 }
 .spantitle {
   margin-left: 10px;
@@ -726,5 +950,36 @@ img {
   margin-left: 5px;
   margin-top: 4px;
   box-shadow: 0px 0px 3px;
+}
+.btn-end {
+float: right;
+    margin: 8px 9px 0px 8px;
+    position: relative;
+}
+.btn-bars {
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  top: 16px;
+  padding-right: 15px;
+  right: 0;
+}
+.vis {
+  display: block !important;
+  visibility: visible;
+  transition: 4s;
+}
+
+@media (max-width: 785px) {
+  .btn-bars {
+    display: block;
+  }
+  .inbox_people {
+    width: 100%;
+  }
+  .mesgs {
+    display: none;
+    width: 100%;
+  }
 }
 </style>

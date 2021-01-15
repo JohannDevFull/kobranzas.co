@@ -9,6 +9,7 @@ use App\Http\Controllers\LlamadasController;
 use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\HistoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,19 +27,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('chat/getUser', [ChatController::class, 'getAuthUser']);
+
 
 Route::post('chat/joinChat', [ChatController::class, 'joinChat']);
-Route::post('messages/getMessages', [MessageController::class, 'getMessagesFrom']);
+
 
 Route::post('messages/getGuestMessages', [MessageController::class, 'getGuestMessages']);
 Route::post('messages/guestMessages', [MessageController::class, 'getMessageForGuest']);
 
 Route::post('messages/sendMessageToGuest', [MessageController::class, 'sendMessageToGuest']);
-Route::post('messages/sendMessage', [MessageController::class, 'sendMessage']);
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
+Route::post('chat/getUser', [ChatController::class, 'getAuthUser']);
+Route::post('messages/getMessages', [MessageController::class, 'getMessagesFrom']);
+Route::post('messages/sendMessage', [MessageController::class, 'sendMessage']);
 Route::delete('chat/endChat/{id}', [ChatController::class, 'endChat']);
 
 // PAGINA EN CONSTRUCCION
@@ -61,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('user/store', [UserController::class, 'store'])->name('user.store')
         ->middleware('permission:user.create');
+
     Route::get('user', [UserController::class, 'index'])->name('user.index')
         ->middleware('permission:user.index');
     Route::get('user/create', [UserController::class, 'create'])->name('user.create')
@@ -71,8 +76,12 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('permission:user.show');
     Route::delete('user/{id}', [UserController::class, 'destroy'])->name('user.destroy')
         ->middleware('permission:user.destroy');
-    // Route::get('user/{id}/edit', [UserController::class,'edit'])->name('user.edit')
-    //                                                     ->middleware('permission:user.edit');
+    Route::get('historial', [HistoryController::class, 'index'])->name('historial.index')
+        ->middleware('permission:user.edit');
+    Route::get('historial/getAudits', [HistoryController::class, 'getAudits'])->name('historial.get')
+        ->middleware('permission:historial.index');
+        Route::get('historial/{id}', [HistoryController::class, 'getDetails'])->name('historial.detalles')
+        ->middleware('permission:historial.show');
 });
 
 // RUTAS LLAMADAS 
@@ -116,12 +125,12 @@ Route::middleware(['auth'])->group(function () {
 
 
 // RUTAS CONJUNTOS  
-Route::middleware(['auth'])->group(function (){
-   
-    Route::get('/buscar/conjunto', [BuildingsController::class,'cargarConjunto']);
-    Route::get('/buscar/conjuntos', [BuildingsController::class,'cargarConjuntos']);
-    Route::get('/buscar/conjuntos/short', [BuildingsController::class,'cargarConjuntosShort']);
-    Route::get('/buscar/administradores', [BuildingsController::class,'cargarAdministradores']);
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/buscar/conjunto', [BuildingsController::class, 'cargarConjunto']);
+    Route::get('/buscar/conjuntos', [BuildingsController::class, 'cargarConjuntos']);
+    Route::get('/buscar/conjuntos/short', [BuildingsController::class, 'cargarConjuntosShort']);
+    Route::get('/buscar/administradores', [BuildingsController::class, 'cargarAdministradores']);
 
 
     Route::get('/conjuntos', [BuildingsController::class, 'index'])
@@ -148,38 +157,37 @@ Route::middleware(['auth'])->group(function (){
     Route::put('conjuntos/{user}/restore', [ConjuntosController::class, 'restore'])
         ->name('conjuntos.restore');
     Route::get('conjuntos/template', [BuildingsController::class, 'exportTemplate'])
-    ->middleware('permission:conjuntos.export');
+        ->middleware('permission:conjuntos.export');
 });
 
 
 // RUTAS controladorr cliente
-Route::middleware(['auth'])->group(function () { 
+Route::middleware(['auth'])->group(function () {
 
     Route::get('/buscar/estados/', [ClientsController::class, 'estados']);
     Route::get('/buscar/clientes', [ClientsController::class, 'cargarClientes']);
-    Route::post('/importar/clientes', [ClientsController::class, 'importClients'])->
-    middleware('permission:clients.import');
+    Route::post('/importar/clientes', [ClientsController::class, 'importClients'])->middleware('permission:clients.import');
 });
- 
+
 
 
 // GISTION DE ROLES Y PERMISSOS
 Route::middleware(['auth'])->group(function () {
-    
+
     // GET INDEX :Vista permisos
-    Route::get('/permisos', [PermisosController::class,'index'])->name('permisos');
+    Route::get('/permisos', [PermisosController::class, 'index'])->name('permisos');
     // POST STORE ROL :Crear rol
-    Route::post('/rol', [PermisosController::class,'storeRol'])->name('rol');
+    Route::post('/rol', [PermisosController::class, 'storeRol'])->name('rol');
     // POST SOTORE PERMISO :Crear permiso
-    Route::post('/permiso', [PermisosController::class,'storePermiso'])->name('permiso');
+    Route::post('/permiso', [PermisosController::class, 'storePermiso'])->name('permiso');
     // *** POST SOTORE : Asiganar rol a un usuario por id
-    Route::post('/asignar', [PermisosController::class,'test'])->name('asignar');
+    Route::post('/asignar', [PermisosController::class, 'test'])->name('asignar');
 
 
     // TEST=  STORE ROL
-    Route::post('/create/rol',[PermisosController::class,'storeRol'])->name('create.rol');
-    
-    Route::post('/permisos/crear', [PermisosController::class,'test'])->name('rol.permisos');
+    Route::post('/create/rol', [PermisosController::class, 'storeRol'])->name('create.rol');
+
+    Route::post('/permisos/crear', [PermisosController::class, 'test'])->name('rol.permisos');
 
     // Testing  
     // Route::post('/permisos',[PermisosController::class,'testIP'])->name('permisos.dos');
@@ -189,9 +197,9 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('asigna/permisos', [PermisosController::class, 'asignaTP'])->name('asigna.permisos');
 
     // Route::get('/permisos/show', [PermisosController::class, 'index'])->name('permisos.show');
-    
-    Route::get('iframe', [PermisosController::class,'iframe'])->name('iframe');
-    Route::get('/ventana', [LlamadasController::class,'indexVentana'])->name('ventana');
-    Route::get('/ventana/create', [LlamadasController::class,'ventanaIndes'])->name('ventana.create');
-}); 
-Route::get('prueba/{id}', [PermisosController::class, 'test'])->name('prueba'); 
+
+    Route::get('iframe', [PermisosController::class, 'iframe'])->name('iframe');
+    Route::get('/ventana', [LlamadasController::class, 'indexVentana'])->name('ventana');
+    Route::get('/ventana/create', [LlamadasController::class, 'ventanaIndes'])->name('ventana.create');
+});
+Route::get('prueba/{id}', [PermisosController::class, 'test'])->name('prueba');

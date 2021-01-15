@@ -18,8 +18,10 @@
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
         "maatwebsite/excel": "^3.1",
+        "owen-it/laravel-auditing": "^12.0",
         "phpoffice/phpspreadsheet": "^1.15",
         "pusher/pusher-php-server": "^4.1",
+        "silviolleite/laravelpwa": "^2.0",
         "spatie/laravel-permission": "^3.18",
         "tightenco/ziggy": "^0.9.4"
     },

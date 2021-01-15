@@ -16,7 +16,8 @@ class FirstSheetImport implements ToCollection, WithStartRow, WithValidation
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-            User::create([
+
+            $user = User::create([
                 'name' => $row[0],
                 'email' => $row[1],
                 'doc_type' => $row[2],
@@ -27,15 +28,15 @@ class FirstSheetImport implements ToCollection, WithStartRow, WithValidation
                 'password' => Hash::make($row[6]),
 
             ]);
-            $user_id =  DB::getPdo()->lastInsertId();
-            $user = User::find($user_id);
-            $user->assignRole('Cliente');
+            
+            $userRole = User::find($user->id);
+            $userRole->assignRole('Cliente');
 
             Clients::create([
                 'client_code' => $row[7],
                 'contract_number' => $row[8],
                 'state_id' => $row[9],
-                'user_id' => $user_id,
+                'user_id' => $user->id,
                 'building_id' => $row[10],
             ]);
         }

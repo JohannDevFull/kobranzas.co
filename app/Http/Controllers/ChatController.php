@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\DeleteTempUser;
+use App\Events\guestJoinChat;
 use App\Models\TempUser;
 use App\Models\TempMessage;
 use App\Events\NewTempMessage;
@@ -59,10 +60,8 @@ class ChatController extends Controller
         $tempUser->idTemp= $id;
         $tempUser->name = $request->name;
         $tempUser->save();
-        session_start();
-             $_SESSION['guest'] = $tempUser;
-        broadcast(new NewTempMessage($tempUser,$id))->toOthers();
-        return $_SESSION['guest'];
+        broadcast(new guestJoinChat($tempUser,$id))->toOthers();
+        return $tempUser;
     }
     public function getPendingchats(TempUser $tempUser)
     {

@@ -16,6 +16,8 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+        Permission::create(['name' => 'historial.index']);
+        Permission::create(['name' => 'historial.show']);
         Permission::create(['name' => 'chat.index']);
         Permission::create(['name' => 'conjuntos.export']);
         Permission::create(['name' => 'clients.import']);
@@ -64,7 +66,9 @@ class PermissionsTableSeeder extends Seeder
             'user.destroy',
             'chat.index',
             'conjuntos.export',
-            'clients.import'
+            'clients.import',
+            'historial.index',
+            'historial.show'
         ]);
         // *****
 
