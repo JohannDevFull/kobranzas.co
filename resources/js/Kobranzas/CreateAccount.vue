@@ -154,7 +154,7 @@ export default {
       axios
       .post(url, { 
         
-        capital_deuda: this.capital_dec,
+        capital_deuda: num,
         intereses: this.intereses, 
         cliente_id: this.id_cliente, 
       })
