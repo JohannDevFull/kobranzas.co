@@ -91,8 +91,8 @@
                             guest.user_id != $page.user.id &&
                             guest.user_id != null
                           "
-                          class="btn disabled"
-                          style="padding: 0; text-align: inherit"
+                          class="btn disabled btn-tosel" 
+                          
                         >
                           <div class="chat_list">
                             <div class="chat_people">
@@ -612,7 +612,9 @@ export default {
     },
     toggleCollapseBtn() {
       if (window.window.innerWidth > 785) {
-        return;
+        $("#user-friends").removeClass("hide");
+        $("#inboxChat").addClass("vis");
+        $("#contacts").removeClass("hide");
       } else {
         $("#user-friends").toggleClass("hide");
         $("#inboxChat").toggleClass("vis");
@@ -681,11 +683,7 @@ export default {
 };
 </script>
 <style lang="css">
-.hide {
-  display: none !important;
-  visibility: hidden;
-  transition: 5s;
-}
+
 .chat-header {
   width: 100%;
   background: #2d7d46d6;
@@ -730,6 +728,10 @@ img {
   display: inline-block;
   text-align: right;
   width: 60%;
+}
+.btn-tosel{
+  padding: 0; 
+  text-align: inherit;
 }
 
 .recent_heading h4 {
@@ -957,6 +959,7 @@ float: right;
     position: relative;
 }
 .btn-bars {
+  color:black;
   cursor: pointer;
   display: none;
   position: absolute;
@@ -967,12 +970,12 @@ float: right;
 .vis {
   display: block !important;
   visibility: visible;
-  transition: 4s;
+
 }
 
 @media (max-width: 785px) {
   .btn-bars {
-    display: block;
+    display: block!important;
   }
   .inbox_people {
     width: 100%;
@@ -981,5 +984,10 @@ float: right;
     display: none;
     width: 100%;
   }
+  .hide {
+  display: none !important;
+  visibility: hidden;
+
+}
 }
 </style>
