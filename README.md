@@ -91,10 +91,10 @@ _Listos a correr la la aplicacion_
 php artisan db:seed
 ```
 
-_Listos a correr la la aplicacion_
+_Compilar _
 
 ```
-php artisan server
+npm run dev
 ```
 
 
