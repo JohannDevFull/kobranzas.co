@@ -5,13 +5,12 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-                <inertia-link :href="route('user.create')">
-              <button class="btn btn-dark float-right">
-                <i class="fas fa-plus"></i> Agregar Usuario
-              </button>
-            </inertia-link>
+              <inertia-link :href="route('user.create')">
+                <button class="btn btn-dark float-right">
+                  <i class="fas fa-plus"></i> Agregar Usuario
+                </button>
+              </inertia-link>
               <h3 class="card-title">Listado de Usuarios</h3>
-              
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -29,7 +28,7 @@
                           aria-controls="example1"
                           class="custom-select custom-select-sm form-control form-control-sm"
                           v-model="show"
-                          @click="getUsers(1, show)"
+                          @click="getUsers(1, show,search)"
                         >
                           <option value="5">5</option>
                           <option value="10">10</option>
@@ -41,18 +40,22 @@
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-6">
-                    <div id="example1_filter" class="dataTables_filter float-right">
+                    <div
+                      id="example1_filter"
+                      class="dataTables_filter float-right"
+                    >
                       <label
                         >Buscar por nombre o documento:<input
                           type="search"
                           class="form-control form-control-sm"
                           placeholder=""
                           aria-controls="example1"
-                          v-model="name"
+                          v-model="search"
+                          @keyup="getUsers(1, show,search)"
                       /></label>
                     </div>
                   </div>
-                </div>
+                </div> 
                 <div class="row">
                   <div class="col-sm-12">
                     <table
@@ -64,68 +67,55 @@
                       <thead>
                         <tr role="row">
                           <th
-                            class="sorting_asc"
                             tabindex="0"
                             aria-controls="example1"
                             rowspan="1"
                             colspan="1"
-                            aria-sort="ascending"
-                            aria-label="Rendering engine: activate to sort column descending"
                             style="width: 170px"
                           >
                             Nombre
                           </th>
                           <th
-                            class="sorting"
                             tabindex="0"
                             aria-controls="example1"
                             rowspan="1"
                             colspan="1"
-                            aria-label="Browser: activate to sort column ascending"
                             style="width: 219px"
                           >
                             Correo
                           </th>
                           <th
-                            class="sorting"
                             tabindex="0"
                             aria-controls="example1"
                             rowspan="1"
                             colspan="1"
-                            aria-label="Platform(s): activate to sort column ascending"
                             style="width: 194px"
                           >
                             Tipo de Documento
                           </th>
                           <th
-                            class="sorting"
                             tabindex="0"
                             aria-controls="example1"
                             rowspan="1"
                             colspan="1"
-                            aria-label="Engine version: activate to sort column ascending"
                             style="width: 143px"
                           >
                             Documento
                           </th>
                           <th
-                            class="sorting"
                             tabindex="0"
                             aria-controls="example1"
                             rowspan="1"
                             colspan="1"
-                            aria-label="Telefono: activate to sort column ascending"
                             style="width: 101px"
                           >
                             Telefono
                           </th>
                           <th
-                            class="sorting"
                             tabindex="0"
                             aria-controls="example1"
                             rowspan="1"
                             colspan="1"
-                            aria-label="Telefono: activate to sort column ascending"
                             style="width: 101px"
                           >
                             Acción
@@ -136,20 +126,20 @@
                         <tr
                           role="row"
                           class="odd"
-                          v-for="(user, id) in searchUser"
+                          v-for="(user, id) in users"
                           :key="id"
                         >
                           <td class="sorting_1">{{ user.name }}</td>
                           <td>{{ user.email }}</td>
                           <td>
-                            <select 
+                            <select
                               class="styleDoc"
                               :value="user.doc_type"
                               disabled
                             >
                               <option value="" disabled>Seleccione...</option>
                               <option value="cedula_ciudadania">
-                               <b> Cédula de Ciudadanía</b>
+                                <b> Cédula de Ciudadanía</b>
                               </option>
                               <option value="cedula_extrangeria">
                                 Cédula de Extrangería
@@ -177,7 +167,7 @@
                           </td>
                         </tr>
                       </tbody>
-                      <tfoot v-if="name == ''">
+                      <tfoot >
                         <tr>
                           <th rowspan="1" colspan="1">Nombre</th>
                           <th rowspan="1" colspan="1">Correo</th>
@@ -190,7 +180,7 @@
                     </table>
                   </div>
                 </div>
-                <div class="row" v-if="name == ''">
+                <div class="row" >
                   <div class="col-sm-12 col-md-5">
                     <div
                       class="dataTables_info"
@@ -289,7 +279,7 @@ export default {
   },
   data() {
     return {
-      name: "",
+      search: "",
       show: 10,
       users: [],
       pagination: {
@@ -340,15 +330,16 @@ export default {
     searchUser() {
       return this.users.filter(
         (user) =>
-          user.name.toLowerCase().includes(this.name.toLowerCase()) ||
-          user.document.includes(this.name)
+          user.name.toLowerCase().includes(this.search.toLowerCase()) ||
+          user.document.includes(this.search)
       );
     },
   },
   methods: {
+    
     getUsers(page) {
       axios
-        .get("user/paginate?page=" + page + "&show=" + this.show)
+        .get("user/paginate?page=" + page + "&show=" + this.show+"&search=" + this.search)
         .then((response) => {
           this.pagination = response.data.pagination;
           this.users = response.data.users.data;

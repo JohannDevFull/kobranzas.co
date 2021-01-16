@@ -25,7 +25,7 @@
       <div class="chat-box2" style="height: 74vh">
         <div class="chat-box-body" style="height: 74vh; max-height: 100%">
           <div class="chat-box-overlay"></div>
-          <div class="chat-logs" style="overflow: auto">
+          <div class="" style="overflow: auto">
             <button class="btn-times" @click="toggle()">
               <span class="chat-box-toggle"><i class="fas fa-times"></i></span>
             </button>
@@ -157,10 +157,10 @@ export default {
     setTimeout(() => {
       Echo.channel("deleted").listen("DeleteTempUser", (e) => {
         if (this.userinfo.idTemp == e.deleted) {
-          this.enabled=false;
-          this.chatMode=false;
-          this.isLoading=false;
-          this.userinfo='';
+          this.enabled = false;
+          this.chatMode = false;
+          this.isLoading = false;
+          this.userinfo = "";
         }
       });
     }, 100);
@@ -217,11 +217,13 @@ export default {
         this.guest = "";
         return;
       } else {
+        this.isLoading = !this.isLoading;
         axios
           .post("/chat/joinChat", {
             name: this.guest,
           })
           .then((response) => {
+            this.isLoading = !this.isLoading;
             this.userinfo = response.data;
 
             this.isLoading = !this.isLoading;
@@ -253,22 +255,20 @@ export default {
         this.message = "";
         return;
       } else {
+        let msg = this.message;
+        this.messages.push({
+          from: this.userinfo.idTemp,
+          to: this.contactId,
+          text: msg,
+        });
+        this.message = "";
+        this.scroll();
         axios
           .post("messages/sendMessageToGuest", {
             id: this.userinfo.idTemp,
             contact_id: this.contactId,
-            text: this.message,
+            text: msg,
             userinfo: this.info,
-          })
-          .then((response) => {
-            this.messages.push({
-              from: this.userinfo.idTemp,
-              to: this.contactId,
-              text: this.message,
-            });
-
-            this.message = "";
-            this.scroll(), 4000;
           });
       }
     },

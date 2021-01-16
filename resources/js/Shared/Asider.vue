@@ -5,7 +5,7 @@
       <!-- Brand Logo -->
       <a href="/" class="brand-link">
         <img
-          src="/storage/img/logo.png"
+          src="/storage/img/AdminLTELogo.png"
           alt="AdminLTE Logo"
           class="brand-image img-circle elevation-3"
           style="opacity: 0.8"
@@ -122,7 +122,11 @@
             </li>
             <li
               class="nav-item has-treeview"
-              v-if="$inertia.page.rol == 'Admin'||$inertia.page.rol == 'Empleado'||$inertia.page.rol == 'AdminConjunto'"
+              v-if="
+                $inertia.page.rol == 'Admin' ||
+                $inertia.page.rol == 'Empleado' ||
+                $inertia.page.rol == 'AdminConjunto'
+              "
             >
               <inertia-link class="nav-link" :href="route('chat.index')">
                 <i class="nav-icon fas fa-comment-dots"></i>
@@ -146,6 +150,14 @@
                 <p>
                   Mailbox
                   <span class="right badge badge-danger">New</span>
+                </p>
+              </inertia-link>
+            </li>
+            <li class="nav-item">
+              <inertia-link class="nav-link" :href="route('historial.index')">
+                <i class="nav-icon fas fa-history"></i>
+                <p>
+                  Historial
                 </p>
               </inertia-link>
             </li>

@@ -9,8 +9,6 @@
 </template>
 <script>
 export default {
-    mounted(){
-        console.log('popo conectado');
-    }
+
 }
 </script>

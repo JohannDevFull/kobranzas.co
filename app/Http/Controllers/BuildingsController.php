@@ -33,6 +33,7 @@ class BuildingsController extends Controller
         $conjuntos=Buildings::select('*')
                             ->join('users','buildings.administrator_id', '=', 'id')
                             ->get();
+                            $conjuntos->makeHidden(['password']);
         return response()->json($conjuntos);
     }
 
@@ -85,12 +86,12 @@ class BuildingsController extends Controller
     {
         $buscar=$id;
  
-        $conj=Buildings::select('*')
-                            ->where('id_building',$buscar)
-                            ->join('users', 'administrator_id', '=', 'users.id')
+        $conj=Buildings::
+                            where('id_building',$buscar)
                             ->get();
-        $conjunto=$conj[0];     
-
+        $conjunto=$conj[0]; 
+        
+        $conju=User::where('id','=',$conjunto->administrator_id)->get();
 
         $clients=Clients::select('*')
                             ->where('building_id',$buscar)
@@ -103,6 +104,7 @@ class BuildingsController extends Controller
         return Inertia::render('Admin/Conjuntos/Show',[
             'conjunto' => $conjunto,
             'clientes' => $clients,
+            'conjuntoinfo'=>$conju[0],
             'num' => $num,
         ]);
     }

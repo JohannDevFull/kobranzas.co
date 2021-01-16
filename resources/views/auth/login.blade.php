@@ -22,7 +22,7 @@
 </head>
 <body class="hold-transition login-page">
 
-    <img src="/storage/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" >
+    <img src="{{ asset('storage/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" >
 
 <div class="login-box">
   <div class="login-logo">

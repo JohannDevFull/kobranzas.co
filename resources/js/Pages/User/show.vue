@@ -68,6 +68,59 @@
             :disabled="disabled"
           />
         </div>
+        <div v-if="userinfo.roles[0].name == 'Cliente'">
+          <div class="form-group">
+            <label>Estado</label>
+            <span class="required">*</span>
+            <select class="form-control" v-model="state" :disabled="disabled">
+              <option value="" disabled>Seleccione un Estado</option>
+              <option
+                v-for="opt in estados"
+                :key="opt.id_state"
+                v-bind:value="opt.id_state"
+              >
+                {{ opt.description }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Conjunto</label>
+            <span class="required">*</span>
+            <select
+              class="form-control"
+              v-model="building"
+              :disabled="disabled"
+            >
+              <option value="" disabled>Seleccione Conjunto</option>
+              <option
+                v-for="opt in conjuntos"
+                :key="opt.id_building"
+                v-bind:value="opt.id_building"
+              >
+                {{ opt.name_building }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Código de Cliente:</label>
+            <input
+              type="text"
+              class="form-control"
+              v-model="client_code"
+              :disabled="disabled"
+            />
+          </div>
+          <div class="form-group">
+            <label>Número de Contrato:</label>
+            <input
+              type="text"
+              class="form-control"
+              v-model="contract_number"
+              :disabled="disabled"
+            />
+          </div>
+        </div>
       </div>
       <div class="card-footer">
         <button
@@ -78,7 +131,13 @@
           Editar
         </button>
 
-        <button class="btn btn-sm btn-info" v-if="!disabled" @click="updateUser(userinfo.id)">Actualizar</button>
+        <button
+          class="btn btn-sm btn-info"
+          v-if="!disabled"
+          @click="updateUser(userinfo.id)"
+        >
+          Actualizar
+        </button>
         <ul v-for="error in errors.errors">
           <li class="required">{{ error[0] }}</li>
         </ul>
@@ -117,11 +176,20 @@
           Rol: {{ userinfo.roles[0].name }}
         </div>
         <div class="card-body" style="display: block">
-          Creado el: {{ userinfo.created_at }}
+          Creado el: {{ toLocaleDateString(userinfo.created_at) }}
         </div>
-        <div class="card-body" style="display: block">
-          Actualizado el: {{ userinfo.updated_at }}
+        <div
+          class="card-body"
+          style="display: block"
+          v-if="userinfo.roles[0].name == 'Cliente'"
+        >
+          Actualizado el:
+          {{ recentDate(clientinfo.updated_at, userinfo.updated_at) }}
         </div>
+        <div class="card-body" style="display: block" v-else>
+          Actualizado el: {{ toLocaleDateString(userinfo.updated_at) }}
+        </div>
+
         <!-- /.card-body -->
       </div>
     </div>
@@ -132,7 +200,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 
 export default {
-  props: ["userinfo"],
+  props: ["userinfo", "clientinfo", "conjuntos", "estados"],
   components: {
     AppLayout,
     JetNavLink,
@@ -146,6 +214,10 @@ export default {
       document: this.userinfo.document,
       phone_one: this.userinfo.phone_one,
       phone_two: this.userinfo.phone_two,
+      client_code: this.clientinfo.client_code,
+      contract_number: this.clientinfo.contract_number,
+      state: this.clientinfo.state_id,
+      building: this.clientinfo.building_id,
       errors: [],
     };
   },
@@ -161,7 +233,11 @@ export default {
       this.document = this.userinfo.document;
       this.phone_one = this.userinfo.phone_one;
       this.phone_two = this.userinfo.phone_two;
-      this.errors=[];
+      this.client_code = this.clientinfo.client_code;
+      this.contract_number = this.clientinfo.contract_number;
+      this.state = this.clientinfo.state_id;
+      this.building = this.clientinfo.building_id;
+      this.errors = [];
     },
     updateUser(idUser) {
       axios
@@ -172,13 +248,47 @@ export default {
           documento: this.document,
           telefono: this.phone_one,
           phone_two: this.phone_two,
+          codigo_de_cliente: this.client_code,
+          numero_de_contrato: this.contract_number,
+          conjunto: this.building,
+          estado: this.state,
+          role: this.userinfo.roles[0].name,
+          clientid: this.clientinfo.id_client,
         })
         .then((response) => {
+          Swal.fire({
+            icon: "success",
+            title: "El usuario ha sido actualizado!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           this.$inertia.visit(`/user/${this.userinfo.id}`);
         })
         .catch((error) => {
           this.errors = error.response.data;
         });
+    },
+    recentDate(date1, date2) {
+      let dd1 = Date.parse(date1);
+      let dd2 = Date.parse(date2);
+      if (dd1 > dd2) {
+        return this.toLocaleDateString(date1);
+      } else {
+        return this.toLocaleDateString(date2);
+      }
+    },
+    toLocaleDateString(date) {
+      var options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: "true",
+      };
+      var dateConverted = new Date(date).toLocaleString("es-US", options);
+      return dateConverted;
     },
     deleteUser(idUser) {
       const swalWithBootstrapButtons = Swal.mixin({

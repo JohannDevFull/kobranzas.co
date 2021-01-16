@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Clients extends Model
+class Clients extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
 
     protected $primaryKey = 'id_client';
@@ -18,4 +20,6 @@ class Clients extends Model
         'user_id',
         'building_id',
     ];
+    
+
 }

@@ -14,9 +14,11 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Auth;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasApiTokens;
     use HasRoles;
     use HasFactory;
@@ -45,8 +47,8 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'created_at'=>'datetime:Y-m-d H:i:s',
-        'updated_at'=>'datetime:Y-m-d H:i:s',
+        'created_at'=>'datetime',
+        'updated_at'=>'datetime',
     
     ];
 

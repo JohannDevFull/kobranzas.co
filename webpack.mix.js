@@ -43,10 +43,13 @@ mix.copyDirectory('resources/assets/css', 'public/css');
 mix.copyDirectory('resources/assets/js', 'public/js');
 //Inertiajs
 mix.copy('resources/assets/Response.php', 'vendor/inertiajs/inertia-laravel/src/Response.php');
+//no borrar mensajes en español para errores de validación de excel para importar import
 mix.copy('resources/assets/Failure.php', 'vendor/maatwebsite/excel/src/Validators/Failure.php');
-
+//no borrar se agregó un nuevo campo a la tabla audits para que guarde el nombre de la persona  para poderla filtrar en la vista
+mix.copy('resources/assets/Auditable.php', 'vendor/owen-it/laravel-auditing/src/Auditable.php');
 
 
 mix.copy('resources/assets/clases/Ejemplo.php', 'vendor/inertiajs/inertia-laravel/src/Ejemplo.php');
+
 
 

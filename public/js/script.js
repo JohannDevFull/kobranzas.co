@@ -2168,32 +2168,29 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     sendMessage: function sendMessage() {
-      var _this5 = this;
-
       if (this.message.trim() == "") {
         this.message = "";
       } else {
+        var msg = this.message;
+        this.messages.push({
+          from: this.userinfo.id,
+          to: this.contactId,
+          text: msg
+        });
+        this.message = "";
+        this.scroll();
         axios.post("messages/sendMessage", {
           id: this.userinfo.id,
           contact_id: this.contactId,
-          text: this.message
-        }).then(function (response) {
-          _this5.messages.push({
-            from: _this5.userinfo.id,
-            to: _this5.contactId,
-            text: _this5.message
-          });
-
-          _this5.message = "";
-          _this5.scroll(), 4000;
+          text: msg
         });
       }
     },
     scroll: function scroll() {
-      var _this6 = this;
+      var _this5 = this;
 
       setTimeout(function () {
-        var container = _this6.$el.querySelector("#messages");
+        var container = _this5.$el.querySelector("#messages");
 
         container.scrollTop = 10000000;
       }, 10);
@@ -2398,7 +2395,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.enabled = false;
           _this.chatMode = false;
           _this.isLoading = false;
-          _this.userinfo = '';
+          _this.userinfo = "";
         }
       });
     }, 100);
@@ -2460,9 +2457,11 @@ __webpack_require__.r(__webpack_exports__);
         this.guest = "";
         return;
       } else {
+        this.isLoading = !this.isLoading;
         axios.post("/chat/joinChat", {
           name: this.guest
         }).then(function (response) {
+          _this2.isLoading = !_this2.isLoading;
           _this2.userinfo = response.data;
           _this2.isLoading = !_this2.isLoading;
         });
@@ -2488,34 +2487,31 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     sendMessage: function sendMessage() {
-      var _this4 = this;
-
       if (this.message.trim() == "") {
         this.message = "";
         return;
       } else {
+        var msg = this.message;
+        this.messages.push({
+          from: this.userinfo.idTemp,
+          to: this.contactId,
+          text: msg
+        });
+        this.message = "";
+        this.scroll();
         axios.post("messages/sendMessageToGuest", {
           id: this.userinfo.idTemp,
           contact_id: this.contactId,
-          text: this.message,
+          text: msg,
           userinfo: this.info
-        }).then(function (response) {
-          _this4.messages.push({
-            from: _this4.userinfo.idTemp,
-            to: _this4.contactId,
-            text: _this4.message
-          });
-
-          _this4.message = "";
-          _this4.scroll(), 4000;
         });
       }
     },
     scroll: function scroll() {
-      var _this5 = this;
+      var _this4 = this;
 
       setTimeout(function () {
-        var container = _this5.$el.querySelector("#messages");
+        var container = _this4.$el.querySelector("#messages");
 
         container.scrollTop = 10000000;
       }, 10);
@@ -2564,11 +2560,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('popo conectado');
-  }
-});
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 
@@ -27316,123 +27308,116 @@ var render = function() {
                 [
                   _c("div", { staticClass: "chat-box-overlay" }),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "chat-logs",
-                      staticStyle: { overflow: "auto" }
-                    },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn-times",
-                          on: {
-                            click: function($event) {
-                              return _vm.toggle()
-                            }
+                  _c("div", { staticStyle: { overflow: "auto" } }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn-times",
+                        on: {
+                          click: function($event) {
+                            return _vm.toggle()
                           }
-                        },
-                        [_vm._m(3)]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "chat-msg self",
-                          attrs: { id: "cm-msg-1" }
-                        },
-                        [
-                          _c("div", { staticClass: "form-group text-center" }, [
-                            _c(
-                              "div",
-                              { staticClass: "chat-box-welcome__welcome-text" },
-                              [
-                                _vm.isLoading
-                                  ? _c(
-                                      "div",
-                                      [_vm._m(4), _vm._v(" "), _c("Loader")],
-                                      1
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                !_vm.isLoading
-                                  ? _c("div", [
-                                      _c("p", { staticClass: "text-wel" }, [
-                                        _vm._v(
-                                          "\n                    Hola, por favor ingresa tu nombre para que puedas ingresar\n                    al chat de soporte y puedas solucionar tus dudas e\n                    inconvenientes\n                  "
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("input", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: _vm.guest,
-                                            expression: "guest"
+                        }
+                      },
+                      [_vm._m(3)]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "chat-msg self",
+                        attrs: { id: "cm-msg-1" }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group text-center" }, [
+                          _c(
+                            "div",
+                            { staticClass: "chat-box-welcome__welcome-text" },
+                            [
+                              _vm.isLoading
+                                ? _c(
+                                    "div",
+                                    [_vm._m(4), _vm._v(" "), _c("Loader")],
+                                    1
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              !_vm.isLoading
+                                ? _c("div", [
+                                    _c("p", { staticClass: "text-wel" }, [
+                                      _vm._v(
+                                        "\n                    Hola, por favor ingresa tu nombre para que puedas ingresar\n                    al chat de soporte y puedas solucionar tus dudas e\n                    inconvenientes\n                  "
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.guest,
+                                          expression: "guest"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        placeholder: "Tu nombre aquí",
+                                        maxlength: "35"
+                                      },
+                                      domProps: { value: _vm.guest },
+                                      on: {
+                                        keyup: function($event) {
+                                          if (
+                                            !$event.type.indexOf("key") &&
+                                            _vm._k(
+                                              $event.keyCode,
+                                              "enter",
+                                              13,
+                                              $event.key,
+                                              "Enter"
+                                            )
+                                          ) {
+                                            return null
                                           }
-                                        ],
-                                        staticClass: "form-control",
-                                        attrs: {
-                                          type: "text",
-                                          placeholder: "Tu nombre aquí",
-                                          maxlength: "35"
+                                          return _vm.joinChat()
                                         },
-                                        domProps: { value: _vm.guest },
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.guest = $event.target.value
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("br"),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "form-control btn btn-outline-dark center",
                                         on: {
-                                          keyup: function($event) {
-                                            if (
-                                              !$event.type.indexOf("key") &&
-                                              _vm._k(
-                                                $event.keyCode,
-                                                "enter",
-                                                13,
-                                                $event.key,
-                                                "Enter"
-                                              )
-                                            ) {
-                                              return null
-                                            }
+                                          click: function($event) {
                                             return _vm.joinChat()
-                                          },
-                                          input: function($event) {
-                                            if ($event.target.composing) {
-                                              return
-                                            }
-                                            _vm.guest = $event.target.value
                                           }
                                         }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("br"),
-                                      _vm._v(" "),
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass:
-                                            "form-control btn btn-outline-dark center",
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.joinChat()
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                    Entrar\n                  "
-                                          )
-                                        ]
-                                      )
-                                    ])
-                                  : _vm._e()
-                              ]
-                            )
-                          ])
-                        ]
-                      )
-                    ]
-                  )
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                    Entrar\n                  "
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                : _vm._e()
+                            ]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
                 ]
               )
             ]

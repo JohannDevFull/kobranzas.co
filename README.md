@@ -85,16 +85,16 @@ _Migrar base de datos_
 php artisan migrate
 ```
 
-_Listos a correr la la aplicacion_
+_Sembrar base de datos_
 
 ```
 php artisan db:seed
 ```
 
-_Listos a correr la la aplicacion_
+_Compilar _
 
 ```
-php artisan server
+npm run dev
 ```
 
 
