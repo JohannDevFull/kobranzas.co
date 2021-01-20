@@ -11,6 +11,7 @@
           style="opacity: 0.8"
         />
         <span class="brand-text font-weight-light">LSA Abogados</span>
+        <a data-widget="pushmenu" role="button" class="btn-togg float-right"><i class="fas fa-bars"></i></a>
       </a>
 
       <!-- Sidebar -->
@@ -48,7 +49,8 @@
             <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
             <li class="nav-item has-treeview">
-              <inertia-link class="nav-link" :href="route('dashboard')">
+              <inertia-link class="nav-link" :href="route('dashboard')" data-widget="pushmenu">
+                
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>Dashboard</p>
               </inertia-link>
@@ -68,13 +70,13 @@
               </a>
               <ul class="nav nav-treeview" style="display: none">
                 <li class="nav-item">
-                  <inertia-link class="nav-link" :href="route('user.index')">
+                  <inertia-link class="nav-link" :href="route('user.index')" data-widget="pushmenu">
                     <i class="nav-icon fas fa-address-book text-success"></i>
                     <p>Ver Usuarios</p>
                   </inertia-link>
                 </li>
                 <li class="nav-item">
-                  <inertia-link class="nav-link" :href="route('user.create')">
+                  <inertia-link class="nav-link" :href="route('user.create')" data-widget="pushmenu">
                     <i class="nav-icon fas fa-user-plus text-success"></i>
                     <p>Crear Usuarios</p>
                   </inertia-link>
@@ -83,7 +85,7 @@
             </li>
 
             <li class="nav-item" v-if="$inertia.page.rol == 'Admin'">
-              <inertia-link class="nav-link" :href="route('conjuntos')">
+              <inertia-link class="nav-link" :href="route('conjuntos')" data-widget="pushmenu">
                 <i class="nav-icon far fa-building"></i>
                 <p>Conjuntos</p>
               </inertia-link>
@@ -94,7 +96,7 @@
                 $inertia.page.rol == 'Admin' || $inertia.page.rol == 'Empleado'
               "
             >
-              <inertia-link class="nav-link" :href="route('llamadas')">
+              <inertia-link class="nav-link" :href="route('llamadas')" data-widget="pushmenu">
                 <i class="nav-icon fas fa-phone"></i>
                 <p>Llamadas</p>
               </inertia-link>
@@ -105,7 +107,7 @@
                 $inertia.page.rol == 'Admin' || $inertia.page.rol == 'Empleado'
               "
             >
-              <inertia-link class="nav-link" :href="route('construir')">
+              <inertia-link class="nav-link" :href="route('construir')" data-widget="pushmenu">
                 <i class="nav-icon fas fa-hands-helping"></i>
                 <p>Acuerdos</p>
               </inertia-link>
@@ -115,7 +117,7 @@
               class="nav-item has-treeview"
               v-if="$inertia.page.rol == 'Admin'"
             >
-              <inertia-link class="nav-link" :href="route('construir')">
+              <inertia-link class="nav-link" :href="route('construir')" data-widget="pushmenu">
                 <i class="nav-icon fas fa-chart-pie"></i>
                 <p>Reportes</p>
               </inertia-link>
@@ -128,14 +130,14 @@
                 $inertia.page.rol == 'AdminConjunto'
               "
             >
-              <inertia-link class="nav-link" :href="route('chat.index')">
+              <inertia-link class="nav-link" :href="route('chat.index')" data-widget="pushmenu">
                 <i class="nav-icon fas fa-comment-dots"></i>
                 <p>Chat de Soporte</p>
               </inertia-link>
             </li>
 
             <li class="nav-item">
-              <inertia-link class="nav-link" :href="route('construir')">
+              <inertia-link class="nav-link" :href="route('construir')" data-widget="pushmenu">
                 <i class="nav-icon far fa-calendar-alt"></i>
                 <p>
                   Calendar
@@ -145,7 +147,7 @@
             </li>
 
             <li class="nav-item">
-              <inertia-link class="nav-link" :href="route('construir')">
+              <inertia-link class="nav-link" :href="route('construir')" data-widget="pushmenu">
                 <i class="nav-icon far fa-envelope"></i>
                 <p>
                   Mailbox
@@ -154,7 +156,7 @@
               </inertia-link>
             </li>
             <li class="nav-item">
-              <inertia-link class="nav-link" :href="route('historial.index')">
+              <inertia-link class="nav-link" :href="route('historial.index')" data-widget="pushmenu">
                 <i class="nav-icon fas fa-history"></i>
                 <p>
                   Historial
@@ -164,6 +166,7 @@
 
             <li class="nav-item has-treeview">
               <inertia-link
+              data-widget="pushmenu"
                 class="nav-link"
                 :href="route('permisos')"
                 v-if="$inertia.page.rol == 'Admin'"
@@ -197,3 +200,14 @@ export default {
   },
 };
 </script>
+<style lang="css">
+.btn-togg{
+  display: none!important;
+}
+
+  @media(max-width:991px){
+    .btn-togg{
+      display:block!important;
+    }
+  }
+</style>

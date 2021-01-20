@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Events\DeleteTempUser;
-use App\Events\guestJoinChat;
+use App\Events\EndChat;
+use App\Events\GuestJoinChat;
 use App\Models\TempUser;
 use App\Models\TempMessage;
 use App\Events\NewTempMessage;
@@ -56,11 +57,22 @@ class ChatController extends Controller
     }
     public function joinChat(Request $request, TempUser $tempUser)
     {
-        $id='Invitado' . rand(1, 10) . $request->name . rand(1, 99999);
-        $tempUser->idTemp= $id;
-        $tempUser->name = $request->name;
+        $this->validate($request, [
+            'nombre' => 'required|regex:/^[\pL\s\-]+$/u'
+        ]);
+        $lastId = TempUser::all() -> last();
+        if (!$lastId) {
+            $lastId = 1;
+        } else {
+            $lastId = $lastId->id + 1;
+        }
+
+
+        $id = 'Invitado' . $lastId . rand(1, 99999);
+        $tempUser->idTemp = $id;
+        $tempUser->name = $request->nombre;
         $tempUser->save();
-        broadcast(new guestJoinChat($tempUser,$id))->toOthers();
+        broadcast(new GuestJoinChat($tempUser, $id))->toOthers();
         return $tempUser;
     }
     public function getPendingchats(TempUser $tempUser)
@@ -71,20 +83,20 @@ class ChatController extends Controller
     public function endChat($id)
     {
         $tempmessage = new TempMessage;
-        $tempmessage=  TempMessage::where('to','=',$id);
+        $tempmessage =  TempMessage::where('to', '=', $id);
         $tempmessage->delete();
         $tempmessage2 = new TempMessage;
-        $tempmessage2=  TempMessage::where('from','=',$id);
+        $tempmessage2 =  TempMessage::where('from', '=', $id);
         $tempmessage2->delete();
         $tempUser = new TempUser();
-        $tempUser=  TempUser::where('idTemp','=',$id);
+        $tempUser =  TempUser::where('idTemp', '=', $id);
         $tempUser->delete();
         broadcast(new DeleteTempUser($id));
-        
+        broadcast(new EndChat($id));
     }
-    public function getRequestsChats(Request $request,TempUser $tempUser)
+    public function getRequestsChats(Request $request, TempUser $tempUser)
     {
-      $tempUser = TempUser::all();
+        $tempUser = TempUser::all();
 
         $unreadIds = TempMessage::select(\DB::raw('`from` as sender_id, count(`from`) as messages_count'))
             ->where('to', auth()->id())

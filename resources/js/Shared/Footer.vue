@@ -27,3 +27,10 @@
     }
 </script>
 
+<style lang="css">
+  @media (max-width:466px) {
+    .main-footer{
+          font-size: 0.7rem;
+    }
+  }
+</style>

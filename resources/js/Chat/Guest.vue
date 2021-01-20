@@ -62,6 +62,9 @@
                     >
                       Entrar
                     </button>
+                    <ul v-for="error in errors.errors">
+                      <li class="required">{{ error[0] }}</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -103,7 +106,7 @@
           <input
             type="text"
             id="chat-input"
-            placeholder="Send a message..."
+            placeholder="Envía un mensaje..."
             v-model="message"
             @keyup.enter="sendMessage()"
           />
@@ -142,51 +145,75 @@ export default {
       contactName: "",
       displaySound: false,
       notification: false,
+      errors: [],
     };
   },
   created() {},
   mounted() {
-    setTimeout(() => {
-      Echo.channel("status").listen("ChangeGuestStatus", (e) => {
-        if (this.userinfo.idTemp == e.guest[0].idTemp) {
-          this.chatMode = true;
-          this.chatRoom(e.admin.id, e.admin.name);
-        }
-      });
-    }, 100);
-    setTimeout(() => {
-      Echo.channel("deleted").listen("DeleteTempUser", (e) => {
-        if (this.userinfo.idTemp == e.deleted) {
-          this.enabled = false;
-          this.chatMode = false;
-          this.isLoading = false;
-          this.userinfo = "";
-        }
-      });
-    }, 100);
-    setTimeout(() => {
-      Echo.channel("tempChat").listen("NewTempMessage", (e) => {
-        if (this.userinfo.idTemp == e.message.to) {
-          if (this.enabled) {
-            this.noty();
-            this.chatRoom(this.contactId, this.contactName);
-          } else if (!this.enabled) {
-            if (!this.info) {
-              return;
-            } else {
-              this.chatRoom(this.contactId, this.contactName);
-              console.log(e.message);
-              this.noty();
-              this.notification = true;
-            }
-          }
-        } else {
-          return;
-        }
-      });
-    }, 100);
+    this.enterChat();
+    this.deleteTempUser();
+    this.messageIncomming();
   },
   methods: {
+    enterChat() {
+      if (this.userinfo.idTemp) {
+        setTimeout(() => {
+          Echo.channel(`status.${this.userinfo.idTemp}`).listen(
+            "ChangeGuestStatus",
+            (e) => {
+              if (this.userinfo.idTemp == e.guest[0].idTemp) {
+                this.chatMode = true;
+                this.chatRoom(e.admin.id, e.admin.name);
+              }
+            }
+          );
+        }, 100);
+      }
+    },
+    deleteTempUser() {
+      if (this.userinfo.idTemp) {
+        setTimeout(() => {
+          Echo.channel(`deleted.${this.userinfo.idTemp}`).listen(
+            "EndChat",
+            (e) => {
+              if (this.userinfo.idTemp == e.deleted) {
+                this.enabled = false;
+                this.chatMode = false;
+                this.isLoading = false;
+                this.userinfo = "";
+              }
+            }
+          );
+        }, 100);
+      }
+    },
+    messageIncomming() {
+      if (this.userinfo.idTemp) {
+        setTimeout(() => {
+          Echo.channel(`tempChat.${this.userinfo.idTemp}`).listen(
+            "NewTempMessage",
+            (e) => {
+              if (this.userinfo.idTemp == e.message.to) {
+                if (this.enabled) {
+                  this.noty();
+                  this.chatRoom(this.contactId, this.contactName);
+                } else if (!this.enabled) {
+                  if (!this.info) {
+                    return;
+                  } else {
+                    this.chatRoom(this.contactId, this.contactName);
+                    this.noty();
+                    this.notification = true;
+                  }
+                }
+              } else {
+                return;
+              }
+            }
+          );
+        }, 100);
+      }
+    },
     toggle() {
       this.enabled = !this.enabled;
       this.notification = false;
@@ -217,17 +244,36 @@ export default {
         this.guest = "";
         return;
       } else {
-        this.isLoading = !this.isLoading;
-        axios
-          .post("/chat/joinChat", {
-            name: this.guest,
-          })
-          .then((response) => {
-            this.isLoading = !this.isLoading;
-            this.userinfo = response.data;
+        var regex=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
 
+        if (!regex.test(this.guest)){
+               this.errors = {
+        errors: [["Por favor ingresa un nombre válido."]],
+      };
+            this.guest='';
+            return false;
+          }
+          else{
             this.isLoading = !this.isLoading;
-          });
+          }
+          axios
+            .post("/chat/joinChat", {
+              nombre: this.guest,
+            })
+            .then((response) => {
+              this.isLoading = !this.isLoading;
+              this.userinfo = response.data;
+
+              this.isLoading = !this.isLoading;
+              this.errors = [];
+              this.messageIncomming();
+              this.enterChat();
+              this.deleteTempUser();
+            })
+            .catch((error) => {
+              this.errors = error.response.data;
+            });
+        
       }
     },
     chatRoom(id, nombre) {
@@ -263,13 +309,12 @@ export default {
         });
         this.message = "";
         this.scroll();
-        axios
-          .post("messages/sendMessageToGuest", {
-            id: this.userinfo.idTemp,
-            contact_id: this.contactId,
-            text: msg,
-            userinfo: this.info,
-          });
+        axios.post("messages/sendMessageToGuest", {
+          id: this.userinfo.idTemp,
+          contact_id: this.contactId,
+          text: msg,
+          userinfo: this.info,
+        });
       }
     },
     scroll() {

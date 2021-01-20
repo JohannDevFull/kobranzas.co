@@ -6,7 +6,7 @@
           <div class="card">
             <div class="card-header">
               <inertia-link :href="route('user.create')">
-                <button class="btn btn-dark float-right">
+                <button class="btn btn-dark float-right btn-sm">
                   <i class="fas fa-plus"></i> Agregar Usuario
                 </button>
               </inertia-link>
@@ -22,18 +22,19 @@
                   <div class="col-sm-12 col-md-6">
                     <div class="dataTables_length" id="example1_length">
                       <label
+                      class="word-break"
                         >Filtrar por Cantidad
                         <select
                           name="example1_length"
                           aria-controls="example1"
                           class="custom-select custom-select-sm form-control form-control-sm"
                           v-model="show"
-                          @click="getUsers(1, show,search)"
+                          @click="getUsers(1, show, search)"
                         >
                           <option value="5">5</option>
                           <option value="10">10</option>
                           <option value="25">25</option>
-                          <option value="50">50</option>
+                          <option value="50">50</option> 
                         </select>
                         Registros</label
                       >
@@ -42,21 +43,22 @@
                   <div class="col-sm-12 col-md-6">
                     <div
                       id="example1_filter"
-                      class="dataTables_filter float-right"
+                      class="float-right"
                     >
-                      <label
+                      <label  
+                      class="sear-label "
                         >Buscar por nombre o documento:<input
                           type="search"
                           class="form-control form-control-sm"
                           placeholder=""
                           aria-controls="example1"
                           v-model="search"
-                          @keyup="getUsers(1, show,search)"
+                          @keyup="getUsers(1, show, search)"
                       /></label>
                     </div>
                   </div>
-                </div> 
-                <div class="row">
+                </div>
+                <div class="row ajust">
                   <div class="col-sm-12">
                     <table
                       id="example1"
@@ -129,7 +131,14 @@
                           v-for="(user, id) in users"
                           :key="id"
                         >
-                          <td class="sorting_1">{{ user.name }}</td>
+                        <td>
+                         <jet-nav-link
+                              :href="route('user.show', user.id)"
+                              :active="route().current('user.show')"
+                            >
+                          {{ user.name }}
+                            </jet-nav-link>
+                          </td>
                           <td>{{ user.email }}</td>
                           <td>
                             <select
@@ -167,7 +176,7 @@
                           </td>
                         </tr>
                       </tbody>
-                      <tfoot >
+                      <tfoot>
                         <tr>
                           <th rowspan="1" colspan="1">Nombre</th>
                           <th rowspan="1" colspan="1">Correo</th>
@@ -180,18 +189,18 @@
                     </table>
                   </div>
                 </div>
-                <div class="row" >
+                <div class="row">
                   <div class="col-sm-12 col-md-5">
                     <div
                       class="dataTables_info"
                       id="example1_info"
                       role="status"
                       aria-live="polite"
-                    >
+                    ><p class="word-break">
                       Se muestran {{ pagination.from }} de {{ count }} de un
                       total de
                       {{ pagination.total }}
-                      registros.
+                      registros.</p>
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-7">
@@ -199,7 +208,7 @@
                       class="dataTables_paginate paging_simple_numbers"
                       id="example1_paginate"
                     >
-                      <ul class="pagination">
+                      <ul class="pagination flex-wrap"  >
                         <li
                           v-if="pagination.current_page > 1"
                           class="paginate_button page-item previous"
@@ -336,10 +345,16 @@ export default {
     },
   },
   methods: {
-    
     getUsers(page) {
       axios
-        .get("user/paginate?page=" + page + "&show=" + this.show+"&search=" + this.search)
+        .get(
+          "user/paginate?page=" +
+            page +
+            "&show=" +
+            this.show +
+            "&search=" +
+            this.search
+        )
         .then((response) => {
           this.pagination = response.data.pagination;
           this.users = response.data.users.data;
@@ -395,3 +410,10 @@ export default {
   },
 };
 </script>
+<style lang="css">
+  .word-break{
+    word-wrap: break-word!important;
+    white-space: normal!important;
+
+  }
+</style>

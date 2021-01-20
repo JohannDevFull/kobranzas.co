@@ -2063,48 +2063,63 @@ __webpack_require__.r(__webpack_exports__);
     this.getUser();
   },
   mounted: function mounted() {
-    var _this = this;
-
-    setTimeout(function () {
-      Echo.channel("chat").listen("NewMessage", function (e) {
-        if (_this.contactId == "") {
-          if (e.message.to == _this.userinfo.id) {
-            if (!_this.enabled) {
-              _this.notification = true;
-            }
-
-            _this.updateUnreadCount(e.message.from, false);
-
-            _this.noty();
-          } else {
-            return;
-          }
-        } else if (e.message.to == _this.userinfo.id) {
-          _this.messages.push({
-            from: e.message.from,
-            to: e.message.to,
-            text: e.message.text
-          });
-
-          if (_this.enabled && !_this.seeContacts || _this.enabled && _this.chatMode) {
-            _this.scroll();
-          }
-
-          _this.noty();
-
-          if (!_this.enabled) {
-            _this.notification = true;
-          }
-        }
-      });
-    }, 100);
+    this.chat();
   },
   methods: {
+    chat: function chat() {
+      var _this = this;
+
+      setTimeout(function () {
+        Echo.channel("chat.".concat(_this.userinfo.id)).listen("NewMessage", function (e) {
+          if (_this.contactId == "") {
+            if (e.message.to == _this.userinfo.id) {
+              if (!_this.enabled) {
+                _this.notification = true;
+              }
+
+              _this.updateUnreadCount(e.message.from, false);
+
+              _this.noty();
+            } else {
+              return;
+            }
+          } else if (e.message.to == _this.userinfo.id) {
+            if (_this.contactId != e.message.from) {
+              _this.updateUnreadCount(e.message.from, false);
+
+              _this.noty();
+
+              if (!_this.enabled) {
+                _this.notification = true;
+              }
+            } else {
+              _this.messages.push({
+                from: e.message.from,
+                to: e.message.to,
+                text: e.message.text
+              });
+
+              if (_this.enabled && !_this.seeContacts || _this.enabled && _this.chatMode) {
+                _this.scroll();
+              }
+
+              _this.noty();
+
+              if (!_this.enabled) {
+                _this.notification = true;
+              }
+            }
+          }
+        });
+      }, 100);
+    },
     getUser: function getUser() {
       var _this2 = this;
 
       axios.post("/chat/getUser").then(function (response) {
         _this2.userinfo = response.data;
+
+        _this2.chat();
 
         if (_this2.userinfo.roles[0].name) {
           axios.post("/chat/getContacts").then(function (res) {
@@ -2353,6 +2368,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "chatwidget",
@@ -2373,59 +2391,77 @@ __webpack_require__.r(__webpack_exports__);
       contactId: "",
       contactName: "",
       displaySound: false,
-      notification: false
+      notification: false,
+      errors: []
     };
   },
   created: function created() {},
   mounted: function mounted() {
-    var _this = this;
-
-    setTimeout(function () {
-      Echo.channel("status").listen("ChangeGuestStatus", function (e) {
-        if (_this.userinfo.idTemp == e.guest[0].idTemp) {
-          _this.chatMode = true;
-
-          _this.chatRoom(e.admin.id, e.admin.name);
-        }
-      });
-    }, 100);
-    setTimeout(function () {
-      Echo.channel("deleted").listen("DeleteTempUser", function (e) {
-        if (_this.userinfo.idTemp == e.deleted) {
-          _this.enabled = false;
-          _this.chatMode = false;
-          _this.isLoading = false;
-          _this.userinfo = "";
-        }
-      });
-    }, 100);
-    setTimeout(function () {
-      Echo.channel("tempChat").listen("NewTempMessage", function (e) {
-        if (_this.userinfo.idTemp == e.message.to) {
-          if (_this.enabled) {
-            _this.noty();
-
-            _this.chatRoom(_this.contactId, _this.contactName);
-          } else if (!_this.enabled) {
-            if (!_this.info) {
-              return;
-            } else {
-              _this.chatRoom(_this.contactId, _this.contactName);
-
-              console.log(e.message);
-
-              _this.noty();
-
-              _this.notification = true;
-            }
-          }
-        } else {
-          return;
-        }
-      });
-    }, 100);
+    this.enterChat();
+    this.deleteTempUser();
+    this.messageIncomming();
   },
   methods: {
+    enterChat: function enterChat() {
+      var _this = this;
+
+      if (this.userinfo.idTemp) {
+        setTimeout(function () {
+          Echo.channel("status.".concat(_this.userinfo.idTemp)).listen("ChangeGuestStatus", function (e) {
+            if (_this.userinfo.idTemp == e.guest[0].idTemp) {
+              _this.chatMode = true;
+
+              _this.chatRoom(e.admin.id, e.admin.name);
+            }
+          });
+        }, 100);
+      }
+    },
+    deleteTempUser: function deleteTempUser() {
+      var _this2 = this;
+
+      if (this.userinfo.idTemp) {
+        setTimeout(function () {
+          Echo.channel("deleted.".concat(_this2.userinfo.idTemp)).listen("EndChat", function (e) {
+            if (_this2.userinfo.idTemp == e.deleted) {
+              _this2.enabled = false;
+              _this2.chatMode = false;
+              _this2.isLoading = false;
+              _this2.userinfo = "";
+            }
+          });
+        }, 100);
+      }
+    },
+    messageIncomming: function messageIncomming() {
+      var _this3 = this;
+
+      if (this.userinfo.idTemp) {
+        setTimeout(function () {
+          Echo.channel("tempChat.".concat(_this3.userinfo.idTemp)).listen("NewTempMessage", function (e) {
+            if (_this3.userinfo.idTemp == e.message.to) {
+              if (_this3.enabled) {
+                _this3.noty();
+
+                _this3.chatRoom(_this3.contactId, _this3.contactName);
+              } else if (!_this3.enabled) {
+                if (!_this3.info) {
+                  return;
+                } else {
+                  _this3.chatRoom(_this3.contactId, _this3.contactName);
+
+                  _this3.noty();
+
+                  _this3.notification = true;
+                }
+              }
+            } else {
+              return;
+            }
+          });
+        }, 100);
+      }
+    },
     toggle: function toggle() {
       this.enabled = !this.enabled;
       this.notification = false;
@@ -2451,39 +2487,59 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     joinChat: function joinChat() {
-      var _this2 = this;
+      var _this4 = this;
 
       if (this.guest.trim() == "") {
         this.guest = "";
         return;
       } else {
-        this.isLoading = !this.isLoading;
+        var regex = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+
+        if (!regex.test(this.guest)) {
+          this.errors = {
+            errors: [["Por favor ingresa un nombre válido."]]
+          };
+          this.guest = '';
+          return false;
+        } else {
+          this.isLoading = !this.isLoading;
+        }
+
         axios.post("/chat/joinChat", {
-          name: this.guest
+          nombre: this.guest
         }).then(function (response) {
-          _this2.isLoading = !_this2.isLoading;
-          _this2.userinfo = response.data;
-          _this2.isLoading = !_this2.isLoading;
+          _this4.isLoading = !_this4.isLoading;
+          _this4.userinfo = response.data;
+          _this4.isLoading = !_this4.isLoading;
+          _this4.errors = [];
+
+          _this4.messageIncomming();
+
+          _this4.enterChat();
+
+          _this4.deleteTempUser();
+        })["catch"](function (error) {
+          _this4.errors = error.response.data;
         });
       }
     },
     chatRoom: function chatRoom(id, nombre) {
-      var _this3 = this;
+      var _this5 = this;
 
       axios.post("messages/guestMessages", {
         from: this.userinfo.idTemp,
         to: id
       }).then(function (resMessages) {
-        _this3.messages = resMessages.data;
-        _this3.contactName = nombre;
-        _this3.contactId = id;
+        _this5.messages = resMessages.data;
+        _this5.contactName = nombre;
+        _this5.contactId = id;
 
-        _this3.scroll();
+        _this5.scroll();
       })["catch"](function (err) {
         console.log("error");
         console.log(err);
-        _this3.chatMode = true;
-        _this3.messages = [];
+        _this5.chatMode = true;
+        _this5.messages = [];
       });
     },
     sendMessage: function sendMessage() {
@@ -2508,10 +2564,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     scroll: function scroll() {
-      var _this4 = this;
+      var _this6 = this;
 
       setTimeout(function () {
-        var container = _this4.$el.querySelector("#messages");
+        var container = _this6.$el.querySelector("#messages");
 
         container.scrollTop = 10000000;
       }, 10);
@@ -27011,9 +27067,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "chat-box" }, [
               _c("div", { staticClass: "chat-box-header" }, [
-                _vm._v(
-                  "\n        Chat con " + _vm._s(_vm.contactName) + "\n        "
-                ),
+                _vm._v("\n        " + _vm._s(_vm.contactName) + "\n        "),
                 _c(
                   "span",
                   {
@@ -27090,7 +27144,7 @@ var render = function() {
                   attrs: {
                     type: "text",
                     id: "chat-input",
-                    placeholder: "Send a message..."
+                    placeholder: "Envía un mensaje..."
                   },
                   domProps: { value: _vm.message },
                   on: {
@@ -27343,74 +27397,90 @@ var render = function() {
                                 : _vm._e(),
                               _vm._v(" "),
                               !_vm.isLoading
-                                ? _c("div", [
-                                    _c("p", { staticClass: "text-wel" }, [
-                                      _vm._v(
-                                        "\n                    Hola, por favor ingresa tu nombre para que puedas ingresar\n                    al chat de soporte y puedas solucionar tus dudas e\n                    inconvenientes\n                  "
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.guest,
-                                          expression: "guest"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        type: "text",
-                                        placeholder: "Tu nombre aquí",
-                                        maxlength: "35"
-                                      },
-                                      domProps: { value: _vm.guest },
-                                      on: {
-                                        keyup: function($event) {
-                                          if (
-                                            !$event.type.indexOf("key") &&
-                                            _vm._k(
-                                              $event.keyCode,
-                                              "enter",
-                                              13,
-                                              $event.key,
-                                              "Enter"
-                                            )
-                                          ) {
-                                            return null
-                                          }
-                                          return _vm.joinChat()
-                                        },
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.guest = $event.target.value
-                                        }
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("br"),
-                                    _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "form-control btn btn-outline-dark center",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.joinChat()
-                                          }
-                                        }
-                                      },
-                                      [
+                                ? _c(
+                                    "div",
+                                    [
+                                      _c("p", { staticClass: "text-wel" }, [
                                         _vm._v(
-                                          "\n                    Entrar\n                  "
+                                          "\n                    Hola, por favor ingresa tu nombre para que puedas ingresar\n                    al chat de soporte y puedas solucionar tus dudas e\n                    inconvenientes\n                  "
                                         )
-                                      ]
-                                    )
-                                  ])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.guest,
+                                            expression: "guest"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "text",
+                                          placeholder: "Tu nombre aquí",
+                                          maxlength: "35"
+                                        },
+                                        domProps: { value: _vm.guest },
+                                        on: {
+                                          keyup: function($event) {
+                                            if (
+                                              !$event.type.indexOf("key") &&
+                                              _vm._k(
+                                                $event.keyCode,
+                                                "enter",
+                                                13,
+                                                $event.key,
+                                                "Enter"
+                                              )
+                                            ) {
+                                              return null
+                                            }
+                                            return _vm.joinChat()
+                                          },
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.guest = $event.target.value
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("br"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "form-control btn btn-outline-dark center",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.joinChat()
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                    Entrar\n                  "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.errors.errors, function(
+                                        error
+                                      ) {
+                                        return _c("ul", [
+                                          _c(
+                                            "li",
+                                            { staticClass: "required" },
+                                            [_vm._v(_vm._s(error[0]))]
+                                          )
+                                        ])
+                                      })
+                                    ],
+                                    2
+                                  )
                                 : _vm._e()
                             ]
                           )
@@ -27501,7 +27571,7 @@ var render = function() {
                 attrs: {
                   type: "text",
                   id: "chat-input",
-                  placeholder: "Send a message..."
+                  placeholder: "Envía un mensaje..."
                 },
                 domProps: { value: _vm.message },
                 on: {

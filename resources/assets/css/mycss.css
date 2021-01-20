@@ -12,6 +12,9 @@ margin-left: .75rem;
 .carousel {
 margin-bottom: 4rem;
 }
+.sear-label{
+  font-weight: 400!important;
+} 
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
 bottom: 3rem;
@@ -36,6 +39,9 @@ color: rgba(109,223,182,1);
 .kk{
 background-color:rgba(109,223,182,1);
 color: white;
+}
+.ajust{
+  overflow-x: auto;
 }
 p {
     font-weight: 400;
@@ -230,7 +236,7 @@ p {
     border-top-right-radius: 5px;
     color: white;
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     padding-top: 17px;
   }
   .chat-box-body {

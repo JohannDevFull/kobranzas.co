@@ -28,6 +28,12 @@ class NewMessage implements ShouldBroadcast
     
     public function broadcastOn()
     {
-        return new Channel('chat');
+        return new Channel('chat.'.$this->message->to);
+    }
+    public function broadcastWith()
+    {
+        $this->message->load('fromContact');
+
+        return ["message" => $this->message];
     }
 }

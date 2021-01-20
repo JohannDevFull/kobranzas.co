@@ -91,8 +91,8 @@
                             guest.user_id != $page.user.id &&
                             guest.user_id != null
                           "
-                          class="btn disabled btn-tosel" 
-                          
+                          style="width: 100%"
+                          class="btn disabled btn-tosel"
                         >
                           <div class="chat_list">
                             <div class="chat_people">
@@ -182,7 +182,7 @@
                   <div class="mesgs" id="inboxChat">
                     <div class="chat-header">
                       <div v-if="contactId && !isLoading">
-                        <div style="display:inline-block;">
+                        <div style="display: inline-block">
                           <img
                             style="margin-bottom: 4px"
                             class="img-circle pro"
@@ -192,23 +192,22 @@
                         </div>
                         &nbsp; {{ contactName }}
                         <div
-                        
                           class="btn-bars"
                           id="user-friends"
                           @click="toggleCollapseBtn()"
                         >
                           <i class="fas fa-user-friends"></i>
                         </div>
-                          <button
-                          v-if="isGuest && !isLoading &&window.width > 785"
+                        <button
+                          v-if="isGuest && !isLoading && window.width > 785"
                           class="btn btn-danger btn-sm btn-end"
                           @click="endChat(contactId)"
                         >
                           Terminar Chat
                         </button>
                         <button
-                        style="margin-right:48px;"
-                          v-if="isGuest && !isLoading &&window.width <= 785"
+                          style="margin-right: 48px"
+                          v-if="isGuest && !isLoading && window.width <= 785"
                           class="btn btn-danger btn-sm btn-end"
                           @click="endChat(contactId)"
                         >
@@ -219,7 +218,7 @@
                     <div
                       class="msg_history"
                       id="messages"
-                      :style="{ height: window.height - 185 + 'px' }"
+                      :style="{ height: window.height - 195 + 'px' }"
                     >
                       <loading2 v-if="isLoading" />
                       <div
@@ -281,13 +280,14 @@
                         <input
                           v-if="!isGuest && contactId"
                           type="text"
-                          class="write_msg"
+                          class="form-control write_msg"
                           placeholder="Escribe un Mesaje.."
                           v-model="message"
+                      
                           @keyup.enter="sendMessage()"
                         />
                         <button
-                        v-if="!isGuest && contactId"
+                          v-if="!isGuest && contactId"
                           type="submit"
                           class="chat-submit send-btn"
                           id="chat-submit"
@@ -299,13 +299,13 @@
                         <input
                           v-if="isGuest && !isLoading"
                           type="text"
-                          class="write_msg"
+                          class="form-control write_msg"
                           placeholder="Escribe un Mesaje de soporte"
                           v-model="messageGuest"
                           @keyup.enter="sendMessageToGuest()"
                         />
                         <button
-                        v-if="isGuest && !isLoading"
+                          v-if="isGuest && !isLoading"
                           type="submit"
                           class="chat-submit send-btn"
                           id="chat-submit"
@@ -357,7 +357,7 @@ export default {
       messageIncoming: false,
       window: {
         height: 0 + "px",
-        width:0
+        width: 0,
       },
     };
   },
@@ -373,7 +373,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      Echo.channel("chat").listen("NewMessage", (e) => {
+      Echo.channel(`chat.${this.$page.user.id}`).listen("NewMessage", (e) => {
         if (this.contactId == "") {
           if (e.message.to == this.$page.user.id) {
             this.updateUnreadCount(e.message.from, false);
@@ -382,60 +382,82 @@ export default {
             return;
           }
         } else if (e.message.to == this.$page.user.id) {
-          this.messages.push({
-            from: e.message.from,
-            to: e.message.to,
-            text: e.message.text,
-          });
+          if (this.contactId != e.message.from) {
+            this.updateUnreadCount(e.message.from, false);
+            this.noty();
+            if (!this.enabled) {
+              this.notification = true;
+            }
+          } else {
+            this.messages.push({
+              from: e.message.from,
+              to: e.message.to,
+              text: e.message.text,
+            });
 
-          if (
-            (this.enabled && !this.seeContacts) ||
-            (this.enabled && this.chatMode)
-          ) {
+            if (
+              (this.enabled && !this.seeContacts) ||
+              (this.enabled && this.chatMode)
+            ) {
+              this.scroll();
+            } 
             this.scroll();
-          }
-
-          this.noty();
-          if (!this.enabled) {
-            this.notification = true;
+        this.updateUnreadCount(e.message.from, false);
+            this.noty();
+            if (!this.enabled) {
+              this.notification = true;
+            }
           }
         }
         this.chatRoom(this.contactId, this.contactName, this.user_photo);
-        this.updateUnreadCount(e.message.from, false);
+        
       });
     }, 100);
     setTimeout(() => {
-      Echo.channel("joinGuest").listen("guestJoinChat", (e) => {
+      Echo.channel("joinGuest").listen("GuestJoinChat", (e) => {
         this.getGuests();
         this.noty();
       });
     }, 100);
 
     setTimeout(() => {
-      Echo.channel("guestSend").listen("GuestSendMessage", (e) => {
-        if (e.message.to == this.$page.user.id && this.isGuest) {
+      Echo.channel(`guestSend.${this.$page.user.id}`).listen(
+        "GuestSendMessage",
+        (e) => {
+          
+          if (e.message.to == this.$page.user.id && this.isGuest) {
+            if (this.contactId != e.message.from) {
+              this.noty();
+              this.updateUnreadGuest(e.message.from, false);
+              this.messageIncoming = true;
+            }
+            else{
+            this.noty();
+            this.updateUnreadGuest(e.message.from, false);
+            this.messageIncoming = true;
+
+            this.chatRoomGuest(
+              e.guest[0].idTemp,
+              e.guest[0].name,
+              e.guest[0].photo,
+              e.guest[0].user_id
+            );
+
+          }
           this.noty();
-          this.updateUnreadCount(e.message.from, false);
+          this.updateGuestStatus(e.guest[0].idTemp, false);
           this.messageIncoming = true;
-          console.log("asdasd");
-          this.chatRoomGuest(
-            e.guest[0].idTemp,
-            e.guest[0].name,
-            e.guest[0].photo,
-            e.guest[0].user_id
-          );
-        }
-      });
+        }}
+      );
     }, 100);
     setTimeout(() => {
-      Echo.channel("status").listen("ChangeGuestStatus", (e) => {
+      Echo.channel("status").listen("ChatWithGuest", (e) => {
         this.updateGuestStatus(e.guest[0].idTemp, false);
         this.updateUserId(e.guest[0].user_id, e.guest[0].idTemp);
       });
     }, 100);
     setTimeout(() => {
       Echo.channel("deleted").listen("DeleteTempUser", (e) => {
-        console.log(e);
         if (this.contactId == e.deleted) {
           this.messages = [];
         }
@@ -449,7 +471,6 @@ export default {
     handleResize() {
       this.window.height = window.innerHeight;
       this.window.width = window.innerWidth;
-
     },
     isLoad() {
       if (this.idChat == this.contactId) {
@@ -656,6 +677,17 @@ export default {
 
         return single;
       });
+    },updateUnreadGuest(guest, reset) {
+      this.guests = this.guests.map((gue) => {
+        if (gue.idTemp != guest) {
+          return gue;
+        }
+
+        if (reset) gue.unread = 0;
+        else gue.unread += 1;
+
+        return gue;
+      });
     },
     updateUserId(user, guest) {
       this.guests = this.guests.map((us) => {
@@ -683,7 +715,6 @@ export default {
 };
 </script>
 <style lang="css">
-
 .chat-header {
   width: 100%;
   background: #2d7d46d6;
@@ -729,8 +760,8 @@ img {
   text-align: right;
   width: 60%;
 }
-.btn-tosel{
-  padding: 0; 
+.btn-tosel {
+  padding: 0;
   text-align: inherit;
 }
 
@@ -741,10 +772,10 @@ img {
   margin: auto;
   position: relative;
 }
-.send-btn{
+.send-btn {
   position: relative;
-    float: right;
-    top: -21px;
+  float: right;
+  top: -15px;
 }
 .srch_bar input {
   border: 1px solid #cdcdcd;
@@ -784,7 +815,7 @@ img {
 }
 .chat_ib {
   float: left;
-  padding: 0 0 0 15px;
+  padding: 0 0 0 20px;
   width: 88%;
 }
 
@@ -895,8 +926,8 @@ img {
   color: #4c4c4c;
   font-size: 15px;
   min-height: 30px;
-  width: 97%;
-  top: -24px;
+  width: 85%;
+  top: -17px;
   position: absolute;
   margin: 13px 0px -1px 3px;
   height: 14px;
@@ -907,6 +938,7 @@ img {
 }
 .type_msg {
   position: relative;
+  bottom: -8px;
 }
 .msg_send_btn {
   background: #05728f none repeat scroll 0 0;
@@ -954,12 +986,12 @@ img {
   box-shadow: 0px 0px 3px;
 }
 .btn-end {
-float: right;
-    margin: 8px 9px 0px 8px;
-    position: relative;
+  float: right;
+  margin: 8px 9px 0px 8px;
+  position: relative;
 }
 .btn-bars {
-  color:black;
+  color: black;
   cursor: pointer;
   display: none;
   position: absolute;
@@ -970,12 +1002,11 @@ float: right;
 .vis {
   display: block !important;
   visibility: visible;
-
 }
 
 @media (max-width: 785px) {
   .btn-bars {
-    display: block!important;
+    display: block !important;
   }
   .inbox_people {
     width: 100%;
@@ -985,9 +1016,13 @@ float: right;
     width: 100%;
   }
   .hide {
-  display: none !important;
-  visibility: hidden;
-
+    display: none !important;
+    visibility: hidden;
+  }
 }
+@media (max-width: 360px) {
+  .chat_ib {
+    padding: 0 0 0 33px;
+  }
 }
-</style>
+</style>      

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChatWithGuest;
 use App\Events\ChangeGuestStatus;
 use App\Events\GuestSendMessage;
 use App\Events\NewMessage;
@@ -52,6 +53,7 @@ class MessageController extends Controller
             $q->where('to', $user);
         })
             ->get();
+            broadcast(new ChatWithGuest($guest,auth()->user()));
             broadcast(new ChangeGuestStatus($guest,auth()->user()));
         return response()->json($messages);
     }

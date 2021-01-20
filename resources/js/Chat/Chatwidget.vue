@@ -21,7 +21,7 @@
       <div class="chat-box-nav"></div>
       <div class="chat-box">
         <div class="chat-box-header">
-          Chat con {{ contactName }}
+          {{ contactName }}
           <span class="chat-box-toggle" @click="toggle()"
             ><i class="fas fa-times"></i
           ></span>
@@ -51,7 +51,7 @@
           <input
             type="text"
             id="chat-input"
-            placeholder="Send a message..."
+            placeholder="Envía un mensaje..."
             v-model="message"
             @keyup.enter="sendMessage()"
           />
@@ -152,44 +152,58 @@ export default {
     this.getUser();
   },
   mounted() {
-    setTimeout(() => {
-      Echo.channel("chat").listen("NewMessage", (e) => {
-        if (this.contactId == "") {
-          if (e.message.to == this.userinfo.id) {
-            if (!this.enabled) {
-              this.notification = true;
-            }
-            this.updateUnreadCount(e.message.from, false);
-            this.noty();
-          } else {
-            return;
-          }
-        } else if (e.message.to == this.userinfo.id) {
-          this.messages.push({
-            from: e.message.from,
-            to: e.message.to,
-            text: e.message.text,
-          });
-
-          if (
-            (this.enabled && !this.seeContacts) ||
-            (this.enabled && this.chatMode)
-          ) {
-            this.scroll();
-          }
-
-          this.noty();
-          if (!this.enabled) {
-            this.notification = true;
-          }
-        }
-      });
-    }, 100);
+    this.chat();
   },
   methods: {
+    chat() {
+      
+      setTimeout(() => {
+        Echo.channel(`chat.${this.userinfo.id}`).listen("NewMessage", (e) => {
+          if (this.contactId == "") {
+            if (e.message.to == this.userinfo.id) {
+              if (!this.enabled) {
+                this.notification = true;
+              }
+              this.updateUnreadCount(e.message.from, false);
+              this.noty();
+            } else {
+              return;
+            }
+          } else if (e.message.to == this.userinfo.id) {
+            if (this.contactId != e.message.from) {
+              this.updateUnreadCount(e.message.from, false);
+              this.noty();
+              if (!this.enabled) {
+                this.notification = true;
+              }
+            } else {
+              this.messages.push({
+                from: e.message.from,
+                to: e.message.to,
+                text: e.message.text,
+              });
+
+              if (
+                (this.enabled && !this.seeContacts) ||
+                (this.enabled && this.chatMode)
+              ) {
+                this.scroll();
+              }
+
+              this.noty();
+              if (!this.enabled) {
+                this.notification = true;
+              }
+            }
+          }
+        });
+      }, 100);
+      
+    },
     getUser() {
       axios.post("/chat/getUser").then((response) => {
         this.userinfo = response.data;
+        this.chat();
         if (this.userinfo.roles[0].name) {
           axios.post("/chat/getContacts").then((res) => {
             this.contacts = res.data;
@@ -263,12 +277,11 @@ export default {
         });
         this.message = "";
         this.scroll();
-        axios
-          .post("messages/sendMessage", {
-            id: this.userinfo.id,
-            contact_id: this.contactId,
-            text: msg,
-          });
+        axios.post("messages/sendMessage", {
+          id: this.userinfo.id,
+          contact_id: this.contactId,
+          text: msg,
+        });
       }
     },
     scroll() {

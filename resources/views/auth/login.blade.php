@@ -15,19 +15,17 @@
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="http://kobranzas.co/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
    
 </head>
 <body class="hold-transition login-page">
 
-    <img src="{{ asset('storage/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" >
-
+<a href="/"><img src="{{ asset('storage/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="main-image" style="opacity: .8">
+  </a>
 <div class="login-box">
-  <div class="login-logo">
-    <a href="/"><b>kobranzas.</b>com</a>
-  </div>
+ 
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
@@ -43,7 +41,7 @@
       <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="input-group mb-3">
-          <input type="email" class="form-control" name="email" placeholder="Email">
+          <input type="email" class="form-control" name="email" placeholder="Correo">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -51,7 +49,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password" placeholder="Password">
+          <input type="password" class="form-control" name="password" placeholder="Contraseña">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -88,11 +86,11 @@
 <!-- /.login-box -->
 
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="js/adminlte.min.js"></script>
+<script src="{{asset('js/adminlte.min.js')}}"></script>
 
 </body>
 </html>

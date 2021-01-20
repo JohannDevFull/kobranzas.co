@@ -28,6 +28,6 @@ class ChangeGuestStatus implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return new Channel('status');
+        return new Channel('status.'.$this->guest[0]->idTemp);
     }
 }

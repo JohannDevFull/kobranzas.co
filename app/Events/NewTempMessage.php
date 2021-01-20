@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\TempMessage;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -17,7 +18,7 @@ class NewTempMessage implements ShouldBroadcast
     public $message;
     public $id;
     
-    public function __construct($message,$id)
+    public function __construct(TempMessage $message,$id)
     {
         $this->message=$message;
         $this->id=$id;
@@ -25,6 +26,8 @@ class NewTempMessage implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return new Channel('tempChat');
+    
+         return new Channel('tempChat.'.$this->message->to);
     }
+    
 }

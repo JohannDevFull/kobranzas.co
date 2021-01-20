@@ -2,9 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\TempMessage;
 use Illuminate\Broadcasting\Channel;
-use App\Models\TempUser;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -12,21 +10,19 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class GuestSendMessage implements ShouldBroadcast
+class EndChat implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
-    public $guest;
-    
-    public function __construct(TempMessage $message,$guest)
+    public $deleted;
+    public function __construct($deleted)
     {
-        $this->message=$message;
-        $this->guest=$guest;
+        $this->deleted=$deleted;
     }
 
+    
     public function broadcastOn()
     {
-        return new Channel('guestSend.'.$this->message->to);
+        return new Channel('deleted.'.$this->deleted);
     }
 }

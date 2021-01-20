@@ -13,5 +13,6 @@ class TempMessage extends Model
         'to',
         'text'
     ];
+
     
 }
