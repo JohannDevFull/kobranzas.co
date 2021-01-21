@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
@@ -15,7 +14,7 @@ class GuestJoinChat implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
-    public $id;
+    public $id; 
     
     public function __construct($message,$id)
     {
