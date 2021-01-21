@@ -16,6 +16,7 @@ js('resources/js/script.js', 'public/js')
 
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
+        require("tailwindcss"),
 
     ])
     .webpackConfig(require('./webpack.config'));

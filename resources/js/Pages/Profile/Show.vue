@@ -1,8 +1,9 @@
 <template>
     <app-layout>
+        <link rel="stylesheet" href="/css/app.css">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Profile
+                Perfíl
             </h2>
         </template>
 
@@ -30,7 +31,7 @@
 
                 <jet-section-border />
 
-                <delete-user-form class="mt-10 sm:mt-0" />
+                
             </div>
         </div>
     </app-layout>

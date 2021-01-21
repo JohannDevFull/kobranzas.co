@@ -17,6 +17,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/all.css') }}">
+        
         <!-- Scripts -->
         @routes 
         @laravelPWA

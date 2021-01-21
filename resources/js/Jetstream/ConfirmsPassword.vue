@@ -1,4 +1,5 @@
 <template>
+
     <span>
         <span @click="startConfirmingPassword">
             <slot />
@@ -24,7 +25,7 @@
 
             <template #footer>
                 <jet-secondary-button @click.native="confirmingPassword = false">
-                    Nevermind
+                    Cancelar
                 </jet-secondary-button>
 
                 <jet-button class="ml-2" @click.native="confirmPassword" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
@@ -45,13 +46,13 @@
     export default {
         props: {
             title: {
-                default: 'Confirm Password',
+                default: 'Confirmar Contraseña',
             },
             content: {
-                default: 'For your security, please confirm your password to continue.',
+                default: 'Por motivos ded seguridad, debes confirmar tu contraseña para continuar.',
             },
             button: {
-                default: 'Confirm',
+                default: 'Confirmar',
             }
         },
 

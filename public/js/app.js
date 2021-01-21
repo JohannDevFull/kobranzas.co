@@ -2484,6 +2484,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2492,13 +2493,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     title: {
-      "default": 'Confirm Password'
+      "default": 'Confirmar Contraseña'
     },
     content: {
-      "default": 'For your security, please confirm your password to continue.'
+      "default": 'Por motivos ded seguridad, debes confirmar tu contraseña para continuar.'
     },
     button: {
-      "default": 'Confirm'
+      "default": 'Confirmar'
     }
   },
   components: {
@@ -8965,6 +8966,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8973,7 +9019,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['sessions'],
+  props: ["sessions"],
   components: {
     JetActionMessage: _Jetstream_ActionMessage__WEBPACK_IMPORTED_MODULE_0__["default"],
     JetActionSection: _Jetstream_ActionSection__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -8987,10 +9033,10 @@ __webpack_require__.r(__webpack_exports__);
     return {
       confirmingLogout: false,
       form: this.$inertia.form({
-        '_method': 'DELETE',
-        password: ''
+        _method: "DELETE",
+        password: ""
       }, {
-        bag: 'logoutOtherBrowserSessions'
+        bag: "logoutOtherBrowserSessions"
       })
     };
   },
@@ -8998,7 +9044,7 @@ __webpack_require__.r(__webpack_exports__);
     confirmLogout: function confirmLogout() {
       var _this = this;
 
-      this.form.password = '';
+      this.form.password = "";
       this.confirmingLogout = true;
       setTimeout(function () {
         _this.$refs.password.focus();
@@ -9007,7 +9053,7 @@ __webpack_require__.r(__webpack_exports__);
     logoutOtherBrowserSessions: function logoutOtherBrowserSessions() {
       var _this2 = this;
 
-      this.form.post(route('other-browser-sessions.destroy'), {
+      this.form.post(route("other-browser-sessions.destroy"), {
         preserveScroll: true
       }).then(function (response) {
         if (!_this2.form.hasErrors()) {
@@ -9036,6 +9082,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TwoFactorAuthenticationForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TwoFactorAuthenticationForm */ "./resources/js/Pages/Profile/TwoFactorAuthenticationForm.vue");
 /* harmony import */ var _UpdatePasswordForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./UpdatePasswordForm */ "./resources/js/Pages/Profile/UpdatePasswordForm.vue");
 /* harmony import */ var _UpdateProfileInformationForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./UpdateProfileInformationForm */ "./resources/js/Pages/Profile/UpdateProfileInformationForm.vue");
+//
 //
 //
 //
@@ -9198,6 +9245,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -9224,7 +9309,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.enabling = true;
-      this.$inertia.post('/user/two-factor-authentication', {}, {
+      this.$inertia.post("/user/two-factor-authentication", {}, {
         preserveScroll: true
       }).then(function () {
         return Promise.all([_this.showQrCode(), _this.showRecoveryCodes()]);
@@ -9235,21 +9320,21 @@ __webpack_require__.r(__webpack_exports__);
     showQrCode: function showQrCode() {
       var _this2 = this;
 
-      return axios.get('/user/two-factor-qr-code').then(function (response) {
+      return axios.get("/user/two-factor-qr-code").then(function (response) {
         _this2.qrCode = response.data.svg;
       });
     },
     showRecoveryCodes: function showRecoveryCodes() {
       var _this3 = this;
 
-      return axios.get('/user/two-factor-recovery-codes').then(function (response) {
+      return axios.get("/user/two-factor-recovery-codes").then(function (response) {
         _this3.recoveryCodes = response.data;
       });
     },
     regenerateRecoveryCodes: function regenerateRecoveryCodes() {
       var _this4 = this;
 
-      axios.post('/user/two-factor-recovery-codes').then(function (response) {
+      axios.post("/user/two-factor-recovery-codes").then(function (response) {
         _this4.showRecoveryCodes();
       });
     },
@@ -9257,7 +9342,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this5 = this;
 
       this.disabling = true;
-      this.$inertia["delete"]('/user/two-factor-authentication', {
+      this.$inertia["delete"]("/user/two-factor-authentication", {
         preserveScroll: true
       }).then(function () {
         _this5.disabling = false;
@@ -10904,6 +10989,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -10911,8 +11039,30 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      showingNavigationDropdown: false
+      showingNavigationDropdown: false,
+      window: {
+        height: 0,
+        width: 0
+      }
     };
+  },
+  created: function created() {
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+  },
+  destroyed: function destroyed() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+  methods: {
+    handleResize: function handleResize() {
+      this.window.height = window.innerHeight;
+      this.window.width = window.innerWidth;
+    },
+    toggle: function toggle() {
+      if (this.window.width < 992) {
+        $('[data-widget="pushmenu"]').PushMenu("collapse");
+      }
+    }
   }
 });
 
@@ -11126,63 +11276,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   methods: {
@@ -11215,7 +11308,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.lds-ellipsis {\n  display: inline-block;\n  position: relative;\n  width: 80px;\n  height: 80px;\n}\n.lds-ellipsis div {\n  position: absolute;\n  top: 33px;\n  width: 13px;\n  height: 13px;\n  border-radius: 50%;\n  background: #fff;\n  -webkit-animation-timing-function: cubic-bezier(0, 1, 1, 0);\n          animation-timing-function: cubic-bezier(0, 1, 1, 0);\n}\n.lds-ellipsis div:nth-child(1) {\n  left: 8px;\n  -webkit-animation: lds-ellipsis1 0.6s infinite;\n          animation: lds-ellipsis1 0.6s infinite;\n}\n.lds-ellipsis div:nth-child(2) {\n  left: 8px;\n  -webkit-animation: lds-ellipsis2 0.6s infinite;\n          animation: lds-ellipsis2 0.6s infinite;\n}\n.lds-ellipsis div:nth-child(3) {\n  left: 32px;\n  -webkit-animation: lds-ellipsis2 0.6s infinite;\n          animation: lds-ellipsis2 0.6s infinite;\n}\n.lds-ellipsis div:nth-child(4) {\n  left: 56px;\n  -webkit-animation: lds-ellipsis3 0.6s infinite;\n          animation: lds-ellipsis3 0.6s infinite;\n}\n@-webkit-keyframes lds-ellipsis1 {\n0% {\n    transform: scale(0);\n}\n100% {\n    transform: scale(1);\n}\n}\n@keyframes lds-ellipsis1 {\n0% {\n    transform: scale(0);\n}\n100% {\n    transform: scale(1);\n}\n}\n@-webkit-keyframes lds-ellipsis3 {\n0% {\n    transform: scale(1);\n}\n100% {\n    transform: scale(0);\n}\n}\n@keyframes lds-ellipsis3 {\n0% {\n    transform: scale(1);\n}\n100% {\n    transform: scale(0);\n}\n}\n@-webkit-keyframes lds-ellipsis2 {\n0% {\n    transform: translate(0, 0);\n}\n100% {\n    transform: translate(24px, 0);\n}\n}\n@keyframes lds-ellipsis2 {\n0% {\n    transform: translate(0, 0);\n}\n100% {\n    transform: translate(24px, 0);\n}\n}\n\n", ""]);
+exports.push([module.i, ".lds-ellipsis {\n  display: inline-block;\n  position: relative;\n  width: 80px;\n  height: 80px;\n}\n.lds-ellipsis div {\n  position: absolute;\n  top: 33px;\n  width: 13px;\n  height: 13px;\n  border-radius: 50%;\n  background: #fff;\n  -webkit-animation-timing-function: cubic-bezier(0, 1, 1, 0);\n          animation-timing-function: cubic-bezier(0, 1, 1, 0);\n}\n.lds-ellipsis div:nth-child(1) {\n  left: 8px;\n  -webkit-animation: lds-ellipsis1 0.6s infinite;\n          animation: lds-ellipsis1 0.6s infinite;\n}\n.lds-ellipsis div:nth-child(2) {\n  left: 8px;\n  -webkit-animation: lds-ellipsis2 0.6s infinite;\n          animation: lds-ellipsis2 0.6s infinite;\n}\n.lds-ellipsis div:nth-child(3) {\n  left: 32px;\n  -webkit-animation: lds-ellipsis2 0.6s infinite;\n          animation: lds-ellipsis2 0.6s infinite;\n}\n.lds-ellipsis div:nth-child(4) {\n  left: 56px;\n  -webkit-animation: lds-ellipsis3 0.6s infinite;\n          animation: lds-ellipsis3 0.6s infinite;\n}\n@-webkit-keyframes lds-ellipsis1 {\n0% {\n    transform: scale(0);\n}\n100% {\n    transform: scale(1);\n}\n}\n@keyframes lds-ellipsis1 {\n0% {\n    transform: scale(0);\n}\n100% {\n    transform: scale(1);\n}\n}\n@-webkit-keyframes lds-ellipsis3 {\n0% {\n    transform: scale(1);\n}\n100% {\n    transform: scale(0);\n}\n}\n@keyframes lds-ellipsis3 {\n0% {\n    transform: scale(1);\n}\n100% {\n    transform: scale(0);\n}\n}\n@-webkit-keyframes lds-ellipsis2 {\n0% {\n    transform: translate(0, 0);\n}\n100% {\n    transform: translate(24px, 0);\n}\n}\n@keyframes lds-ellipsis2 {\n0% {\n    transform: translate(0, 0);\n}\n100% {\n    transform: translate(24px, 0);\n}\n}\n\n", ""]);
 
 // exports
 
@@ -11234,7 +11327,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.loaderStyle{\r\n      text-align: center;\r\n    margin-top: 30%;\n}\n.lds-dual-ring {\r\n  display: inline-block;\r\n  width: 80px;\r\n  height: 80px;\n}\n.lds-dual-ring:after {\r\n  content: \" \";\r\n  display: block;\r\n  width: 64px;\r\n  height: 64px;\r\n  margin: 8px;\r\n  border-radius: 50%;\r\n  border: 6px solid #5af90be0;\r\n  border-color: #5af90be0 transparent #5af90be0 transparent;\r\n  -webkit-animation: lds-dual-ring 1.2s linear infinite;\r\n          animation: lds-dual-ring 1.2s linear infinite;\n}\n@-webkit-keyframes lds-dual-ring {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(360deg);\n}\n}\n@keyframes lds-dual-ring {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(360deg);\n}\n}\r\n", ""]);
+exports.push([module.i, ".loaderStyle{\n  text-align: center;\n  margin-top: 30%;\n}\n.lds-dual-ring {\n  display: inline-block;\n  width: 80px;\n  height: 80px;\n}\n.lds-dual-ring:after {\n  content: \" \";\n  display: block;\n  width: 64px;\n  height: 64px;\n  margin: 8px;\n  border-radius: 50%;\n  border: 6px solid #5af90be0;\n  border-color: #5af90be0 transparent #5af90be0 transparent;\n  -webkit-animation: lds-dual-ring 1.2s linear infinite;\n          animation: lds-dual-ring 1.2s linear infinite;\n}\n@-webkit-keyframes lds-dual-ring {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(360deg);\n}\n}\n@keyframes lds-dual-ring {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(360deg);\n}\n}\r\n", ""]);
 
 // exports
 
@@ -11253,7 +11346,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.chat-header {\r\n  width: 100%;\r\n  background: #2d7d46d6;\r\n  margin: 0px 0px 0px 0px;\r\n  position: relative;\r\n  box-shadow: 0px 2px 6px #9c8e8e;\r\n  color: white;\n}\n.text-noMessages {\r\n  margin-top: 15px;\r\n  text-align: center;\r\n  font-family: \"dosis\", sans-serif;\r\n  font-weight: 500;\r\n  font-size: 1.2rem;\n}\nimg {\r\n  max-width: 40px;\n}\n.inbox_people {\r\n  background: #f8f8f8 none repeat scroll 0 0;\r\n  float: left;\r\n\r\n  width: 40%;\r\n  border-right: 1px solid #c4c4c4;\n}\n.inbox_msg {\r\n  border: 1px solid #c4c4c4;\r\n  clear: both;\n}\n.top_spac {\r\n  margin: 20px 0 0;\n}\n.recent_heading {\r\n  float: left;\r\n  width: 100%;\n}\n.headind_srch {\r\n  background: #4e9163;\r\n  text-align: center;\n}\n.srch_bar {\r\n  display: inline-block;\r\n  text-align: right;\r\n  width: 60%;\n}\n.btn-tosel {\r\n  padding: 0;\r\n  text-align: inherit;\n}\n.recent_heading h4 {\r\n  top: 10px;\r\n  color: white;\r\n  font-size: 21px;\r\n  margin: auto;\r\n  position: relative;\n}\n.send-btn {\r\n  position: relative;\r\n  float: right;\r\n  top: -15px;\n}\n.srch_bar input {\r\n  border: 1px solid #cdcdcd;\r\n  border-width: 0 0 1px 0;\r\n  width: 80%;\r\n  padding: 2px 0 4px 6px;\r\n  background: none;\n}\n.srch_bar .input-group-addon button {\r\n  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\r\n  border: medium none;\r\n  padding: 0;\r\n  color: #707070;\r\n  font-size: 18px;\n}\n.srch_bar .input-group-addon {\r\n  margin: 0 0 0 -27px;\n}\n.chat_ib h5 {\r\n  font-size: 15px;\r\n  color: #464646;\r\n  margin: 0 0 8px 0;\n}\n.chat_ib h5 span {\r\n  font-size: 13px;\r\n  float: right;\n}\n.chat_ib p {\r\n  font-size: 14px;\r\n  color: #989898;\r\n  margin: auto;\n}\n.chat_img {\r\n  float: left;\r\n  width: 10%;\n}\n.chat_ib {\r\n  float: left;\r\n  padding: 0 0 0 20px;\r\n  width: 88%;\n}\n.chat_people {\r\n  overflow: hidden;\r\n  clear: both;\n}\n.inbox_chat::-webkit-scrollbar-track {\r\n  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);\r\n  background-color: #f5f5f5;\n}\n.inbox_chat::-webkit-scrollbar {\r\n  width: 5px;\r\n  background-color: #f5f5f5;\n}\n.inbox_chat::-webkit-scrollbar-thumb {\r\n  background-color: #001f3f;\n}\n.msg_history::-webkit-scrollbar-track {\r\n  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);\r\n  background-color: #f5f5f5;\n}\n.msg_history::-webkit-scrollbar {\r\n  width: 5px;\r\n  background-color: #f5f5f5;\n}\n.msg_history::-webkit-scrollbar-thumb {\r\n  background-color: #001f3f;\n}\n.chat_list {\r\n  border-bottom: 1px solid #c4c4c4;\r\n  margin: 0;\r\n  padding: 18px 16px 10px;\n}\n.inbox_chat {\r\n  height: 481px;\r\n  overflow-y: auto;\n}\n.active_chat {\r\n  background: #ebebeb;\n}\n.incoming_msg_img {\r\n  display: inline-block;\r\n  width: 6%;\n}\n.received_msg {\r\n  display: inline-block;\r\n  padding: 0 0 0 10px;\r\n  vertical-align: top;\r\n  width: 92%;\n}\n.received_withd_msg p {\r\n  background: #00000063;\r\n  padding: 10px 15px 10px 15px;\r\n  color: white;\r\n  max-width: 60%;\r\n  float: left;\r\n  margin: 0;\r\n  position: relative;\r\n\r\n  border-radius: 30px;\r\n\r\n  word-wrap: break-word;\r\n  white-space: normal;\n}\n.time_date {\r\n  color: #747474;\r\n  display: block;\r\n  font-size: 12px;\r\n  margin: 0;\r\n  width: 100%;\n}\n.received_withd_msg {\r\n  width: 99%;\n}\n.mesgs {\r\n  float: left;\r\n\r\n  width: 60%;\n}\n.sent_msg p {\r\n  float: right;\r\n\r\n  background: #09904bb8;\r\n  color: white;\n}\n.outgoing_msg {\r\n  overflow: hidden;\r\n  margin: 8px 0 8px;\n}\n.sent_msg {\r\n  float: right;\r\n  width: 100%;\n}\n.input_msg_write input {\r\n  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\r\n  border: medium none;\r\n  color: #4c4c4c;\r\n  font-size: 15px;\r\n  min-height: 30px;\r\n  width: 85%;\r\n  top: -17px;\r\n  position: absolute;\r\n  margin: 13px 0px -1px 3px;\r\n  height: 14px;\r\n  border-bottom: 1px solid #a9a1a1;\n}\n.input_msg_write input:focus {\r\n  outline: none;\n}\n.type_msg {\r\n  position: relative;\r\n  bottom: -8px;\n}\n.msg_send_btn {\r\n  background: #05728f none repeat scroll 0 0;\r\n  border: medium none;\r\n  border-radius: 50%;\r\n  color: #fff;\r\n  cursor: pointer;\r\n  font-size: 17px;\r\n  height: 33px;\r\n  position: absolute;\r\n  right: 0;\r\n  top: 11px;\r\n  width: 33px;\n}\n.messaging {\r\n  padding: 0 0 50px 0;\n}\n.msg_history {\r\n  overflow-y: auto;\r\n  overflow-x: hidden;\n}\r\n/* .msg_history::after {\r\n  content: \"\";\r\n  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAgOCkiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PGNpcmNsZSBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIgY3g9IjE3NiIgY3k9IjEyIiByPSI0Ii8+PHBhdGggZD0iTTIwLjUuNWwyMyAxMW0tMjkgODRsLTMuNzkgMTAuMzc3TTI3LjAzNyAxMzEuNGw1Ljg5OCAyLjIwMy0zLjQ2IDUuOTQ3IDYuMDcyIDIuMzkyLTMuOTMzIDUuNzU4bTEyOC43MzMgMzUuMzdsLjY5My05LjMxNiAxMC4yOTIuMDUyLjQxNi05LjIyMiA5LjI3NC4zMzJNLjUgNDguNXM2LjEzMSA2LjQxMyA2Ljg0NyAxNC44MDVjLjcxNSA4LjM5My0yLjUyIDE0LjgwNi0yLjUyIDE0LjgwNk0xMjQuNTU1IDkwcy03LjQ0NCAwLTEzLjY3IDYuMTkyYy02LjIyNyA2LjE5Mi00LjgzOCAxMi4wMTItNC44MzggMTIuMDEybTIuMjQgNjguNjI2cy00LjAyNi05LjAyNS0xOC4xNDUtOS4wMjUtMTguMTQ1IDUuNy0xOC4xNDUgNS43IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTg1LjcxNiAzNi4xNDZsNS4yNDMtOS41MjFoMTEuMDkzbDUuNDE2IDkuNTIxLTUuNDEgOS4xODVIOTAuOTUzbC01LjIzNy05LjE4NXptNjMuOTA5IDE1LjQ3OWgxMC43NXYxMC43NWgtMTAuNzV6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIvPjxjaXJjbGUgZmlsbD0iIzAwMCIgY3g9IjcxLjUiIGN5PSI3LjUiIHI9IjEuNSIvPjxjaXJjbGUgZmlsbD0iIzAwMCIgY3g9IjE3MC41IiBjeT0iOTUuNSIgcj0iMS41Ii8+PGNpcmNsZSBmaWxsPSIjMDAwIiBjeD0iODEuNSIgY3k9IjEzNC41IiByPSIxLjUiLz48Y2lyY2xlIGZpbGw9IiMwMDAiIGN4PSIxMy41IiBjeT0iMjMuNSIgcj0iMS41Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTkzIDcxaDN2M2gtM3ptMzMgODRoM3YzaC0zem0tODUgMThoM3YzaC0zeiIvPjxwYXRoIGQ9Ik0zOS4zODQgNTEuMTIybDUuNzU4LTQuNDU0IDYuNDUzIDQuMjA1LTIuMjk0IDcuMzYzaC03Ljc5bC0yLjEyNy03LjExNHpNMTMwLjE5NSA0LjAzbDEzLjgzIDUuMDYyLTEwLjA5IDcuMDQ4LTMuNzQtMTIuMTF6bS04MyA5NWwxNC44MyA1LjQyOS0xMC44MiA3LjU1Ny00LjAxLTEyLjk4N3pNNS4yMTMgMTYxLjQ5NWwxMS4zMjggMjAuODk3TDIuMjY1IDE4MGwyLjk0OC0xOC41MDV6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIvPjxwYXRoIGQ9Ik0xNDkuMDUgMTI3LjQ2OHMtLjUxIDIuMTgzLjk5NSAzLjM2NmMxLjU2IDEuMjI2IDguNjQyLTEuODk1IDMuOTY3LTcuNzg1LTIuMzY3LTIuNDc3LTYuNS0zLjIyNi05LjMzIDAtNS4yMDggNS45MzYgMCAxNy41MSAxMS42MSAxMy43MyAxMi40NTgtNi4yNTcgNS42MzMtMjEuNjU2LTUuMDczLTIyLjY1NC02LjYwMi0uNjA2LTE0LjA0MyAxLjc1Ni0xNi4xNTcgMTAuMjY4LTEuNzE4IDYuOTIgMS41ODQgMTcuMzg3IDEyLjQ1IDIwLjQ3NiAxMC44NjYgMy4wOSAxOS4zMzEtNC4zMSAxOS4zMzEtNC4zMSIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjEuMjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvZz48L3N2Zz4=);\r\n  opacity: 0.1;\r\n  top: 0%;\r\n  left: 40%;\r\n  bottom: 0;\r\n  right: 0;\r\n \r\n  position: absolute;\r\n  z-index: 0;\r\n} */\n.fill {\r\n  position: relative;\r\n  top: -22px;\n}\n.spantitle {\r\n  margin-left: 10px;\r\n  font-weight: 600;\n}\n.pro {\r\n  margin-left: 5px;\r\n  margin-top: 4px;\r\n  box-shadow: 0px 0px 3px;\n}\n.btn-end {\r\n  float: right;\r\n  margin: 8px 9px 0px 8px;\r\n  position: relative;\n}\n.btn-bars {\r\n  color: black;\r\n  cursor: pointer;\r\n  display: none;\r\n  position: absolute;\r\n  top: 16px;\r\n  padding-right: 15px;\r\n  right: 0;\n}\n.vis {\r\n  display: block !important;\r\n  visibility: visible;\n}\n@media (max-width: 785px) {\n.btn-bars {\r\n    display: block !important;\n}\n.inbox_people {\r\n    width: 100%;\n}\n.mesgs {\r\n    display: none;\r\n    width: 100%;\n}\n.hide {\r\n    display: none !important;\r\n    visibility: hidden;\n}\n}\n@media (max-width: 360px) {\n.chat_ib {\r\n    padding: 0 0 0 33px;\n}\n}\r\n", ""]);
+exports.push([module.i, ".chat-header {\n  width: 100%;\n  background: #2d7d46d6;\n  margin: 0px 0px 0px 0px;\n  position: relative;\n  box-shadow: 0px 2px 6px #9c8e8e;\n  color: white;\n}\n.text-noMessages {\n  margin-top: 15px;\n  text-align: center;\n  font-family: \"dosis\", sans-serif;\n  font-weight: 500;\n  font-size: 1.2rem;\n}\nimg {\n  max-width: 40px;\n}\n.inbox_people {\n  background: #f8f8f8 none repeat scroll 0 0;\n  float: left;\n  width: 40%;\n  border-right: 1px solid #c4c4c4;\n}\n.inbox_msg {\n  border: 1px solid #c4c4c4;\n  clear: both;\n}\n.top_spac {\n  margin: 20px 0 0;\n}\n.recent_heading {\n  float: left;\n  width: 100%;\n}\n.headind_srch {\n  background: #4e9163;\n  text-align: center;\n}\n.srch_bar {\n  display: inline-block;\n  text-align: right;\n  width: 60%;\n}\n.btn-tosel {\n  padding: 0;\n  text-align: inherit;\n}\n.recent_heading h4 {\n  top: 10px;\n  color: white;\n  font-size: 21px;\n  margin: auto;\n  position: relative;\n}\n.send-btn {\n  position: relative;\n  float: right;\n  top: -15px;\n}\n.srch_bar input {\n  border: 1px solid #cdcdcd;\n  border-width: 0 0 1px 0;\n  width: 80%;\n  padding: 2px 0 4px 6px;\n  background: none;\n}\n.srch_bar .input-group-addon button {\n  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n  border: medium none;\n  padding: 0;\n  color: #707070;\n  font-size: 18px;\n}\n.srch_bar .input-group-addon {\n  margin: 0 0 0 -27px;\n}\n.chat_ib h5 {\n  font-size: 15px;\n  color: #464646;\n  margin: 0 0 8px 0;\n}\n.chat_ib h5 span {\n  font-size: 13px;\n  float: right;\n}\n.chat_ib p {\n  font-size: 14px;\n  color: #989898;\n  margin: auto;\n}\n.chat_img {\n  float: left;\n  width: 10%;\n}\n.chat_ib {\n  float: left;\n  padding: 0 0 0 20px;\n  width: 88%;\n}\n.chat_people {\n  overflow: hidden;\n  clear: both;\n}\n.inbox_chat::-webkit-scrollbar-track {\n  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);\n  background-color: #f5f5f5;\n}\n.inbox_chat::-webkit-scrollbar {\n  width: 5px;\n  background-color: #f5f5f5;\n}\n.inbox_chat::-webkit-scrollbar-thumb {\n  background-color: #001f3f;\n}\n.msg_history::-webkit-scrollbar-track {\n  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);\n  background-color: #f5f5f5;\n}\n.msg_history::-webkit-scrollbar {\n  width: 5px;\n  background-color: #f5f5f5;\n}\n.msg_history::-webkit-scrollbar-thumb {\n  background-color: #001f3f;\n}\n.chat_list {\n  border-bottom: 1px solid #c4c4c4;\n  margin: 0;\n  padding: 18px 16px 10px;\n}\n.inbox_chat {\n  height: 481px;\n  overflow-y: auto;\n}\n.active_chat {\n  background: #ebebeb;\n}\n.incoming_msg_img {\n  display: inline-block;\n  width: 6%;\n}\n.received_msg {\n  display: inline-block;\n  padding: 0 0 0 10px;\n  vertical-align: top;\n  width: 92%;\n}\n.received_withd_msg p {\n  background: #00000063;\n  padding: 10px 15px 10px 15px;\n  color: white;\n  max-width: 60%;\n  float: left;\n  margin: 0;\n  position: relative;\n  border-radius: 30px;\n  word-wrap: break-word;\n  white-space: normal;\n}\n.time_date {\n  color: #747474;\n  display: block;\n  font-size: 12px;\n  margin: 0;\n  width: 100%;\n}\n.received_withd_msg {\n  width: 99%;\n}\n.mesgs {\n  float: left;\n  width: 60%;\n}\n.sent_msg p {\n  float: right;\n  background: #09904bb8;\n  color: white;\n}\n.outgoing_msg {\n  overflow: hidden;\n  margin: 8px 0 8px;\n}\n.sent_msg {\n  float: right;\n  width: 100%;\n}\n.input_msg_write input {\n  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n  border: medium none;\n  color: #4c4c4c;\n  font-size: 15px;\n  min-height: 30px;\n  width: 85%;\n  top: -17px;\n  position: absolute;\n  margin: 13px 0px -1px 3px;\n  height: 14px;\n  border-bottom: 1px solid #a9a1a1;\n}\n.input_msg_write input:focus {\n  outline: none;\n}\n.type_msg {\n  position: relative;\n  bottom: -8px;\n}\n.msg_send_btn {\n  background: #05728f none repeat scroll 0 0;\n  border: medium none;\n  border-radius: 50%;\n  color: #fff;\n  cursor: pointer;\n  font-size: 17px;\n  height: 33px;\n  position: absolute;\n  right: 0;\n  top: 11px;\n  width: 33px;\n}\n.messaging {\n  padding: 0 0 50px 0;\n}\n.msg_history {\n  overflow-y: auto;\n  overflow-x: hidden;\n}\n\n/* .msg_history::after {\r\n  content: \"\";\r\n  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAgOCkiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PGNpcmNsZSBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIgY3g9IjE3NiIgY3k9IjEyIiByPSI0Ii8+PHBhdGggZD0iTTIwLjUuNWwyMyAxMW0tMjkgODRsLTMuNzkgMTAuMzc3TTI3LjAzNyAxMzEuNGw1Ljg5OCAyLjIwMy0zLjQ2IDUuOTQ3IDYuMDcyIDIuMzkyLTMuOTMzIDUuNzU4bTEyOC43MzMgMzUuMzdsLjY5My05LjMxNiAxMC4yOTIuMDUyLjQxNi05LjIyMiA5LjI3NC4zMzJNLjUgNDguNXM2LjEzMSA2LjQxMyA2Ljg0NyAxNC44MDVjLjcxNSA4LjM5My0yLjUyIDE0LjgwNi0yLjUyIDE0LjgwNk0xMjQuNTU1IDkwcy03LjQ0NCAwLTEzLjY3IDYuMTkyYy02LjIyNyA2LjE5Mi00LjgzOCAxMi4wMTItNC44MzggMTIuMDEybTIuMjQgNjguNjI2cy00LjAyNi05LjAyNS0xOC4xNDUtOS4wMjUtMTguMTQ1IDUuNy0xOC4xNDUgNS43IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTg1LjcxNiAzNi4xNDZsNS4yNDMtOS41MjFoMTEuMDkzbDUuNDE2IDkuNTIxLTUuNDEgOS4xODVIOTAuOTUzbC01LjIzNy05LjE4NXptNjMuOTA5IDE1LjQ3OWgxMC43NXYxMC43NWgtMTAuNzV6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIvPjxjaXJjbGUgZmlsbD0iIzAwMCIgY3g9IjcxLjUiIGN5PSI3LjUiIHI9IjEuNSIvPjxjaXJjbGUgZmlsbD0iIzAwMCIgY3g9IjE3MC41IiBjeT0iOTUuNSIgcj0iMS41Ii8+PGNpcmNsZSBmaWxsPSIjMDAwIiBjeD0iODEuNSIgY3k9IjEzNC41IiByPSIxLjUiLz48Y2lyY2xlIGZpbGw9IiMwMDAiIGN4PSIxMy41IiBjeT0iMjMuNSIgcj0iMS41Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTkzIDcxaDN2M2gtM3ptMzMgODRoM3YzaC0zem0tODUgMThoM3YzaC0zeiIvPjxwYXRoIGQ9Ik0zOS4zODQgNTEuMTIybDUuNzU4LTQuNDU0IDYuNDUzIDQuMjA1LTIuMjk0IDcuMzYzaC03Ljc5bC0yLjEyNy03LjExNHpNMTMwLjE5NSA0LjAzbDEzLjgzIDUuMDYyLTEwLjA5IDcuMDQ4LTMuNzQtMTIuMTF6bS04MyA5NWwxNC44MyA1LjQyOS0xMC44MiA3LjU1Ny00LjAxLTEyLjk4N3pNNS4yMTMgMTYxLjQ5NWwxMS4zMjggMjAuODk3TDIuMjY1IDE4MGwyLjk0OC0xOC41MDV6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIvPjxwYXRoIGQ9Ik0xNDkuMDUgMTI3LjQ2OHMtLjUxIDIuMTgzLjk5NSAzLjM2NmMxLjU2IDEuMjI2IDguNjQyLTEuODk1IDMuOTY3LTcuNzg1LTIuMzY3LTIuNDc3LTYuNS0zLjIyNi05LjMzIDAtNS4yMDggNS45MzYgMCAxNy41MSAxMS42MSAxMy43MyAxMi40NTgtNi4yNTcgNS42MzMtMjEuNjU2LTUuMDczLTIyLjY1NC02LjYwMi0uNjA2LTE0LjA0MyAxLjc1Ni0xNi4xNTcgMTAuMjY4LTEuNzE4IDYuOTIgMS41ODQgMTcuMzg3IDEyLjQ1IDIwLjQ3NiAxMC44NjYgMy4wOSAxOS4zMzEtNC4zMSAxOS4zMzEtNC4zMSIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjEuMjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvZz48L3N2Zz4=);\r\n  opacity: 0.1;\r\n  top: 0%;\r\n  left: 40%;\r\n  bottom: 0;\r\n  right: 0;\r\n \r\n  position: absolute;\r\n  z-index: 0;\r\n} */\n.fill {\n  position: relative;\n  top: -22px;\n}\n.spantitle {\n  margin-left: 10px;\n  font-weight: 600;\n}\n.pro {\n  margin-left: 5px;\n  margin-top: 4px;\n  box-shadow: 0px 0px 3px;\n}\n.btn-end {\n  float: right;\n  margin: 8px 9px 0px 8px;\n  position: relative;\n}\n.btn-bars {\n  color: black;\n  cursor: pointer;\n  display: none;\n  position: absolute;\n  top: 16px;\n  padding-right: 15px;\n  right: 0;\n}\n.vis {\n  display: block !important;\n  visibility: visible;\n}\n@media (max-width: 785px) {\n.btn-bars {\n    display: block !important;\n}\n.inbox_people {\n    width: 100%;\n}\n.mesgs {\n    display: none;\n    width: 100%;\n}\n.hide {\n    display: none !important;\n    visibility: hidden;\n}\n}\n@media (max-width: 360px) {\n.chat_ib {\n    padding: 0 0 0 33px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -11272,7 +11365,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.word-break{\n  word-wrap: break-word!important;\n  white-space: normal!important;\n}\n", ""]);
+exports.push([module.i, ".word-break{\n  word-wrap: break-word!important;\n  white-space: normal!important;\n}\n", ""]);
 
 // exports
 
@@ -11291,7 +11384,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn-togg{\r\n  display: none!important;\n}\n@media(max-width:991px){\n.btn-togg{\r\n      display:block!important;\n}\n}\r\n", ""]);
+exports.push([module.i, ".btn-togg {\n  display: none !important;\n}\n@media (max-width: 991px) {\n.btn-togg {\n    display: block !important;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -11310,7 +11403,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n@media (max-width:466px) {\n.main-footer{\n        font-size: 0.7rem;\n}\n}\n", ""]);
+exports.push([module.i, "@media (max-width:466px) {\n.main-footer{\n    font-size: 0.7rem;\n}\n}\n", ""]);
 
 // exports
 
@@ -59227,7 +59320,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n                Nevermind\n            ")]
+                  [_vm._v("\n                Cancelar\n            ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -59642,7 +59735,7 @@ var render = function() {
                       }
                     ],
                     staticClass:
-                      "bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full",
+                      "bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full my-5",
                     class: _vm.maxWidthClass
                   },
                   [_vm._t("default")],
@@ -69703,7 +69796,7 @@ var render = function() {
       {
         key: "title",
         fn: function() {
-          return [_vm._v("\n        Browser Sessions\n    ")]
+          return [_vm._v(" Dispositivos en dónde has iniciado sesión ")]
         },
         proxy: true
       },
@@ -69712,7 +69805,7 @@ var render = function() {
         fn: function() {
           return [
             _vm._v(
-              "\n        Manage and logout your active sessions on other browsers and devices.\n    "
+              "\n    Administra y cierra tus sesiónes activas en otros navegadores y\n    dispositivos.\n  "
             )
           ]
         },
@@ -69724,7 +69817,7 @@ var render = function() {
           return [
             _c("div", { staticClass: "max-w-xl text-sm text-gray-600" }, [
               _vm._v(
-                "\n            If necessary, you may logout of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.\n        "
+                "\n      Si es necesario, puedes cerrar la sesión en todos las otras sesiones en\n      todos tus dispositivos. Algunas de tus sesiones actuales se muestran a\n      continuación; sin embargo, esta lista puede no ser muy detallada. Si\n      crees que tu cuenta se ha visto comprometida, deberías actualizar tu\n      contraseña.\n    "
               )
             ]),
             _vm._v(" "),
@@ -69782,6 +69875,7 @@ var render = function() {
                                       stroke: "none"
                                     }
                                   }),
+                                  _vm._v(" "),
                                   _c("rect", {
                                     attrs: {
                                       x: "7",
@@ -69791,6 +69885,7 @@ var render = function() {
                                       rx: "1"
                                     }
                                   }),
+                                  _vm._v(" "),
                                   _c("path", {
                                     attrs: { d: "M11 5h2M12 17v.01" }
                                   })
@@ -69801,11 +69896,11 @@ var render = function() {
                         _c("div", { staticClass: "ml-3" }, [
                           _c("div", { staticClass: "text-sm text-gray-600" }, [
                             _vm._v(
-                              "\n                        " +
+                              "\n            " +
                                 _vm._s(session.agent.platform) +
                                 " - " +
                                 _vm._s(session.agent.browser) +
-                                "\n                    "
+                                "\n          "
                             )
                           ]),
                           _vm._v(" "),
@@ -69815,9 +69910,9 @@ var render = function() {
                               { staticClass: "text-xs text-gray-500" },
                               [
                                 _vm._v(
-                                  "\n                            " +
+                                  "\n              " +
                                     _vm._s(session.ip_address) +
-                                    ",\n\n                            "
+                                    ",\n\n              "
                                 ),
                                 session.is_current_device
                                   ? _c(
@@ -69826,11 +69921,11 @@ var render = function() {
                                         staticClass:
                                           "text-green-500 font-semibold"
                                       },
-                                      [_vm._v("This device")]
+                                      [_vm._v("Este dispositivo")]
                                     )
                                   : _c("span", [
                                       _vm._v(
-                                        "Last active " +
+                                        "Última sesión activa " +
                                           _vm._s(session.last_active)
                                       )
                                     ])
@@ -69860,7 +69955,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                Logout Other Browser Sessions\n            "
+                      "\n        Finalizar sesión en otros dispositivos.\n      "
                     )
                   ]
                 ),
@@ -69871,7 +69966,7 @@ var render = function() {
                     staticClass: "ml-3",
                     attrs: { on: _vm.form.recentlySuccessful }
                   },
-                  [_vm._v("\n                Done.\n            ")]
+                  [_vm._v("\n        Hecho.\n      ")]
                 )
               ],
               1
@@ -69888,11 +69983,7 @@ var render = function() {
                 {
                   key: "title",
                   fn: function() {
-                    return [
-                      _vm._v(
-                        "\n                Logout Other Browser Sessions\n            "
-                      )
-                    ]
+                    return [_vm._v(" Finalizar sesión en otros dispositivos. ")]
                   },
                   proxy: true
                 },
@@ -69901,7 +69992,7 @@ var render = function() {
                   fn: function() {
                     return [
                       _vm._v(
-                        "\n                Please enter your password to confirm you would like to logout of your other browser sessions across all of your devices.\n\n                "
+                        "\n        Por favor, ingresa tu contraseña para confirmar que quieres cerrar\n        sesión en todas las otras sesiones de tus dispositivos.\n\n        "
                       ),
                       _c(
                         "div",
@@ -69912,7 +70003,7 @@ var render = function() {
                             staticClass: "mt-1 block w-3/4",
                             attrs: {
                               type: "password",
-                              placeholder: "Password"
+                              placeholder: "Contraseña"
                             },
                             nativeOn: {
                               keyup: function($event) {
@@ -69964,11 +70055,7 @@ var render = function() {
                             }
                           }
                         },
-                        [
-                          _vm._v(
-                            "\n                    Nevermind\n                "
-                          )
-                        ]
+                        [_vm._v("\n          Cancelar\n        ")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -69985,7 +70072,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                    Logout Other Browser Sessions\n                "
+                            "\n          Finalizar sesión en otros dispositivos.\n        "
                           )
                         ]
                       )
@@ -70038,7 +70125,7 @@ var render = function() {
                   staticClass:
                     "font-semibold text-xl text-gray-800 leading-tight"
                 },
-                [_vm._v("\n            Profile\n        ")]
+                [_vm._v("\n            Perfíl\n        ")]
               )
             ]
           },
@@ -70047,6 +70134,8 @@ var render = function() {
       ])
     },
     [
+      _c("link", { attrs: { rel: "stylesheet", href: "/css/app.css" } }),
+      _vm._v(" "),
       _vm._v(" "),
       _c("div", [
         _c(
@@ -70100,9 +70189,7 @@ var render = function() {
               attrs: { sessions: _vm.sessions }
             }),
             _vm._v(" "),
-            _c("jet-section-border"),
-            _vm._v(" "),
-            _c("delete-user-form", { staticClass: "mt-10 sm:mt-0" })
+            _c("jet-section-border")
           ],
           1
         )
@@ -70137,7 +70224,7 @@ var render = function() {
       {
         key: "title",
         fn: function() {
-          return [_vm._v("\n        Two Factor Authentication\n    ")]
+          return [_vm._v(" Autenticación en dos pasos ")]
         },
         proxy: true
       },
@@ -70146,7 +70233,7 @@ var render = function() {
         fn: function() {
           return [
             _vm._v(
-              "\n        Add additional security to your account using two factor authentication.\n    "
+              "\n    Agrega seguridad adicional en tu cuenta usando la autenticación en dos\n    pasos.\n  "
             )
           ]
         },
@@ -70159,20 +70246,44 @@ var render = function() {
             _vm.twoFactorEnabled
               ? _c("h3", { staticClass: "text-lg font-medium text-gray-900" }, [
                   _vm._v(
-                    "\n            You have enabled two factor authentication.\n        "
+                    "\n      Has activado la autenticación en dos pasos.\n    "
                   )
                 ])
               : _c("h3", { staticClass: "text-lg font-medium text-gray-900" }, [
                   _vm._v(
-                    "\n            You have not enabled two factor authentication.\n        "
+                    "\n      No has actualizado la autenticación en dos pasos.\n    "
                   )
                 ]),
             _vm._v(" "),
             _c("div", { staticClass: "mt-3 max-w-xl text-sm text-gray-600" }, [
               _c("p", [
                 _vm._v(
-                  "\n                When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone's Google Authenticator application.\n            "
-                )
+                  "\n        Cuándo actives la autenticación en dos pasos, se le solicitará un\n        token aleatorio seguro durante la autenticación. Puedes recuperar este\n        token de la aplicación\n        "
+                ),
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href:
+                        "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=es_CO&gl=US",
+                      target: "_blank"
+                    }
+                  },
+                  [_c("b", [_vm._v("Google Authenticator (Android)")])]
+                ),
+                _vm._v("\n        o\n        "),
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href:
+                        "https://apps.apple.com/es/app/google-authenticator/id388497605",
+                      target: "_blank"
+                    }
+                  },
+                  [_c("b", [_vm._v("Google Authenticator (iOS)")])]
+                ),
+                _vm._v("\n        de tu teléfono.\n      ")
               ])
             ]),
             _vm._v(" "),
@@ -70188,7 +70299,41 @@ var render = function() {
                           [
                             _c("p", { staticClass: "font-semibold" }, [
                               _vm._v(
-                                "\n                        Two factor authentication is now enabled. Scan the following QR code using your phone's authenticator application.\n                    "
+                                "\n            La autenticación de dos factores ahora está habilitada. Escanee el\n            siguiente código QR utilizando la aplicación de autenticación\n            "
+                              ),
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href:
+                                      "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=es_CO&gl=US",
+                                    target: "_blank"
+                                  }
+                                },
+                                [
+                                  _c("b", [
+                                    _vm._v("Google Authenticator (Android)")
+                                  ])
+                                ]
+                              ),
+                              _vm._v("\n            o\n            "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href:
+                                      "https://apps.apple.com/es/app/google-authenticator/id388497605",
+                                    target: "_blank"
+                                  }
+                                },
+                                [
+                                  _c("b", [
+                                    _vm._v("Google Authenticator (iOS)")
+                                  ])
+                                ]
+                              ),
+                              _vm._v(
+                                "\n            de tu teléfono.\n          "
                               )
                             ])
                           ]
@@ -70211,7 +70356,7 @@ var render = function() {
                           [
                             _c("p", { staticClass: "font-semibold" }, [
                               _vm._v(
-                                "\n                        Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.\n                    "
+                                "\n            Guarde estos códigos de recuperación en un lugar seguro. Se pueden\n            usar para recuperar el acceso a tu cuenta si pierdes tu\n            dispositivo con la aplicación de autenticación en dos pasos.\n          "
                               )
                             ])
                           ]
@@ -70226,9 +70371,7 @@ var render = function() {
                           _vm._l(_vm.recoveryCodes, function(code) {
                             return _c("div", { key: code }, [
                               _vm._v(
-                                "\n                        " +
-                                  _vm._s(code) +
-                                  "\n                    "
+                                "\n            " + _vm._s(code) + "\n          "
                               )
                             ])
                           }),
@@ -70253,14 +70396,15 @@ var render = function() {
                           _c(
                             "jet-button",
                             {
+                              staticClass: "btn",
                               class: { "opacity-25": _vm.enabling },
+                              staticStyle: {
+                                "background-color": "rgb(109, 223, 182)",
+                                color: "white"
+                              },
                               attrs: { type: "button", disabled: _vm.enabling }
                             },
-                            [
-                              _vm._v(
-                                "\n                        Enable\n                    "
-                              )
-                            ]
+                            [_vm._v("\n            Activar\n          ")]
                           )
                         ],
                         1
@@ -70281,7 +70425,7 @@ var render = function() {
                                 { staticClass: "mr-3" },
                                 [
                                   _vm._v(
-                                    "\n                        Regenerate Recovery Codes\n                    "
+                                    "\n            Generar códigos nuevos\n          "
                                   )
                                 ]
                               )
@@ -70300,7 +70444,7 @@ var render = function() {
                                 { staticClass: "mr-3" },
                                 [
                                   _vm._v(
-                                    "\n                        Show Recovery Codes\n                    "
+                                    "\n            Ver códigos de recuperación\n          "
                                   )
                                 ]
                               )
@@ -70318,14 +70462,15 @@ var render = function() {
                           _c(
                             "jet-danger-button",
                             {
+                              staticClass: "btn",
                               class: { "opacity-25": _vm.disabling },
+                              staticStyle: {
+                                "background-color": "rgb(255 63 63 / 83%)",
+                                color: "white"
+                              },
                               attrs: { disabled: _vm.disabling }
                             },
-                            [
-                              _vm._v(
-                                "\n                        Disable\n                    "
-                              )
-                            ]
+                            [_vm._v("\n            Desactivar\n          ")]
                           )
                         ],
                         1
@@ -70369,7 +70514,7 @@ var render = function() {
       {
         key: "title",
         fn: function() {
-          return [_vm._v("\n        Update Password\n    ")]
+          return [_vm._v("\n        Cambiar Contraseña\n    ")]
         },
         proxy: true
       },
@@ -70378,7 +70523,7 @@ var render = function() {
         fn: function() {
           return [
             _vm._v(
-              "\n        Ensure your account is using a long, random password to stay secure.\n    "
+              "\n    Usa una contraseña que contenga números y letras con almenos una mayúscula Y una minúscula.\n    "
             )
           ]
         },
@@ -70393,7 +70538,7 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "current_password", value: "Current Password" }
+                  attrs: { for: "current_password", value: "Contraseña Actual" }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
@@ -70426,7 +70571,7 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "password", value: "New Password" }
+                  attrs: { for: "password", value: "Nueva Contraseña" }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
@@ -70460,7 +70605,7 @@ var render = function() {
                 _c("jet-label", {
                   attrs: {
                     for: "password_confirmation",
-                    value: "Confirm Password"
+                    value: "Confirmar Contraseña"
                   }
                 }),
                 _vm._v(" "),
@@ -70501,16 +70646,21 @@ var render = function() {
                 staticClass: "mr-3",
                 attrs: { on: _vm.form.recentlySuccessful }
               },
-              [_vm._v("\n            Saved.\n        ")]
+              [_vm._v("\n            Guardado.\n        ")]
             ),
             _vm._v(" "),
             _c(
               "jet-button",
               {
+                staticClass: "btn",
                 class: { "opacity-25": _vm.form.processing },
+                staticStyle: {
+                  "background-color": "rgb(109, 223, 182)",
+                  color: "white"
+                },
                 attrs: { disabled: _vm.form.processing }
               },
-              [_vm._v("\n            Save\n        ")]
+              [_vm._v("\n            Guardar\n        ")]
             )
           ]
         },
@@ -70547,7 +70697,7 @@ var render = function() {
       {
         key: "title",
         fn: function() {
-          return [_vm._v("\n        Profile Information\n    ")]
+          return [_vm._v("\n        Tu Información\n    ")]
         },
         proxy: true
       },
@@ -70555,9 +70705,7 @@ var render = function() {
         key: "description",
         fn: function() {
           return [
-            _vm._v(
-              "\n        Update your account's profile information and email address.\n    "
-            )
+            _vm._v("\n        Actualiza la información de tu cuenta.\n    ")
           ]
         },
         proxy: true
@@ -70578,9 +70726,7 @@ var render = function() {
                       on: { change: _vm.updatePhotoPreview }
                     }),
                     _vm._v(" "),
-                    _c("jet-label", {
-                      attrs: { for: "photo", value: "Photo" }
-                    }),
+                    _c("jet-label", { attrs: { for: "photo", value: "Foto" } }),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -70644,7 +70790,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                Select A New Photo\n            "
+                          "\n                Selecciona una foto\n            "
                         )
                       ]
                     ),
@@ -70664,7 +70810,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                Remove Photo\n            "
+                              "\n                Remover foto\n            "
                             )
                           ]
                         )
@@ -70683,7 +70829,7 @@ var render = function() {
               "div",
               { staticClass: "col-span-6 sm:col-span-4" },
               [
-                _c("jet-label", { attrs: { for: "name", value: "Name" } }),
+                _c("jet-label", { attrs: { for: "name", value: "Nombre" } }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
@@ -70709,7 +70855,7 @@ var render = function() {
               "div",
               { staticClass: "col-span-6 sm:col-span-4" },
               [
-                _c("jet-label", { attrs: { for: "email", value: "Email" } }),
+                _c("jet-label", { attrs: { for: "email", value: "Correo" } }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
@@ -70744,16 +70890,21 @@ var render = function() {
                 staticClass: "mr-3",
                 attrs: { on: _vm.form.recentlySuccessful }
               },
-              [_vm._v("\n            Saved.\n        ")]
+              [_vm._v("\n            Guardado.\n        ")]
             ),
             _vm._v(" "),
             _c(
               "jet-button",
               {
+                staticClass: "btn",
                 class: { "opacity-25": _vm.form.processing },
+                staticStyle: {
+                  "background-color": "rgb(109, 223, 182)",
+                  color: "white"
+                },
                 attrs: { disabled: _vm.form.processing }
               },
-              [_vm._v("\n            Save\n        ")]
+              [_vm._v("\n            Guardar\n        ")]
             )
           ]
         },
@@ -72800,13 +72951,10 @@ var render = function() {
               { staticClass: "info" },
               [
                 _c(
-                  "jet-responsive-nav-link",
+                  "inertia-link",
                   {
                     staticClass: "d-block",
-                    attrs: {
-                      href: _vm.route("profile.show"),
-                      active: _vm.route().current("profile.show")
-                    }
+                    attrs: { href: _vm.route("profile.show") }
                   },
                   [
                     _vm._v(
@@ -72841,9 +72989,11 @@ var render = function() {
                       "inertia-link",
                       {
                         staticClass: "nav-link",
-                        attrs: {
-                          href: _vm.route("dashboard"),
-                          "data-widget": "pushmenu"
+                        attrs: { href: _vm.route("dashboard") },
+                        on: {
+                          click: function($event) {
+                            return _vm.toggle()
+                          }
                         }
                       },
                       [
@@ -72877,9 +73027,11 @@ var render = function() {
                                 "inertia-link",
                                 {
                                   staticClass: "nav-link",
-                                  attrs: {
-                                    href: _vm.route("user.index"),
-                                    "data-widget": "pushmenu"
+                                  attrs: { href: _vm.route("user.index") },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.toggle()
+                                    }
                                   }
                                 },
                                 [
@@ -72903,9 +73055,11 @@ var render = function() {
                                 "inertia-link",
                                 {
                                   staticClass: "nav-link",
-                                  attrs: {
-                                    href: _vm.route("user.create"),
-                                    "data-widget": "pushmenu"
+                                  attrs: { href: _vm.route("user.create") },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.toggle()
+                                    }
                                   }
                                 },
                                 [
@@ -72934,9 +73088,11 @@ var render = function() {
                           "inertia-link",
                           {
                             staticClass: "nav-link",
-                            attrs: {
-                              href: _vm.route("conjuntos"),
-                              "data-widget": "pushmenu"
+                            attrs: { href: _vm.route("conjuntos") },
+                            on: {
+                              click: function($event) {
+                                return _vm.toggle()
+                              }
                             }
                           },
                           [
@@ -72962,9 +73118,11 @@ var render = function() {
                           "inertia-link",
                           {
                             staticClass: "nav-link",
-                            attrs: {
-                              href: _vm.route("llamadas"),
-                              "data-widget": "pushmenu"
+                            attrs: { href: _vm.route("llamadas") },
+                            on: {
+                              click: function($event) {
+                                return _vm.toggle()
+                              }
                             }
                           },
                           [
@@ -72988,9 +73146,11 @@ var render = function() {
                           "inertia-link",
                           {
                             staticClass: "nav-link",
-                            attrs: {
-                              href: _vm.route("construir"),
-                              "data-widget": "pushmenu"
+                            attrs: { href: _vm.route("construir") },
+                            on: {
+                              click: function($event) {
+                                return _vm.toggle()
+                              }
                             }
                           },
                           [
@@ -73015,9 +73175,11 @@ var render = function() {
                           "inertia-link",
                           {
                             staticClass: "nav-link",
-                            attrs: {
-                              href: _vm.route("construir"),
-                              "data-widget": "pushmenu"
+                            attrs: { href: _vm.route("construir") },
+                            on: {
+                              click: function($event) {
+                                return _vm.toggle()
+                              }
                             }
                           },
                           [
@@ -73044,9 +73206,11 @@ var render = function() {
                           "inertia-link",
                           {
                             staticClass: "nav-link",
-                            attrs: {
-                              href: _vm.route("chat.index"),
-                              "data-widget": "pushmenu"
+                            attrs: { href: _vm.route("chat.index") },
+                            on: {
+                              click: function($event) {
+                                return _vm.toggle()
+                              }
                             }
                           },
                           [
@@ -73070,9 +73234,11 @@ var render = function() {
                       "inertia-link",
                       {
                         staticClass: "nav-link",
-                        attrs: {
-                          href: _vm.route("construir"),
-                          "data-widget": "pushmenu"
+                        attrs: { href: _vm.route("construir") },
+                        on: {
+                          click: function($event) {
+                            return _vm.toggle()
+                          }
                         }
                       },
                       [
@@ -73104,9 +73270,11 @@ var render = function() {
                       "inertia-link",
                       {
                         staticClass: "nav-link",
-                        attrs: {
-                          href: _vm.route("construir"),
-                          "data-widget": "pushmenu"
+                        attrs: { href: _vm.route("construir") },
+                        on: {
+                          click: function($event) {
+                            return _vm.toggle()
+                          }
                         }
                       },
                       [
@@ -73134,17 +73302,17 @@ var render = function() {
                       "inertia-link",
                       {
                         staticClass: "nav-link",
-                        attrs: {
-                          href: _vm.route("historial.index"),
-                          "data-widget": "pushmenu"
+                        attrs: { href: _vm.route("historial.index") },
+                        on: {
+                          click: function($event) {
+                            return _vm.toggle()
+                          }
                         }
                       },
                       [
                         _c("i", { staticClass: "nav-icon fas fa-history" }),
                         _vm._v(" "),
-                        _c("p", [
-                          _vm._v("\n                Historial\n              ")
-                        ])
+                        _c("p", [_vm._v("Historial")])
                       ]
                     )
                   ],
@@ -73160,9 +73328,11 @@ var render = function() {
                           "inertia-link",
                           {
                             staticClass: "nav-link",
-                            attrs: {
-                              "data-widget": "pushmenu",
-                              href: _vm.route("permisos")
+                            attrs: { href: _vm.route("permisos") },
+                            on: {
+                              click: function($event) {
+                                return _vm.toggle()
+                              }
                             }
                           },
                           [
@@ -73213,8 +73383,12 @@ var staticRenderFns = [
       _c(
         "a",
         {
-          staticClass: "btn-togg float-right",
-          attrs: { "data-widget": "pushmenu", role: "button" }
+          staticClass: "btn-togg float-right sidebar-toggle-btn",
+          attrs: {
+            id: "sidebarbutton",
+            "data-widget": "pushmenu",
+            role: "button"
+          }
         },
         [_c("i", { staticClass: "fas fa-bars" })]
       )
@@ -73443,10 +73617,6 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-          _vm._m(1),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
           _c("li", { staticClass: "nav-item" }, [
             _c("div", [
               _c(
@@ -73460,7 +73630,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._m(3)]
+                [_vm._m(1)]
               )
             ])
           ])
@@ -73482,222 +73652,6 @@ var staticRenderFns = [
           attrs: { "data-widget": "pushmenu", href: "#", role: "button" }
         },
         [_c("i", { staticClass: "fas fa-bars" })]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item dropdown" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link",
-          attrs: { "data-toggle": "dropdown", href: "#" }
-        },
-        [
-          _c("i", { staticClass: "far fa-comments" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "badge badge-danger navbar-badge" }, [
-            _vm._v("0")
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "dropdown-menu dropdown-menu-lg dropdown-menu-right" },
-        [
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _c("div", { staticClass: "media" }, [
-              _c("img", {
-                staticClass: "img-size-50 mr-3 img-circle",
-                attrs: {
-                  src: "http://kobranzas.co/storage/img/user1-128x128.jpg",
-                  alt: "User Avatar"
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "media-body" }, [
-                _c("h3", { staticClass: "dropdown-item-title" }, [
-                  _vm._v(
-                    "\n                      Brad Diesel\n                      "
-                  ),
-                  _c(
-                    "span",
-                    { staticClass: "float-right text-sm text-danger" },
-                    [_c("i", { staticClass: "fas fa-star" })]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "text-sm" }, [
-                  _vm._v("Call me whenever you can...")
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "text-sm text-muted" }, [
-                  _c("i", { staticClass: "far fa-clock mr-1" }),
-                  _vm._v(" 4 Hours Ago")
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-divider" }),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _c("div", { staticClass: "media" }, [
-              _c("img", {
-                staticClass: "img-size-50 img-circle mr-3",
-                attrs: {
-                  src: "http://kobranzas.co/storage/img/user8-128x128.jpg",
-                  alt: "User Avatar"
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "media-body" }, [
-                _c("h3", { staticClass: "dropdown-item-title" }, [
-                  _vm._v(
-                    "\n                      John Pierce\n                      "
-                  ),
-                  _c(
-                    "span",
-                    { staticClass: "float-right text-sm text-muted" },
-                    [_c("i", { staticClass: "fas fa-star" })]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "text-sm" }, [
-                  _vm._v("I got your message bro")
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "text-sm text-muted" }, [
-                  _c("i", { staticClass: "far fa-clock mr-1" }),
-                  _vm._v(" 4 Hours Ago")
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-divider" }),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _c("div", { staticClass: "media" }, [
-              _c("img", {
-                staticClass: "img-size-50 img-circle mr-3",
-                attrs: {
-                  src: "http://kobranzas.co/storage/img/user3-128x128.jpg",
-                  alt: "User Avatar"
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "media-body" }, [
-                _c("h3", { staticClass: "dropdown-item-title" }, [
-                  _vm._v(
-                    "\n                      Nora Silvester\n                      "
-                  ),
-                  _c(
-                    "span",
-                    { staticClass: "float-right text-sm text-warning" },
-                    [_c("i", { staticClass: "fas fa-star" })]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "text-sm" }, [
-                  _vm._v("The subject goes here")
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "text-sm text-muted" }, [
-                  _c("i", { staticClass: "far fa-clock mr-1" }),
-                  _vm._v(" 4 Hours Ago")
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-divider" }),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item dropdown-footer",
-              attrs: { href: "#" }
-            },
-            [_vm._v("See All Messages")]
-          )
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item dropdown" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link",
-          attrs: { "data-toggle": "dropdown", href: "#" }
-        },
-        [
-          _c("i", { staticClass: "far fa-bell" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "badge badge-warning navbar-badge" }, [
-            _vm._v("15")
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "dropdown-menu dropdown-menu-lg dropdown-menu-right" },
-        [
-          _c("span", { staticClass: "dropdown-item dropdown-header" }, [
-            _vm._v("15 Notifications")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-divider" }),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _c("i", { staticClass: "fas fa-envelope mr-2" }),
-            _vm._v(" 4 new messages\n                "),
-            _c("span", { staticClass: "float-right text-muted text-sm" }, [
-              _vm._v("3 mins")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-divider" }),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _c("i", { staticClass: "fas fa-users mr-2" }),
-            _vm._v(" 8 friend requests\n                "),
-            _c("span", { staticClass: "float-right text-muted text-sm" }, [
-              _vm._v("12 hours")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-divider" }),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _c("i", { staticClass: "fas fa-file mr-2" }),
-            _vm._v(" 3 new reports\n                "),
-            _c("span", { staticClass: "float-right text-muted text-sm" }, [
-              _vm._v("2 days")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-divider" }),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item dropdown-footer",
-              attrs: { href: "#" }
-            },
-            [_vm._v("See All Notifications")]
-          )
-        ]
       )
     ])
   },
