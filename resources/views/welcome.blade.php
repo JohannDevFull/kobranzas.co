@@ -67,7 +67,9 @@
                       @if (Route::has('login'))
                       <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                         @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline" style="background-color:rgba(109,223,182,1);color: white;">Dashboard</a>
+                        <li style="padding-right:5px;margin-right: 5px">
+                          <a href="{{ url('/dashboard') }}" class="button button-smaller button-primary-outline" style="background-color:rgba(109,223,182,1);color: white;">Dashboard</a>
+                        </li>
                         @else
                         <li style="padding-right:5px;margin-right: 5px">
                           <a href="{{ route('login') }}" class="button button-smaller button-primary-outline">Ingresar</a>
