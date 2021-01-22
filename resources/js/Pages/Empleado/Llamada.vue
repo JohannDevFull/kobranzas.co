@@ -117,7 +117,7 @@
                           </li>
                           <li class="nav-item">
                             <a href="#" class="nav-link">
-                              Estado cuenta <span class="float-right badge bg-info">{{cuentaTotal}}</span>
+                              Estado cuenta <span class="float-right badge bg-info">{{cuenta_total}}</span>
                             </a>
                           </li>
                         </ul>
@@ -137,7 +137,7 @@
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-sort-amount-up-alt"></i></span> 
                               </div>
-                              <input type="number" class="form-control"   v-model="form.abono" >
+                              <input type="text" class="form-control"   v-model="abono_decimal" >
                             </div>
                       </div>
                     </div>
@@ -302,8 +302,10 @@
 
                   <tbody>
  
+                    <tr v-if="!llamadas"  > 
+                    </tr>  
                     
-                    <tr v-for="(row,index) in llamadas" > 
+                    <tr v-else v-for="(row,index) in llamadas" > 
                       <td > {{ row.id_call }} </td>
                       <td style="width: 120px"> 
                         <div style='width:150px; overflow:hidden;'>
@@ -338,7 +340,7 @@
         <!-- /.row -->
     </section>
     
-    <call-modal v-bind:llamadas="llamadas" v-bind:ides="inde" v-bind:id="state" v-bind:name="form.name" />
+    <call-modal v-bind:llamadas="llamadas" v-bind:ides="inde" v-bind:id="state" v-bind:kk="llam" v-bind:name="form.name" />
 
   </div>
 </app-layout>
@@ -357,7 +359,9 @@
         CallModal,
     },
     created(){ 
-      this.buscarEstados()  
+      this.buscarEstados() 
+      this.totalCuenta() 
+      this.administracionDecimal() 
     },
     data() {
       return { 
@@ -372,20 +376,24 @@
           
           intereses: null,
           honorarios: null,
-          observaciones: null,
+          observaciones: null, 
 
           deuda: this.cuentaTotal,
-          abono: 0,
           total_deuda:0,
           cuotas: 0,
           subcuota: 0,
           administracion: this.admin,
           valorCuota: 0,
+          abono: 0,
 
         },
+        
+        abono_decimal: 0,
 
-        selestado:"",
+        selestado:"", 
+        cuenta_total:"",
         inde:0,
+        llam:-1,
         index:"",
         state:0,
         image: "../../storage/img/avatar.png", 
@@ -395,9 +403,25 @@
 
       }
     },
+    watch:{
+      abono_decimal: function() { 
+        
+        var res=this.formatear(String(this.abono_decimal));
+
+        this.form.abono=this.sinFormatNumber(this.abono_decimal);
+
+        this.abono_decimal=res;
+
+        
+      },
+      
+    },
     computed: {
       total: function(){
-        return this.form.total_deuda= this.form.deuda-this.form.abono;
+        var num = this.form.deuda-this.form.abono;
+        var total=this.formatear(String(num));
+        this.form.total_deuda=num;
+        return total;
       },
       sub_cuota: function(){
         if (this.form.cuotas===0){
@@ -405,16 +429,17 @@
         }else{
           var num= this.form.total_deuda/this.form.cuotas;
           var n=num.toFixed(2); 
-          return this.form.subcuota=n;
+          this.form.subcuota=n;
+          return this.formatear(String(n));
         } 
       },
       valor_cuota: function(){
         if (this.form.subcuota===0){
           return this.form.valorCuota=0;
         }else{
-          var num= parseFloat(this.form.subcuota)+parseFloat(this.form.administracion);
+          var num= parseFloat(this.form.subcuota)+parseFloat(this.admin);
           var n=num.toFixed(2); 
-          return this.form.subcuota=n;
+          return this.formatear(String(n));
         }
 
       },
@@ -444,7 +469,7 @@
           Inertia.visit('/llamadas/create/'+this.cliente.id,{ preserveScroll: true }, { only: ['users'] });
         })
         .catch((error) => {
-          this.errors = error.response.data;
+          this.errors = error. response.data;
           console.log("Este es el error"+error.response.data)
         });   
       },
@@ -463,6 +488,16 @@
 
         this.call=this.llamadas;      
       },
+      totalCuenta(){
+        var num=String(this.cuentaTotal);
+        var nn=this.formatear(num);
+        this.cuenta_total=nn;     
+      },
+      administracionDecimal(){
+        var num=String(this.admin);
+        var nn=this.formatear(num);
+        this.form.administracion=nn;     
+      },
       cambio(){
         var x = document.getElementById("mydiv");
         if (x.style.display === "none") 
@@ -477,11 +512,63 @@
       ver(id){  
          
         this.inde=id; 
+        this.llam=0; 
         
         this.state=this.llamadas[id].state_id; 
 
         $("#myModal").modal();
         
+      },
+      formatear(input_val){
+
+        // check for decimal
+        if (input_val.indexOf(".") >= 0) 
+        {
+
+          // get position of first decimal
+          // this prevents multiple decimals from
+          // being entered
+          var decimal_pos = input_val.indexOf(".");
+
+          // split number by decimal point
+          var left_side = input_val.substring(0, decimal_pos);
+          var right_side = input_val.substring(decimal_pos);
+
+          // add commas to left side of number
+          left_side = this.formatNumber(left_side);
+
+          // validate right side
+          right_side = this.formatNumber(right_side);
+          
+          // On blur make sure 2 numbers after decimal
+          if (blur === "blur") 
+          {
+            right_side += "00";
+          }
+          
+          // Limit decimal to only 2 digits
+          right_side = right_side.substring(0, 2);
+
+          // join number by .
+          input_val = left_side + "." + right_side; 
+          return input_val;
+        } 
+        else 
+        {
+          // no decimal entered
+          // add commas to number
+          // remove all non-digits
+          input_val = this.formatNumber(input_val); 
+          return input_val;
+        }
+
+      },
+      formatNumber(n){
+        // format number 1000000 to 1,234,567
+        return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      },
+      sinFormatNumber(n){ 
+        return n.replace(/,/g, "");
       },
     },
   }
