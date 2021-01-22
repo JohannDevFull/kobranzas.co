@@ -73404,30 +73404,38 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "brand-link", attrs: { href: "/" } }, [
-      _c("img", {
-        staticClass: "brand-image img-circle elevation-3",
-        staticStyle: { opacity: "0.8" },
-        attrs: { src: "/storage/img/AdminLTELogo.png", alt: "AdminLTE Logo" }
-      }),
-      _vm._v(" "),
-      _c("span", { staticClass: "brand-text font-weight-light" }, [
-        _vm._v("LSA Abogados")
-      ]),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "btn-togg float-right sidebar-toggle-btn",
-          attrs: {
-            id: "sidebarbutton",
-            "data-widget": "pushmenu",
-            role: "button"
-          }
-        },
-        [_c("i", { staticClass: "fas fa-bars" })]
-      )
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "brand-link",
+        staticStyle: { "background-color": "white", color: "black" },
+        attrs: { href: "/" }
+      },
+      [
+        _c("img", {
+          staticClass: "brand-image img-circle elevation-3",
+          staticStyle: { opacity: "0.8" },
+          attrs: { src: "/storage/img/AdminLTELogo.png", alt: "AdminLTE Logo" }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "brand-text font-weight-light" }, [
+          _vm._v("LSA Abogados")
+        ]),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "btn-togg float-right sidebar-toggle-btn",
+            attrs: {
+              id: "sidebarbutton",
+              "data-widget": "pushmenu",
+              role: "button"
+            }
+          },
+          [_c("i", { staticClass: "fas fa-bars" })]
+        )
+      ]
+    )
   },
   function() {
     var _vm = this
