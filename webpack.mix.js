@@ -52,5 +52,8 @@ mix.copy('resources/assets/Auditable.php', 'vendor/owen-it/laravel-auditing/src/
 
 mix.copy('resources/assets/clases/Ejemplo.php', 'vendor/inertiajs/inertia-laravel/src/Ejemplo.php');
 
+// DIRECTORIO DE FONTS
+mix.copyDirectory('resources/assets/fonts', 'public/fonts');
+
 
 
