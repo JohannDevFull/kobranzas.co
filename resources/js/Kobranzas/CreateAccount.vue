@@ -40,7 +40,7 @@
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-coins"></i></span>
                               </div>
-                              <input type="number" class="form-control"  v-model="intereses" >
+                              <input type="text" class="form-control"  v-model="intereses" >
                             </div>
                       </div>
                     </div>
@@ -79,22 +79,68 @@ export default {
       import_file: "",
       errors: {},
       capital: "",
-      capital_dec: "",
+      capital_decimal: "",
       intereses: "",
+      intereses_decimal: "",
       id_cliente:this.cliente_id,
     };
 
   },
   watch:{
-    capital: function() {
+    capital: function() { 
+      this.capital_decimal = this.capital;
+      
+      var res=this.formatear(this.capital);
 
-      var input_val = this.capital;
-      this.capital_dec = this.capital;
-  
-      // original length
-      var original_len = input_val.length;
- 
+      this.capital=res;
+      return this.capital;
+    },
+    intereses: function() {
+      this.intereses_decimal = this.intereses;
+
+      var res=this.formatear(this.intereses);
+
+      this.intereses=res;
+      return this.intereses;
+    },
+  },
+  methods: {
+
+    guardarCuenta(){ 
+
+      var capital =this.sinFormatNumber(this.capital_decimal);
+      var intereses =this.sinFormatNumber(this.intereses_decimal);
+
+      var url = "/account/store";
+      axios
+      .post(url, { 
         
+        capital_deuda: capital,
+        intereses: intereses, 
+        cliente_id: this.id_cliente, 
+      })
+      .then((response)=>{ 
+        
+        $(document).Toasts('create',{
+          class: 'bg-success', 
+          title: 'Cuenta',
+          subtitle: 'ok',
+          body: 'Exito al registrar Cuenta.'
+        }); 
+
+        $("#CreateAccountModal").modal('hide');
+        Inertia.reload({ only: ['cuenta'] },);
+        Inertia.visit('/llamadas/agreement/'+this.id_cliente,{ only: ['cuenta'] });
+        
+      })
+      .catch((error) => {
+        this.errors = error.response.data;
+        console.log("Este es el error"+error);
+      });
+    },
+
+    formatear(input_val){
+
       // check for decimal
       if (input_val.indexOf(".") >= 0) 
       {
@@ -125,6 +171,7 @@ export default {
 
         // join number by .
         input_val = left_side + "." + right_side; 
+        return input_val;
       } 
       else 
       {
@@ -132,60 +179,8 @@ export default {
         // add commas to number
         // remove all non-digits
         input_val = this.formatNumber(input_val); 
-        
-        // final formatting
-        if (blur === "blur") 
-        {
-          input_val += ".00";
-        }
+        return input_val;
       }
-      this.capital=input_val;
-      return this.capital;
-    }
-  },
-  methods: {
-
-    guardarCuenta(){ 
-
-      var num =this.sinFormatNumber(this.capital_dec);
-      alert("numero: "+num);
-
-      var url = "/account/store";
-      axios
-      .post(url, { 
-        
-        capital_deuda: this.capital_dec,
-        intereses: this.intereses, 
-        cliente_id: this.id_cliente, 
-      })
-      .then((response)=>{ 
-        
-        $(document).Toasts('create',{
-          class: 'bg-success', 
-          title: 'Cuenta',
-          subtitle: 'ok',
-          body: 'Exito al registrar Cuenta.'
-        }); 
-
-        $("#CreateAccountModal").modal('hide');
-        Inertia.reload({ only: ['cuenta'] },);
-        Inertia.visit('/llamadas/agreement/'+this.id_cliente,{ only: ['cuenta'] });
-        
-      })
-      .catch((error) => {
-        this.errors = error.response.data;
-        console.log("Este es el error"+error);
-      });
-    },
-
-    formatear(num){
-
-      var amount=num;
-      
-      // var numero=new Intl.NumberFormat('in-MX').format(amount);
-      var numero=amount;
-
-      return numero;
 
     },
     formatNumber(n){
