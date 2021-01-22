@@ -97,7 +97,27 @@
               </ul>
             </li>
 
-            <li class="nav-item" v-if="$inertia.page.rol == 'Admin'">
+            <li class="nav-item" v-if="$inertia.page.rol == 'Cliente'">
+              <inertia-link
+                class="nav-link"
+                :href="route('extractos.cliente')"
+                @click="toggle()"
+              >
+                <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                <p>Ver Extractos</p>
+              </inertia-link>
+            </li>
+             <li class="nav-item" v-if="$inertia.page.rol == 'Admin' || $inertia.page.rol == 'AdminConjunto'">
+              <inertia-link
+                class="nav-link"
+                :href="route('clientes.index')"
+                @click="toggle()"
+              >
+                <i class="nav-icon far fa-address-book"></i>
+                <p>Clientes</p>
+              </inertia-link>
+            </li>
+             <li class="nav-item" v-if="$inertia.page.rol == 'Admin'">
               <inertia-link
                 class="nav-link"
                 :href="route('conjuntos')"
@@ -196,7 +216,8 @@
                 </p>
               </inertia-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item"
+             v-if="$inertia.page.rol == 'Admin'">
               <inertia-link
                 class="nav-link"
                 :href="route('historial.index')"
