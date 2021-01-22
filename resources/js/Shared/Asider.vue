@@ -3,7 +3,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="/" class="brand-link">
+      <a href="/" class="brand-link" style="background-color: white;color: black;">
         <img
           src="/storage/img/AdminLTELogo.png"
           alt="AdminLTE Logo"
