@@ -3047,8 +3047,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['llamadas', 'ides', 'id', 'name'],
+  props: ['llamadas', 'ides', 'id', 'name', 'kk'],
   components: {},
   created: function created() {
     this.buscarEstados();
@@ -7621,6 +7624,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -7632,6 +7637,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.buscarEstados();
+    this.totalCuenta();
+    this.administracionDecimal();
   },
   data: function data() {
     return {
@@ -7645,15 +7652,18 @@ __webpack_require__.r(__webpack_exports__);
         honorarios: null,
         observaciones: null,
         deuda: this.cuentaTotal,
-        abono: 0,
         total_deuda: 0,
         cuotas: 0,
         subcuota: 0,
         administracion: this.admin,
-        valorCuota: 0
+        valorCuota: 0,
+        abono: 0
       },
+      abono_decimal: 0,
       selestado: "",
+      cuenta_total: "",
       inde: 0,
+      llam: -1,
       index: "",
       state: 0,
       image: "../../storage/img/avatar.png",
@@ -7662,9 +7672,19 @@ __webpack_require__.r(__webpack_exports__);
       conj: this.conjunto
     };
   },
+  watch: {
+    abono_decimal: function abono_decimal() {
+      var res = this.formatear(String(this.abono_decimal));
+      this.form.abono = this.sinFormatNumber(this.abono_decimal);
+      this.abono_decimal = res;
+    }
+  },
   computed: {
     total: function total() {
-      return this.form.total_deuda = this.form.deuda - this.form.abono;
+      var num = this.form.deuda - this.form.abono;
+      var total = this.formatear(String(num));
+      this.form.total_deuda = num;
+      return total;
     },
     sub_cuota: function sub_cuota() {
       if (this.form.cuotas === 0) {
@@ -7672,16 +7692,17 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         var num = this.form.total_deuda / this.form.cuotas;
         var n = num.toFixed(2);
-        return this.form.subcuota = n;
+        this.form.subcuota = n;
+        return this.formatear(String(n));
       }
     },
     valor_cuota: function valor_cuota() {
       if (this.form.subcuota === 0) {
         return this.form.valorCuota = 0;
       } else {
-        var num = parseFloat(this.form.subcuota) + parseFloat(this.form.administracion);
+        var num = parseFloat(this.form.subcuota) + parseFloat(this.admin);
         var n = num.toFixed(2);
-        return this.form.subcuota = n;
+        return this.formatear(String(n));
       }
     }
   },
@@ -7729,6 +7750,16 @@ __webpack_require__.r(__webpack_exports__);
     Callm: function Callm() {
       this.call = this.llamadas;
     },
+    totalCuenta: function totalCuenta() {
+      var num = String(this.cuentaTotal);
+      var nn = this.formatear(num);
+      this.cuenta_total = nn;
+    },
+    administracionDecimal: function administracionDecimal() {
+      var num = String(this.admin);
+      var nn = this.formatear(num);
+      this.form.administracion = nn;
+    },
     cambio: function cambio() {
       var x = document.getElementById("mydiv");
 
@@ -7740,8 +7771,48 @@ __webpack_require__.r(__webpack_exports__);
     },
     ver: function ver(id) {
       this.inde = id;
+      this.llam = 0;
       this.state = this.llamadas[id].state_id;
       $("#myModal").modal();
+    },
+    formatear: function formatear(input_val) {
+      // check for decimal
+      if (input_val.indexOf(".") >= 0) {
+        // get position of first decimal
+        // this prevents multiple decimals from
+        // being entered
+        var decimal_pos = input_val.indexOf("."); // split number by decimal point
+
+        var left_side = input_val.substring(0, decimal_pos);
+        var right_side = input_val.substring(decimal_pos); // add commas to left side of number
+
+        left_side = this.formatNumber(left_side); // validate right side
+
+        right_side = this.formatNumber(right_side); // On blur make sure 2 numbers after decimal
+
+        if (blur === "blur") {
+          right_side += "00";
+        } // Limit decimal to only 2 digits
+
+
+        right_side = right_side.substring(0, 2); // join number by .
+
+        input_val = left_side + "." + right_side;
+        return input_val;
+      } else {
+        // no decimal entered
+        // add commas to number
+        // remove all non-digits
+        input_val = this.formatNumber(input_val);
+        return input_val;
+      }
+    },
+    formatNumber: function formatNumber(n) {
+      // format number 1000000 to 1,234,567
+      return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    sinFormatNumber: function sinFormatNumber(n) {
+      return n.replace(/,/g, "");
     }
   }
 });
@@ -60013,150 +60084,166 @@ var render = function() {
           _c("div", { staticClass: "modal-content" }, [
             _vm._m(0),
             _vm._v(" "),
-            _c("div", { staticClass: "modal-body" }, [
-              _c("div", { staticClass: "card card-primary" }, [
-                _c("div", { staticClass: "card-header" }, [
-                  _c("h3", { staticClass: "card-title" }, [
-                    _vm._v("Nombre cliente: " + _vm._s(_vm.name) + " ")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-tools" })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "inputName" } }, [
-                          _vm._v("Nombre persona llamada")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "inputName",
-                            disabled: ""
-                          },
-                          domProps: { value: _vm.llamadas[_vm.ides].name_call }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "inputPhone" } }, [
-                          _vm._v("Telefono llamada")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "inputPhone",
-                            disabled: ""
-                          },
-                          domProps: { value: _vm.llamadas[_vm.ides].phone_call }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "inputDescription" } }, [
-                          _vm._v("Descripcion llamada")
-                        ]),
-                        _vm._v(" "),
-                        _c("textarea", {
-                          staticClass: "form-control",
-                          attrs: {
-                            id: "inputDescription",
-                            rows: "3",
-                            disabled: ""
-                          },
-                          domProps: {
-                            value: _vm.llamadas[_vm.ides].description
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-3" }, [
-                      _c("label", [_vm._v("Estado")]),
+            _vm.kk === -1
+              ? _c("div", { staticClass: "modal-body" })
+              : _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "card card-primary" }, [
+                    _c("div", { staticClass: "card-header" }, [
+                      _c("h3", { staticClass: "card-title" }, [
+                        _vm._v("Nombre cliente: " + _vm._s(_vm.name) + " ")
+                      ]),
                       _vm._v(" "),
-                      _c("span", { staticClass: "required" }, [_vm._v("*")]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          staticClass: "form-control",
-                          attrs: { disabled: "" },
-                          domProps: { value: _vm.id }
-                        },
-                        [
-                          _c("option", { attrs: { value: "" } }, [
-                            _vm._v("Seleccione Estado")
+                      _c("div", { staticClass: "card-tools" })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "inputName" } }, [
+                              _vm._v("Nombre persona llamada")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                id: "inputName",
+                                disabled: ""
+                              },
+                              domProps: {
+                                value: _vm.llamadas[_vm.ides].name_call
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "inputPhone" } }, [
+                              _vm._v("Telefono llamada")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                id: "inputPhone",
+                                disabled: ""
+                              },
+                              domProps: {
+                                value: _vm.llamadas[_vm.ides].phone_call
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-12" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              { attrs: { for: "inputDescription" } },
+                              [_vm._v("Descripcion llamada")]
+                            ),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              staticClass: "form-control",
+                              attrs: {
+                                id: "inputDescription",
+                                rows: "3",
+                                disabled: ""
+                              },
+                              domProps: {
+                                value: _vm.llamadas[_vm.ides].description
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-3" }, [
+                          _c("label", [_vm._v("Estado")]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "required" }, [
+                            _vm._v("*")
                           ]),
                           _vm._v(" "),
-                          _vm._l(_vm.estados, function(option) {
-                            return _c(
-                              "option",
-                              { domProps: { value: option.id_state } },
-                              [
-                                _vm._v(
-                                  "\n                          " +
-                                    _vm._s(option.description) +
-                                    "\n                        "
+                          _c(
+                            "select",
+                            {
+                              staticClass: "form-control",
+                              attrs: { disabled: "" },
+                              domProps: { value: _vm.id }
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("Seleccione Estado")
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.estados, function(option) {
+                                return _c(
+                                  "option",
+                                  { domProps: { value: option.id_state } },
+                                  [
+                                    _vm._v(
+                                      "\n                          " +
+                                        _vm._s(option.description) +
+                                        "\n                        "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                          })
-                        ],
-                        2
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-5" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "inputClientCompany" } }, [
-                          _vm._v("Empleado")
+                              })
+                            ],
+                            2
+                          )
                         ]),
                         _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            value: "Deveint Inc",
-                            disabled: ""
-                          },
-                          domProps: {
-                            value: _vm.llamadas[_vm.ides].employee_id
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-4" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "inputProjectLeader" } }, [
-                          _vm._v("Fecha / Hora")
+                        _c("div", { staticClass: "col-md-5" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              { attrs: { for: "inputClientCompany" } },
+                              [_vm._v("Empleado")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                value: "Deveint Inc",
+                                disabled: ""
+                              },
+                              domProps: {
+                                value: _vm.llamadas[_vm.ides].employee_id
+                              }
+                            })
+                          ])
                         ]),
                         _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            value: "Tony Chicken",
-                            disabled: ""
-                          },
-                          domProps: { value: _vm.llamadas[_vm.ides].created_at }
-                        })
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              { attrs: { for: "inputProjectLeader" } },
+                              [_vm._v("Fecha / Hora")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                value: "Tony Chicken",
+                                disabled: ""
+                              },
+                              domProps: {
+                                value: _vm.llamadas[_vm.ides].created_at
+                              }
+                            })
+                          ])
+                        ])
                       ])
                     ])
                   ])
-                ])
-              ])
-            ]),
+                ]),
             _vm._v(" "),
             _vm._m(1)
           ])
@@ -67207,7 +67294,7 @@ var render = function() {
                                               staticClass:
                                                 "float-right badge bg-info"
                                             },
-                                            [_vm._v(_vm._s(_vm.cuentaTotal))]
+                                            [_vm._v(_vm._s(_vm.cuenta_total))]
                                           )
                                         ]
                                       )
@@ -67267,23 +67354,22 @@ var render = function() {
                                             {
                                               name: "model",
                                               rawName: "v-model",
-                                              value: _vm.form.abono,
-                                              expression: "form.abono"
+                                              value: _vm.abono_decimal,
+                                              expression: "abono_decimal"
                                             }
                                           ],
                                           staticClass: "form-control",
-                                          attrs: { type: "number" },
-                                          domProps: { value: _vm.form.abono },
+                                          attrs: { type: "text" },
+                                          domProps: {
+                                            value: _vm.abono_decimal
+                                          },
                                           on: {
                                             input: function($event) {
                                               if ($event.target.composing) {
                                                 return
                                               }
-                                              _vm.$set(
-                                                _vm.form,
-                                                "abono",
+                                              _vm.abono_decimal =
                                                 $event.target.value
-                                              )
                                             }
                                           }
                                         })
@@ -67850,86 +67936,102 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "tbody",
-                            _vm._l(_vm.llamadas, function(row, index) {
-                              return _c("tr", [
-                                _c("td", [
-                                  _vm._v(" " + _vm._s(row.id_call) + " ")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticStyle: { width: "120px" } }, [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticStyle: {
-                                        width: "150px",
-                                        overflow: "hidden"
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\r\n                        " +
-                                          _vm._s(row.name_call) +
-                                          " \r\n                        "
-                                      )
-                                    ]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(" " + _vm._s(row.phone_call) + " ")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(row.created_at) + " ")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(row.employee_id) + " ")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticStyle: { width: "240px" } }, [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticStyle: {
-                                        width: "250px",
-                                        overflow: "hidden"
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\r\n                            " +
-                                          _vm._s(row.description) +
-                                          "\r\n                        "
-                                      )
-                                    ]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-success",
-                                      staticStyle: { "margin-top": "-4px" },
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.ver(index)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass:
-                                          "nav-icon fas fa-eye text-info"
-                                      })
-                                    ]
-                                  )
-                                ])
-                              ])
-                            }),
-                            0
+                            [
+                              !_vm.llamadas
+                                ? _c("tr")
+                                : _vm._l(_vm.llamadas, function(row, index) {
+                                    return _c("tr", [
+                                      _c("td", [
+                                        _vm._v(" " + _vm._s(row.id_call) + " ")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        { staticStyle: { width: "120px" } },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticStyle: {
+                                                width: "150px",
+                                                overflow: "hidden"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\r\n                        " +
+                                                  _vm._s(row.name_call) +
+                                                  " \r\n                        "
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(
+                                          " " + _vm._s(row.phone_call) + " "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(_vm._s(row.created_at) + " ")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(_vm._s(row.employee_id) + " ")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        { staticStyle: { width: "240px" } },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticStyle: {
+                                                width: "250px",
+                                                overflow: "hidden"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\r\n                            " +
+                                                  _vm._s(row.description) +
+                                                  "\r\n                        "
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass: "btn btn-success",
+                                            staticStyle: {
+                                              "margin-top": "-4px"
+                                            },
+                                            attrs: { type: "button" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.ver(index)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass:
+                                                "nav-icon fas fa-eye text-info"
+                                            })
+                                          ]
+                                        )
+                                      ])
+                                    ])
+                                  })
+                            ],
+                            2
                           )
                         ]
                       )
@@ -67946,6 +68048,7 @@ var render = function() {
             llamadas: _vm.llamadas,
             ides: _vm.inde,
             id: _vm.state,
+            kk: _vm.llam,
             name: _vm.form.name
           }
         })

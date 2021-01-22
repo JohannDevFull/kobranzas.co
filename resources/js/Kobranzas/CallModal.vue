@@ -1,7 +1,6 @@
 <template>
   <div  >
     
-
       <!-- Modal -->
         <div class="modal fade " id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog modal-xl">
@@ -14,8 +13,11 @@
                 </button>
               </div>
             
-              <div class="modal-body">
+              <div class="modal-body" v-if="kk===-1">
 
+              </div>
+
+              <div class="modal-body" v-else>
                 <div class="card card-primary">
                   <div class="card-header">
                     <h3 class="card-title">Nombre cliente: {{name}} </h3> 
@@ -74,9 +76,10 @@
                     </div>
                   </div>
                 </div>
+
               </div>
 
-              <div class="modal-footer">
+              <div class="modal-footer" >
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
               </div>
@@ -94,7 +97,7 @@
 <script>  
   
   export default { 
-      props: ['llamadas','ides','id','name'],
+      props: ['llamadas','ides','id','name','kk'],
       
       components:{
 
