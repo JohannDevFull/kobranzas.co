@@ -33,8 +33,9 @@ class LlamadasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function agreement($id)
-    {
-        $buscar=$id;
+    { 
+
+        $clienteUser=User::where('id','=',$id)->get();
  
         $cliente=DB::select("SELECT * FROM `clients` 
                              INNER JOIN users 
@@ -71,6 +72,7 @@ class LlamadasController extends Controller
              'cliente' => $cliente[0],
              'cuenta' => $cuenta,
              'acuerdo' => $acuerdo_actual,
+             'photo' => $clienteUser[0]->profile_photo_url,
         ]);
     }
 
