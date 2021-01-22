@@ -7,11 +7,19 @@ use App\Models\Clients;
 use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ClientsController extends Controller
 {
+    public function index()
+    {
+        return Inertia::render('Clientes');
+    }
+    public function getDetails()
+    {
+        return Inertia::render('Clientes/detalles');
+    }
 
     public function estados(Request $request)
     {

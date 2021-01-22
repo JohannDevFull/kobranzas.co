@@ -10,6 +10,7 @@ use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\StatementsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,21 +52,14 @@ Route::get('construir', BuildController::class)->name('construir');
 // PERMISOS USUARIO 
 Route::middleware(['auth'])->group(function () {
     Route::post('chat/getContacts', [ChatController::class, 'getContacts']);
-
-
-
     Route::post('chat/getRequests', [ChatController::class, 'getRequestsChats'])
         ->middleware('permission:chat.index');
-
     Route::get('chat', [ChatController::class, 'index'])->name('chat.index')
         ->middleware('permission:chat.index');
-
     Route::get('user/paginate', [UserController::class, 'paginate'])->name('user.paginate')
         ->middleware('permission:user.index');
-
     Route::post('user/store', [UserController::class, 'store'])->name('user.store')
         ->middleware('permission:user.create');
-
     Route::get('user', [UserController::class, 'index'])->name('user.index')
         ->middleware('permission:user.index');
     Route::get('user/create', [UserController::class, 'create'])->name('user.create')
@@ -80,8 +74,18 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('permission:user.edit');
     Route::get('historial/getAudits', [HistoryController::class, 'getAudits'])->name('historial.get')
         ->middleware('permission:historial.index');
-        Route::get('historial/{id}', [HistoryController::class, 'getDetails'])->name('historial.detalles')
+    Route::get('historial/{id}', [HistoryController::class, 'getDetails'])->name('historial.detalles')
         ->middleware('permission:historial.show');
+    //rutas para  ver clientes, detalles de clientes y extractos
+    Route::get('clientes', [ClientsController::class, 'index'])->name('clientes.index')
+        ->middleware('permission:clients.index');
+    Route::get('clientes/{id}', [ClientsController::class, 'getDetails'])->name('clientes.detalles')
+        ->middleware('permission:clients.show');
+    Route::get('clientes/extractos/{id}', [StatementsController::class, 'getStatements'])->name('clientes/extractos')
+        ->middleware('permission:statement.details');
+        //ruta para obtener los extractos del cliente
+    Route::get('extractos/cliente', [StatementsController::class, 'getOwnStatements'])->name('extractos.cliente')
+        ->middleware('permission:statement.client');
 });
 
 // RUTAS LLAMADAS 
@@ -113,7 +117,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('llamadas.store');
 
     Route::post('/account/store', [LlamadasController::class, 'storeAccount'])
-        ->name('account.store');    
+        ->name('account.store');
 
     Route::get('llamadas/{user}/edit', [LlamadasController::class, 'edit'])
         ->name('llamadas.edit');

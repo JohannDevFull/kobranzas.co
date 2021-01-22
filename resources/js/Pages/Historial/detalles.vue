@@ -5,7 +5,6 @@
         <h3 class="card-title">Cambios Realizados por:</h3>
       </div>
       <div class="card card-widget widget-user-2">
-        <!-- Add the bg color to the header using any of the bg-* classes -->
         <div class="widget-user-header bg-warning">
           <div class="widget-user-image">
             <img
@@ -13,10 +12,8 @@
               class="img-circle elevation-2"
               :src="userinfo.profile_photo_url"
               alt="User Avatar"
-            />
-            
+            />           
           </div>
-          <!-- /.widget-user-image -->
           <h3 class="widget-user-username">{{ userinfo.name }}</h3>
           <h5 class="widget-user-desc">{{ userinfo.roles[0].name }}</h5>
         </div>

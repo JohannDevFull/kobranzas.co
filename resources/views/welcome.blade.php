@@ -8,9 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8"> 
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic%7CLato:300,300italic,400,400italic,700,900%7CMerriweather:700italic">
-    <link rel="stylesheet" href="css/fonts.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{asset('css/fonts.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/all.css') }}">
   </head>
   <body>
     <div class="preloader">
@@ -658,10 +659,33 @@
 
     </div>
     <div class="snackbars" id="form-output-global"></div>
+    <audio id="myAudio">
+      <source src="storage/img/pop.ogg" type="audio/ogg">
+      <source src="storage/img/pop.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <div id="main">
+      @hasanyrole('Admin|Trabajador|AdminConjunto')
 
 
-    <script src="js/core.min.js"></script>
-    <script src="js/script.js"></script>
+
+      @else
+      @role('Cliente')
+      <chatwidget />
+      @else
+      @endrole
+      <chatguest />
+    </div>
+    @endhasanyrole
+
+
+  </div>
+
+    <script src="{{asset('js/script.js')}}"></script>
+    <script src="{{asset('js/core.min.js')}}"></script>
+    <script src="{{asset('js/script2.js')}}"></script>
+    
 
   </body>
 </html>

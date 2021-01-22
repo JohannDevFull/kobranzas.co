@@ -32,9 +32,7 @@ class PermissionsTableSeeder extends Seeder
         // *****
 
         //Permission Cliente 
-        Permission::create(['name' => 'cliente.index']);
-        Permission::create(['name' => 'cliente.edit']);
-        Permission::create(['name' => 'cliente.show']);
+        Permission::create(['name' => 'statement.client']);
         // *****
 
         //Permission Empleado
@@ -44,9 +42,13 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'empleado.create']);
         // *****
 
-        //Permission Administrador
+        //Permission AdministradorConjunto
         Permission::create(['name' => 'administrador.index']);
         Permission::create(['name' => 'administrador.show']);
+        Permission::create(['name' => 'clients.index']);
+        Permission::create(['name' => 'clients.show']);
+        Permission::create(['name' => 'statement.details']);
+
         // *****
 
         //Crear roles
@@ -68,15 +70,17 @@ class PermissionsTableSeeder extends Seeder
             'conjuntos.export',
             'clients.import',
             'historial.index',
-            'historial.show'
+            'historial.show',
+            'clients.index',
+            'clients.show',
+            'statement.details'
         ]);
         // *****
 
         //Asignar permisos Cliente
         $cliente->givePermissionTo([
-            'user.index',
-            'user.edit',
-            'user.show',
+            'statement.client',
+            
         ]);
         // *****
 
@@ -90,11 +94,14 @@ class PermissionsTableSeeder extends Seeder
         ]);
         // *****
 
-        //Asignar permisos Administrador
+        //Asignar permisos AdministradorConjuntos
         $administrador->givePermissionTo([
             'chat.index',
             'user.index',
-            'user.show'
+            'user.show',
+            'clients.index',
+            'clients.show',
+            'statement.details'
         ]);
         // *****
 
