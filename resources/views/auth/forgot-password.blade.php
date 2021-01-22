@@ -31,7 +31,7 @@
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
-        <p class="login-box-msg">¿Olvidáste tu contraseña? Acá puedes puedes recuperarla facilmente.</p>
+        <p class="login-box-msg">¿Olvidáste tu contraseña? Acá puedes recuperarla facilmente.</p>
 
         @if (session('status'))
         <div class="mb-4 font-medium text-sm text-green-600" style="color: green">
