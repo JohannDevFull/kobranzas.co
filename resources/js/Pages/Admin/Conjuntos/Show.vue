@@ -238,7 +238,7 @@
 </template>
 <script>
 import AppLayout from "@/Layouts/AppLayout";
-
+ 
 export default {
   props: ["conjunto", "clientes", "num","conjuntoinfo"],
   components: {

@@ -3164,18 +3164,58 @@ __webpack_require__.r(__webpack_exports__);
       import_file: "",
       errors: {},
       capital: "",
-      capital_dec: "",
+      capital_decimal: "",
       intereses: "",
+      intereses_decimal: "",
       id_cliente: this.cliente_id
     };
   },
   watch: {
     capital: function capital() {
-      var input_val = this.capital;
-      this.capital_dec = this.capital; // original length
+      this.capital_decimal = this.capital;
+      var res = this.formatear(this.capital);
+      this.capital = res;
+      return this.capital;
+    },
+    intereses: function intereses() {
+      this.intereses_decimal = this.intereses;
+      var res = this.formatear(this.intereses);
+      this.intereses = res;
+      return this.intereses;
+    }
+  },
+  methods: {
+    guardarCuenta: function guardarCuenta() {
+      var _this = this;
 
-      var original_len = input_val.length; // check for decimal
-
+      var capital = this.sinFormatNumber(this.capital_decimal);
+      var intereses = this.sinFormatNumber(this.intereses_decimal);
+      var url = "/account/store";
+      axios.post(url, {
+        capital_deuda: capital,
+        intereses: intereses,
+        cliente_id: this.id_cliente
+      }).then(function (response) {
+        $(document).Toasts('create', {
+          "class": 'bg-success',
+          title: 'Cuenta',
+          subtitle: 'ok',
+          body: 'Exito al registrar Cuenta.'
+        });
+        $("#CreateAccountModal").modal('hide');
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__["Inertia"].reload({
+          only: ['cuenta']
+        });
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__["Inertia"].visit('/llamadas/agreement/' + _this.id_cliente, {
+          only: ['cuenta']
+        });
+      })["catch"](function (error) {
+        _this.errors = error.response.data;
+        console.log("Este es el error" + error);
+      });
+    },
+    formatear: function formatear(input_val) {
+      // check for decimal
       if (input_val.indexOf(".") >= 0) {
         // get position of first decimal
         // this prevents multiple decimals from
@@ -3197,56 +3237,14 @@ __webpack_require__.r(__webpack_exports__);
         right_side = right_side.substring(0, 2); // join number by .
 
         input_val = left_side + "." + right_side;
+        return input_val;
       } else {
         // no decimal entered
         // add commas to number
         // remove all non-digits
-        input_val = this.formatNumber(input_val); // final formatting
-
-        if (blur === "blur") {
-          input_val += ".00";
-        }
+        input_val = this.formatNumber(input_val);
+        return input_val;
       }
-
-      this.capital = input_val;
-      return this.capital;
-    }
-  },
-  methods: {
-    guardarCuenta: function guardarCuenta() {
-      var _this = this;
-
-      var num = this.sinFormatNumber(this.capital_dec);
-      alert("numero: " + num);
-      var url = "/account/store";
-      axios.post(url, {
-        capital_deuda: this.capital_dec,
-        intereses: this.intereses,
-        cliente_id: this.id_cliente
-      }).then(function (response) {
-        $(document).Toasts('create', {
-          "class": 'bg-success',
-          title: 'Cuenta',
-          subtitle: 'ok',
-          body: 'Exito al registrar Cuenta.'
-        });
-        $("#CreateAccountModal").modal('hide');
-        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__["Inertia"].reload({
-          only: ['cuenta']
-        });
-        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__["Inertia"].visit('/llamadas/agreement/' + _this.id_cliente, {
-          only: ['cuenta']
-        });
-      })["catch"](function (error) {
-        _this.errors = error.response.data;
-        console.log("Este es el error" + error);
-      });
-    },
-    formatear: function formatear(num) {
-      var amount = num; // var numero=new Intl.NumberFormat('in-MX').format(amount);
-
-      var numero = amount;
-      return numero;
     },
     formatNumber: function formatNumber(n) {
       // format number 1000000 to 1,234,567
@@ -6479,26 +6477,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['conjunto', 'cliente', 'cuenta', 'acuerdo'],
+  props: ['conjunto', 'cliente', 'cuenta', 'acuerdo', 'photo'],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
     CreateAccount: _Kobranzas_CreateAccount__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   created: function created() {
     this.buscarResultados();
+    this.saldoDecimal();
   },
   data: function data() {
     return {
       usuariosc: [],
       buscar: '',
+      saldo: this.cuenta,
       archivo: [],
       setTimeoutBuscador: '',
-      img: '/storage/' + this.conjunto.profile_photo_path
+      img: this.photo
     };
   },
   methods: {
@@ -6519,6 +6517,50 @@ __webpack_require__.r(__webpack_exports__);
     },
     abrir: function abrir() {
       $("#CreateAccountModal").modal();
+    },
+    saldoDecimal: function saldoDecimal() {
+      var num = String(this.cuenta);
+      var nn = this.formatear(num);
+      this.saldo = nn;
+    },
+    formatear: function formatear(input_val) {
+      // check for decimal
+      if (input_val.indexOf(".") >= 0) {
+        // get position of first decimal
+        // this prevents multiple decimals from
+        // being entered
+        var decimal_pos = input_val.indexOf("."); // split number by decimal point
+
+        var left_side = input_val.substring(0, decimal_pos);
+        var right_side = input_val.substring(decimal_pos); // add commas to left side of number
+
+        left_side = this.formatNumber(left_side); // validate right side
+
+        right_side = this.formatNumber(right_side); // On blur make sure 2 numbers after decimal
+
+        if (blur === "blur") {
+          right_side += "00";
+        } // Limit decimal to only 2 digits
+
+
+        right_side = right_side.substring(0, 2); // join number by .
+
+        input_val = left_side + "." + right_side;
+        return input_val;
+      } else {
+        // no decimal entered
+        // add commas to number
+        // remove all non-digits
+        input_val = this.formatNumber(input_val);
+        return input_val;
+      }
+    },
+    formatNumber: function formatNumber(n) {
+      // format number 1000000 to 1,234,567
+      return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    sinFormatNumber: function sinFormatNumber(n) {
+      return n.replace(/,/g, "");
     }
   }
 });
@@ -60270,7 +60312,7 @@ var render = function() {
                               }
                             ],
                             staticClass: "form-control",
-                            attrs: { type: "number" },
+                            attrs: { type: "text" },
                             domProps: { value: _vm.intereses },
                             on: {
                               input: function($event) {
@@ -65059,12 +65101,19 @@ var render = function() {
                     staticStyle: { "background-color": "#e9ecef" }
                   },
                   [
-                    _c("div", { staticClass: "widget-user-image" }, [
-                      _c("img", {
-                        staticClass: "img-circle elevation-2",
-                        attrs: { src: _vm.img }
-                      })
-                    ]),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "widget-user-image",
+                        staticStyle: { position: "absolute", left: "70px" }
+                      },
+                      [
+                        _c("img", {
+                          staticClass: "img-circle elevation-2",
+                          attrs: { src: _vm.img }
+                        })
+                      ]
+                    ),
                     _vm._v(" "),
                     _c("h2", { staticClass: "widget-user-username" }, [
                       _vm._v("Nombre:" + _vm._s(_vm.cliente.name) + " ")
@@ -65083,20 +65132,6 @@ var render = function() {
                         "Apartamento: " + _vm._s(_vm.cliente.client_code) + " "
                       )
                     ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "widget-user-image",
-                    staticStyle: { position: "absolute", top: "200px" }
-                  },
-                  [
-                    _c("img", {
-                      staticClass: "img-circle",
-                      attrs: { src: _vm.img, alt: "User Avatar" }
-                    })
                   ]
                 )
               ]
@@ -65134,7 +65169,7 @@ var render = function() {
                           [
                             _c("div", { staticClass: "description-block" }, [
                               _c("h5", { staticClass: "description-header" }, [
-                                _vm._v(_vm._s(_vm.cuenta))
+                                _vm._v(_vm._s(_vm.saldo))
                               ]),
                               _vm._v(" "),
                               _c("span", { staticClass: "description-text" }, [
