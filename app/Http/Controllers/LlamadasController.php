@@ -144,7 +144,7 @@ class LlamadasController extends Controller
         }
         else
         {
-
+            $clienteinfo=User::where('id','=',$id)->get();
             $cliente=DB::select("SELECT * FROM `clients` 
                                  INNER JOIN users 
                                  ON clients.user_id = users.id  
@@ -170,7 +170,7 @@ class LlamadasController extends Controller
             return Inertia::render('Empleado/Llamada',[
                 'empleadoid' => $empleado, 
                 'conjunto' => $conjuntoNombre, 
-                'cliente' => $cliente[0], 
+                'cliente' => $clienteinfo[0], 
                 'acuerdo' => $acuerdo_actual, 
                 'llamadas' => $llamadas, 
                 'cuentaTotal' => $cuentaTotal, 
