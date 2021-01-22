@@ -17,8 +17,8 @@
 
               <div class="card-body" style="padding: 0px;"> 
                 <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="widget-user-header " style="background-color: #e9ecef">
-                        <div class="widget-user-image">
+                <div class="widget-user-header " style="background-color: #e9ecef;">
+                        <div class="widget-user-image" style="position: absolute;left: 70px">
                           <img class="img-circle elevation-2" v-bind:src="img" >
                         </div>
                         <!-- /.widget-user-image -->
@@ -26,9 +26,7 @@
                         <h4 class="widget-user-desc">Conjunto : {{ conjunto.name_building }}  </h4>
                         <h6 class="widget-user-desc">Apartamento: {{ cliente.client_code }} </h6>
                       </div>
-                <div class="widget-user-image" style="position: absolute;top: 200px;">
-                  <img class="img-circle"  v-bind:src="img" alt="User Avatar">
-                </div>
+                
               </div>
               <div class="card-footer">
                 <div class="row">
@@ -48,11 +46,11 @@
                     <inertia-link  :href="route('state.account',cliente.user_id)" v-if="cuenta != 0">
                     <div class="description-block"  >
 
-                        <h5 class="description-header">{{cuenta}}</h5>
+                        <h5 class="description-header">{{ saldo}}</h5>
                         <span class="description-text">Estado cuenta</span>
                     </div>
                     </inertia-link> 
-                       
+                        
                     <div class="description-block" v-else>
                       <button type="button" style="margin-top:-4px" class="btn btn-success" @click="abrir()"  >
                             Crear Cuenta  
@@ -251,21 +249,23 @@ import AppLayout from "@/Layouts/AppLayout";
 import CreateAccount from "@/Kobranzas/CreateAccount"; 
 
 export default {
-  props: ['conjunto','cliente','cuenta','acuerdo'],
+  props: ['conjunto','cliente','cuenta','acuerdo','photo'],
   components: {
     AppLayout, 
     CreateAccount, 
   },
   created(){ 
     this.buscarResultados()
+    this.saldoDecimal()
   },
   data(){
     return {
       usuariosc:[],
       buscar:'',
+      saldo:this.cuenta,
       archivo:[],
       setTimeoutBuscador: '',
-      img: '/storage/'+this.conjunto.profile_photo_path,
+      img:this.photo,
     }
   },
   methods: {
@@ -290,6 +290,62 @@ export default {
       abrir(){ 
         $("#CreateAccountModal").modal();
       },
+      saldoDecimal(){ 
+        var num=String(this.cuenta);
+        var nn=this.formatear(num);
+        this.saldo=nn;
+      },
+      formatear(input_val){
+
+      // check for decimal
+      if (input_val.indexOf(".") >= 0) 
+      {
+
+        // get position of first decimal
+        // this prevents multiple decimals from
+        // being entered
+        var decimal_pos = input_val.indexOf(".");
+
+        // split number by decimal point
+        var left_side = input_val.substring(0, decimal_pos);
+        var right_side = input_val.substring(decimal_pos);
+
+        // add commas to left side of number
+        left_side = this.formatNumber(left_side);
+
+        // validate right side
+        right_side = this.formatNumber(right_side);
+        
+        // On blur make sure 2 numbers after decimal
+        if (blur === "blur") 
+        {
+          right_side += "00";
+        }
+        
+        // Limit decimal to only 2 digits
+        right_side = right_side.substring(0, 2);
+
+        // join number by .
+        input_val = left_side + "." + right_side; 
+        return input_val;
+      } 
+      else 
+      {
+        // no decimal entered
+        // add commas to number
+        // remove all non-digits
+        input_val = this.formatNumber(input_val); 
+        return input_val;
+      }
+
+    },
+    formatNumber(n){
+      // format number 1000000 to 1,234,567
+      return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    },
+    sinFormatNumber(n){ 
+      return n.replace(/,/g, "");
+    },
      
 
   }
