@@ -57,7 +57,7 @@
               <!---- foto logo--->
               <div class="rd-navbar-group">
                 <div class="rd-navbar-panel">
-                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button><a class="rd-navbar-brand brand" href="index.html"><img src=" {{ asset('storage/img/logo-default-143x27.png') }}" alt="" width="143" height="27"/></a>
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button><a class="rd-navbar-brand brand" href="index.html"><img src=" {{ asset('storage/img/logo-defaul-143x27.png') }}" alt="" width="143" height="27"/></a>
                 </div>
                 <div class="rd-navbar-nav-wrap">
                   <div class="rd-navbar-nav-inner">
@@ -98,7 +98,7 @@
       <section>
         <div class="swiper-container swiper-slider swiper-variant-1 bg-black" data-loop="false" data-autoplay="5500" data-simulate-touch="true">
           <div class="swiper-wrapper text-center">
-            <div class="swiper-slide" data-slide-bg="{{ asset('storage/img/home-slider-slide-1.jpg') }}">
+            <div class="swiper-slide" data-slide-bg="{{ asset('storage/img/fondo1.jpg') }}">
               <div class="swiper-slide-caption text-center">
                 <div class="container">
                   <div class="row justify-content-md-center">
@@ -114,7 +114,7 @@
                 </div>
               </div>
             </div>
-            <div class="swiper-slide" data-slide-bg="{{ asset('storage/img/home-slider-slide-2.jpg') }}">
+            <div class="swiper-slide" data-slide-bg="{{ asset('storage/img/fondo2.jpg') }}">
               <div class="swiper-slide-caption text-center">
                 <div class="container">
                   <div class="row justify-content-md-center">
@@ -130,7 +130,7 @@
                 </div>
               </div>
             </div>
-            <div class="swiper-slide" data-slide-bg="{{ asset('storage/img/home-slider-slide-3.jpg') }}">
+            <div class="swiper-slide" data-slide-bg="{{ asset('storage/img/fondo3.jpg') }}">
               <div class="swiper-slide-caption text-center">
                 <div class="container">
                   <div class="row justify-content-md-center">
