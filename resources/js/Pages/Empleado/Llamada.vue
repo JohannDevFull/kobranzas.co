@@ -108,16 +108,19 @@
                               Telefono dos : {{ cliente.phone_two }}
                           </li>
                           <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <inertia-link class="nav-link" :href="route('llamadas.agreement',cliente.id)">  
                               Acuerdo actual 
-                              <span class="float-right badge bg-danger" style="margin: auto;">
+                              <span class="float-right badge bg-danger" style="margin-top:6px ;">
                                {{ acuerdo[0].description }}
                               </span>
-                            </a>
+                          </inertia-link>
+                             
                           </li>
                           <li class="nav-item">
                             <a href="#" class="nav-link">
-                              Estado cuenta <span class="float-right badge bg-info">{{cuenta_total}}</span>
+                              Estado cuenta 
+                              <span class="float-right badge bg-info" style="margin-top:6px ;">
+                              {{cuenta_total}}</span>
                             </a>
                           </li>
                         </ul>
