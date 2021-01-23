@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agreement;
 use App\Models\Calls;
 use App\Models\Llamada;
 use App\Models\Movements;
@@ -251,6 +252,43 @@ class LlamadasController extends Controller
             'employee_id'=>$request->idempleado,
             'description'=>$request->descripcion,
             'state_id'=>$request->estado,
+        ]); 
+  
+    }
+
+    public function storeAgreement(Request $request)
+    {
+
+        $this->validate($request, [
+            'cliente'=>'required',
+            'nombre'=>'required',
+            'telefono'=>'required',
+            'idempleado'=>'required',
+            'descripcion'=>'required',
+            'estado'=>'required',
+            'deuda_actual'=>'required',
+            'cuotas'=>'required',
+            'abono'=>'required',
+            'observaciones'=>'required',
+
+        ]);
+
+        $call= Calls::create([  
+            'client_id'=>$request->cliente,
+            'name_call'=>$request->nombre,
+            'phone_call'=>$request->telefono,
+            'employee_id'=>$request->idempleado,
+            'description'=>$request->descripcion,
+            'state_id'=>$request->estado,
+        ]); 
+        
+        $agreement=Agreement::create([   
+            'user_id'=>$request->cliente,
+            'employee_id'=>$request->idempleado,
+            'current_debt'=>$request->deuda_actual,
+            'credit'=>$request->abono,
+            'quotas'=>$request->cuotas,
+            'observations'=>$request->observaciones,
         ]); 
   
     }
