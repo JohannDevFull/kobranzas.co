@@ -240,13 +240,23 @@
              
               <div class="col-sm-6" style="margin:auto; ">
 
-                <div style="margin-left:100px;  ">
+                <div style="margin-left:100px;" v-if="acuerdo_bol===0">
                   <button  class="btn  btn-success" type="submit" v-on:click="guardar">
                     Guardar llamada
                   </button>
                   
-                  <button type="button" class="btn  btn-info " data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  <button type="button" class="btn  btn-info " data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" v-on:click="cambiar">
                     Agregar nuevo acuerdo
+                  </button> 
+                </div>
+
+                <div style="margin-left:100px;" v-else>
+                  <button  class="btn  btn-success" type="submit" v-on:click="guardar_acuerdo">
+                    Guardar Acuerdo
+                  </button>
+                  
+                  <button type="button" class="btn  btn-danger " data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" v-on:click="cambiar">
+                    Cancelar acuerdo
                   </button> 
                 </div>
 
@@ -387,7 +397,7 @@
           abono: 0,
 
         },
-        
+        acuerdo_bol:0,
         abono_decimal: 0,
 
         selestado:"", 
@@ -473,6 +483,40 @@
           console.log("Este es el error"+error.response.data)
         });   
       },
+      guardar_acuerdo(){
+            
+        var url = "/llamadas/store_acuerdo";
+        axios
+        .post(url, { 
+          nombre: this.form.name,
+          telefono: this.form.phone, 
+          descripcion: this.form.texto,
+          estado: this.selestado, 
+          cliente: this.cliente.id, 
+          idempleado: this.empleado, 
+
+          deuda_actual:this.cuentaTotal,
+          cuotas:this.form.cuotas,
+          abono:this.form.abono,
+          observaciones:this.form.observaciones,
+
+        })
+        .then((response) => { 
+          $(document).Toasts('create',{
+            class: 'bg-success', 
+            title: 'Llamada 000',
+            subtitle: 'ok',
+            body: 'Exito al registrar llamada.'
+          }); 
+
+          Inertia.reload({ only: ['llamadas'] },)
+          Inertia.visit('/llamadas/create/'+this.cliente.id,{ preserveScroll: true }, { only: ['users'] });
+        })
+        .catch((error) => {
+          this.errors = error. response.data;
+          console.log("Este es el error"+error.response.data)
+        });   
+      },
       buscarEstados(){
         axios.get('/buscar/estados',{
               
@@ -498,15 +542,12 @@
         var nn=this.formatear(num);
         this.form.administracion=nn;     
       },
-      cambio(){
-        var x = document.getElementById("mydiv");
-        if (x.style.display === "none") 
-        {
-            x.style.display = "block";
-        } 
-        else 
-        {
-            x.style.display = "none";
+      cambiar(){
+        if (this.acuerdo_bol===0) {
+ 
+            this.acuerdo_bol=1;
+        }else{ 
+            this.acuerdo_bol=0;
         }
       },
       ver(id){  
