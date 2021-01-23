@@ -57,7 +57,8 @@ class LlamadasController extends Controller
             $cuenta=0;
         }
             
-        
+        $acuerdos=DB::select('SELECT * FROM agreements where user_id='.$id);
+
         $id_building=DB::select('SELECT building_id FROM clients where user_id='.$id);
         $conjunto=DB::select('SELECT * FROM buildings where id_building='.$id_building[0]->building_id);
 
@@ -73,6 +74,7 @@ class LlamadasController extends Controller
              'cliente' => $cliente[0],
              'cuenta' => $cuenta,
              'acuerdo' => $acuerdo_actual,
+             'acuerdos' => $acuerdos,
              'photo' => $clienteUser[0]->profile_photo_url,
         ]);
     }
