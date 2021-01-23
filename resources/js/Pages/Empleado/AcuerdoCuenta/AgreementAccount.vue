@@ -114,41 +114,37 @@
                     </tr>
                   </thead>
                   
-                  <tbody>
-                    <tr  >
-                    <!-- <tr v-for="row in clientes" > -->
+                  <tbody> 
+                    <tr v-if="!acuerdos">  
+                    </tr>
+
+                    <tr  v-for="(row,index) in acuerdos" v-else>  
                       <td> 
-                          {{  }} 
+                          {{ row.id_agreement }} 
                       </td>
                       <td> 
                           {{  }} 
                       </td>
                       <td> 
-                          {{  }} 
+                          {{ row.created_at }} 
                       </td>
                       <td> 
-                          {{  }}  
+                          {{ row.employee_id }}  
                       </td>
                       
 
                       <td> 
-                        <!-- <inertia-link class="" :href="route('llamadas.create',row.id)" > 
-                            <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
-                        </inertia-link>
+                        <button type="button" style="margin-top:-4px" class="btn btn-success" @click="ver(index)"  >
+                            <i class="nav-icon fas fa-eye text-info"  ></i>         
+                        </button>
 
-                        <inertia-link class="" :href="route('llamadas.create',row.id)">
+                       <!--  <inertia-link class="" :href="route('llamadas.create',row.id)">
                             <i class="nav-icon fas fa-hands-helping text-success" style="padding:6px;"></i>  
-                        </inertia-link>
-                        <inertia-link class="" :href="route('llamadas.create',row.id)">
-                            <i class="nav-icon fas fa-phone text-success" style="padding:6px;"></i> 
                         </inertia-link> -->
+                        
                       </td>
-
-                      
                     </tr>
-                    <tr >  
-
-                    </tr>
+                    
                   </tbody>
                 </table>
 
@@ -239,20 +235,23 @@
       </div> 
 
       <create-account v-bind:cliente_id="cliente.user_id"/>
+      <agreement-modal v-bind:acuerdo="acuerdos" v-bind:id="inde"  v-bind:boleno="bol" v-bind:totalCuenta="cuenta" />
 
 
     </div>
   </app-layout>
 </template>
 <script>
-import AppLayout from "@/Layouts/AppLayout"; 
+import AppLayout from "@/Layouts/AppLayout";
+import AgreementModal from '@/Kobranzas/AgreementModal' 
 import CreateAccount from "@/Kobranzas/CreateAccount"; 
 
 export default {
-  props: ['conjunto','cliente','cuenta','acuerdo','photo'],
+  props: ['conjunto','cliente','cuenta','acuerdo','photo','acuerdos'],
   components: {
     AppLayout, 
     CreateAccount, 
+    AgreementModal, 
   },
   created(){ 
     this.buscarResultados()
@@ -266,6 +265,8 @@ export default {
       archivo:[],
       setTimeoutBuscador: '',
       img:this.photo,
+      inde:0,
+      bol:-1,
     }
   },
   methods: {
@@ -345,6 +346,16 @@ export default {
     },
     sinFormatNumber(n){ 
       return n.replace(/,/g, "");
+    },
+    ver(id){  
+         
+      this.inde=id; 
+      this.bol=0; 
+
+      // this.state=this.llamadas[id].state_id; 
+
+      $("#myModal").modal();
+        
     },
      
 
