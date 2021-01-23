@@ -116,6 +116,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/llamadas/store', [LlamadasController::class, 'store'])
         ->name('llamadas.store');
 
+    Route::post('/llamadas/store_acuerdo', [LlamadasController::class, 'storeAgreement'])
+        ->name('llamadas.store');
+
     Route::post('/account/store', [LlamadasController::class, 'storeAccount'])
         ->name('account.store');
 
