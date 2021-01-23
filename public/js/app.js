@@ -8054,6 +8054,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8087,6 +8097,7 @@ __webpack_require__.r(__webpack_exports__);
         valorCuota: 0,
         abono: 0
       },
+      acuerdo_bol: 0,
       abono_decimal: 0,
       selestado: "",
       cuenta_total: "",
@@ -8166,11 +8177,46 @@ __webpack_require__.r(__webpack_exports__);
         console.log("Este es el error" + error.response.data);
       });
     },
-    buscarEstados: function buscarEstados() {
+    guardar_acuerdo: function guardar_acuerdo() {
       var _this2 = this;
 
+      var url = "/llamadas/store_acuerdo";
+      axios.post(url, {
+        nombre: this.form.name,
+        telefono: this.form.phone,
+        descripcion: this.form.texto,
+        estado: this.selestado,
+        cliente: this.cliente.id,
+        idempleado: this.empleado,
+        deuda_actual: this.cuentaTotal,
+        cuotas: this.form.cuotas,
+        abono: this.form.abono,
+        observaciones: this.form.observaciones
+      }).then(function (response) {
+        $(document).Toasts('create', {
+          "class": 'bg-success',
+          title: 'Llamada 000',
+          subtitle: 'ok',
+          body: 'Exito al registrar llamada.'
+        });
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__["Inertia"].reload({
+          only: ['llamadas']
+        });
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__["Inertia"].visit('/llamadas/create/' + _this2.cliente.id, {
+          preserveScroll: true
+        }, {
+          only: ['users']
+        });
+      })["catch"](function (error) {
+        _this2.errors = error.response.data;
+        console.log("Este es el error" + error.response.data);
+      });
+    },
+    buscarEstados: function buscarEstados() {
+      var _this3 = this;
+
       axios.get('/buscar/estados', {}).then(function (resp) {
-        _this2.estados = resp.data;
+        _this3.estados = resp.data;
       })["catch"](function (error) {
         console.log(error.response);
       });
@@ -8188,13 +8234,11 @@ __webpack_require__.r(__webpack_exports__);
       var nn = this.formatear(num);
       this.form.administracion = nn;
     },
-    cambio: function cambio() {
-      var x = document.getElementById("mydiv");
-
-      if (x.style.display === "none") {
-        x.style.display = "block";
+    cambiar: function cambiar() {
+      if (this.acuerdo_bol === 0) {
+        this.acuerdo_bol = 1;
       } else {
-        x.style.display = "none";
+        this.acuerdo_bol = 0;
       }
     },
     ver: function ver(id) {
@@ -69085,40 +69129,85 @@ var render = function() {
                       staticStyle: { margin: "auto" }
                     },
                     [
-                      _c("div", { staticStyle: { "margin-left": "100px" } }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn  btn-success",
-                            attrs: { type: "submit" },
-                            on: { click: _vm.guardar }
-                          },
-                          [
-                            _vm._v(
-                              "\r\n                    Guardar llamada\r\n                  "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn  btn-info ",
-                            attrs: {
-                              type: "button",
-                              "data-toggle": "collapse",
-                              "data-target": "#collapseExample",
-                              "aria-expanded": "false",
-                              "aria-controls": "collapseExample"
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\r\n                    Agregar nuevo acuerdo\r\n                  "
-                            )
-                          ]
-                        )
-                      ])
+                      _vm.acuerdo_bol === 0
+                        ? _c(
+                            "div",
+                            { staticStyle: { "margin-left": "100px" } },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn  btn-success",
+                                  attrs: { type: "submit" },
+                                  on: { click: _vm.guardar }
+                                },
+                                [
+                                  _vm._v(
+                                    "\r\n                    Guardar llamada\r\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn  btn-info ",
+                                  attrs: {
+                                    type: "button",
+                                    "data-toggle": "collapse",
+                                    "data-target": "#collapseExample",
+                                    "aria-expanded": "false",
+                                    "aria-controls": "collapseExample"
+                                  },
+                                  on: { click: _vm.cambiar }
+                                },
+                                [
+                                  _vm._v(
+                                    "\r\n                    Agregar nuevo acuerdo\r\n                  "
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        : _c(
+                            "div",
+                            { staticStyle: { "margin-left": "100px" } },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn  btn-success",
+                                  attrs: { type: "submit" },
+                                  on: { click: _vm.guardar_acuerdo }
+                                },
+                                [
+                                  _vm._v(
+                                    "\r\n                    Guardar Acuerdo\r\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn  btn-danger ",
+                                  attrs: {
+                                    type: "button",
+                                    "data-toggle": "collapse",
+                                    "data-target": "#collapseExample",
+                                    "aria-expanded": "false",
+                                    "aria-controls": "collapseExample"
+                                  },
+                                  on: { click: _vm.cambiar }
+                                },
+                                [
+                                  _vm._v(
+                                    "\r\n                    Cancelar acuerdo\r\n                  "
+                                  )
+                                ]
+                              )
+                            ]
+                          )
                     ]
                   )
                 ],
