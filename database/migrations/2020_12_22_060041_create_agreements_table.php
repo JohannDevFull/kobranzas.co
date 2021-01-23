@@ -15,11 +15,11 @@ class CreateAgreementsTable extends Migration
     {
         Schema::create('agreements', function (Blueprint $table) {
             $table->bigIncrements('id_agreement');  
-            $table->foreignId('account_id')->references('id_account')->on('accounts'); 
+            $table->foreignId('user_id')->references('user_id')->on('clients'); 
             $table->bigInteger('employee_id'); 
-            $table->integer('number_dues');  
-            $table->integer('intereses');   
-            $table->integer('honorarios');  
+            $table->decimal('current_debt',$precision = 13, $scale = 2);
+            $table->decimal('credit', $precision = 13, $scale = 2);   
+            $table->integer('quotas');  
             $table->string('observations');
             $table->timestamps();
         });
