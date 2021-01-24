@@ -163,7 +163,7 @@
 
                 <div class="card-tools" v-if="cuenta != 0"> 
                       
-                          <button class="btn btn-dark float" @click="abrir()" >
+                          <button class="btn btn-dark float" @click="abrirCrearMovimiento()" >
                             <i class="fas fa-plus"></i> Agregar Movimiento
                           </button> 
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" style="border: 1px gray solid ;height: 100%;margin:0px; ">
@@ -177,28 +177,30 @@
                 <table class="table table-head-fixed text-nowrap">
                   <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>Empleado</th>
+                      <th>ID movimiento</th>
+                      <th>Descripcion movimiento</th>
+                      <th>Valor</th>
                       <th>Fecha</th>
-                      <th>Resivo</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
                   
-                  <tbody>
-                    <tr  >
-                    <!-- <tr v-for="row in clientes" > -->
+                  <tbody> 
+                    <tr v-if="movimientos===0">  
+
+                    </tr>
+                    <tr v-for="row in movimientos" v-else>
                       <td> 
-                          {{  }} 
+                          {{ row.id_movement }} 
                       </td>
                       <td> 
-                          {{  }} 
+                          {{ row.description_movement }} 
                       </td>
                       <td> 
-                          {{  }} 
+                          {{ row.valor_movement }} 
                       </td>
                       <td> 
-                          {{  }}  
+                          {{ row.updated_at }}  
                       </td>
                       
 
@@ -216,9 +218,6 @@
                       </td>
 
                       
-                    </tr>
-                    <tr >  
-
                     </tr>
                   </tbody>
                 </table>
@@ -246,7 +245,7 @@ import CreateAccount from "@/Kobranzas/CreateAccount";
 import Movements from "@/Kobranzas/MovementsModal"; 
 
 export default {
-  props: ['conjunto','cliente','cuenta','acuerdo','photo','acuerdos'],
+  props: ['conjunto','cliente','cuenta','acuerdo','photo','acuerdos','movimientos'],
   components: {
     AppLayout, 
     CreateAccount, 
@@ -362,6 +361,11 @@ export default {
     },
 
     abrir(){   
+
+      $("#CreateAccountModal").modal();
+        
+    },
+    abrirCrearMovimiento(){   
 
       $("#movementModal").modal();
         
