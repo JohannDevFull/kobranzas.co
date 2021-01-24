@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StateSeeder::class);
         $this->call(ClientsSeeder::class);
         $this->call(TypesMovementSeeder::class);
+        $this->call(DescriptionMovementsSeeder::class);
 
         
     }
