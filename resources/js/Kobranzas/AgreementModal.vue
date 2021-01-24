@@ -151,7 +151,7 @@
 <script>  
   
   export default { 
-      props: ['acuerdo','ides','id','name','boleano','cuentaTotal'],
+      props: ['acuerdo','ides','id','boleano','cuentaTotal'],
       
       components:{
 
