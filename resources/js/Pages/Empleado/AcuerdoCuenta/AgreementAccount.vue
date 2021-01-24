@@ -46,7 +46,7 @@
                     <inertia-link  :href="route('state.account',cliente.user_id)" v-if="cuenta != 0">
                     <div class="description-block"  >
 
-                        <h5 class="description-header">{{ saldo}}</h5>
+                        <h5 class="description-header">{{ saldo }}</h5>
                         <span class="description-text">Estado cuenta</span>
                     </div>
                     </inertia-link> 
@@ -159,16 +159,13 @@
       <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Lista de Pagos</h3>
+                <h3 class="card-title">Lista de Movimientos</h3>
 
                 <div class="card-tools" v-if="cuenta != 0"> 
-                     
-                        <inertia-link :href="route('conjuntos.create')">
-                          <button class="btn btn-dark float">
-                            <i class="fas fa-plus"></i> Agregar pago 
-                          </button>
-                        </inertia-link>
-                
+                      
+                          <button class="btn btn-dark float" @click="abrir()" >
+                            <i class="fas fa-plus"></i> Agregar Movimiento
+                          </button> 
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" style="border: 1px gray solid ;height: 100%;margin:0px; ">
                       <i class="fas fa-minus"></i>
                     </button> 
@@ -230,13 +227,14 @@
               <!-- /.card-body -->
               <div class="card-footer">
               </div>
+              
             </div>
             <!-- /.card -->    
       </div> 
 
       <create-account v-bind:cliente_id="cliente.user_id"/>
       <agreement-modal v-bind:acuerdo="acuerdos" v-bind:id="inde"  v-bind:boleno="bol" v-bind:totalCuenta="cuenta" />
-
+      <movements v-bind:cliente_id="cliente.user_id"/>
 
     </div>
   </app-layout>
@@ -245,13 +243,15 @@
 import AppLayout from "@/Layouts/AppLayout";
 import AgreementModal from '@/Kobranzas/AgreementModal' 
 import CreateAccount from "@/Kobranzas/CreateAccount"; 
+import Movements from "@/Kobranzas/MovementsModal"; 
 
 export default {
   props: ['conjunto','cliente','cuenta','acuerdo','photo','acuerdos'],
   components: {
     AppLayout, 
     CreateAccount, 
-    AgreementModal, 
+    AgreementModal,
+    Movements, 
   },
   created(){ 
     this.buscarResultados()
@@ -290,6 +290,9 @@ export default {
       },
       abrir(){ 
         $("#CreateAccountModal").modal();
+      },
+      abrirMovimiento(){ 
+        $("#MovementsModal").modal();
       },
       saldoDecimal(){ 
         var num=String(this.cuenta);
@@ -355,6 +358,12 @@ export default {
       // this.state=this.llamadas[id].state_id; 
 
       $("#myModal").modal();
+        
+    },
+
+    abrir(){   
+
+      $("#movementModal").modal();
         
     },
      
