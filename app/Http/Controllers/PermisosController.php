@@ -138,6 +138,8 @@ class PermisosController extends Controller
     {
 
         $debito=DB::select("SELECT * FROM movements WHERE user_id=".$id);
+
+        $res = DB::select('SELECT * FROM description_movements WHERE nature_movement=1');
   
         echo "<br>";
         echo "<br>------------------------------------**** PRUEBAS JOHANN ***--------------------------------------------";
@@ -145,7 +147,9 @@ class PermisosController extends Controller
         echo "Debito: ";
         print_r($debito);
         echo "<br>";
+
         echo "Credito: ";
+        print_r($res);
          
 
 
