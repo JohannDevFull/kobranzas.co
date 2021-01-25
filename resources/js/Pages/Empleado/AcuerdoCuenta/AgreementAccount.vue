@@ -189,7 +189,7 @@
                     <tr v-if="movimientos===0">  
 
                     </tr>
-                    <tr v-for="row in movimientos" v-else>
+                    <tr v-for="(row,index) in movimientos" v-else>
                       <td> 
                           {{ row.id_movement }} 
                       </td>
@@ -205,16 +205,9 @@
                       
 
                       <td> 
-                        <!-- <inertia-link class="" :href="route('llamadas.create',row.id)" > 
-                            <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
-                        </inertia-link>
-
-                        <inertia-link class="" :href="route('llamadas.create',row.id)">
-                            <i class="nav-icon fas fa-hands-helping text-success" style="padding:6px;"></i>  
-                        </inertia-link>
-                        <inertia-link class="" :href="route('llamadas.create',row.id)">
-                            <i class="nav-icon fas fa-phone text-success" style="padding:6px;"></i> 
-                        </inertia-link> -->
+                        <button type="button" style="margin-top:-4px" class="btn btn-success" @click="verMovimiento(index)"  >
+                            <i class="nav-icon fas fa-eye text-info"  ></i>         
+                        </button>
                       </td>
 
                       
@@ -232,8 +225,10 @@
       </div> 
 
       <create-account v-bind:cliente_id="cliente.user_id"/>
-      <agreement-modal v-bind:acuerdo="acuerdos" v-bind:id="inde"  v-bind:boleno="bol" v-bind:totalCuenta="cuenta" />
       <movements v-bind:cliente_id="cliente.user_id"/>
+      <agreement-modal v-bind:acuerdo="acuerdos" v-bind:id="inde"  v-bind:boleno="bol" v-bind:totalCuenta="cuenta" />
+      
+      <show-movement-modal v-bind:movimiento="movimientos" v-bind:id="id_movement"  v-bind:boleno="bol_dos"  />
 
     </div>
   </app-layout>
@@ -243,6 +238,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import AgreementModal from '@/Kobranzas/AgreementModal' 
 import CreateAccount from "@/Kobranzas/CreateAccount"; 
 import Movements from "@/Kobranzas/MovementsModal"; 
+import ShowMovementModal from "@/Kobranzas/ShowMovementModal"; 
 
 export default {
   props: ['conjunto','cliente','cuenta','acuerdo','photo','acuerdos','movimientos'],
@@ -250,6 +246,7 @@ export default {
     AppLayout, 
     CreateAccount, 
     AgreementModal,
+    ShowMovementModal,
     Movements, 
   },
   created(){ 
@@ -265,7 +262,9 @@ export default {
       setTimeoutBuscador: '',
       img:this.photo,
       inde:0,
+      id_movement:0,
       bol:-1,
+      bol_dos:-1,
     }
   },
   methods: {
@@ -287,12 +286,7 @@ export default {
           clearTimeout( this.setTimeoutBuscador )
           this.setTimeoutBuscador=setTimeout( this.buscarResultados ,360) 
       },
-      abrir(){ 
-        $("#CreateAccountModal").modal();
-      },
-      abrirMovimiento(){ 
-        $("#MovementsModal").modal();
-      },
+      
       saldoDecimal(){ 
         var num=String(this.cuenta);
         var nn=this.formatear(num);
@@ -352,12 +346,19 @@ export default {
     ver(id){  
          
       this.inde=id; 
-      this.bol=0; 
-
-      // this.state=this.llamadas[id].state_id; 
+      this.bol=0;  
 
       $("#myModal").modal();
         
+    },
+    verMovimiento(id){  
+          
+      this.id_movement=id; 
+      this.bol_dos=0;  
+
+      $("#showMovementModal").modal();
+
+
     },
 
     abrir(){   
