@@ -8296,26 +8296,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['sessions'],
+  props: ['cliente', 'extracto'],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
@@ -69873,8 +69856,19 @@ var render = function() {
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-12" }, [
                 _c("h4", [
-                  _c("i", { staticClass: "fas fa-globe" }),
-                  _vm._v(" LSA Abogados, Inc.\r\n                    "),
+                  _c("img", {
+                    staticClass: "brand-image img-thumbnail elevation-3",
+                    staticStyle: {
+                      width: "36px",
+                      height: "36px",
+                      opacity: "0.8"
+                    },
+                    attrs: {
+                      src: "/storage/img/AdminLTELogo.png",
+                      alt: "AdminLTE Logo"
+                    }
+                  }),
+                  _vm._v(" LSA Abogados, S.A.S.\r\n                    "),
                   _c("small", { staticClass: "float-right" }, [
                     _vm._v("Date: 2/10/2014")
                   ])
@@ -69886,16 +69880,28 @@ var render = function() {
               _c("div", { staticClass: "col-sm-4 invoice-col" }, [
                 _vm._v("\r\n                  Extracto\r\n                  "),
                 _c("address", [
-                  _c("strong", [_vm._v("Johann Sebatian Ramirez")]),
-                  _c("br"),
-                  _vm._v("\r\n                    795 Folsom Ave, Suite 600"),
-                  _c("br"),
-                  _vm._v("\r\n                    San Francisco, CA 94107"),
-                  _c("br"),
-                  _vm._v("\r\n                    Phone: (804) 123-5432"),
+                  _c("strong", [_vm._v(_vm._s(_vm.cliente.name))]),
                   _c("br"),
                   _vm._v(
-                    "\r\n                    Email: info@almasaeedstudio.com\r\n                  "
+                    "\r\n                    Conjunto: Azucena ,Trr 01 Apt 601"
+                  ),
+                  _c("br"),
+                  _vm._v("\r\n                    Ciudad: Bogota DC"),
+                  _c("br"),
+                  _vm._v(
+                    "\r\n                    Telefono uno: " +
+                      _vm._s(_vm.cliente.phone_one)
+                  ),
+                  _c("br"),
+                  _vm._v(
+                    "\r\n                    Telefono dos: " +
+                      _vm._s(_vm.cliente.phone_two)
+                  ),
+                  _c("br"),
+                  _vm._v(
+                    "\r\n                    Email: " +
+                      _vm._s(_vm.cliente.email) +
+                      "\r\n                  "
                   )
                 ])
               ])
@@ -69906,9 +69912,13 @@ var render = function() {
                 _c("table", { staticClass: "table table-striped" }, [
                   _c("thead", [
                     _c("tr", [
-                      _c("th", [_vm._v("N°. movimiento ")]),
+                      _c("th", [_vm._v("N°")]),
                       _vm._v(" "),
-                      _c("th", [_vm._v("Movimiento")]),
+                      _c("th", [_vm._v("Fecha")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Tipo Movimiento")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Descripcion Movimiento")]),
                       _vm._v(" "),
                       _c("th", [_vm._v("Cargue")]),
                       _vm._v(" "),
@@ -69918,101 +69928,33 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("tbody", [
-                    _c("tr", [
-                      _c("td", [_vm._v("1")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("Saldo inicial")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("$1,000,000")]),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("$1,000,000")])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", [_vm._v("2")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("Intereses inicial")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("250,000")]),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("$1,250,000")])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", [_vm._v("3")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("Gastos cobranzas")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("187,500")]),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("$1,437,500")])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", [_vm._v("4")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("Abono Pago CU 01")]),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("127,900")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("$25.99")])
-                    ])
-                  ])
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.extracto, function(row, index) {
+                      return _c("tr", [
+                        _c("td", [_vm._v(_vm._s(row.id_movement))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(row.created_at))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(row.type_movement_id))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(row.description_movement))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(row.valor_cargue))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(row.valor_abono))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(row.total_deuda))])
+                      ])
+                    }),
+                    0
+                  )
                 ])
               ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-6" }, [
-                _c("p", { staticClass: "lead" }, [_vm._v("Payment Methods:")]),
-                _vm._v(" "),
-                _c("img", {
-                  attrs: { src: "/storage/img/credit/visa.png", alt: "Visa" }
-                }),
-                _vm._v(" "),
-                _c("img", {
-                  attrs: {
-                    src: "/storage/img/credit/mastercard.png",
-                    alt: "Mastercard"
-                  }
-                }),
-                _vm._v(" "),
-                _c("img", {
-                  attrs: {
-                    src: "/storage/img/credit/american-express.png",
-                    alt: "American Express"
-                  }
-                }),
-                _vm._v(" "),
-                _c("img", {
-                  attrs: {
-                    src: "/storage/img/credit/paypal2.png",
-                    alt: "Paypal"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "p",
-                  {
-                    staticClass: "text-muted well well-sm shadow-none",
-                    staticStyle: { "margin-top": "10px" }
-                  },
-                  [
-                    _vm._v(
-                      "\r\n                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem\r\n                    plugg\r\n                    dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.\r\n                  "
-                    )
-                  ]
-                )
-              ]),
+              _c("div", { staticClass: "col-6" }),
               _vm._v(" "),
               _c("div", { staticClass: "col-6" }, [
                 _c("p", { staticClass: "lead" }, [
