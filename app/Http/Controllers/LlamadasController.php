@@ -6,6 +6,7 @@ use App\Models\Agreement;
 use App\Models\Calls;
 use App\Models\Llamada;
 use App\Models\Movements;
+use App\Models\Permisos;
 use App\Models\User;
 use App\Models\llamadas;
 use Illuminate\Database\Query\orderBy;
@@ -208,11 +209,13 @@ class LlamadasController extends Controller
     {
         $empleado = Auth::id();
         $user=User::find($id); 
+        $extracto=Permisos::extracto($id);
          
         
         return Inertia::render('Empleado/AcuerdoCuenta/StateAccount', [
             'cliente' => $user, 
             'empleadoid' => $empleado,  
+            'extracto' => $extracto,  
         ]);
 
     }
