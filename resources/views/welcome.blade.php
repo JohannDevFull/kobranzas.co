@@ -8,10 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8"> 
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic%7CLato:300,300italic,400,400italic,700,900%7CMerriweather:700italic">
-    <link rel="stylesheet" href="{{asset('css/fonts.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('css/fonts.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    <link rel="stylesheet" href="{{ asset('css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/mycss.css') }}">
   </head>
   <body>
     <div class="preloader">
@@ -79,11 +79,7 @@
                       </ul>
                       @endif
 
-                    </div>
-
-
-
-
+                    </div> 
                     <ul class="rd-navbar-nav">
                       <li class="active"><a href="index.html">Inicio</a></li>
                       <li><a href="about-us.html">Servicios</a></li>
@@ -107,11 +103,11 @@
                   <div class="row justify-content-md-center">
                     <div class="col-md-11 col-lg-10 col-xl-9">
                       <div class="header-decorated" data-caption-animate="fadeInUp" data-caption-delay="0s">
-                        <h3 class="medium text-primary">With Us</h3>
+                        <h3 class="medium text-primary">Con nosotros</h3>
                       </div>
-                      <h2 class="slider-header" data-caption-animate="fadeInUp" data-caption-delay="150">You Are Always One Step Ahead</h2>
-                      <p class="text-bigger slider-text" data-caption-animate="fadeInUp" data-caption-delay="250">Strategies of our attorneys will help you solve very complex legal issues.</p>
-                      <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="#">Request a Free Consultation</a></div>
+                      <h2 class="slider-header" data-caption-animate="fadeInUp" data-caption-delay="150">Siempre estás un paso adelante</h2>
+                      <p class="text-bigger slider-text" data-caption-animate="fadeInUp" data-caption-delay="250">Las estrategias de nuestros abogados lo ayudarán a resolver problemas legales muy complejos.</p>
+                      <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="#">Solicite una consulta gratuita</a></div>
                     </div>
                   </div>
                 </div>
@@ -123,11 +119,11 @@
                   <div class="row justify-content-md-center">
                     <div class="col-md-11 col-lg-10 col-xl-9">
                       <div class="header-decorated" data-caption-animate="fadeInUp" data-caption-delay="0s">
-                        <h3 class="medium text-primary">We Offer</h3>
+                        <h3 class="medium text-primary">Ofrecemos</h3>
                       </div>
-                      <h2 class="slider-header" data-caption-animate="fadeInUp" data-caption-delay="150">Affordable and Effective Legal Help</h2>
-                      <p class="text-bigger slider-text" data-caption-animate="fadeInUp" data-caption-delay="250">Our expert team of attorneys and consultants will be glad to provide necessary legal assistance.</p>
-                      <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="#">Request a Free Consultation</a></div>
+                      <h2 class="slider-header" data-caption-animate="fadeInUp" data-caption-delay="150">Ayuda legal asequible y eficaz</h2>
+                      <p class="text-bigger slider-text" data-caption-animate="fadeInUp" data-caption-delay="250">Nuestro equipo experto de abogados y consultores estará encantado de brindarle la asistencia legal necesaria.</p>
+                      <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="#">Solicite una consuta gratuita</a></div>
                     </div>
                   </div>
                 </div>
@@ -139,11 +135,11 @@
                   <div class="row justify-content-md-center">
                     <div class="col-md-11 col-lg-10 col-xl-9">
                       <div class="header-decorated" data-caption-animate="fadeInUp" data-caption-delay="0s">
-                        <h3 class="medium text-primary">With Our Services</h3>
+                        <h3 class="medium text-primary">Con nuestros servicios</h3>
                       </div>
-                      <h2 class="slider-header" data-caption-animate="fadeInUp" data-caption-delay="150">You Will Get Extensive Legal Support</h2>
-                      <p class="text-bigger slider-text" data-caption-animate="fadeInUp" data-caption-delay="250">We have years of experience in providing legal help in various spheres of law.</p>
-                      <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="#">Request a Free Consultation</a></div>
+                      <h2 class="slider-header" data-caption-animate="fadeInUp" data-caption-delay="150">Obtendrá un amplio apoyo legal</h2>
+                      <p class="text-bigger slider-text" data-caption-animate="fadeInUp" data-caption-delay="250">Contamos con años de experiencia en brindar asistencia legal en diversas esferas del derecho.</p>
+                      <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="#">Solicite una consulta gratuita</a></div>
                     </div>
                   </div>
                 </div>
@@ -166,12 +162,12 @@
                 <div class="box-top">
                   <div class="box-icon"><span class="novi-icon icon icon-primary icon-lg mercury-icon-briefcase"></span></div>
                   <div class="box-header">
-                    <h5><a href="#">Business Law</a></h5>
+                    <h5><a href="#">Derecho empresarial</a></h5>
                   </div>
                 </div>
                 <div class="divider bg-accent"></div>
                 <div class="box-body">
-                  <p>Business law deals with the creation of new businesses and the issues that arise as existing.</p>
+                  <p>El derecho empresarial se ocupa de la creación de nuevas empresas y los problemas que surgen como existentes.</p>
                 </div>
               </article>
             </div>
@@ -180,12 +176,12 @@
                 <div class="box-top">
                   <div class="box-icon"><span class="novi-icon icon icon-primary icon-lg mercury-icon-users"></span></div>
                   <div class="box-header">
-                    <h5><a href="#">Family Law</a></h5>
+                    <h5><a href="#">Ley familiar</a></h5>
                   </div>
                 </div>
                 <div class="divider bg-accent"></div>
                 <div class="box-body">
-                  <p>Family law attorneys help their clients file for separation or divorce, alimony or child custody.</p>
+                  <p>Los abogados de derecho familiar ayudan a sus clientes a solicitar la separación o el divorcio, la pensión alimenticia o la custodia de los hijos.</p>
                 </div>
               </article>
             </div>
@@ -194,12 +190,12 @@
                 <div class="box-top">
                   <div class="box-icon"><span class="novi-icon icon icon-primary icon-lg mercury-icon-lib"></span></div>
                   <div class="box-header">
-                    <h5><a href="#">Civil Litigation</a></h5>
+                    <h5><a href="#">Juicio civil</a></h5>
                   </div>
                 </div>
                 <div class="divider bg-accent"></div>
                 <div class="box-body">
-                  <p>Civil litigation is the process in which civil matters are resolved in a court of law.</p>
+                  <p>El litigio civil es el proceso en el que los asuntos civiles se resuelven en un tribunal de justicia.</p>
                 </div>
               </article>
             </div>
@@ -215,16 +211,16 @@
                 <div class="box-cart-image"><img src="{{ asset('storage/img/home-2-342x338.jpg') }}" alt="" width="342" height="338"/>
                 </div>
                 <div class="box-cart-body">
-                  <blockquote class="blockquote-complex blockquote-complex-inverse">
-                    <h3>About Us</h3>
+                  <blockquote class="blockquote-complex blockquote-complex-inverse" style="background: #2b2f40">
+                    <h3>Sobre nosotros</h3>
                     <p>
-                      <q>When you place your case in the hands of our lawyers and paralegals, you are placing your case in the hands of professionals who are committed to achieving the best possible outcome.</q>
+                      <q>Cuando pone su caso en manos de nuestros abogados y asistentes legales, está poniendo su caso en manos de profesionales comprometidos con lograr el mejor resultado posible.</q>
                     </p>
                     <div class="quote-footer">
                       <cite>Ryan Emberson</cite><small>CEO at LawExpert</small>
                     </div>
                   </blockquote>
-                  <div class="button-wrap inset-md-left-70"><a class="button button-responsive button-medium button-primary-outline-v2" href="#">Request a Free Consultation</a></div>
+                  <div class="button-wrap inset-md-left-70"><a class="button button-responsive button-medium button-primary-outline-v2" href="#">Solicite una consulta gratuita</a></div>
                 </div>
               </article>
             </div>
@@ -239,14 +235,14 @@
             <div class="col-sm-6 col-md-4 col-lg-3">
               <div class="thumbnail-variant-2-wrap">
                 <div class="thumbnail thumbnail-variant-2">
-                  <figure class="thumbnail-image"><img src=" {{ asset('storage/img/team-9-246x300.jpg') }}" alt="" width="246" height="300"/>
+                  <figure class="thumbnail-image"><img src=" {{ asset('storage/img/trabajador1.jpg') }}" alt="" width="246" height="300"/>
                   </figure>
                   <div class="thumbnail-inner">
-                    <div class="link-group"><span class="novi-icon icon icon-xxs icon-primary material-icons-local_phone"></span><a class="link-white" href="tel:#">+1 (409) 987–5874</a></div>
-                    <div class="link-group"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span><a class="link-white" href="mailto:#">info@demolink.org</a></div>
+                    <div class="link-group"><span class="novi-icon icon icon-xxs icon-primary material-icons-local_phone"></span><a class="link-white" href="tel:#">314 334 4567</a></div>
+                    <div class="link-group"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span><a class="link-white" href="mailto:#">amsolano@lsa.co</a></div>
                   </div>
                   <div class="thumbnail-caption">
-                    <p class="text-header"><a href="#">Amanda Smith</a></p>
+                    <p class="text-header"><a href="#">Amanda Solano</a></p>
                     <div class="divider divider-md bg-teak"></div>
                     <p class="text-caption">Paralegal</p>
                   </div>
@@ -256,16 +252,16 @@
             <div class="col-sm-6 col-md-4 col-lg-3">
               <div class="thumbnail-variant-2-wrap">
                 <div class="thumbnail thumbnail-variant-2">
-                  <figure class="thumbnail-image"><img src="{{ asset('storage/img/team-10-246x300.jpg') }}" alt="" width="246" height="300"/>
+                  <figure class="thumbnail-image"><img src="{{ asset('storage/img/trabajador2.jpg') }}" alt="" width="246" height="300"/>
                   </figure>
                   <div class="thumbnail-inner">
-                    <div class="link-group"><span class="novi-icon icon icon-xxs icon-primary material-icons-local_phone"></span><a class="link-white" href="tel:#">+1 (409) 987–5874</a></div>
-                    <div class="link-group"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span><a class="link-white" href="mailto:#">info@demolink.org</a></div>
+                    <div class="link-group"><span class="novi-icon icon icon-xxs icon-primary material-icons-local_phone"></span><a class="link-white" href="tel:#">321 456 789</a></div>
+                    <div class="link-group"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span><a class="link-white" href="mailto:#">Jodoe@lsa.co</a></div>
                   </div>
                   <div class="thumbnail-caption">
                     <p class="text-header"><a href="#">John Doe</a></p>
                     <div class="divider divider-md bg-teak"></div>
-                    <p class="text-caption">Attorney</p>
+                    <p class="text-caption">Abogado</p>
                   </div>
                 </div>
               </div>
@@ -273,16 +269,16 @@
             <div class="col-sm-6 col-md-4 col-lg-3">
               <div class="thumbnail-variant-2-wrap">
                 <div class="thumbnail thumbnail-variant-2">
-                  <figure class="thumbnail-image"><img src="{{ asset('storage/img/team-11-246x300.jpg') }}" alt="" width="246" height="300"/>
+                  <figure class="thumbnail-image"><img src="{{ asset('storage/img/trabajador3.jpg') }}" alt="" width="246" height="300"/>
                   </figure>
                   <div class="thumbnail-inner">
-                    <div class="link-group"><span class="novi-icon icon icon-xxs icon-primary material-icons-local_phone"></span><a class="link-white" href="tel:#">+1 (409) 987–5874</a></div>
-                    <div class="link-group"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span><a class="link-white" href="mailto:#">info@demolink.org</a></div>
+                    <div class="link-group"><span class="novi-icon icon icon-xxs icon-primary material-icons-local_phone"></span><a class="link-white" href="tel:#">345 652 231</a></div>
+                    <div class="link-group"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span><a class="link-white" href="mailto:#">vnives@lsa.co</a></div>
                   </div>
                   <div class="thumbnail-caption">
                     <p class="text-header"><a href="#">Vanessa Ives</a></p>
                     <div class="divider divider-md bg-teak"></div>
-                    <p class="text-caption">Legal Assistant</p>
+                    <p class="text-caption">Asistente legal</p>
                   </div>
                 </div>
               </div>
@@ -290,9 +286,9 @@
             <div class="col-sm-6 col-md-12 col-lg-3 text-center">
               <div class="block-wrap-1">
                 <div class="block-number">06</div>
-                <h3 class="text-normal">Experts</h3>
-                <p class="h5 h5-smaller text-style-4">in Their Fields</p>
-                <p>If you or your business is facing a legal challenge, contact us today to arrange a free initial consultation with an attorney.</p><a class="link link-group link-group-animated link-bold link-secondary" href="#"><span>Read more</span><span class="novi-icon icon icon-xxs icon-primary fa fa-angle-right"></span></a>
+                <h3 class="text-normal">Expertos</h3>
+                <p class="h5 h5-smaller text-style-4">en sus campos</p>
+                <p>Si usted o su empresa enfrentan un desafío legal, contáctenos hoy para programar una consulta inicial gratuita con un abogado.</p><a class="link link-group link-group-animated link-bold link-secondary" href="#"><span>Leer más..</span><span class="novi-icon icon icon-xxs icon-primary fa fa-angle-right"></span></a>
               </div>
             </div>
           </div>
@@ -307,25 +303,25 @@
                 <div class="col-sm-6 col-md-3">
                   <div class="box-counter box-counter-inverse"><span class="novi-icon icon icon-lg icon-primary mercury-icon-group"></span>
                     <div class="text-large counter">1450</div>
-                    <p class="box-header">Happy Clients</p>
+                    <p class="box-header">Clientes felices</p>
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                   <div class="box-counter box-counter-inverse"><span class="novi-icon icon icon-lg-smaller icon-primary mercury-icon-scales"></span>
                     <div class="text-large counter">23</div>
-                    <p class="box-header">Years of Experience</p>
+                    <p class="box-header">Años de experiencia</p>
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                   <div class="box-counter box-counter-inverse"><span class="novi-icon icon icon-lg-smaller icon-primary mercury-icon-partners"></span>
                     <div class="text-large counter counter-percent">98</div>
-                    <p class="box-header">Successful Cases</p>
+                    <p class="box-header">Casos exitosos</p>
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                   <div class="box-counter box-counter-inverse"><span class="novi-icon icon icon-lg icon-primary mercury-icon-case"></span>
                     <div class="text-large counter">7500</div>
-                    <p class="box-header">Personal Injury Cases</p>
+                    <p class="box-header">Casos de lesiones personales</p>
                   </div>
                 </div>
               </div>
@@ -337,10 +333,10 @@
 
       <section class="section-66 section-md-90 section-xl-bottom-100">
         <div class="container">
-          <h3 class="text-center">Testimonials</h3>
+          <h3 class="text-center">Testimonios</h3>
           <div class="owl-carousel owl-spacing-1 owl-nav-classic owl-style-minimal" data-autoplay="true" data-items="1" data-md-items="2" data-stage-padding="0" data-loop="true" data-margin="30" data-mouse-drag="true" data-nav="true" data-dots="true" data-dots-each="1">
             <div class="item">
-              <blockquote class="quote-bordered">
+              <blockquote class="quote-bordered" style="border-left: white">
                 <div class="quote-body">
                   <div class="quote-open">
                     <svg version="1.1" baseprofile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="37px" height="27px" viewbox="0 0 21 15" preserveAspectRatio="none">
@@ -348,26 +344,26 @@
                     </svg>
                   </div>
                   <div class="quote-body-inner">
-                    <h6>One of The Most Ethical Lawyers I’ve Ever Known...</h6>
+                    <h6>Uno de los abogados más eticos que he conocido</h6>
                     <p>
-                      <q>I’ve never known another lawyer more prepared or focused.  John has the ability to dissect a case much like a skilled surgeon, with absolute calm.  Nothing seems to distract him from his goal on a case, which of course, makes him extremely tough to beat.</q>
+                      <q>Nunca he conocido a ptrp abogado más preparado o enfocado. John tiene la capacidad dde diseccionar un caso como un cirujano experto, con absoluta calma. Nada parece distraerlo de su objetivo en un caso, lo que, por supuesto , lo hace extremadamente dificil de superar.</q>
                     </p>
                   </div>
                 </div>
                 <div class="quote-footer">
                   <div class="unit unit-horizontal unit-spacing-sm align-items-center">
-                    <div class="unit-left"><img class="img-circle" src="{{ asset('storage/img/clients-testimonials-1-68x68.jpg') }}" alt="" width="68" height="68"/>
+                    <div class="unit-left"><img class="img-circle" src="{{ asset('storage/img/cliente.png') }}" alt="" width="68" height="68"/>
                     </div>
                     <div class="unit-body">
                       <cite>Mark Wilson</cite>
-                      <p class="text-primary">CFO, Wilson Ltd.</p>
+                      <p class="text-primary">Director financiero de Wilson Ltd.</p>
                     </div>
                   </div>
                 </div>
               </blockquote>
             </div>
             <div class="item">
-              <blockquote class="quote-bordered">
+              <blockquote class="quote-bordered" style="border-left: white">
                 <div class="quote-body">
                   <div class="quote-open">
                     <svg version="1.1" baseprofile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="37px" height="27px" viewbox="0 0 21 15" preserveAspectRatio="none">
@@ -375,19 +371,19 @@
                     </svg>
                   </div>
                   <div class="quote-body-inner">
-                    <h6>LawExpert is One of The Best...</h6>
+                    <h6>Lsa es uno de los mejores...</h6>
                     <p>
-                      <q>John Doe is one of those attorneys who has it all-talent and skill, compassion for his clients, and the ability to communicate well with anyone he meets. This is one of the best combinations for a trial attorney and he is one of the best.</q>
+                      <q>John Doe es uno de esos abogados que tiene todo el talento y la habilidad, la compasión por sus clientes y la capacidad de comunicarse bien con cualquier persona que conoce. Esta es una de las mejores combinaciones para un abogado litigante y es uno de los mejores.</q>
                     </p>
                   </div>
                 </div>
-                <div class="quote-footer">
+                <div class="quote-footer" >
                   <div class="unit unit-horizontal unit-spacing-sm align-items-center">
-                    <div class="unit-left"><img class="img-circle" src="{{ asset('storage/img/clients-testimonials-2-68x68.jpg') }}" alt="" width="68" height="68"/>
+                    <div class="unit-left"><img class="img-circle" src="{{ asset('storage/img/cliente2.png') }}" alt="" width="68" height="68"/>
                     </div>
                     <div class="unit-body">
                       <cite>Amanda Eberson</cite>
-                      <p class="text-primary">CEO, Eberson Co.</p>
+                      <p class="text-primary">Director ejecutivo de Ebersoon Co.</p>
                     </div>
                   </div>
                 </div>
@@ -402,19 +398,19 @@
           <div class="row">
             <div class="col-md-10 col-lg-9 col-xl-7">
               <div class="section-50 section-md-75 section-xl-100">
-                <h3>Free Consultation</h3>
+                <h3>Consulta gratis</h3>
                 <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
                   <div class="row row-30">
                     <div class="col-md-6">
                       <div class="form-wrap">
                         <input class="form-input" id="request-form-name" type="text" name="name" data-constraints="@Required">
-                        <label class="form-label" for="request-form-name">Name</label>
+                        <label class="form-label" for="request-form-name">Nombre</label>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-wrap">
                         <input class="form-input" id="request-form-phone" type="text" name="phone" data-constraints="@Numeric @Required">
-                        <label class="form-label" for="request-form-phone">Phone</label>
+                        <label class="form-label" for="request-form-phone">Teléfono</label>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -427,23 +423,23 @@
                       <div class="form-wrap form-wrap-outside">
                         <!--Select 2-->
                         <select class="form-input select-filter" id="request-form-select" data-minimum-results-for-search="Infinity">
-                          <option>Family Law</option>
-                          <option value="Family Law">Family Law</option>
-                          <option value="Business Law">Business Law</option>
-                          <option value="Civil Litigation">Civil Litigation</option>
+                          <option>Ley familiar</option>
+                          <option value="Family Law">Ley familiar</option>
+                          <option value="Business Law">Derecho empresarial</option>
+                          <option value="Civil Litigation">Juicio civil</option>
                         </select>
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-wrap">
                         <textarea class="form-input" id="feedback-2-message" name="message" data-constraints="@Required"></textarea>
-                        <label class="form-label" for="feedback-2-message">Message</label>
+                        <label class="form-label" for="feedback-2-message">Mensaje</label>
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="row">
                         <div class="col-md-6">
-                          <button class="button button-block button-primary" type="submit">Request a Free Consultation</button>
+                          <button class="button button-block button-primary" type="submit">Solicite una consulta gratuita</button>
                         </div>
                       </div>
                     </div>
@@ -460,20 +456,20 @@
       </section>
       <section class="section-50 section-md-75 section-xl-100">
         <div class="container">
-          <h3 class="text-center">Latest News</h3>
+          <h3 class="text-center">Últimas noticias</h3>
           <div class="row row-40 row-offset-1 justify-content-sm-center justify-content-md-start">
             <div class="col-sm-9 col-md-6 col-lg-4 col-xl-3">
               <article class="post-boxed">
-                <div class="post-boxed-image"><img src="{{ asset('storage/img/home-5-268x182.jpg') }}" alt="" width="268" height="182"/>
+                <div class="post-boxed-image"><img src="{{ asset('storage/img/noticia1.jpg') }}" alt="" width="268" height="182"/>
                 </div>
                 <div class="post-boxed-body">
-                  <div class="post-boxed-title"><a href="#">The Lawyers Collective Women's Rights Initiative</a></div>
+                  <div class="post-boxed-title"><a href="#">La Iniciativa Colectiva de Abogados por los Derechos de las Mujeres</a></div>
                   <div class="post-boxed-footer">
                     <ul class="post-boxed-meta">
                       <li>
-                        <time datetime="2019-06-14">JUNE 14, 2019</time>
+                        <time datetime="2019-06-14">JUNIO DE 14 DE 2019</time>
                       </li>
-                      <li><span>by</span><a href="#">Admin</a></li>
+                      <li><span>POR</span><a href="#">ADMINISTRACIÓN</a></li>
                     </ul>
                   </div>
                 </div>
@@ -481,16 +477,16 @@
             </div>
             <div class="col-sm-9 col-md-6 col-lg-4 col-xl-3">
               <article class="post-boxed">
-                <div class="post-boxed-image"><img src="{{ asset('storage/img/home-6-268x182.jpg') }}" alt="" width="268" height="182"/>
+                <div class="post-boxed-image"><img src="{{ asset('storage/img/noticia2.jpg') }}" alt="" width="268" height="182"/>
                 </div>
                 <div class="post-boxed-body">
-                  <div class="post-boxed-title"><a href="#">Legal Documents Every Landlord Needs</a></div>
+                  <div class="post-boxed-title"><a href="#">Documentos legales que todo propietario necesita</a></div>
                   <div class="post-boxed-footer">
                     <ul class="post-boxed-meta">
                       <li>
-                        <time datetime="2019-06-20">JUNE 20, 2019</time>
+                        <time datetime="2019-06-20">20 DE JUNIO DE 2019</time>
                       </li>
-                      <li><span>by</span><a href="#">Admin</a></li>
+                      <li><span>POR</span><a href="#">ADMINSTRACIÖN</a></li>
                     </ul>
                   </div>
                 </div>
@@ -498,16 +494,16 @@
             </div>
             <div class="col-sm-9 col-md-6 col-lg-4 col-xl-3">
               <article class="post-boxed">
-                <div class="post-boxed-image"><img src="{{ asset('storage/img/home-7-268x182.jpg') }}" alt="" width="268" height="182"/>
+                <div class="post-boxed-image"><img src="{{ asset('storage/img/noticia3.jpg') }}" alt="" width="268" height="182"/>
                 </div>
                 <div class="post-boxed-body">
-                  <div class="post-boxed-title"><a href="#">Help Us Make the Law Accessible for Everyone</a></div>
+                  <div class="post-boxed-title"><a href="#">Ayúdanos a hacer que la ley sea accesible para todos</a></div>
                   <div class="post-boxed-footer">
                     <ul class="post-boxed-meta">
                       <li>
-                        <time datetime="2019-06-23">JUNE 23, 2019</time>
+                        <time datetime="2019-06-23">23 DE JUNIO DE 2020</time>
                       </li>
-                      <li><span>by</span><a href="#">Admin</a></li>
+                      <li><span>POR</span><a href="#">ADMINSTRACIÓN</a></li>
                     </ul>
                   </div>
                 </div>
@@ -515,16 +511,16 @@
             </div>
             <div class="col-sm-9 col-md-6 col-lg-4 col-xl-3">
               <article class="post-boxed">
-                <div class="post-boxed-image"><img src="{{ asset('storage/img/home-8-268x182.jpg') }}" alt="" width="268" height="182"/>
+                <div class="post-boxed-image"><img src="{{ asset('storage/img/noticia4.jpg') }}" alt="" width="268" height="182"/>
                 </div>
                 <div class="post-boxed-body">
                   <div class="post-boxed-title"><a href="#">5 Legal Documents for Military Service People</a></div>
                   <div class="post-boxed-footer">
                     <ul class="post-boxed-meta">
                       <li>
-                        <time datetime="2019-06-12">JUNE 12, 2019</time>
+                        <time datetime="2019-06-12">12 DE JUNIO 2019</time>
                       </li>
-                      <li><span>by</span><a href="#">Admin</a></li>
+                      <li><span>POR</span><a href="#">ADMINSTRACIÓN</a></li>
                     </ul>
                   </div>
                 </div>
