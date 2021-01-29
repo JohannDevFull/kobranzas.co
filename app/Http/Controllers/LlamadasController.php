@@ -10,6 +10,7 @@ use App\Models\Calls;
 use App\Models\Clients;
 use App\Models\Llamada;
 use App\Models\Movements;
+use App\Models\Permisos;
 use App\Models\User;
 use App\Models\llamadas;
 use App\Models\Notification;
@@ -53,6 +54,8 @@ class LlamadasController extends Controller
 
         if ($debito=DB::select("SELECT * FROM movements  WHERE  `user_id`=".$id." LIMIT 1"))
         {
+            $all=DB::select("SELECT * FROM movements WHERE  `user_id`=".$id);
+
             $debito=DB::select("SELECT SUM(valor_movement) AS 'debito' FROM movements 
                                 WHERE  type_movement_id=1 AND `user_id`=".$id);
             $credito=DB::select("SELECT SUM(valor_movement) AS 'credito' FROM movements 
@@ -63,6 +66,7 @@ class LlamadasController extends Controller
         else
         {  
             $cuenta=0;
+            $all=0;
         }
             
         $acuerdos=DB::select('SELECT * FROM agreements where user_id='.$id);
@@ -74,7 +78,7 @@ class LlamadasController extends Controller
 
         $acuerdo_actual=DB::select('SELECT description FROM state where id_state='.$estado);
         
-        $conjuntoNombre=$conjunto[0]->name_building;    
+        $conjuntoNombre=$conjunto[0]->name_building;     
   
 
         return Inertia::render('Empleado/AcuerdoCuenta/AgreementAccount',[
@@ -83,6 +87,7 @@ class LlamadasController extends Controller
              'cuenta' => $cuenta,
              'acuerdo' => $acuerdo_actual,
              'acuerdos' => $acuerdos,
+             'movimientos' => $all,
              'photo' => $clienteUser[0]->profile_photo_url,
         ]);
     }
@@ -212,11 +217,13 @@ class LlamadasController extends Controller
     {
         $empleado = Auth::id();
         $user=User::find($id); 
+        $extracto=Permisos::extracto($id);
          
         
         return Inertia::render('Empleado/AcuerdoCuenta/StateAccount', [
             'cliente' => $user, 
             'empleadoid' => $empleado,  
+            'extracto' => $extracto,  
         ]);
 
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\ClientsImport;
 use App\Models\Clients;
+use App\Models\Movements;
 use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,40 @@ class ClientsController extends Controller
         $buscar = $request->id;
         $sta = DB::table('state')->get();
         return response()->json($sta);
+    }
+    public function descripcion_movimiento_cargue(Request $request)
+    { 
+        $res = DB::table('description_movements')->where('nature_movement', '1')->get();
+        return response()->json($res);
+    }
+
+    public function descripcion_movimiento_abono(Request $request)
+    { 
+        $res = DB::table('description_movements')->where('nature_movement', '2')->get();
+        return response()->json($res);
+    }
+
+    public function tipo_movimiento(Request $request)
+    { 
+        $res = DB::table('type_movement')->get();
+        return response()->json($res);
+    }
+
+    public function storeMovement(Request $request)
+    { 
+        $this->validate($request,[
+            'cliente_id'=>'required',
+            'tipo_movimiento'=>'required',
+            'descripcion_movimiento'=>'required',
+            'valor_moviminto'=>'required',
+        ]);
+
+        $mov= Movements::create([
+            'user_id'=>$request->cliente_id, 
+            'type_movement_id'=>$request->tipo_movimiento,
+            'valor_movement'=>$request->valor_moviminto,
+            'description_movement'=>$request->descripcion_movimiento, 
+        ]);
     }
 
     /**

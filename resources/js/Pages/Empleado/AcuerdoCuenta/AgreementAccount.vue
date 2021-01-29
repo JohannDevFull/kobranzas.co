@@ -46,7 +46,7 @@
                     <inertia-link  :href="route('state.account',cliente.user_id)" v-if="cuenta != 0">
                     <div class="description-block"  >
 
-                        <h5 class="description-header">{{ saldo}}</h5>
+                        <h5 class="description-header">{{ saldo }}</h5>
                         <span class="description-text">Estado cuenta</span>
                     </div>
                     </inertia-link> 
@@ -159,16 +159,13 @@
       <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Lista de Pagos</h3>
+                <h3 class="card-title">Lista de Movimientos</h3>
 
                 <div class="card-tools" v-if="cuenta != 0"> 
-                     
-                        <inertia-link :href="route('conjuntos.create')">
-                          <button class="btn btn-dark float">
-                            <i class="fas fa-plus"></i> Agregar pago 
-                          </button>
-                        </inertia-link>
-                
+                      
+                          <button class="btn btn-dark float" @click="abrirCrearMovimiento()" >
+                            <i class="fas fa-plus"></i> Agregar Movimiento
+                          </button> 
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" style="border: 1px gray solid ;height: 100%;margin:0px; ">
                       <i class="fas fa-minus"></i>
                     </button> 
@@ -180,48 +177,40 @@
                 <table class="table table-head-fixed text-nowrap">
                   <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>Empleado</th>
+                      <th>ID movimiento</th>
+                      <th>Descripcion movimiento</th>
+                      <th>Valor</th>
                       <th>Fecha</th>
-                      <th>Resivo</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
                   
-                  <tbody>
-                    <tr  >
-                    <!-- <tr v-for="row in clientes" > -->
-                      <td> 
-                          {{  }} 
-                      </td>
-                      <td> 
-                          {{  }} 
-                      </td>
-                      <td> 
-                          {{  }} 
-                      </td>
-                      <td> 
-                          {{  }}  
-                      </td>
-                      
+                  <tbody> 
+                    <tr v-if="movimientos===0">  
 
-                      <td> 
-                        <!-- <inertia-link class="" :href="route('llamadas.create',row.id)" > 
-                            <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
-                        </inertia-link>
-
-                        <inertia-link class="" :href="route('llamadas.create',row.id)">
-                            <i class="nav-icon fas fa-hands-helping text-success" style="padding:6px;"></i>  
-                        </inertia-link>
-                        <inertia-link class="" :href="route('llamadas.create',row.id)">
-                            <i class="nav-icon fas fa-phone text-success" style="padding:6px;"></i> 
-                        </inertia-link> -->
-                      </td>
-
-                      
                     </tr>
-                    <tr >  
+                    <tr v-for="(row,index) in movimientos" v-else>
+                      <td> 
+                          {{ row.id_movement }} 
+                      </td>
+                      <td> 
+                          {{ row.description_movement }} 
+                      </td>
+                      <td> 
+                          {{ row.valor_movement }} 
+                      </td>
+                      <td> 
+                          {{ row.updated_at }}  
+                      </td>
+                      
 
+                      <td> 
+                        <button type="button" style="margin-top:-4px" class="btn btn-success" @click="verMovimiento(index)"  >
+                            <i class="nav-icon fas fa-eye text-info"  ></i>         
+                        </button>
+                      </td>
+
+                      
                     </tr>
                   </tbody>
                 </table>
@@ -230,13 +219,16 @@
               <!-- /.card-body -->
               <div class="card-footer">
               </div>
+              
             </div>
             <!-- /.card -->    
       </div> 
 
       <create-account v-bind:cliente_id="cliente.user_id"/>
+      <movements v-bind:cliente_id="cliente.user_id"/>
       <agreement-modal v-bind:acuerdo="acuerdos" v-bind:id="inde"  v-bind:boleno="bol" v-bind:totalCuenta="cuenta" />
-
+      
+      <show-movement-modal v-bind:movimiento="movimientos" v-bind:id="id_movement"  v-bind:boleno="bol_dos"  />
 
     </div>
   </app-layout>
@@ -245,13 +237,17 @@
 import AppLayout from "@/Layouts/AppLayout";
 import AgreementModal from '@/Kobranzas/AgreementModal' 
 import CreateAccount from "@/Kobranzas/CreateAccount"; 
+import Movements from "@/Kobranzas/MovementsModal"; 
+import ShowMovementModal from "@/Kobranzas/ShowMovementModal"; 
 
 export default {
-  props: ['conjunto','cliente','cuenta','acuerdo','photo','acuerdos'],
+  props: ['conjunto','cliente','cuenta','acuerdo','photo','acuerdos','movimientos'],
   components: {
     AppLayout, 
     CreateAccount, 
-    AgreementModal, 
+    AgreementModal,
+    ShowMovementModal,
+    Movements, 
   },
   created(){ 
     this.buscarResultados()
@@ -266,7 +262,9 @@ export default {
       setTimeoutBuscador: '',
       img:this.photo,
       inde:0,
+      id_movement:0,
       bol:-1,
+      bol_dos:-1,
     }
   },
   methods: {
@@ -288,9 +286,7 @@ export default {
           clearTimeout( this.setTimeoutBuscador )
           this.setTimeoutBuscador=setTimeout( this.buscarResultados ,360) 
       },
-      abrir(){ 
-        $("#CreateAccountModal").modal();
-      },
+      
       saldoDecimal(){ 
         var num=String(this.cuenta);
         var nn=this.formatear(num);
@@ -350,11 +346,29 @@ export default {
     ver(id){  
          
       this.inde=id; 
-      this.bol=0; 
-
-      // this.state=this.llamadas[id].state_id; 
+      this.bol=0;  
 
       $("#myModal").modal();
+        
+    },
+    verMovimiento(id){  
+          
+      this.id_movement=id; 
+      this.bol_dos=0;  
+
+      $("#showMovementModal").modal();
+
+
+    },
+
+    abrir(){   
+
+      $("#CreateAccountModal").modal();
+        
+    },
+    abrirCrearMovimiento(){   
+
+      $("#movementModal").modal();
         
     },
      

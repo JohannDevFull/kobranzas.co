@@ -182,8 +182,14 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/buscar/estados/', [ClientsController::class, 'estados']);
+    Route::get('/buscar/tipo_movimiento/', [ClientsController::class, 'tipo_movimiento']);
+    Route::get('/buscar/descripcion_movimiento_cargue/', [ClientsController::class, 'descripcion_movimiento_cargue']);
+    Route::get('/buscar/descripcion_movimiento_abono/', [ClientsController::class, 'descripcion_movimiento_abono']);
     Route::get('/buscar/clientes', [ClientsController::class, 'cargarClientes']);
     Route::post('/importar/clientes', [ClientsController::class, 'importClients'])->middleware('permission:clients.import');
+
+    Route::post('/movement/store', [ClientsController::class, 'storeMovement'])
+        ->name('account.store');
 });
 
 

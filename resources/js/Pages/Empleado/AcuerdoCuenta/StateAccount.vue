@@ -11,7 +11,12 @@
               <div class="row">
                 <div class="col-12">
                   <h4>
-                    <i class="fas fa-globe"></i> LSA Abogados, Inc.
+                    <img
+                      src="/storage/img/AdminLTELogo.png"
+                      alt="AdminLTE Logo"
+                      class="brand-image img-thumbnail elevation-3"
+                      style="width: 36px;height: 36px;opacity: 0.8"
+                    /> LSA Abogados, S.A.S.
                     <small class="float-right">Date: 2/10/2014</small>
                   </h4>
                 </div>
@@ -22,11 +27,12 @@
                 <div class="col-sm-4 invoice-col">
                   Extracto
                   <address>
-                    <strong>Johann Sebatian Ramirez</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    Phone: (804) 123-5432<br>
-                    Email: info@almasaeedstudio.com
+                    <strong>{{cliente.name}}</strong><br>
+                    Conjunto: Azucena ,Trr 01 Apt 601<br>
+                    Ciudad: Bogota DC<br>
+                    Telefono uno: {{cliente.phone_one}}<br>
+                    Telefono dos: {{cliente.phone_two}}<br>
+                    Email: {{cliente.email}}
                   </address>
                 </div> 
               </div>
@@ -38,42 +44,28 @@
                   <table class="table table-striped">
                     <thead>
                     <tr>
-                      <th>N°. movimiento </th>
-                      <th>Movimiento</th>
+                      <th>N°</th>
+                      <th>Fecha</th>
+                      <th>Tipo Movimiento</th>
+                      <th>Descripcion Movimiento</th>
                       <th>Cargue</th>
                       <th>Abono</th>
                       <th>Subtotal</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Saldo inicial</td>
-                      <td>$1,000,000</td>
-                      <td></td> 
-                      <td>$1,000,000</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Intereses inicial</td>
-                      <td>250,000</td>
-                      <td></td>
-                      <td>$1,250,000</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Gastos cobranzas</td>
-                      <td>187,500</td>
-                      <td> </td>
-                      <td>$1,437,500</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>Abono Pago CU 01</td>
-                      <td></td>
-                      <td>127,900</td>
-                      <td>$25.99</td>
-                    </tr>
+                      <tr v-for="(row,index) in extracto">
+                        <td>{{row.id_movement}}</td>
+                        <td>{{row.created_at}}</td>
+                        <td>{{row.type_movement_id}}</td> 
+                        <td>{{row.description_movement}}</td>
+                        <td>{{row.valor_cargue}}</td>
+                        <td>{{row.valor_abono}}</td>
+                        <td>{{row.total_deuda}}</td>
+                      </tr>
+                     
+                    
+
                     </tbody>
                   </table>
                 </div>
@@ -84,17 +76,8 @@
               <div class="row">
                 <!-- accepted payments column -->
                 <div class="col-6">
-                  <p class="lead">Payment Methods:</p>
-                  <img src="/storage/img/credit/visa.png" alt="Visa">
-                  <img src="/storage/img/credit/mastercard.png" alt="Mastercard">
-                  <img src="/storage/img/credit/american-express.png" alt="American Express">
-                  <img src="/storage/img/credit/paypal2.png" alt="Paypal">
-
-                  <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
-                    plugg
-                    dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-                  </p>
+                  
+                   
                 </div>
                 <!-- /.col -->
                 <div class="col-6">
@@ -149,7 +132,7 @@
     import AppLayout from '@/Layouts/AppLayout' 
 
     export default {
-        props: ['sessions'],
+        props: ['cliente','extracto'],
 
         components: {
             AppLayout, 
