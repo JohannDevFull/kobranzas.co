@@ -471,13 +471,13 @@
           idempleado: this.empleado, 
         })
         .then((response) => { 
-          $(document).Toasts('create',{
-            class: 'bg-success', 
-            title: 'Llamada 000',
-            subtitle: 'ok',
-            body: 'Exito al registrar llamada.'
-          }); 
-
+           Swal.fire({
+            icon: "success",
+            title: "Llamada Registrada",
+            text:"Éxito al Registrar Llamada",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           Inertia.reload({ only: ['llamadas'] },)
           Inertia.visit('/llamadas/create/'+this.cliente.id,{ preserveScroll: true }, { only: ['users'] });
         })
@@ -505,16 +505,19 @@
 
         })
         .then((response) => { 
-          $(document).Toasts('create',{
-            class: 'bg-success', 
-            title: 'Llamada 000',
-            subtitle: 'ok',
-            body: 'Exito al registrar llamada.'
-          }); 
-
+            Swal.fire({
+            icon: "success",
+            title: "Llamada Registrada",
+            text:"Éxito al Registrar Llamada",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           Inertia.reload({ only: ['llamadas'] },)
           Inertia.visit('/llamadas/create/'+this.cliente.id,{ preserveScroll: true }, { only: ['users'] });
-        })
+          axios.post('/llamadas/sendEmails',{notification:response.data.id}).catch((err)=>{
+          console.log(err);            
+          });
+          })
         .catch((error) => {
           this.errors = error. response.data;
           console.log("Este es el error"+error.response.data)

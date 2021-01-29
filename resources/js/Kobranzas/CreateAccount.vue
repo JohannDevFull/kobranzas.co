@@ -120,14 +120,13 @@ export default {
         cliente_id: this.id_cliente, 
       })
       .then((response)=>{ 
-        
-        $(document).Toasts('create',{
-          class: 'bg-success', 
-          title: 'Cuenta',
-          subtitle: 'ok',
-          body: 'Exito al registrar Cuenta.'
-        }); 
-
+        Swal.fire({
+            icon: "success",
+            title: "Cuenta Creada",
+            text:"Exito al registrar Cuenta.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         $("#CreateAccountModal").modal('hide');
         Inertia.reload({ only: ['cuenta'] },);
         Inertia.visit('/llamadas/agreement/'+this.id_cliente,{ only: ['cuenta'] });

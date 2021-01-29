@@ -36,7 +36,6 @@ class HistoryController extends Controller
     }
 
     $audits->where('nameUser','like','%'.$request->search.'%');
-
         return [
             'pagination' => [
                 'total' => $audits->total(),
@@ -47,7 +46,7 @@ class HistoryController extends Controller
                 'to' => $audits->lastPage(),
 
             ],
-            'audits' => $audits,
+            'audits' => $audits
 
         ];
     }

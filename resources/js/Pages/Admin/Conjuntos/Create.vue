@@ -185,14 +185,13 @@ export default {
           this.reset();
           this.errors = [];
           // toastr.success("Usuario Registrado");
-
-          $(document).Toasts("create", {
-            class: "bg-success",
+             Swal.fire({
+            icon: "success",
             title: "Conjunto creado",
-            subtitle: "ok",
-            body: "Exito al crear nuevo conjunto.",
+            text:"Éxito al crear nuevo Conjunto",
+            showConfirmButton: false,
+            timer: 1500,
           });
-
           this.reset();
         })
         .catch((error) => {

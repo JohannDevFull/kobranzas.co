@@ -16,6 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Auth;
 use OwenIt\Auditing\Contracts\Auditable;
+use App\Notifications\Notify;
 
 class User extends Authenticatable implements Auditable
 {
@@ -57,6 +58,5 @@ class User extends Authenticatable implements Auditable
     protected $appends = [
         'profile_photo_url',
     ];
-
 
 }

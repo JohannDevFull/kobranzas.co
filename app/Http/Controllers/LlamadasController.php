@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AgreementEvent;
+use App\Events\AgreementEventAdmin;
 use App\Models\Agreement;
+use App\Models\Buildings;
 use App\Models\Calls;
+use App\Models\Clients;
 use App\Models\Llamada;
 use App\Models\Movements;
 use App\Models\User;
 use App\Models\llamadas;
+use App\Models\Notification;
+use App\Notifications\Notify;
+use Carbon\Carbon;
 use Illuminate\Database\Query\orderBy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification as NotificationSend;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -292,7 +300,36 @@ class LlamadasController extends Controller
             'quotas'=>$request->cuotas,
             'observations'=>$request->observaciones,
         ]); 
+        $user=User::select('id','name','email')->find(Auth::user()->id)->first();
+        $client=Clients::select('users.id','users.name','clients.building_id','buildings.name_building')
+        ->join('users','clients.user_id','=','users.id')
+        ->join('buildings', 'clients.building_id', '=', 'buildings.id_building')
+        ->where('users.id','=',$request->cliente)->get();
+        $notificaction=Notification::create([
+            'from'=>$user,
+            'action'=>'hizo',
+            'notificable'=>'acuerdo',
+            'info'=>$client[0]
+        ]);
+    
+            return $notificaction;
   
+    }
+    public function sendEmails(Request $request)
+    {
+    
+        $id =$request->notification;
+        $when = Carbon::now()->addSecond(10);
+        $notifications = Notification::where('id','=',$id)->where('sent',0)->get();  
+        $info=json_decode($notifications[0]['info']);   
+        $conjunto=Buildings::where('id_building','=',$info->building_id)->get();
+        broadcast(new AgreementEvent($notifications[0]))->toOthers();
+        broadcast(new AgreementEventAdmin($notifications[0],$conjunto[0]))->toOthers();
+        $admin = User::select('id','name','email')->role('Admin')->get();
+        $admins = User::select('users.*')->where('users.id','=',$conjunto[0]->administrator_id)->get();
+        NotificationSend::send($admins, (new Notify($notifications[0]))->delay($when));
+        NotificationSend::send($admin, (new Notify($notifications[0]))->delay($when));
+        Notification::where('id','=',$id)->update(['sent'=> true]);
     }
 
     /**

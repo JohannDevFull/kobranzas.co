@@ -10,6 +10,7 @@ use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\StatementsController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,9 @@ Route::get('construir', BuildController::class)->name('construir');
 
 // PERMISOS USUARIO 
 Route::middleware(['auth'])->group(function () {
+    Route::post('/llamadas/sendEmails', [LlamadasController::class, 'sendEmails']);
+    Route::post('/notifications', [NotificationsController::class, 'getNotifications']);
+    Route::post('/markSeen', [NotificationsController::class, 'markAsSeen']);
     Route::post('chat/getContacts', [ChatController::class, 'getContacts']);
     Route::post('chat/getRequests', [ChatController::class, 'getRequestsChats'])
         ->middleware('permission:chat.index');

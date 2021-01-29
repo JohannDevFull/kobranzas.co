@@ -2165,6 +2165,7 @@ __webpack_require__.r(__webpack_exports__);
     chatRoom: function chatRoom(id, nombre) {
       var _this4 = this;
 
+      this.messages = [];
       axios.post("messages/getMessages", {
         from: this.userinfo.id,
         to: id
@@ -40281,7 +40282,7 @@ var main = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\kobranzas.co\resources\js\script.js */"./resources/js/script.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\kobranzas.co - copia (2)\resources\js\script.js */"./resources/js/script.js");
 
 
 /***/ })

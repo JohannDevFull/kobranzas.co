@@ -246,6 +246,7 @@ export default {
         });
     },
     chatRoom(id, nombre) {
+      this.messages=[];
       axios
         .post("messages/getMessages", {
           from: this.userinfo.id,

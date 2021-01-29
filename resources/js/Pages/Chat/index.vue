@@ -445,7 +445,7 @@ export default {
 
           }
           this.noty();
-          this.updateGuestStatus(e.guest[0].idTemp, false);
+          //this.updateGuestStatus(e.guest[0].idTemp, false);
           this.messageIncoming = true;
         }}
       );
@@ -531,22 +531,22 @@ export default {
           });
       }
     },
-    chatRoom(id, nombre, photo) {
-      if (this.idChat == id && this.contactId != "") {
+    chatRoom(idcontact, nombre, photo) {
+      if (this.idChat == idcontact && this.contactId != "" && !this.isGuest) {
         return;
       } else {
-        this.idChat = id;
+        this.idChat = idcontact;
         axios
           .post("messages/getMessages", {
             from: this.$page.user.id,
-            to: id,
+            to: this.idChat,
           })
           .then((resMessages) => {
             this.chatMode = true;
             this.messages = resMessages.data;
             this.contactName = nombre;
             this.user_photo = photo;
-            this.contactId = id;
+            this.contactId = idcontact;
             //this.isLoading=false;
             this.scroll();
           })
