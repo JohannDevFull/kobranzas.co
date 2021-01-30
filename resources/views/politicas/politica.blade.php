@@ -58,7 +58,10 @@
               <!---- foto logo--->
               <div class="rd-navbar-group">
                 <div class="rd-navbar-panel">
-                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button><a class="rd-navbar-brand brand" href="/"><img src=" {{ asset('storage/img/logo-defaul-143x27.png') }}" alt="" width="143" height="27"/></a>
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                  <a class="rd-navbar-brand brand" href="/">
+                    <img src=" {{ asset('storage/img/AdminLTELogo.png') }}" class="logo" alt="Abogados LSA" width="110" style="width: 65px" />
+                  </a>
                 </div>
                 <div class="rd-navbar-nav-wrap">
                   <div class="rd-navbar-nav-inner">

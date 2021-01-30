@@ -75,8 +75,8 @@ if(isset($_REQUEST['politica-cookies'])){
                   <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap">
                     <span></span>
                   </button>
-                  <a class="rd-navbar-brand brand" href="/">
-                    <img src=" {{ asset('storage/img/AdminLTELogo.png') }}" class="logo" alt="Abogados LSA" width="110" />
+                  <a class="rd-navbar-brand brand" href="#inicio">
+                    <img src=" {{ asset('storage/img/AdminLTELogo.png') }}" class="logo" alt="Abogados LSA" width="110" style="width: 65px" />
                   </a>
 
                 </div>
@@ -101,7 +101,7 @@ if(isset($_REQUEST['politica-cookies'])){
 
                     </div> 
                     <ul class="rd-navbar-nav">
-                      
+
                       <li class="active"><a href="#inicio">Inicio</a></li>
                       <li><a href="#servicios">Servicios</a></li>
                       <li><a href="#nosotros">Nosotros</a></li>
