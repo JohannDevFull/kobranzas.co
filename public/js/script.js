@@ -2500,7 +2500,7 @@ __webpack_require__.r(__webpack_exports__);
           this.errors = {
             errors: [["Por favor ingresa un nombre válido."]]
           };
-          this.guest = '';
+          this.guest = "";
           return false;
         } else {
           this.isLoading = !this.isLoading;
@@ -27407,6 +27407,8 @@ var render = function() {
                                         )
                                       ]),
                                       _vm._v(" "),
+                                      _c("br"),
+                                      _vm._v(" "),
                                       _c("input", {
                                         directives: [
                                           {
@@ -27447,8 +27449,6 @@ var render = function() {
                                           }
                                         }
                                       }),
-                                      _vm._v(" "),
-                                      _c("br"),
                                       _vm._v(" "),
                                       _c(
                                         "button",

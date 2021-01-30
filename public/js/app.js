@@ -67479,7 +67479,7 @@ var render = function() {
                                       "button",
                                       {
                                         staticClass: "btn disabled btn-tosel",
-                                        staticStyle: { width: "100%" }
+                                        staticStyle: { width: "100%!important" }
                                       },
                                       [
                                         _c(
