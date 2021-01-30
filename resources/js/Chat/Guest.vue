@@ -46,16 +46,16 @@
                       al chat de soporte y puedas solucionar tus dudas e
                       inconvenientes
                     </p>
-
+                    <br />
                     <input
-                      type="text"
+                      type="text"   
                       class="form-control"
                       placeholder="Tu nombre aquí"
-                      @keyup.enter="joinChat()"
+                      @keyup.enter="joinChat()"  
                       v-model="guest"
                       maxlength="35"
                     />
-                    <br />
+
                     <button
                       class="form-control btn btn-outline-dark center"
                       @click="joinChat()"
@@ -244,36 +244,34 @@ export default {
         this.guest = "";
         return;
       } else {
-        var regex=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+        var regex = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
 
-        if (!regex.test(this.guest)){
-               this.errors = {
-        errors: [["Por favor ingresa un nombre válido."]],
-      };
-            this.guest='';
-            return false;
-          }
-          else{
+        if (!regex.test(this.guest)) {
+          this.errors = {
+            errors: [["Por favor ingresa un nombre válido."]],
+          };
+          this.guest = "";
+          return false;
+        } else {
+          this.isLoading = !this.isLoading;
+        }
+        axios
+          .post("/chat/joinChat", {
+            nombre: this.guest,
+          })
+          .then((response) => {
             this.isLoading = !this.isLoading;
-          }
-          axios
-            .post("/chat/joinChat", {
-              nombre: this.guest,
-            })
-            .then((response) => {
-              this.isLoading = !this.isLoading;
-              this.userinfo = response.data;
+            this.userinfo = response.data;
 
-              this.isLoading = !this.isLoading;
-              this.errors = [];
-              this.messageIncomming();
-              this.enterChat();
-              this.deleteTempUser();
-            })
-            .catch((error) => {
-              this.errors = error.response.data;
-            });
-        
+            this.isLoading = !this.isLoading;
+            this.errors = [];
+            this.messageIncomming();
+            this.enterChat();
+            this.deleteTempUser();
+          })
+          .catch((error) => {
+            this.errors = error.response.data;
+          });
       }
     },
     chatRoom(id, nombre) {

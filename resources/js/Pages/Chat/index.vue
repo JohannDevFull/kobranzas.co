@@ -83,7 +83,7 @@
                                 guest.unread
                               }}</span>
                             </div>
-                          </div>
+                          </div>  
                         </div>
                         <!--                          -->
                         <button
@@ -91,7 +91,7 @@
                             guest.user_id != $page.user.id &&
                             guest.user_id != null
                           "
-                          style="width: 100%"
+                          style="width: 100%!important" 
                           class="btn disabled btn-tosel"
                         >
                           <div class="chat_list">

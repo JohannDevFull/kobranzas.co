@@ -58,7 +58,7 @@
               <!---- foto logo--->
               <div class="rd-navbar-group">
                 <div class="rd-navbar-panel">
-                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button><a class="rd-navbar-brand brand" href="index.html"><img src=" {{ asset('storage/img/logo-defaul-143x27.png') }}" alt="" width="143" height="27"/></a>
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button><a class="rd-navbar-brand brand" href="/"><img src=" {{ asset('storage/img/AdminLTELogo.png') }}" class="logo" alt="Abogados LSA" width="110" /></a>
                 </div>
                 <div class="rd-navbar-nav-wrap">
                   <div class="rd-navbar-nav-inner">
@@ -81,7 +81,7 @@
 
                     </div> 
                     <ul class="rd-navbar-nav">
-                      <li class="active"><a href="index.html">Inicio</a></li>
+                      <li class="active"><a href="/">Inicio</a></li>
                       <li><a href="about-us.html">Servicios</a></li>
                       <li><a href="about-us.html">Equipo</a></li>
                       <li><a href="about-us.html">Nosotros</a></li>
