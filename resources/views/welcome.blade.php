@@ -1,3 +1,16 @@
+<?php
+
+// Si han aceptado la política
+if(isset($_REQUEST['politica-cookies'])){
+    // Calculamos la caducidad, en este caso un año
+    $caducidad = time() + (60 * 60 * 24 * 365);
+    // Crea una cookie con la caducidad
+    setcookie('politica', 'aceptada', $caducidad); 
+    echo '<script type="text/javascript">
+            alert("N°:'.$_REQUEST['politica-cookies'].'Gracias por aceptar nuestras maliciosas politicas de cookies. ");
+        </script>';
+}
+?>
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
   <head>
@@ -13,7 +26,7 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('css/mycss.css') }}">
   </head>
-  <body>
+  <body onload="validacion()">
     <div class="preloader">
       <div class="preloader-body">
         <div class="cssload-container">
@@ -23,25 +36,25 @@
       </div>
     </div>
     <div class="page">
-      <header class="page-head">
-        <div class="rd-navbar-wrap">
+      <header id="inicio" class="page-head" >
+        <div class="rd-navbar-wrap" >
           <nav class="rd-navbar rd-navbar-default" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="53px" data-xl-stick-up-offset="53px" data-xxl-stick-up-offset="53px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
             <div class="rd-navbar-inner">
               <div class="rd-navbar-aside-wrap">
                 <div class="rd-navbar-aside">
                   <div class="rd-navbar-aside-toggle" data-rd-navbar-toggle=".rd-navbar-aside"><span></span></div>
                   <div class="rd-navbar-aside-content">
-                    <ul class="rd-navbar-aside-group list-units">
+                    <ul class="rd-navbar-aside-group list-units" >
                       <li>
                         <div class="unit unit-horizontal unit-spacing-xs align-items-center">
                           <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary material-icons-phone"></span></div>
-                          <div class="unit-body"><a class="link-dusty-gray" href="tel:#">314 441 2784</a></div>
+                          <div class="unit-body"><a class="" style="color: black"  href="tel:#">314 441 2784</a></div>
                         </div>
                       </li>
                       <li>
                         <div class="unit unit-horizontal unit-spacing-xs align-items-center">
                           <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span></div>
-                          <div class="unit-body"><a class="link-dusty-gray" href="mailto:#">lsaabogados2020@gmail.com</a></div>
+                          <div class="unit-body"><a style="color: black" class="" href="mailto:#">legalsuitsabogados@gmail.com</a></div>
                         </div>
                       </li>
                     </ul>
@@ -58,7 +71,12 @@
               <!---- foto logo--->
               <div class="rd-navbar-group">
                 <div class="rd-navbar-panel">
-                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button><a class="rd-navbar-brand brand" href="index.html"><img src=" {{ asset('storage/img/logo-defaul-143x27.png') }}" alt="" width="143" height="27"/></a>
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap">
+                    <span></span>
+                  </button>
+                  <a class="rd-navbar-brand brand" href="index.html">
+                    <img src=" {{ asset('storage/img/loggo777.png') }}" alt="" width="143" height="27"/>
+                  </a>
                 </div>
                 <div class="rd-navbar-nav-wrap">
                   <div class="rd-navbar-nav-inner">
@@ -81,11 +99,11 @@
 
                     </div> 
                     <ul class="rd-navbar-nav">
-                      <li class="active"><a href="index.html">Inicio</a></li>
-                      <li><a href="about-us.html">Servicios</a></li>
-                      <li><a href="about-us.html">Equipo</a></li>
-                      <li><a href="about-us.html">Nosotros</a></li>
-                      <li><a href="about-us.html">Contacto</a></li>
+                      <li class="active"><a href="#inicio">Inicio</a></li>
+                      <li><a href="#servicios">Servicios</a></li>
+                      <li><a href="#nosotros">Nosotros</a></li>
+                      <li><a href="#equipo">Equipo</a></li>
+                      <li><a href="#contactenos">Contacto</a></li>
                     </ul>
                 </div>
               </div>
@@ -96,6 +114,7 @@
 
       <section>
         <div class="swiper-container swiper-slider swiper-variant-1 bg-black" data-loop="false" data-autoplay="5500" data-simulate-touch="true">
+
           <div class="swiper-wrapper text-center">
             <div class="swiper-slide" data-slide-bg="{{ asset('storage/img/fondo1.jpg') }}">
               <div class="swiper-slide-caption text-center">
@@ -107,7 +126,11 @@
                       </div>
                       <h2 class="slider-header" data-caption-animate="fadeInUp" data-caption-delay="150">Siempre estás un paso adelante</h2>
                       <p class="text-bigger slider-text" data-caption-animate="fadeInUp" data-caption-delay="250">Las estrategias de nuestros abogados lo ayudarán a resolver problemas legales muy complejos.</p>
-                      <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="#">Solicite una consulta gratuita</a></div>
+                      <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400">
+                        <a class="button button-lg button-primary-outline-v2" href="#">
+                          Mas info.
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -129,7 +152,7 @@
                 </div>
               </div>
             </div>
-            <div class="swiper-slide" data-slide-bg="{{ asset('storage/img/fondo3.jpg') }}">
+            <div class="swiper-slide" data-slide-bg="{{ asset('storage/img/buildings.jpg') }}">
               <div class="swiper-slide-caption text-center">
                 <div class="container">
                   <div class="row justify-content-md-center">
@@ -154,8 +177,9 @@
         </div>
       </section>
 
-      <section class="section-50 section-md-75 section-lg-100">
+      <section id="servicios"  class="section-50 section-md-75 section-lg-100">
         <div class="container">
+          <h3 class="text-center">Servicios</h3>
           <div class="row row-40">
             <div class="col-md-6 col-lg-4 height-fill">
               <article class="icon-box">
@@ -203,7 +227,7 @@
         </div>
       </section>
 
-      <section class="bg-displaced-wrap">
+      <section id="nosotros" class="bg-displaced-wrap">
         <div class="bg-displaced-body">
           <div class="container">
             <div class="inset-xl-left-70 inset-xl-right-70">
@@ -220,7 +244,7 @@
                       <cite>Ryan Emberson</cite><small>CEO at LawExpert</small>
                     </div>
                   </blockquote>
-                  <div class="button-wrap inset-md-left-70"><a class="button button-responsive button-medium button-primary-outline-v2" href="#">Solicite una consulta gratuita</a></div>
+                  <div class="button-wrap inset-md-left-70"><a class="button button-responsive button-medium button-primary-outline-v2" href="#contactenos">Contactanos</a></div>
                 </div>
               </article>
             </div>
@@ -229,7 +253,7 @@
         <div class="bg-displaced bg-image" style="background-image: url(images/home-1.jpg);"></div>
       </section>
 
-      <section class="section-60 section-lg-100">
+      <section id="equipo" class="section-60 section-lg-100">
         <div class="container">
           <div class="row row-40 align-items-sm-end">
             <div class="col-sm-6 col-md-4 col-lg-3">
@@ -308,20 +332,20 @@
                 </div>
                 <div class="col-sm-6 col-md-3">
                   <div class="box-counter box-counter-inverse"><span class="novi-icon icon icon-lg-smaller icon-primary mercury-icon-scales"></span>
-                    <div class="text-large counter">23</div>
+                    <div class="text-large counter">2</div>
                     <p class="box-header">Años de experiencia</p>
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                   <div class="box-counter box-counter-inverse"><span class="novi-icon icon icon-lg-smaller icon-primary mercury-icon-partners"></span>
-                    <div class="text-large counter counter-percent">98</div>
+                    <div class="text-large counter counter-percent">90</div>
                     <p class="box-header">Casos exitosos</p>
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                   <div class="box-counter box-counter-inverse"><span class="novi-icon icon icon-lg icon-primary mercury-icon-case"></span>
-                    <div class="text-large counter">7500</div>
-                    <p class="box-header">Casos de lesiones personales</p>
+                    <div class="text-large counter">750</div>
+                    <p class="box-header">Casos de lesiones intrafamiliares</p>
                   </div>
                 </div>
               </div>
@@ -393,12 +417,12 @@
         </div>
       </section>
 
-      <section class="bg-whisper">
+      <section id="contactenos" class="bg-whisper">
         <div class="container">
           <div class="row">
             <div class="col-md-10 col-lg-9 col-xl-7">
               <div class="section-50 section-md-75 section-xl-100">
-                <h3>Consulta gratis</h3>
+                <h3>Contactanos</h3>
                 <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
                   <div class="row row-30">
                     <div class="col-md-6">
@@ -427,6 +451,9 @@
                           <option value="Family Law">Ley familiar</option>
                           <option value="Business Law">Derecho empresarial</option>
                           <option value="Civil Litigation">Juicio civil</option>
+                          <option value="Civil Litigation">Propiedad horizontal</option>
+                          <option value="Civil Litigation">Inmoviliario</option>
+
                         </select>
                       </div>
                     </div>
@@ -439,7 +466,9 @@
                     <div class="col-12">
                       <div class="row">
                         <div class="col-md-6">
-                          <button class="button button-block button-primary" type="submit">Solicite una consulta gratuita</button>
+                          <button class="button button-block button-primary" type="submit">
+                            ENVIAR
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -448,12 +477,14 @@
               </div>
             </div>
             <div class="col-xl-5 d-none d-xl-block">
-              <div style="margin-top: -40px;"><img src="{{ asset('storage/img/home-4-472x753.png') }}" alt="" width="472" height="753"/>
+              <div style="margin-top: 20px;">
+                <img src="{{ asset('storage/img/home-4-472x753.jpg') }}" alt="" width="472" height="753"/>
               </div>
             </div>
           </div>
         </div>
       </section>
+
       <section class="section-50 section-md-75 section-xl-100">
         <div class="container">
           <h3 class="text-center">Últimas noticias</h3>
@@ -539,13 +570,12 @@
                   <div class="col-md-6 col-lg-10 col-xl-3">
                     <div class="inset-xl-right-20" style="max-width: 510px;"><a class="brand" href="index.html"><img src="{{ asset('storage/img/logo-inverse-143x28.png') }}" alt="" width="143" height="28"/></a>
                       <p>
-                        If you or your business is facing a legal
-                        challenge that calls for sound advice and skilled representation, contact us today to arrange a free  consultation with an attorney.
-                      </p><a class="link link-group link-group-animated link-bold link-white" href="#"><span>Free Consultation</span><span class="novi-icon icon icon-xxs icon-primary fa fa-angle-right"></span></a>
+                        Si usted o su empresa se enfrentan a un desafío legal que requiere un asesoramiento sólido y una representación calificada, contáctenos hoy para programar una consulta personalizaad con un abogado.
+                      </p><a class="link link-group link-group-animated link-bold link-white" href="#contactenos"><span>Contactanos</span><span class="novi-icon icon icon-xxs icon-primary fa fa-angle-right"></span></a>
                     </div>
                   </div>
                   <div class="col-md-6 col-lg-4 col-xl-3">
-                    <p class="h7">Recent Posts</p>
+                    <p class="h7">MENSAJES RECIENTES</p>
                           <article class="post post-preview post-preview-inverse"><a href="#">
                               <div class="unit unit-horizontal unit-spacing-lg">
                                 <div class="unit-left">
@@ -554,14 +584,14 @@
                                 </div>
                                 <div class="unit-body">
                                   <div class="post-header">
-                                    <p>Help Us Make the Law Accessible for Everyone</p>
+                                    <p>Ayúdanos a hacer que la ley sea accesible para todos</p>
                                   </div>
                                   <div class="post-meta">
                                     <ul class="list-meta">
                                       <li>
-                                        <time datetime="2019-06-23">June 23, 2019 </time>
+                                        <time datetime="2019-06-23">23 de junio de 2019  </time>
                                       </li>
-                                      <li>3 Comments</li>
+                                      <li>3 comentarios</li>
                                     </ul>
                                   </div>
                                 </div>
@@ -574,54 +604,56 @@
                                 </div>
                                 <div class="unit-body">
                                   <div class="post-header">
-                                    <p>Legal Documents Every Landlord Needs </p>
+                                    <p>Documentos legales que todo propietario necesita</p>
                                   </div>
                                   <div class="post-meta">
                                     <ul class="list-meta">
                                       <li>
-                                        <time datetime="2019-06-23">June 20, 2019</time>
+                                        <time datetime="2019-06-23">20 de junio de 2019</time>
                                       </li>
-                                      <li>3 Comments</li>
+                                      <li>3 comentarios</li>
                                     </ul>
                                   </div>
                                 </div>
                               </div></a></article>
                   </div>
                   <div class="col-md-6 col-lg-4 col-xl-3">
-                    <p class="h7">Quick links</p>
+                    <p class="h7">ENLACES RÁPIDOS</p>
                     <div class="row" style="max-width: 270px;">
                       <div class="col-6">
                         <ul class="list-marked-variant-2">
-                          <li><a href="index.html">Home</a></li>
-                          <li><a href="#">Services</a></li>
+                          <li><a href="#inicio">Inicio</a></li>
+                          <li><a href="#servicios">Services</a></li>
                           <li><a href="#">Careers</a></li>
                           <li><a href="#">Blog</a></li>
                         </ul>
                       </div>
                       <div class="col-6">
                         <ul class="list-marked-variant-2">
-                          <li><a href="about-us.html">About us</a></li>
-                          <li><a href="contact-us.html">Contacts</a></li>
-                          <li><a href="#">Ingresar</a></li>
+                          <li><a href="#nosotros">Nosotros</a></li>
+                          <li><a href="contact-us.html">Contactanos</a></li>
+                          <li><a href="/login">Ingresar</a></li>
+                          <li><a href="/politica">Politica cookies</a></li>
                         </ul>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-6 col-lg-4 col-xl-3">
-                    <p class="h7">Contact us</p>
+                    <p class="h7">Contactanos</p>
                     <address class="contact-info text-left">
                       <div class="unit unit-horizontal unit-spacing-md align-items-center">
                         <div class="unit-left"><span class="novi-icon icon icon-xs icon-storm-gray material-icons-phone"></span></div>
-                        <div class="unit-body"><a class="link-white" href="tel:#">+123 234 984 47 45</a></div>
+                        <div class="unit-body"><a class="link-white" href="tel:#">314 441 2784</a></div>
                       </div>
                       <div class="unit unit-horizontal unit-spacing-md align-items-center">
                         <div class="unit-left"><span class="novi-icon icon icon-xs icon-storm-gray fa fa-envelope-o"></span></div>
-                        <div class="unit-body"><a class="link-white" href="mailto:#">info@demolink.org</a></div>
+                        <div class="unit-body">
+                          <a class="link-white" href="mailto:#">
+                            legalsuitsabogados@gmail.com
+                          </a>
+                        </div>
                       </div>
-                      <div class="unit unit-horizontal unit-spacing-md">
-                        <div class="unit-left"><span class="novi-icon icon icon-xs icon-storm-gray material-icons-place"></span></div>
-                        <div class="unit-body"><a class="link-white d-inline" href="#">6036 Richmond hwy,<br>Alexandria, VA USA 22303</a></div>
-                      </div>
+                      
                     </address>
                   </div>
                 </div>
@@ -660,28 +692,120 @@
       <source src="storage/img/pop.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
-
+ 
+  <div id="chatc">
+    
     <div id="main">
       @hasanyrole('Admin|Trabajador|AdminConjunto')
 
-
-
-      @else
-      @role('Cliente')
-      <chatwidget />
-      @else
-      @endrole
-      <chatguest />
+        @else
+        @role('Cliente')
+        <chatwidget />
+        @else
+        @endrole
+        <chatguest />
     </div>
-    @endhasanyrole
+      @endhasanyrole 
+  </div>
+
 
 
   </div>
 
+  <style type="text/css">
+    .cook{
+      position: fixed;
+      z-index: 10;
+      color: white;
+      background-color: black;
+      width: 100%;
+      height: 85px;
+      bottom: 0px;
+    }
+    .cookies{
+      display: flex;
+      position: absolute;
+      top: 25px;
+    }
+  </style>
+  <?php if (!isset($_COOKIE['politica'])): ?>
+            <!-- Mensaje de cookies -->
+            <div class="cook" id="cookie">
+                
+                <div class="cookies" >
+                    <!-- Titulo -->
+                    <h4  style="color: white ;margin-left:90px;margin-top: 5px ">Politica de Cookies</h4>
+                    <!-- Descripción con enlace -->
+                    <p class="" style="height:30px;margin-left:50px;margin-top: 10px; font-size: 16px" >
+                        <span > ¿Aceptas nuestras </span> 
+                        <a style="color: rgb(0, 158, 207);"  href="/info">política de Cookies</a>?
+                    </p>
+
+                  <div style="margin-left:125px; ">
+                    
+
+                    <!-- Botón para aceptar -->
+                    <button type="button" class="btn bg-success" style="margin-right: 20px;color: white" onclick="aceptar()">
+                        Si, con todas sus consecuencias.
+                    </button>
+     
+                    <!-- Botón para NO aceptar -->
+                    <button type="button" class="btn bg-danger" style="margin:auto;margin-right: 15px;color: white;text-align: center;" onclick="rechazar()">
+                      
+                        No, gracias.
+                    </button>
+                      
+                    
+                  </div>
+                        
+                </div>
+            
+            </div>
+  <?php endif; ?>
     <script src="{{asset('js/script.js')}}"></script>
     <script src="{{asset('js/core.min.js')}}"></script>
-    <script src="{{asset('js/script2.js')}}"></script>
-    
+    <script src="{{asset('js/script2.js')}}"></script> 
+
+    <script type="text/javascript">
+        function rechazar(){
+
+            var x = document.getElementById("cookie");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            } 
+
+        }
+
+        function aceptar(){
+            document.cookie="politica=aceptada"
+            var x = document.getElementById("cookie");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+            var x = document.getElementById("chatc");
+            x.style.display = "block";
+        }
+
+        function validacion(){ 
+            var politica = document.cookie.replace(/(?:(?:^|.*;\s*)politica\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+            var x = document.getElementById("chatc");
+            if (politica){
+            }
+            else
+            {
+              x.style.display = "none";
+            }
+        }
+
+    </script>
+
+
 
   </body>
 </html>
+                      

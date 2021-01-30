@@ -49,6 +49,10 @@ Route::delete('chat/endChat/{id}', [ChatController::class, 'endChat']);
 
 // PAGINA EN CONSTRUCCION
 Route::get('construir', BuildController::class)->name('construir');
+// SISTEMA
+Route::get('politica',  function () {
+    return view('politicas.politica');
+});
 
 // PERMISOS USUARIO 
 Route::middleware(['auth'])->group(function () {
