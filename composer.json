@@ -1,12 +1,23 @@
 {
-    "name": "laravel/laravel",
+    "name": "jtwo/LSA_Abogados",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Sitio web y aplicacion crm para la empresa LSA Abogados M&C S.A.S.",
     "keywords": [
         "framework",
         "laravel"
     ],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Johan Reyes",
+            "email": "reyesjohan665@gmail.com"
+        },
+        {
+            "name": "Johann Ramìrez",
+            "email": "johann.devfull@gmail.com"
+        }
+    ],
+
     "require": {
         "php": "^7.3|^8.0",
         "fideloper/proxy": "^4.4",
