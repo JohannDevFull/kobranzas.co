@@ -2166,7 +2166,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       this.messages = [];
-      axios.post("messages/getMessages", {
+      axios.post("/messages/getMessages", {
         from: this.userinfo.id,
         to: id
       }).then(function (resMessages) {
@@ -2195,7 +2195,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         this.message = "";
         this.scroll();
-        axios.post("messages/sendMessage", {
+        axios.post("/messages/sendMessage", {
           id: this.userinfo.id,
           contact_id: this.contactId,
           text: msg
@@ -2527,7 +2527,7 @@ __webpack_require__.r(__webpack_exports__);
     chatRoom: function chatRoom(id, nombre) {
       var _this5 = this;
 
-      axios.post("messages/guestMessages", {
+      axios.post("/messages/guestMessages", {
         from: this.userinfo.idTemp,
         to: id
       }).then(function (resMessages) {
@@ -2556,7 +2556,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         this.message = "";
         this.scroll();
-        axios.post("messages/sendMessageToGuest", {
+        axios.post("/messages/sendMessageToGuest", {
           id: this.userinfo.idTemp,
           contact_id: this.contactId,
           text: msg,

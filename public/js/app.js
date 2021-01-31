@@ -2192,7 +2192,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       this.messages = [];
-      axios.post("messages/getMessages", {
+      axios.post("/messages/getMessages", {
         from: this.userinfo.id,
         to: id
       }).then(function (resMessages) {
@@ -2221,7 +2221,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         this.message = "";
         this.scroll();
-        axios.post("messages/sendMessage", {
+        axios.post("/messages/sendMessage", {
           id: this.userinfo.id,
           contact_id: this.contactId,
           text: msg
@@ -6578,7 +6578,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -6665,9 +6664,8 @@ __webpack_require__.r(__webpack_exports__);
               _this.notification = true;
             }
           }
-        }
+        } // this.chatRoom(this.contactId, this.contactName, this.user_photo);
 
-        _this.chatRoom(_this.contactId, _this.contactName, _this.user_photo);
       });
     }, 100);
     setTimeout(function () {
@@ -6679,7 +6677,7 @@ __webpack_require__.r(__webpack_exports__);
     }, 100);
     setTimeout(function () {
       Echo.channel("guestSend.".concat(_this.$page.user.id)).listen("GuestSendMessage", function (e) {
-        if (e.message.to == _this.$page.user.id && _this.isGuest) {
+        if (e.message.to == _this.$page.user.id) {
           if (_this.contactId != e.message.from) {
             _this.noty();
 
@@ -6770,7 +6768,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       } else {
         this.idChat = id;
-        axios.post("messages/getGuestMessages", {
+        axios.post("/messages/getGuestMessages", {
           from: this.$page.user.id,
           to: id
         }).then(function (resMessages) {
@@ -6799,9 +6797,9 @@ __webpack_require__.r(__webpack_exports__);
         return;
       } else {
         this.idChat = idcontact;
-        axios.post("messages/getMessages", {
+        axios.post("/messages/getMessages", {
           from: this.$page.user.id,
-          to: this.idChat
+          to: idcontact
         }).then(function (resMessages) {
           _this6.chatMode = true;
           _this6.messages = resMessages.data;
@@ -6832,7 +6830,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         this.message = "";
         this.scroll();
-        axios.post("messages/sendMessage", {
+        axios.post("/messages/sendMessage", {
           id: this.$page.user.id,
           contact_id: this.contactId,
           text: msg
@@ -6863,7 +6861,7 @@ __webpack_require__.r(__webpack_exports__);
           _this7.isLoading = true;
           _this7.messages = [];
           _this7.contactId = "";
-          axios["delete"]("chat/endChat/" + idTemp).then(function (response) {
+          axios["delete"]("/chat/endChat/" + idTemp).then(function (response) {
             if (window.window.innerWidth > 785) {} else {
               $("#user-friends").removeClass("hide");
               $("#inboxChat").removeClass("vis");
@@ -6908,7 +6906,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         this.messageGuest = "";
         this.scroll();
-        axios.post("messages/sendMessageToGuest", {
+        axios.post("/messages/sendMessageToGuest", {
           id: this.$page.user.id,
           contact_id: this.contactId,
           text: msg
@@ -67479,7 +67477,9 @@ var render = function() {
                                       "button",
                                       {
                                         staticClass: "btn disabled btn-tosel",
-                                        staticStyle: { width: "100%!important" }
+                                        staticStyle: {
+                                          width: "100% !important"
+                                        }
                                       },
                                       [
                                         _c(
