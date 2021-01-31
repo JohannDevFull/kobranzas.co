@@ -248,7 +248,7 @@ export default {
     chatRoom(id, nombre) {
       this.messages=[];
       axios
-        .post("messages/getMessages", {
+        .post("/messages/getMessages", {
           from: this.userinfo.id,
           to: id,
         })
@@ -278,7 +278,7 @@ export default {
         });
         this.message = "";
         this.scroll();
-        axios.post("messages/sendMessage", {
+        axios.post("/messages/sendMessage", {
           id: this.userinfo.id,
           contact_id: this.contactId,
           text: msg,

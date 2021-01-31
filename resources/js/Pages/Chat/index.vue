@@ -83,7 +83,7 @@
                                 guest.unread
                               }}</span>
                             </div>
-                          </div>  
+                          </div>
                         </div>
                         <!--                          -->
                         <button
@@ -91,7 +91,7 @@
                             guest.user_id != $page.user.id &&
                             guest.user_id != null
                           "
-                          style="width: 100%!important" 
+                          style="width: 100% !important"
                           class="btn disabled btn-tosel"
                         >
                           <div class="chat_list">
@@ -283,7 +283,6 @@
                           class="form-control write_msg"
                           placeholder="Escribe un Mesaje.."
                           v-model="message"
-                      
                           @keyup.enter="sendMessage()"
                         />
                         <button
@@ -394,23 +393,22 @@ export default {
               to: e.message.to,
               text: e.message.text,
             });
-
             if (
               (this.enabled && !this.seeContacts) ||
               (this.enabled && this.chatMode)
             ) {
               this.scroll();
-            } 
+            }
             this.scroll();
-        this.updateUnreadCount(e.message.from, false);
+            this.updateUnreadCount(e.message.from, false);
             this.noty();
             if (!this.enabled) {
               this.notification = true;
             }
           }
         }
-        this.chatRoom(this.contactId, this.contactName, this.user_photo);
         
+        // this.chatRoom(this.contactId, this.contactName, this.user_photo);
       });
     }, 100);
     setTimeout(() => {
@@ -424,30 +422,28 @@ export default {
       Echo.channel(`guestSend.${this.$page.user.id}`).listen(
         "GuestSendMessage",
         (e) => {
-          
-          if (e.message.to == this.$page.user.id && this.isGuest) {
+          if (e.message.to == this.$page.user.id ) {
             if (this.contactId != e.message.from) {
               this.noty();
               this.updateUnreadGuest(e.message.from, false);
               this.messageIncoming = true;
+            } else {
+              this.noty();
+              this.updateUnreadGuest(e.message.from, false);
+              this.messageIncoming = true;
+
+              this.chatRoomGuest(
+                e.guest[0].idTemp,
+                e.guest[0].name,
+                e.guest[0].photo,
+                e.guest[0].user_id
+              );
             }
-            else{
             this.noty();
-            this.updateUnreadGuest(e.message.from, false);
+            //this.updateGuestStatus(e.guest[0].idTemp, false);
             this.messageIncoming = true;
-
-            this.chatRoomGuest(
-              e.guest[0].idTemp,
-              e.guest[0].name,
-              e.guest[0].photo,
-              e.guest[0].user_id
-            );
-
           }
-          this.noty();
-          //this.updateGuestStatus(e.guest[0].idTemp, false);
-          this.messageIncoming = true;
-        }}
+        }
       );
     }, 100);
     setTimeout(() => {
@@ -509,7 +505,7 @@ export default {
       } else {
         this.idChat = id;
         axios
-          .post("messages/getGuestMessages", {
+          .post("/messages/getGuestMessages", {
             from: this.$page.user.id,
             to: id,
           })
@@ -537,9 +533,9 @@ export default {
       } else {
         this.idChat = idcontact;
         axios
-          .post("messages/getMessages", {
+          .post("/messages/getMessages", {
             from: this.$page.user.id,
-            to: this.idChat,
+            to: idcontact,
           })
           .then((resMessages) => {
             this.chatMode = true;
@@ -572,7 +568,7 @@ export default {
         });
         this.message = "";
         this.scroll();
-        axios.post("messages/sendMessage", {
+        axios.post("/messages/sendMessage", {
           id: this.$page.user.id,
           contact_id: this.contactId,
           text: msg,
@@ -605,7 +601,7 @@ export default {
             this.isLoading = true;
             this.messages = [];
             this.contactId = "";
-            axios.delete("chat/endChat/" + idTemp).then((response) => {
+            axios.delete("/chat/endChat/" + idTemp).then((response) => {
               if (window.window.innerWidth > 785) {
               } else {
                 $("#user-friends").removeClass("hide");
@@ -659,7 +655,7 @@ export default {
         });
         this.messageGuest = "";
         this.scroll();
-        axios.post("messages/sendMessageToGuest", {
+        axios.post("/messages/sendMessageToGuest", {
           id: this.$page.user.id,
           contact_id: this.contactId,
           text: msg,
@@ -677,7 +673,8 @@ export default {
 
         return single;
       });
-    },updateUnreadGuest(guest, reset) {
+    },
+    updateUnreadGuest(guest, reset) {
       this.guests = this.guests.map((gue) => {
         if (gue.idTemp != guest) {
           return gue;
