@@ -8,7 +8,7 @@
 
     <div class="chat-widget-container" v-if="!enabled" @click="toggle()">
       <div class="chat-widget-text">
-        <p class="heading">CHAT EN VIVO</p>
+        <p class="heading">CHAT DE CONTACTO</p>
 
         <p>¿Cómo te podemos ayudar?</p>
       </div>

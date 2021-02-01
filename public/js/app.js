@@ -60671,7 +60671,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "chat-widget-text" }, [
-      _c("p", { staticClass: "heading" }, [_vm._v("CHAT EN VIVO")]),
+      _c("p", { staticClass: "heading" }, [_vm._v("CHAT DE CONTACTO")]),
       _vm._v(" "),
       _c("p", [_vm._v("¿Cómo te podemos ayudar?")])
     ])

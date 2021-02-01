@@ -12,7 +12,7 @@
     </audio>
     <div class="chat-widget-container" v-if="!enabled" @click="toggle()">
       <div class="chat-widget-text">
-        <p class="heading">CHAT EN VIVO</p>
+        <p class="heading">CHAT DE CONTACTO</p>
 
         <p>¿Cómo te podemos ayudar?</p>
       </div>
@@ -33,7 +33,7 @@
               <div class="form-group text-center">
                 <div class="chat-box-welcome__welcome-text">
                   <div v-if="isLoading">
-                    <p class="text-wait">
+                    <p class="text-wait soomuchstyle">
                       Espera por favor, nuestros empleados estan un poco
                       ocupados por el momento, pero no te preocupes te atenderán
                       en breve. <br /><strong>No abandones la pagina</strong>
@@ -41,30 +41,47 @@
                     <Loader />
                   </div>
                   <div v-if="!isLoading">
-                    <p class="text-wel">
+                    <p class="text-wel soomuchstyle">
                       Hola, por favor ingresa tu nombre para que puedas ingresar
                       al chat de soporte y puedas solucionar tus dudas e
                       inconvenientes
                     </p>
                     <br />
                     <input
-                      type="text"   
-                      class="form-control"
-                      placeholder="Tu nombre aquí"
-                      @keyup.enter="joinChat()"  
+                      type="text"
+                      class="form-control form-inpt"
+                      placeholder="ingresa tu nombre"
+                      @keyup.enter="joinChat()"
                       v-model="guest"
                       maxlength="35"
                     />
-
+                    <input
+                      type="text"
+                      class="form-control form-inpt"
+                      placeholder="ingresa tu correo"
+                      @keyup.enter="joinChat()"
+                      v-model="email"
+                      maxlength="35"
+                    />
+                    <input
+                      type="text"
+                      class="form-control form-inpt"
+                      placeholder="ingresa tu número identificación"
+                      @keyup.enter="joinChat()"
+                      v-model="number"
+                      maxlength="35"
+                    />
+                   
                     <button
                       class="form-control btn btn-outline-dark center"
                       @click="joinChat()"
                     >
                       Entrar
                     </button>
-                    <ul v-for="error in errors.errors">
+                      <ul v-for="error in errors.errors">
                       <li class="required">{{ error[0] }}</li>
                     </ul>
+
                   </div>
                 </div>
               </div>
@@ -136,6 +153,8 @@ export default {
       userinfo: "",
       enabled: false,
       guest: "",
+      email:'',
+      number:'',
       contacts: [],
       unread: "",
       chatMode: false,
@@ -240,30 +259,30 @@ export default {
       });
     },
     joinChat() {
-      if (this.guest.trim() == "") {
-        this.guest = "";
-        return;
-      } else {
-        var regex = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+      // if (this.guest.trim() == "") {
+      //   this.guest = "";
+      //   return;
+      // } else {
+      //   var regex = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
 
-        if (!regex.test(this.guest)) {
-          this.errors = {
-            errors: [["Por favor ingresa un nombre válido."]],
-          };
-          this.guest = "";
-          return false;
-        } else {
-          this.isLoading = !this.isLoading;
-        }
+      //   if (!regex.test(this.guest)) {
+      //     this.errors = {
+      //       errors: [["Por favor ingresa un nombre válido."]],
+      //     };
+      //     this.guest = "";
+      //     return false;
+      //   } else {
+      //     
+      //   }
+      this.isLoading = !this.isLoading;
         axios
           .post("/chat/joinChat", {
             nombre: this.guest,
+            correo: this.email,
+            documento: this.number
           })
           .then((response) => {
-            this.isLoading = !this.isLoading;
             this.userinfo = response.data;
-
-            this.isLoading = !this.isLoading;
             this.errors = [];
             this.messageIncomming();
             this.enterChat();
@@ -271,8 +290,9 @@ export default {
           })
           .catch((error) => {
             this.errors = error.response.data;
+            this.isLoading = false;
           });
-      }
+      // }
     },
     chatRoom(id, nombre) {
       axios
@@ -345,4 +365,16 @@ export default {
     },
   },
 };
-</script>
+</script> 
+<style lang="css">
+.form-inpt {
+  margin-bottom: 12px;
+  padding: 0px 14px!important;
+  border: 3px solid rgb(13, 66, 97);
+  height: 4rem;
+}
+.soomuchstyle{
+      font-weight: 600;
+    font-size: 1.6rem;
+}
+</style>

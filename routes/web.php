@@ -13,6 +13,7 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\StatementsController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('/artisan/migrate', function(){
+    Artisan::call('migrate:fresh');
+    Artisan::call('db:seed');
+    return redirect('/');
+});
 
 Route::post('chat/joinChat', [ChatController::class, 'joinChat']);
 
