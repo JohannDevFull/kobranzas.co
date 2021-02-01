@@ -77696,10 +77696,8 @@ var staticRenderFns = [
     return _c("div", [
       _c("footer", { staticClass: "main-footer" }, [
         _c("strong", [
-          _vm._v("Copyright © 2020-2020 "),
-          _c("a", { attrs: { href: "http://adminlte.io" } }, [
-            _vm._v("kobranzas.com")
-          ]),
+          _vm._v("Copyright © 2020-2021 "),
+          _c("a", { attrs: { href: "http://jtwo.tk" } }, [_vm._v("jtwo.tk")]),
           _vm._v(".")
         ]),
         _vm._v("\n   All rights reserved.\n   \n   "),

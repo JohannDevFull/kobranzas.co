@@ -797,7 +797,7 @@ if(isset($_REQUEST['politica-cookies'])){
                   <div>
                     <p class="pregunta"  >
                         <span > ¿Aceptas nuestras </span> 
-                        <a style="color: rgb(0, 158, 207);"  href="/info">política de Cookies</a>?
+                        <a style="color: rgb(0, 158, 207);"  href="/politica">política de Cookies</a>?
                     </p>
                   </div>
                     
