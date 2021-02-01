@@ -14,6 +14,8 @@ class CreateTempUsersTable extends Migration
             $table->id();
             $table->string('idTemp');
             $table->string('name');
+            $table->string('email');
+            $table->string('document');
             $table->boolean('status')->default(false);
             $table->foreignId('user_id')->nullable()
             ->references('id')->on('users')

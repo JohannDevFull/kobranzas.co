@@ -58,7 +58,9 @@ class ChatController extends Controller
     public function joinChat(Request $request, TempUser $tempUser)
     {
         $this->validate($request, [
-            'nombre' => 'required|regex:/^[\pL\s\-]+$/u'
+            'nombre' => 'required|regex:/^[\pL\s\-]+$/u',
+            'correo'=> 'required|email',
+            'documento'=>'required'
         ]);
         $lastId = TempUser::all() -> last();
         if (!$lastId) {
@@ -71,6 +73,8 @@ class ChatController extends Controller
         $id = 'Invitado' . $lastId . rand(1, 99999);
         $tempUser->idTemp = $id;
         $tempUser->name = $request->nombre;
+        $tempUser->email = $request->correo;
+        $tempUser->document = $request->documento;
         $tempUser->save();
         broadcast(new GuestJoinChat($tempUser, $id))->toOthers();
         return $tempUser;
