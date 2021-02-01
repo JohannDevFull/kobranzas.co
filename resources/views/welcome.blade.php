@@ -731,6 +731,58 @@ if(isset($_REQUEST['politica-cookies'])){
       position: absolute;
       top: 25px;
     }
+
+    .caja-botones{
+        margin-left: 50px;
+    }
+
+    .coo-title{
+        margin-left: 25px;
+        color: white ;
+    }
+    .pregunta{
+      height:30px;margin-left:50px;margin-top: 10px; font-size: 16px;
+    }
+
+    @media (max-width: 575px) {
+      .cook{
+        position: fixed;
+        z-index: 10;
+        color: white;
+        background-color: black;
+        width: 100%;
+        height: 134px;
+        bottom: 0px;
+      }
+
+      .cookies{
+        display: grid;
+        grid-template-columns: repeat(3);
+        width: 100%;
+        position: absolute;
+        top: 0px;
+      }
+
+      .coo-title{
+        grid-column: 0 / 2;
+        grid-row: 1;
+        text-align: center;
+        margin-top: 2%;
+      }
+      .pregunta{
+        grid-row: 2;
+        grid-column: 1 / 3;
+        text-align: center;
+        margin-left: 0px;
+        margin-top: 2%;
+      }
+      .caja-botones{
+        margin-left: 6%;
+        margin-top: 2%;
+        text-align: center;
+
+      }
+    }
   </style>
   <?php if (!isset($_COOKIE['politica'])): ?>
             <!-- Mensaje de cookies -->
@@ -738,28 +790,32 @@ if(isset($_REQUEST['politica-cookies'])){
                 
                 <div class="cookies" >
                     <!-- Titulo -->
-                    <h4  style="color: white ;margin-left:90px;margin-top: 5px ">Politica de Cookies</h4>
+                  <div >
+                    <h4 class="coo-title">Politica de Cookies</h4>
+                  </div>
                     <!-- Descripción con enlace -->
-                    <p class="" style="height:30px;margin-left:50px;margin-top: 10px; font-size: 16px" >
+                  <div>
+                    <p class="pregunta"  >
                         <span > ¿Aceptas nuestras </span> 
                         <a style="color: rgb(0, 158, 207);"  href="/info">política de Cookies</a>?
                     </p>
+                  </div>
+                    
 
-                  <div style="margin-left:125px; ">
+                    
+                  <div class="caja-botones" >
                     
 
                     <!-- Botón para aceptar -->
                     <button type="button" class="btn bg-success" style="margin-right: 20px;color: white" onclick="aceptar()">
-                        Si, con todas sus consecuencias.
+                        Aceptar
                     </button>
      
                     <!-- Botón para NO aceptar -->
                     <button type="button" class="btn bg-danger" style="margin:auto;margin-right: 15px;color: white;text-align: center;" onclick="rechazar()">
                       
                         No, gracias.
-                    </button>
-                      
-                    
+                    </button>       
                   </div>
                         
                 </div>
