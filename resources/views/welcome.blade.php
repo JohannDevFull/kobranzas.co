@@ -48,13 +48,17 @@ if(isset($_REQUEST['politica-cookies'])){
                       <li>
                         <div class="unit unit-horizontal unit-spacing-xs align-items-center">
                           <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary material-icons-phone"></span></div>
-                          <div class="unit-body"><a class="" style="color: black"  href="tel:#">314 441 2784</a></div>
+                          <div class="unit-body"><a class="" style="color: black"  href="tel:314 441 2784">314 441 2784</a></div>
                         </div>
                       </li>
                       <li>
                         <div class="unit unit-horizontal unit-spacing-xs align-items-center">
                           <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span></div>
-                          <div class="unit-body"><a style="color: black" class="" href="mailto:#">legalsuitsabogados@gmail.com</a></div>
+                          <div class="unit-body">
+                            <a style="color: black" class="" href="mailto:gerenciajuridica@lsa.com.co">
+                              gerenciajuridica@lsa.com.co
+                            </a>
+                          </div>
                         </div>
                       </li>
                     </ul>
@@ -647,13 +651,13 @@ if(isset($_REQUEST['politica-cookies'])){
                     <address class="contact-info text-left">
                       <div class="unit unit-horizontal unit-spacing-md align-items-center">
                         <div class="unit-left"><span class="novi-icon icon icon-xs icon-storm-gray material-icons-phone"></span></div>
-                        <div class="unit-body"><a class="link-white" href="tel:#">314 441 2784</a></div>
+                        <div class="unit-body"><a class="link-white" href="tel:314 441 2784">314 441 2784</a></div>
                       </div>
                       <div class="unit unit-horizontal unit-spacing-md align-items-center">
                         <div class="unit-left"><span class="novi-icon icon icon-xs icon-storm-gray fa fa-envelope-o"></span></div>
                         <div class="unit-body">
                           <a class="link-white" href="mailto:#">
-                            legalsuitsabogados@gmail.com
+                            gerenciajuridica@lsa.com.co
                           </a>
                         </div>
                       </div>
