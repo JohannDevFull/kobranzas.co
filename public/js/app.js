@@ -4908,6 +4908,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _Jetstream_NavLink__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/NavLink */ "./resources/js/Jetstream/NavLink.vue");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -5032,7 +5034,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5051,9 +5053,17 @@ __webpack_require__.r(__webpack_exports__);
       name: "",
       address: "",
       phone: "",
-      administrador: "",
+      gastos: "",
+      administracion: "",
       errors: []
     };
+  },
+  watch: {
+    administracion: function administracion() {
+      var res = this.formatear(this.administracion);
+      this.administracion = res;
+      return this.administracion;
+    }
   },
   methods: {
     buscarResultados: function buscarResultados() {
@@ -5069,28 +5079,19 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error.response);
       });
     },
-    reset: function reset() {
-      this.name = "";
-      this.address = "";
-      this.phone = "";
-      this.administracion = "";
-      this.gastos = "";
-      this.selected = "";
-    },
     store: function store() {
       var _this2 = this;
 
       var url = "/conjuntos/store";
+      var val_admin = this.sinFormatNumber(this.administracion);
       axios.post(url, {
         nombre: this.name,
         direccion: this.address,
         telefono: this.phone,
-        administracion: this.administracion,
+        administracion: val_admin,
         gastos: this.gastos,
-        administrador: this.selected
+        admin: this.selected
       }).then(function (response) {
-        _this2.reset();
-
         _this2.errors = []; // toastr.success("Usuario Registrado");
 
         Swal.fire({
@@ -5100,11 +5101,49 @@ __webpack_require__.r(__webpack_exports__);
           showConfirmButton: false,
           timer: 1500
         });
-
-        _this2.reset();
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__["Inertia"].get('/conjuntos');
       })["catch"](function (error) {
         _this2.errors = error.response.data;
       });
+    },
+    formatear: function formatear(input_val) {
+      // check for decimal
+      if (input_val.indexOf(".") >= 0) {
+        // get position of first decimal
+        // this prevents multiple decimals from
+        // being entered
+        var decimal_pos = input_val.indexOf("."); // split number by decimal point
+
+        var left_side = input_val.substring(0, decimal_pos);
+        var right_side = input_val.substring(decimal_pos); // add commas to left side of number
+
+        left_side = this.formatNumber(left_side); // validate right side
+
+        right_side = this.formatNumber(right_side); // On blur make sure 2 numbers after decimal
+
+        if (blur === "blur") {
+          right_side += "00";
+        } // Limit decimal to only 2 digits
+
+
+        right_side = right_side.substring(0, 2); // join number by .
+
+        input_val = left_side + "." + right_side;
+        return input_val;
+      } else {
+        // no decimal entered
+        // add commas to number
+        // remove all non-digits
+        input_val = this.formatNumber(input_val);
+        return input_val;
+      }
+    },
+    formatNumber: function formatNumber(n) {
+      // format number 1000000 to 1,234,567
+      return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    sinFormatNumber: function sinFormatNumber(n) {
+      return n.replace(/,/g, "");
     }
   }
 });
@@ -65194,12 +65233,7 @@ var render = function() {
                                 }
                               ],
                               staticClass: "form-control",
-                              attrs: {
-                                type: "number",
-                                min: "1",
-                                max: "20",
-                                placeholder: "1"
-                              },
+                              attrs: { type: "number", min: "1", max: "20" },
                               domProps: { value: _vm.gastos },
                               on: {
                                 input: function($event) {
@@ -95151,8 +95185,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "7f92a28260a2b4581fb5",
-  cluster: "us2",
+  key: "",
+  cluster: "mt1",
   forceTLS: true
 });
 

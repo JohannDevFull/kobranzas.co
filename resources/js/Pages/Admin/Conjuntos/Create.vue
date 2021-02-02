@@ -78,7 +78,6 @@
                         class="form-control"
                         min="1"
                         max="20"
-                        placeholder="1"
                         v-model="gastos"
                       />
                     </div>
@@ -126,7 +125,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
-
+import { Inertia } from '@inertiajs/inertia'
 export default {
   props: ["conjunto"],
   components: {
@@ -143,9 +142,18 @@ export default {
       name: "",
       address: "",
       phone: "",
-      administrador: "",
+      gastos:"",
+      administracion: "",
       errors: [],
     };
+  },
+  watch:{
+    administracion: function() { 
+      var res=this.formatear(this.administracion);
+      this.administracion=res;
+      return this.administracion;
+    },
+   
   },
   methods: {
     buscarResultados() {
@@ -161,28 +169,23 @@ export default {
         .catch((error) => {
           console.log(error.response);
         });
-    },
-    reset() {
-      this.name = "";
-      this.address = "";
-      this.phone = "";
-      this.administracion = "";
-      this.gastos = "";
-      this.selected = "";
-    },
+    }, 
     store() {
       var url = "/conjuntos/store";
+
+      var val_admin=this.sinFormatNumber(this.administracion);
+
       axios
         .post(url, {
           nombre: this.name,
           direccion: this.address,
           telefono: this.phone,
-          administracion: this.administracion,
+          administracion: val_admin,
           gastos: this.gastos,
-          administrador: this.selected,
+          admin: this.selected,
+
         })
         .then((response) => {
-          this.reset();
           this.errors = [];
           // toastr.success("Usuario Registrado");
              Swal.fire({
@@ -192,11 +195,62 @@ export default {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.reset();
+          
+          Inertia.get('/conjuntos');
         })
         .catch((error) => {
           this.errors = error.response.data;
         });
+    },
+    formatear(input_val){
+
+          // check for decimal
+          if (input_val.indexOf(".") >= 0) 
+          {
+
+            // get position of first decimal
+            // this prevents multiple decimals from
+            // being entered
+            var decimal_pos = input_val.indexOf(".");
+
+            // split number by decimal point
+            var left_side = input_val.substring(0, decimal_pos);
+            var right_side = input_val.substring(decimal_pos);
+
+            // add commas to left side of number
+            left_side = this.formatNumber(left_side);
+
+            // validate right side
+            right_side = this.formatNumber(right_side);
+            
+            // On blur make sure 2 numbers after decimal
+            if (blur === "blur") 
+            {
+              right_side += "00";
+            }
+            
+            // Limit decimal to only 2 digits
+            right_side = right_side.substring(0, 2);
+
+            // join number by .
+            input_val = left_side + "." + right_side; 
+            return input_val;
+          } 
+          else 
+          {
+            // no decimal entered
+            // add commas to number
+            // remove all non-digits
+            input_val = this.formatNumber(input_val); 
+            return input_val;
+          }
+    },
+    formatNumber(n){
+      // format number 1000000 to 1,234,567
+      return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    },
+    sinFormatNumber(n){ 
+      return n.replace(/,/g, "");
     },
   },
 };

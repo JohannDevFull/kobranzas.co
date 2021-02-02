@@ -66,14 +66,25 @@ class BuildingsController extends Controller
      */
     public function store(Request $request)
     { 
+        $this->validate($request, [ 
+            'nombre' => 'required|regex:/^[\pL\s\-]+$/u',
+            'direccion' => 'required',
+            'telefono' => 'required',
+            'administracion' => 'required',
+            'gastos' => 'required',
+            'admin' => 'required',
+
+        ]);
+
         $flight = Buildings::create([ 
             'name_building'=>$request->nombre,
             'address_building'=> $request->direccion, 
             'phone_building'=>$request->telefono,
             'valor_administracion'=>$request->administracion,
             'gastos_cobranzas'=>$request->gastos,
-            'administrator_id'=>$request->administrador,
+            'administrator_id'=>$request->admin,
         ]);
+ 
     }
 
     /**
