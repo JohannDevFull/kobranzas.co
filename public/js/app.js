@@ -70521,7 +70521,7 @@ var render = function() {
                             _c("td", [
                               _vm._v(
                                 " \n                        " +
-                                  _vm._s(row.phone_one) +
+                                  _vm._s(row.description) +
                                   "  \n                    "
                               )
                             ]),

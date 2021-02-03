@@ -100,11 +100,21 @@ class LlamadasController extends Controller
     public function cargarClientes(Request $request)
     {   
         $buscar=$request->buscar;
-        $users_cliente=User::role('Cliente')
-                        ->where('name', 'like', '%'.$buscar.'%')
-                        ->get();
+        // $users_cliente=User::role('Cliente')
+        //                 ->where('name', 'like', '%'.$buscar.'%')
+        //                 ->get();
+
+        $users_cliente=DB::select("SELECT id,name,email,client_code,contract_number,state_id,user_id,building_id,description
+            FROM clients 
+            INNER JOIN state
+            on state.id_state=clients.state_id
+            INNER JOIN users
+            on users.id=clients.user_id
+            WHERE  users.name like '%".$buscar."%'" );
+
         return response()->json($users_cliente);
     }
+
     
     /**
      * Display a listing of the resource.
