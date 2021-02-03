@@ -8945,13 +8945,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['cliente', 'empleadoid', 'conjunto', 'admin', 'llamadas', 'acuerdo', 'cuentaTotal'],
+  props: ['cliente', 'empleadoid', 'conjunto', 'admin', 'llamadas', 'acuerdo', 'cuentaTotal', 'name'],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
     CallModal: _Kobranzas_CallModal__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -8991,6 +8989,7 @@ __webpack_require__.r(__webpack_exports__);
       image: "../../storage/img/avatar.png",
       nameimg: " avatar user",
       empleado: this.empleadoid,
+      nombreempleado: this.name,
       conj: this.conjunto
     };
   },
@@ -9072,6 +9071,7 @@ __webpack_require__.r(__webpack_exports__);
         estado: this.selestado,
         cliente: this.cliente.id,
         idempleado: this.empleado,
+        nombre_empleado: this.nombreempleado,
         deuda_actual: this.cuentaTotal,
         cuotas: this.form.cuotas,
         abono: this.form.abono,
@@ -9079,8 +9079,8 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         Swal.fire({
           icon: "success",
-          title: "Llamada Registrada",
-          text: "Éxito al Registrar Llamada",
+          title: "Acuerdo Registrada",
+          text: "Éxito al Registrar Acuerdo",
           showConfirmButton: false,
           timer: 1500
         });
@@ -69130,7 +69130,7 @@ var render = function() {
                                 _c("td", [
                                   _vm._v(
                                     " \n                        " +
-                                      _vm._s() +
+                                      _vm._s(row.description) +
                                       " \n                    "
                                   )
                                 ]),
@@ -69146,7 +69146,7 @@ var render = function() {
                                 _c("td", [
                                   _vm._v(
                                     " \n                        " +
-                                      _vm._s(row.employee_id) +
+                                      _vm._s(row.name_employee) +
                                       "  \n                    "
                                   )
                                 ]),

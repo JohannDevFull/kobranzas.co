@@ -69,7 +69,10 @@ class LlamadasController extends Controller
             $all=0;
         }
             
-        $acuerdos=DB::select('SELECT * FROM agreements where user_id='.$id);
+        $acuerdos=DB::select('SELECT *,state.description FROM agreements 
+                                INNER JOIN state
+                                on state.id_state= agreements.state_id 
+                                where user_id='.$id);
 
         $id_building=DB::select('SELECT building_id FROM clients where user_id='.$id);
         $conjunto=DB::select('SELECT * FROM buildings where id_building='.$id_building[0]->building_id);
@@ -149,6 +152,7 @@ class LlamadasController extends Controller
     public function create($id)
     { 
         $empleado = Auth::id();
+        $name=DB::select("SELECT name FROM users WHERE id=".$empleado); 
         
         if ($debito=DB::select("SELECT * FROM movements  WHERE  `user_id`=".$id." LIMIT 1"))
         {
@@ -195,6 +199,7 @@ class LlamadasController extends Controller
             
             return Inertia::render('Empleado/Llamada',[
                 'empleadoid' => $empleado, 
+                'name' => $name[0]->name, 
                 'conjunto' => $conjuntoNombre, 
                 'cliente' => $clienteinfo[0], 
                 'acuerdo' => $acuerdo_actual, 
@@ -312,10 +317,12 @@ class LlamadasController extends Controller
         $agreement=Agreement::create([   
             'user_id'=>$request->cliente,
             'employee_id'=>$request->idempleado,
+            'name_employee'=>$request->nombre_empleado,
             'current_debt'=>$request->deuda_actual,
             'credit'=>$request->abono,
             'quotas'=>$request->cuotas,
             'observations'=>$request->observaciones,
+            'state_id'=>$request->estado,
         ]); 
         $user=User::select('id','name','email')->find(Auth::user()->id)->first();
         $client=Clients::select('users.id','users.name','clients.building_id','buildings.name_building')

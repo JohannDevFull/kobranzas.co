@@ -13,9 +13,7 @@
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" style="border: 1px gray solid ;height: 100%;margin:0px; ">
                   <i class="fas fa-minus"></i>
-                </button> 
-
-              
+                </button>    
             </div>   
           
           </div>
@@ -358,7 +356,7 @@
   import { Inertia } from '@inertiajs/inertia'
 
   export default {
-    props: ['cliente','empleadoid','conjunto','admin','llamadas','acuerdo','cuentaTotal'],
+    props: ['cliente','empleadoid','conjunto','admin','llamadas','acuerdo','cuentaTotal','name'],
 
     components: {
         AppLayout, 
@@ -405,6 +403,7 @@
         image: "../../storage/img/avatar.png", 
         nameimg: " avatar user", 
         empleado:this.empleadoid, 
+        nombreempleado:this.name, 
         conj:this.conjunto, 
 
       }
@@ -490,6 +489,7 @@
           estado: this.selestado, 
           cliente: this.cliente.id, 
           idempleado: this.empleado, 
+          nombre_empleado: this.nombreempleado, 
 
           deuda_actual:this.cuentaTotal,
           cuotas:this.form.cuotas,
@@ -500,8 +500,8 @@
         .then((response) => { 
             Swal.fire({
             icon: "success",
-            title: "Llamada Registrada",
-            text:"Éxito al Registrar Llamada",
+            title: "Acuerdo Registrada",
+            text:"Éxito al Registrar Acuerdo",
             showConfirmButton: false,
             timer: 1500,
           });

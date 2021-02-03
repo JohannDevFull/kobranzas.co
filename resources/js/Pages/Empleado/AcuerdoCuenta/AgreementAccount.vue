@@ -123,13 +123,13 @@
                           {{ row.id_agreement }} 
                       </td>
                       <td> 
-                          {{  }} 
+                          {{ row.description }} 
                       </td>
                       <td> 
                           {{ row.created_at }} 
                       </td>
                       <td> 
-                          {{ row.employee_id }}  
+                          {{ row.name_employee }}  
                       </td>
                       
 
