@@ -185,7 +185,7 @@
               </thead>
 
               <tbody>
-                <tr v-for="row in clientes">
+                <tr v-for="row in clients">
                   <td>
                     {{ row.id }}
                   </td>
@@ -234,7 +234,7 @@
 import AppLayout from "@/Layouts/AppLayout";
  
 export default {
-  props: ["conjunto", "clientes", "num","conjuntoinfo"],
+  props: ["conjunto","num","conjuntoinfo"],
   components: {
     AppLayout,
   },
@@ -245,6 +245,7 @@ export default {
     return {
       files: null,
       usuariosc: [],
+      clients:[],
       buscar: "",
       import_file: "",
       setTimeoutBuscador: "",
@@ -253,27 +254,30 @@ export default {
     };
   },
   methods: {
-    buscarResultados() {
-      axios
-        .get("/buscar", {
-          params: {
-            buscar: this.buscar,
-          },
+
+    buscarResultados(){
+
+        axios.get('/buscar/clients',{
+          params:{
+            buscar:this.buscar,
+            conjunto:this.conjunto.id_building
+          }
         })
-        .then((res) => {
-          console.log("exito al cargar resultados");
+        .then( res => { 
+            this.clients=res.data 
         })
-        .catch((error) => {
-          console.log(error.response);
+        .catch( error => {
+            console.log( error.response )
         });
     },
-    buscarKUP() {
-      clearTimeout(this.setTimeoutBuscador);
-      this.setTimeoutBuscador = setTimeout(this.buscarResultados, 360);
+
+    buscarKUP(){
+        clearTimeout( this.setTimeoutBuscador )
+        this.setTimeoutBuscador=setTimeout( this.buscarResultados ,360) 
     },
-    buscarONC() {
-      this.buscarResultados();
-    },
+    buscarONC(){
+      this.buscarResultados()
+    }, 
     onFileChange(event) {
       this.files = event.target.files;
     },

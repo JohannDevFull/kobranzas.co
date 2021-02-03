@@ -5788,7 +5788,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["conjunto", "clientes", "num", "conjuntoinfo"],
+  props: ["conjunto", "num", "conjuntoinfo"],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -5799,6 +5799,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       files: null,
       usuariosc: [],
+      clients: [],
       buscar: "",
       import_file: "",
       setTimeoutBuscador: "",
@@ -5808,12 +5809,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     buscarResultados: function buscarResultados() {
-      axios.get("/buscar", {
+      var _this = this;
+
+      axios.get('/buscar/clients', {
         params: {
-          buscar: this.buscar
+          buscar: this.buscar,
+          conjunto: this.conjunto.id_building
         }
       }).then(function (res) {
-        console.log("exito al cargar resultados");
+        _this.clients = res.data;
       })["catch"](function (error) {
         console.log(error.response);
       });
@@ -5833,7 +5837,7 @@ __webpack_require__.r(__webpack_exports__);
       window.open(page);
     },
     importar: function importar() {
-      var _this = this;
+      var _this2 = this;
 
       if (this.files) {
         var formData = new FormData();
@@ -5851,14 +5855,14 @@ __webpack_require__.r(__webpack_exports__);
               showConfirmButton: false,
               timer: 1500
             });
-            _this.errors = {};
-            _this.files = null;
+            _this2.errors = {};
+            _this2.files = null;
             console.log("subido");
           }
         })["catch"](function (error) {
-          _this.uploading = false;
-          _this.errors = error.response.data;
-          console.log("check error: ", _this.errors);
+          _this2.uploading = false;
+          _this2.errors = error.response.data;
+          console.log("check error: ", _this2.errors);
         });
       } else {
         this.errors = {
@@ -66310,7 +66314,7 @@ var render = function() {
                   _c(
                     "tbody",
                     [
-                      _vm._l(_vm.clientes, function(row) {
+                      _vm._l(_vm.clients, function(row) {
                         return _c("tr", [
                           _c("td", [
                             _vm._v(

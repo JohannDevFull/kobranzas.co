@@ -70,12 +70,6 @@ class ClientsController extends Controller
      */
     public function cargarClientes(Request $request)
     {
-        // $buscar=$request->buscar;
-        // $users_cliente=User::role('Cliente')
-        //                 ->where('name', 'like', '%'.$buscar.'%')
-        //                 ->get();
-        // return response()->json($users_cliente);
-
 
         $buscar = $id;
 
@@ -93,6 +87,29 @@ class ClientsController extends Controller
         $buscar = $request->buscar;
         $users_cliente = Clients::role('Cliente')->get();
         return response()->json($users_cliente);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function clientsConjunto(Request $request)
+    {
+
+        $buscar = $request->buscar;
+        $conjunto = $request->conjunto;
+
+        $clients=DB::select("SELECT id,name,email,client_code,contract_number,state_id,user_id,building_id,description
+            FROM clients 
+            INNER JOIN state
+            on state.id_state=clients.state_id
+            INNER JOIN users
+            on users.id=clients.user_id
+            WHERE  building_id=".$conjunto." and users.name like '%".$buscar."%'" );
+        
+ 
+        return response()->json($clients);
     }
 
     /**

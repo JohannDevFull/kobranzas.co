@@ -157,6 +157,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/buscar/conjuntos', [BuildingsController::class, 'cargarConjuntos']);
     Route::get('/buscar/conjuntos/short', [BuildingsController::class, 'cargarConjuntosShort']);
     Route::get('/buscar/administradores', [BuildingsController::class, 'cargarAdministradores']);
+    
+    Route::get('/buscar/clients', [ClientsController::class, 'clientsConjunto']);
 
 
     Route::get('/conjuntos', [BuildingsController::class, 'index'])
