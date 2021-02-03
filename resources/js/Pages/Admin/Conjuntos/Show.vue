@@ -34,6 +34,12 @@
                 Conjunto : {{ conjunto.name_building }}
               </h5>
               <h5 class="widget-user-desc text-right">
+                Telefono : {{ conjunto.phone_building }}
+              </h5>
+              <h5 class="widget-user-desc text-right">
+                direccion : {{ conjunto.address_building }}
+              </h5>
+              <h5 class="widget-user-desc text-right">
                 Valor administracion : {{ conjunto.valor_administracion }}
               </h5>
               <h5 class="widget-user-desc text-right">
@@ -194,25 +200,13 @@
                   </td>
 
                   <td>
-                    <inertia-link
-                      class=""
-                      :href="route('llamadas.create', row.id)"
-                    >
-                      <i
-                        class="nav-icon fas fa-eye text-info"
-                        style="padding: 3px"
-                      ></i>
-                    </inertia-link>
+                    <inertia-link class="" :href="route('llamadas.client',row.id)" > 
+                            <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
+                        </inertia-link>
 
-                    <inertia-link
-                      class=""
-                      :href="route('llamadas.create', row.id)"
-                    >
-                      <i
-                        class="nav-icon fas fa-hands-helping text-success"
-                        style="padding: 6px"
-                      ></i>
-                    </inertia-link>
+                        <inertia-link class="" :href="route('llamadas.agreement',row.id)">
+                            <i class="nav-icon fas fa-hands-helping text-success" style="padding:6px;"></i>  
+                        </inertia-link>
                     <inertia-link
                       class=""
                       :href="route('llamadas.create', row.id)"

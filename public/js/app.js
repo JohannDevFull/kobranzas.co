@@ -5786,12 +5786,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["conjunto", "clientes", "num", "conjuntoinfo"],
@@ -66023,6 +66017,22 @@ var render = function() {
                   _vm._v(" "),
                   _c("h5", { staticClass: "widget-user-desc text-right" }, [
                     _vm._v(
+                      "\n              Telefono : " +
+                        _vm._s(_vm.conjunto.phone_building) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "widget-user-desc text-right" }, [
+                    _vm._v(
+                      "\n              direccion : " +
+                        _vm._s(_vm.conjunto.address_building) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "widget-user-desc text-right" }, [
+                    _vm._v(
                       "\n              Valor administracion : " +
                         _vm._s(_vm.conjunto.valor_administracion) +
                         "\n            "
@@ -66341,7 +66351,7 @@ var render = function() {
                                 "inertia-link",
                                 {
                                   attrs: {
-                                    href: _vm.route("llamadas.create", row.id)
+                                    href: _vm.route("llamadas.client", row.id)
                                   }
                                 },
                                 [
@@ -66357,7 +66367,10 @@ var render = function() {
                                 "inertia-link",
                                 {
                                   attrs: {
-                                    href: _vm.route("llamadas.create", row.id)
+                                    href: _vm.route(
+                                      "llamadas.agreement",
+                                      row.id
+                                    )
                                   }
                                 },
                                 [
