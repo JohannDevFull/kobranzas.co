@@ -5160,6 +5160,24 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5268,6 +5286,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["conjunto"],
   components: {
@@ -5276,19 +5295,32 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       administradores: [],
-      administrador: "",
       errors: [],
       id: this.conjunto.id_building,
       name: this.conjunto.name_building,
       address: this.conjunto.address_building,
       phone: this.conjunto.phone_building,
-      selected: this.conjunto.administrator_id
+      gastos: this.conjunto.gastos_cobranzas,
+      selected: this.conjunto.administrator_id,
+      administrador: this.conjunto.administrator_id,
+      administracion: ""
     };
   },
   created: function created() {
     this.buscarResultados();
+    this.valor();
+  },
+  watch: {
+    administracion: function administracion() {
+      var res = this.formatear(this.administracion);
+      this.administracion = res;
+      return this.administracion;
+    }
   },
   methods: {
+    valor: function valor() {
+      this.administracion = this.conjunto.valor_administracion;
+    },
     buscarResultados: function buscarResultados() {
       var _this = this;
 
@@ -5307,10 +5339,14 @@ __webpack_require__.r(__webpack_exports__);
 
       var num = this.id;
       var url = "/conjuntos/update/" + num;
+      var val_admin = this.sinFormatNumber(this.administracion);
       axios.put(url, {
+        idconjunto: num,
         nombre: this.name,
         direccion: this.address,
         telefono: this.phone,
+        admin: val_admin,
+        gastos: this.gastos,
         administrador: this.selected
       }).then(function (response) {
         _this2.errors = [];
@@ -5321,9 +5357,49 @@ __webpack_require__.r(__webpack_exports__);
           showConfirmButton: false,
           timer: 1500
         });
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__["Inertia"].get('/conjuntos');
       })["catch"](function (error) {
-        alert("Error" + error);
+        _this2.errors = error.response.data;
       });
+    },
+    formatear: function formatear(input_val) {
+      // check for decimal
+      if (input_val.indexOf(".") >= 0) {
+        // get position of first decimal
+        // this prevents multiple decimals from
+        // being entered
+        var decimal_pos = input_val.indexOf("."); // split number by decimal point
+
+        var left_side = input_val.substring(0, decimal_pos);
+        var right_side = input_val.substring(decimal_pos); // add commas to left side of number
+
+        left_side = this.formatNumber(left_side); // validate right side
+
+        right_side = this.formatNumber(right_side); // On blur make sure 2 numbers after decimal
+
+        if (blur === "blur") {
+          right_side += "00";
+        } // Limit decimal to only 2 digits
+
+
+        right_side = right_side.substring(0, 2); // join number by .
+
+        input_val = left_side + "." + right_side;
+        return input_val;
+      } else {
+        // no decimal entered
+        // add commas to number
+        // remove all non-digits
+        input_val = this.formatNumber(input_val);
+        return input_val;
+      }
+    },
+    formatNumber: function formatNumber(n) {
+      // format number 1000000 to 1,234,567
+      return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    sinFormatNumber: function sinFormatNumber(n) {
+      return n.replace(/,/g, "");
     }
   }
 });
@@ -65416,45 +65492,6 @@ var render = function() {
                       [
                         _c("div", { staticClass: "card-body row" }, [
                           _c("div", { staticClass: "col-sm-6" }, [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "form-group",
-                                staticStyle: { visibility: "hidden" },
-                                attrs: { hidden: "" }
-                              },
-                              [
-                                _c("label"),
-                                _vm._v(" "),
-                                _c("span", { staticClass: "required" }),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.id,
-                                      expression: "id"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Ingrese el nombre"
-                                  },
-                                  domProps: { value: _vm.id },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.id = $event.target.value
-                                    }
-                                  }
-                                })
-                              ]
-                            ),
-                            _vm._v(" "),
                             _c("div", { staticClass: "form-group" }, [
                               _c("label", [_vm._v("Nombre del Conjunto:")]),
                               _vm._v(" "),
@@ -65520,10 +65557,8 @@ var render = function() {
                                   }
                                 }
                               })
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-sm-6" }, [
+                            ]),
+                            _vm._v(" "),
                             _c("div", { staticClass: "form-group" }, [
                               _c("label", [_vm._v("Telefono:")]),
                               _vm._v(" "),
@@ -65552,6 +65587,72 @@ var render = function() {
                                       return
                                     }
                                     _vm.phone = $event.target.value
+                                  }
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", [_vm._v("Valor administracion:")]),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "required" }, [
+                                _vm._v("*")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.administracion,
+                                    expression: "administracion"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  placeholder:
+                                    "Ingrese el valor de la administracion"
+                                },
+                                domProps: { value: _vm.administracion },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.administracion = $event.target.value
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", [_vm._v("% Gastos cobranzas:")]),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "required" }, [
+                                _vm._v("*")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.gastos,
+                                    expression: "gastos"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { type: "number", min: "1", max: "20" },
+                                domProps: { value: _vm.gastos },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.gastos = $event.target.value
                                   }
                                 }
                               })
@@ -65631,7 +65732,11 @@ var render = function() {
                               staticClass: "btn btn-primary",
                               attrs: { type: "submit" }
                             },
-                            [_vm._v("Guardar")]
+                            [
+                              _vm._v(
+                                "\n                  Actualizar\n                "
+                              )
+                            ]
                           )
                         ]),
                         _vm._v(" "),

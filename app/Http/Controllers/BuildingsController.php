@@ -148,12 +148,26 @@ class BuildingsController extends Controller
     {
         //  
 
+
+        $this->validate($request, [ 
+            'nombre' => 'required|regex:/^[\pL\s\-]+$/u',
+            'direccion' => 'required',
+            'telefono' => 'required',
+            'administrador' => 'required',
+            'gastos' => 'required',
+            'admin' => 'required',
+
+        ]);
+
         $conjunto = Buildings::find($id);
+
 
         $conjunto->name_building = $request->nombre;
         $conjunto->address_building = $request->direccion;
         $conjunto->phone_building = $request->telefono;
         $conjunto->administrator_id = $request->administrador;
+        $conjunto->valor_administracion = $request->admin;
+        $conjunto->gastos_cobranzas = $request->gastos;
 
         $conjunto->save();
 
