@@ -176,7 +176,7 @@
             <table class="table table-head-fixed text-nowrap">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>ID usuario</th>
                   <th>Nombre</th>
                   <th>Correo</th>
                   <th>Estado</th>
@@ -187,7 +187,7 @@
               <tbody>
                 <tr v-for="row in clientes">
                   <td>
-                    {{ row.id_client }}
+                    {{ row.id }}
                   </td>
                   <td>
                     {{ row.name }}
@@ -196,7 +196,7 @@
                     {{ row.email }}
                   </td>
                   <td>
-                    {{ row.phone_one }}
+                    {{ row.description }}
                   </td>
 
                   <td>

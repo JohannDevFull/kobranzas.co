@@ -7,6 +7,7 @@ use App\Models\Buildings;
 use App\Models\Clients;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -104,12 +105,13 @@ class BuildingsController extends Controller
         
         $conju=User::where('id','=',$conjunto->administrator_id)->get();
 
-        $clients=Clients::select('*')
-                            ->where('building_id',$buscar)
-                            ->join('users', 'user_id', '=', 'id')
-                            ->get();
-        
-
+        $clients=DB::select("SELECT id,name,email,client_code,contract_number,state_id,user_id,building_id,description
+            FROM clients 
+            INNER JOIN state
+            on state.id_state=clients.state_id
+            INNER JOIN users
+            on users.id=clients.user_id
+            WHERE `building_id`=".$buscar);
         $num=sizeof($clients);  
 
         return Inertia::render('Admin/Conjuntos/Show',[

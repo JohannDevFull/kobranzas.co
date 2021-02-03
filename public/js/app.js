@@ -66295,7 +66295,7 @@ var render = function() {
                 [
                   _c("thead", [
                     _c("tr", [
-                      _c("th", [_vm._v("ID")]),
+                      _c("th", [_vm._v("ID usuario")]),
                       _vm._v(" "),
                       _c("th", [_vm._v("Nombre")]),
                       _vm._v(" "),
@@ -66315,7 +66315,7 @@ var render = function() {
                           _c("td", [
                             _vm._v(
                               "\n                  " +
-                                _vm._s(row.id_client) +
+                                _vm._s(row.id) +
                                 "\n                "
                             )
                           ]),
@@ -66339,7 +66339,7 @@ var render = function() {
                           _c("td", [
                             _vm._v(
                               "\n                  " +
-                                _vm._s(row.phone_one) +
+                                _vm._s(row.description) +
                                 "\n                "
                             )
                           ]),

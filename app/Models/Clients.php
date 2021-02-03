@@ -20,6 +20,8 @@ class Clients extends Model implements Auditable
         'user_id',
         'building_id',
     ];
+
+    
     
 
 }
