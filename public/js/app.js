@@ -69060,7 +69060,14 @@ var render = function() {
                     [
                       _c(
                         "inertia-link",
-                        { attrs: { href: _vm.route("conjuntos.create") } },
+                        {
+                          attrs: {
+                            href: _vm.route(
+                              "llamadas.create",
+                              _vm.cliente.user_id
+                            )
+                          }
+                        },
                         [
                           _c("button", { staticClass: "btn btn-dark float" }, [
                             _c("i", { staticClass: "fas fa-plus" }),

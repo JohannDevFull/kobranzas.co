@@ -89,7 +89,7 @@
 
                 <div class="card-tools" v-if="cuenta != 0"> 
                      
-                        <inertia-link :href="route('conjuntos.create')">
+                        <inertia-link :href="route('llamadas.create',cliente.user_id)">
                           <button class="btn btn-dark float">
                             <i class="fas fa-plus"></i> Crear nuevo acuerdo
                           </button>
