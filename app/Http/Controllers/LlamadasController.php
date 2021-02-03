@@ -74,6 +74,10 @@ class LlamadasController extends Controller
                                 on state.id_state= agreements.state_id 
                                 where user_id='.$id);
 
+        if (!$acuerdos){
+            $acuerdos=0;
+        }
+
         $id_building=DB::select('SELECT building_id FROM clients where user_id='.$id);
         $conjunto=DB::select('SELECT * FROM buildings where id_building='.$id_building[0]->building_id);
 

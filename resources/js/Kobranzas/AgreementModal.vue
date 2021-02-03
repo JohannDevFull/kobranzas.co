@@ -1,6 +1,6 @@
 <template>
   <div  >
-    
+     
       <!-- Modal -->
         <div class="modal fade " id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog modal-xl">
@@ -12,12 +12,13 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-            
-              <div class="modal-body" v-if="boleano===-1">
+              
+              <div class="modal-body" v-if="acuerdo===0">
 
               </div>
 
               <div class="modal-body" v-else>
+
                  <div class="row p-2" id="collapseExample">   
                   <div class="row" style="background-color: green;">
 
@@ -131,7 +132,6 @@
                     
                   </div>
                 </div>
-
               </div>
 
               <div class="modal-footer" >

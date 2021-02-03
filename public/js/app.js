@@ -3486,10 +3486,10 @@ __webpack_require__.r(__webpack_exports__);
         });
         $("#CreateAccountModal").modal('hide');
         _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__["Inertia"].reload({
-          only: ['cuenta']
+          only: ['cuenta', 'movimientos']
         });
         _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__["Inertia"].visit('/llamadas/agreement/' + _this.id_cliente, {
-          only: ['cuenta']
+          only: ['cuenta', 'movimientos']
         });
       })["catch"](function (error) {
         _this.errors = error.response.data;
@@ -61839,7 +61839,7 @@ var render = function() {
           _c("div", { staticClass: "modal-content" }, [
             _vm._m(0),
             _vm._v(" "),
-            _vm.boleano === -1
+            _vm.acuerdo === 0
               ? _c("div", { staticClass: "modal-body" })
               : _c("div", { staticClass: "modal-body" }, [
                   _c(
@@ -64009,7 +64009,7 @@ var render = function() {
           _c("div", { staticClass: "modal-content" }, [
             _vm._m(0),
             _vm._v(" "),
-            _vm.boleano === -1
+            _vm.movimiento === 0
               ? _c("div", { staticClass: "modal-body" })
               : _c("div", { staticClass: "modal-body" }, [
                   _c(
@@ -64027,7 +64027,7 @@ var render = function() {
                         },
                         [
                           _c("div", { staticClass: "col-sm-6" }, [
-                            _c("div", { staticClass: "form-group " }, [
+                            _c("div", { staticClass: "form-group" }, [
                               _c("label", [_vm._v("Tipo de movimiento")]),
                               _vm._v(" "),
                               _c("div", { staticClass: "input-group mb-3" }, [
@@ -64333,7 +64333,7 @@ var staticRenderFns = [
           staticClass: "btn btn-secondary",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("Close")]
+        [_vm._v("Cerrar")]
       )
     ])
   }
@@ -69040,7 +69040,7 @@ var render = function() {
                 _vm._v("Lista de acuerdos")
               ]),
               _vm._v(" "),
-              _vm.cuenta != 0
+              _vm.acuerdos != 0
                 ? _c(
                     "div",
                     { staticClass: "card-tools" },
@@ -69338,7 +69338,6 @@ var render = function() {
           attrs: {
             acuerdo: _vm.acuerdos,
             id: _vm.inde,
-            boleno: _vm.bol,
             totalCuenta: _vm.cuenta
           }
         }),

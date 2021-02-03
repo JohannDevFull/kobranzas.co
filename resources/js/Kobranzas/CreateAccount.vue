@@ -128,8 +128,9 @@ export default {
             timer: 1500,
           });
         $("#CreateAccountModal").modal('hide');
-        Inertia.reload({ only: ['cuenta'] },);
-        Inertia.visit('/llamadas/agreement/'+this.id_cliente,{ only: ['cuenta'] });
+        
+        Inertia.reload({ only: ['cuenta','movimientos'] },);
+        Inertia.visit('/llamadas/agreement/'+this.id_cliente,{ only: ['cuenta','movimientos'] });
         
       })
       .catch((error) => {

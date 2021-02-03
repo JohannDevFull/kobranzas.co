@@ -87,7 +87,7 @@
               <div class="card-header">
                 <h3 class="card-title">Lista de acuerdos</h3>
 
-                <div class="card-tools" v-if="cuenta != 0"> 
+                <div class="card-tools" v-if="acuerdos != 0"> 
                      
                         <inertia-link :href="route('llamadas.create',cliente.user_id)">
                           <button class="btn btn-dark float">
@@ -155,7 +155,7 @@
             </div>
             <!-- /.card -->    
       </div> 
-
+ 
       <div class="col-12">
             <div class="card">
               <div class="card-header">
@@ -226,7 +226,7 @@
 
       <create-account v-bind:cliente_id="cliente.user_id"/>
       <movements v-bind:cliente_id="cliente.user_id"/>
-      <agreement-modal v-bind:acuerdo="acuerdos" v-bind:id="inde"  v-bind:boleno="bol" v-bind:totalCuenta="cuenta" />
+      <agreement-modal v-bind:acuerdo="acuerdos" v-bind:id="inde"  v-bind:totalCuenta="cuenta" />
       
       <show-movement-modal v-bind:movimiento="movimientos" v-bind:id="id_movement"  v-bind:boleno="bol_dos"  />
 
