@@ -8947,13 +8947,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -70650,49 +70643,17 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "card-tools" }, [
                   _c(
-                    "div",
+                    "button",
                     {
-                      staticClass: "input-group input-group-sm",
-                      staticStyle: { width: "250px" }
+                      staticClass: "btn btn-tool",
+                      staticStyle: {
+                        border: "1px gray solid",
+                        height: "100%",
+                        margin: "0px"
+                      },
+                      attrs: { type: "button", "data-card-widget": "collapse" }
                     },
-                    [
-                      _c("input", {
-                        staticClass: "form-control float-right",
-                        attrs: {
-                          type: "text",
-                          name: "table_search",
-                          placeholder: "Search"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "input-group-append" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default",
-                            attrs: { type: "submit" }
-                          },
-                          [_c("i", { staticClass: "fas fa-search" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-tool",
-                          staticStyle: {
-                            border: "1px gray solid",
-                            height: "100%",
-                            margin: "0px"
-                          },
-                          attrs: {
-                            type: "button",
-                            "data-card-widget": "collapse"
-                          }
-                        },
-                        [_c("i", { staticClass: "fas fa-minus" })]
-                      )
-                    ]
+                    [_c("i", { staticClass: "fas fa-minus" })]
                   )
                 ])
               ]),

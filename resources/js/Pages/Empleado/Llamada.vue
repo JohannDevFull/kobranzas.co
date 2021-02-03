@@ -11,18 +11,11 @@
             <h3 class="card-title">Registro de llamadas </h3>
 
             <div class="card-tools">
-              <div class="input-group input-group-sm" style="width: 250px;">
-                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                </div>
-
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" style="border: 1px gray solid ;height: 100%;margin:0px; ">
                   <i class="fas fa-minus"></i>
                 </button> 
 
-              </div>
+              
             </div>   
           
           </div>
