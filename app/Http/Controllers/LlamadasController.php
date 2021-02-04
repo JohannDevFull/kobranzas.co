@@ -37,6 +37,16 @@ class LlamadasController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function misLlamadas(Request $request)
+    {   
+        return Inertia::render('Empleado/MisLlamadas'); 
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

@@ -109,7 +109,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/llamadas/buscar', [LlamadasController::class, 'searchCall']);
 
     Route::get('llamadas', [LlamadasController::class, 'index'])
-        ->name('llamadas');
+        ->name('llamadas'); 
+
+    Route::get('/llamadas/mis-llamadas', [LlamadasController::class, 'misLlamadas'])
+        ->name('llamadas.empleado');
 
     Route::get('/llamadas/show/{id}', [BuildingsController::class, 'show'])
         ->name('conjuntos.show');
