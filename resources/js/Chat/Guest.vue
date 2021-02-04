@@ -5,12 +5,31 @@
       ><i class="fas fa-bell" :class="bell"></i
     ></span>
 
-    <audio id="myAudio">
+    <!-- <audio id="myAudio">
       <source src="/storage/img/pop.ogg" type="audio/ogg" />
       <source src="/storage/img/pop.mp3" type="audio/mpeg" />
       Your browser does not support the audio element.
-    </audio>
-    <div class="chat-widget-container" v-if="!enabled" @click="toggle()">
+    </audio> -->
+    <div
+      class="chat-widget-container"
+      style="line-height: 2rem; "
+      v-if="!enabled && available == false"
+      @click="toggle()"
+    >
+      <div class="chat-widget-text">
+        <p class="heading">CHAT NO DISPONIBLE</p>
+        <p>No Disponible <span class="forbidden">•</span></p>
+      </div>
+      <div class="chat-widget-avatar">
+        <img src="/storage/img/chat.svg" style="width: 72px" alt="" />
+      </div>
+    </div>
+    <div
+      class="chat-widget-container"
+      style="line-height: 2rem; "
+      v-if="!enabled && available"
+      @click="toggle()"
+    >
       <div class="chat-widget-text">
         <p class="heading">CHAT DE CONTACTO</p>
 
@@ -40,7 +59,7 @@
                     </p>
                     <Loader />
                   </div>
-                  <div v-if="!isLoading">
+                  <div v-if="!isLoading && available">
                     <p class="text-wel soomuchstyle">
                       Hola, por favor ingresa tu nombre para que puedas ingresar
                       al chat de soporte y puedas solucionar tus dudas e
@@ -71,17 +90,40 @@
                       v-model="number"
                       maxlength="35"
                     />
-                   
+
                     <button
                       class="form-control btn btn-outline-dark center"
                       @click="joinChat()"
                     >
                       Entrar
                     </button>
-                      <ul v-for="error in errors.errors">
+                    <ul v-for="error in errors.errors">
                       <li class="required">{{ error[0] }}</li>
                     </ul>
-
+                  </div>
+                  <div v-if="!isLoading && !available">
+                    <br />
+                    <p class="text-wel soomuchstyle" v-if="status == 0">
+                      <span class="required">
+                        El chat está inactivo temporalmente
+                      </span>
+                      <br />
+                      El Administrador ha deshabilitado el chat temporalmente
+                      <br />
+                      Intenta comunicarte con nosotros a través del formulario
+                      de contacto o
+                      <br />
+                      intenta más tarde.
+                    </p>
+                    <p class="text-wel soomuchstyle" v-else>
+                      El chat está inactivo actualmente
+                      <br />
+                      Los horarios de atención son:
+                      <br />
+                      <span class="required">8:00 am a 6:00 pm</span>
+                      <br />
+                      Intente más tarde.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -153,8 +195,8 @@ export default {
       userinfo: "",
       enabled: false,
       guest: "",
-      email:'',
-      number:'',
+      email: "",
+      number: "",
       contacts: [],
       unread: "",
       chatMode: false,
@@ -165,15 +207,36 @@ export default {
       displaySound: false,
       notification: false,
       errors: [],
+      available: false,
+      status: false,
     };
   },
-  created() {},
+  created() {
+    this.now();
+    this.statusChat();
+  },
   mounted() {
+    this.now();
     this.enterChat();
     this.deleteTempUser();
     this.messageIncomming();
+    setTimeout(() => {
+      Echo.channel("toggleChat").listen("ChatToggleEvent", (e) => {
+        this.statusChat();
+        this.now();
+      });
+    }, 100);
   },
   methods: {
+    statusChat() {
+      axios.post("/chat/chatStatus").then((response) => {
+        if (this.contactId) {
+          this.status = 1;
+        } else {
+          this.status = response.data.chatActivated;
+        }
+      });
+    },
     enterChat() {
       if (this.userinfo.idTemp) {
         setTimeout(() => {
@@ -200,6 +263,9 @@ export default {
                 this.chatMode = false;
                 this.isLoading = false;
                 this.userinfo = "";
+                this.contactId = "";
+                this.statusChat();
+                this.now();
               }
             }
           );
@@ -272,26 +338,26 @@ export default {
       //     this.guest = "";
       //     return false;
       //   } else {
-      //     
+      //
       //   }
       this.isLoading = !this.isLoading;
-        axios
-          .post("/chat/joinChat", {
-            nombre: this.guest,
-            correo: this.email,
-            documento: this.number
-          })
-          .then((response) => {
-            this.userinfo = response.data;
-            this.errors = [];
-            this.messageIncomming();
-            this.enterChat();
-            this.deleteTempUser();
-          })
-          .catch((error) => {
-            this.errors = error.response.data;
-            this.isLoading = false;
-          });
+      axios
+        .post("/chat/joinChat", {
+          nombre: this.guest,
+          correo: this.email,
+          documento: this.number,
+        })
+        .then((response) => {
+          this.userinfo = response.data;
+          this.errors = [];
+          this.messageIncomming();
+          this.enterChat();
+          this.deleteTempUser();
+        })
+        .catch((error) => {
+          this.errors = error.response.data;
+          this.isLoading = false;
+        });
       // }
     },
     chatRoom(id, nombre) {
@@ -345,6 +411,27 @@ export default {
       var x = document.getElementById("myAudio");
       x.play();
     },
+    getTime() {
+      var hoy = new Date();
+      var hora = hoy.getHours();
+      if (hoy.getHours() < 8 || hoy.getHours() >= 18) {
+        if (this.contactId) {
+          this.available = true;
+        } else {
+          this.available = false;
+        }
+      } else {
+        if (this.status == 0) {
+          this.available = false;
+        } else {
+          this.available = true;
+        }
+      }
+      // console.log(hoy.getMinutes() + "" + "" + this.available);
+    },
+    now() {
+      setInterval(this.getTime, 1000);
+    },
   },
 
   computed: {
@@ -369,12 +456,12 @@ export default {
 <style lang="css">
 .form-inpt {
   margin-bottom: 12px;
-  padding: 0px 14px!important;
+  padding: 0px 14px !important;
   border: 3px solid rgb(13, 66, 97);
   height: 4rem;
 }
-.soomuchstyle{
-      font-weight: 600;
-    font-size: 1.6rem;
+.soomuchstyle {
+  font-weight: 600;
+  font-size: 1.6rem;
 }
 </style>

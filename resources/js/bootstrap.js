@@ -7,6 +7,8 @@ window._ = require('lodash');
  */
 
 window.axios = require('axios');
+window.push = require('push.js');
+
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

@@ -32020,6 +32020,10 @@ left: 0;
 min-width: 100%;
 height: 32rem;
 }
+.forbidden{
+  font-weight: 900;
+  color: red;
+}
 .ka{
 color: rgba(109,223,182,1); 
 }

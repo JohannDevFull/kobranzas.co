@@ -4,9 +4,29 @@
       ><i class="fas fa-exclamation" :class="notify"></i
       ><i class="fas fa-bell" :class="bell"></i
     ></span>
-    <pop />
-
-    <div class="chat-widget-container" v-if="!enabled" @click="toggle()">
+    <!-- <pop /> -->
+    <div
+      class="chat-widget-container"
+      style="line-height: 1.2rem"
+      v-if="!enabled && available == false"
+      @click="toggle()"
+    >
+      <div class="chat-widget-text">
+        <p class="heading">CHAT NO DISPONIBLE</p>
+        <p>
+          No Disponible <span class="forbidden" style="font-size: 21px">•</span>
+        </p>
+      </div>
+      <div class="chat-widget-avatar">
+        <img src="/storage/img/chat.svg" style="width: 72px" alt="" />
+      </div>
+    </div>
+    <div
+      class="chat-widget-container"
+      style="line-height: 1.2rem"
+      v-if="!enabled && available"
+      @click="toggle()"
+    >
       <div class="chat-widget-text">
         <p class="heading">CHAT DE CONTACTO</p>
 
@@ -66,8 +86,55 @@
         </div>
       </div>
     </div>
-    <div class="chat-box-container" v-if="enabled && seeContacts && !chatMode">
+    <div class="chat-box-container" v-if="enabled && !chatMode && !available">
       <div class="chat-box-nav"></div>
+      <div class="chat-box2" style="height: 74vh">
+        <div class="chat-box-body" style="height: 74vh; max-height: 100%">
+          <div class="chat-box-overlay"></div>
+          <div class="" style="overflow: auto">
+            <button class="btn-times" @click="toggle()">
+              <span class="chat-box-toggle"><i class="fas fa-times"></i></span>
+            </button>
+            <div id="cm-msg-1" class="chat-msg self">
+              <div class="form-group text-center">
+                <div class="chat-box-welcome__welcome-text">
+                  <div>
+                    <br />
+                    <p class="text-wel soomuchstyle" style="font-size: 1.07rem;" v-if="status == 0">
+                      <span class="required">
+                        El chat está inactivo temporalmente
+                      </span>
+                      <br />
+                      El Administrador ha deshabilitado el chat temporalmente
+                      <br />
+                      Intenta comunicarte con nosotros a través del formulario
+                      de contacto o
+                      <br />
+                      intenta más tarde.
+                    </p>
+                    <p class="text-wel soomuchstyle" style="font-size: 1.07rem;" v-else>
+                      El chat está inactivo actualmente
+                      <br />
+                      Los horarios de atención son:
+                      <br />
+                      <span class="required">8:00 am a 6:00 pm</span>
+                      <br />
+                      Intente más tarde.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="chat-box-container"
+      v-if="enabled && seeContacts && !chatMode && available"
+    >
+      <div class="chat-box-nav"></div>
+
       <div class="chat-box">
         <div class="chat-box-header">
           Contactos de soporte
@@ -146,17 +213,36 @@ export default {
       contactName: "",
       displaySound: false,
       notification: false,
+      available: false,
+      status: false,
     };
   },
   created() {
+    this.now();
+    this.statusChat();
     this.getUser();
   },
   mounted() {
+    this.now();
     this.chat();
+    setTimeout(() => {
+      Echo.channel("toggleChat").listen("ChatToggleEvent", (e) => {
+        this.statusChat();
+        this.now();
+      });
+    }, 100);
   },
   methods: {
+    statusChat() {
+      axios.post("/chat/chatStatus").then((response) => {
+        if (this.contactId) {
+          this.status = 1;
+        } else {
+          this.status = response.data.chatActivated;
+        }
+      });
+    },
     chat() {
-      
       setTimeout(() => {
         Echo.channel(`chat.${this.userinfo.id}`).listen("NewMessage", (e) => {
           if (this.contactId == "") {
@@ -198,7 +284,6 @@ export default {
           }
         });
       }, 100);
-      
     },
     getUser() {
       axios.post("/chat/getUser").then((response) => {
@@ -246,7 +331,7 @@ export default {
         });
     },
     chatRoom(id, nombre) {
-      this.messages=[];
+      this.messages = [];
       axios
         .post("/messages/getMessages", {
           from: this.userinfo.id,
@@ -294,6 +379,28 @@ export default {
     noty() {
       var x = document.getElementById("myAudio");
       x.play();
+    },
+    getTime() {
+      var hoy = new Date();
+      var hora = hoy.getHours();
+      if (hoy.getHours() < 8 || hoy.getHours() >= 18) {
+        if (this.contactId) {
+          this.available = true;
+        } else {
+          this.available = false;
+        }
+      } else {
+        if (this.status == 0) {
+          this.available = false;
+        } else {
+          this.available = true;
+        }
+      }
+      console.log(hoy.getHours());
+      // console.log(hoy.getMinutes() + "" + "" + this.available);
+    },
+    now() {
+      setInterval(this.getTime, 1000);
     },
   },
 

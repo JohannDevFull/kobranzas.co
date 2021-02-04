@@ -24,7 +24,11 @@
     </head>
     <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
         @inertia
+        <div id="main">
+        <Notification :userauth="{{ json_encode(Auth::user()) }}"  :rol="{{ json_encode(Auth::user()->roles[0]->name) }}" />
+        </div>
         <script src="{{ asset('js/app.js') }}"></script>
+     <script src="{{ asset('js/script.js') }}"></script>
         <script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
         <!-- jQuery UI 1.11.4 -->
         <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>

@@ -16,6 +16,13 @@
                   >
                     <div class="headind_srch">
                       <div class="recent_heading">
+                        <button
+                          v-if="$inertia.page.rol == 'Admin'"
+                          @click="toggleChatEvent()"
+                          class="btn btn-outline-light btn-sm btn-toggleChat"
+                        >
+                          {{ toggleChatfoo() }}
+                        </button>
                         <h4>Chat de Soporte</h4>
                       </div>
                       <div class="srch_bar"></div>
@@ -358,59 +365,24 @@ export default {
         height: 0 + "px",
         width: 0,
       },
+      chatActive: true,
+      status: false,
     };
   },
 
   created() {
+    console.log(this.$page.currentRouteName);
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
     this.getGuests();
     this.getContacts();
+    this.chatStatus();
   },
   destroyed() {
     window.removeEventListener("resize", this.handleResize);
   },
   mounted() {
-    setTimeout(() => {
-      Echo.channel(`chat.${this.$page.user.id}`).listen("NewMessage", (e) => {
-        if (this.contactId == "") {
-          if (e.message.to == this.$page.user.id) {
-            this.updateUnreadCount(e.message.from, false);
-            this.noty();
-          } else {
-            return;
-          }
-        } else if (e.message.to == this.$page.user.id) {
-          if (this.contactId != e.message.from) {
-            this.updateUnreadCount(e.message.from, false);
-            this.noty();
-            if (!this.enabled) {
-              this.notification = true;
-            }
-          } else {
-            this.messages.push({
-              from: e.message.from,
-              to: e.message.to,
-              text: e.message.text,
-            });
-            if (
-              (this.enabled && !this.seeContacts) ||
-              (this.enabled && this.chatMode)
-            ) {
-              this.scroll();
-            }
-            this.scroll();
-            this.updateUnreadCount(e.message.from, false);
-            this.noty();
-            if (!this.enabled) {
-              this.notification = true;
-            }
-          }
-        }
-        
-        // this.chatRoom(this.contactId, this.contactName, this.user_photo);
-      });
-    }, 100);
+    this.newM();
     setTimeout(() => {
       Echo.channel("joinGuest").listen("GuestJoinChat", (e) => {
         this.getGuests();
@@ -422,7 +394,7 @@ export default {
       Echo.channel(`guestSend.${this.$page.user.id}`).listen(
         "GuestSendMessage",
         (e) => {
-          if (e.message.to == this.$page.user.id ) {
+          if (e.message.to == this.$page.user.id) {
             if (this.contactId != e.message.from) {
               this.noty();
               this.updateUnreadGuest(e.message.from, false);
@@ -441,6 +413,7 @@ export default {
             }
             this.noty();
             //this.updateGuestStatus(e.guest[0].idTemp, false);
+
             this.messageIncoming = true;
           }
         }
@@ -462,8 +435,135 @@ export default {
         this.isGuest = false;
       });
     }, 100);
+    setTimeout(() => {
+      Echo.channel("toggleChat").listen("ChatToggleEvent", (e) => {
+        this.chatStatus();
+        this.notificate();
+      });
+    }, 100);
   },
   methods: {
+    newM() {
+      if (this.$page.currentRouteName=='chat.index') {
+      setTimeout(() => {
+        Echo.channel(`chat.${this.$page.user.id}`).listen("NewMessage", (e) => {
+          if (this.contactId == "") {
+            if (e.message.to == this.$page.user.id) {
+              this.updateUnreadCount(e.message.from, false);
+              this.noty();
+            } else {
+              return;
+            }
+          } else if (e.message.to == this.$page.user.id) {
+            if (this.contactId != e.message.from) {
+              this.updateUnreadCount(e.message.from, false);
+              this.noty();
+              if (!this.enabled) {
+                this.notification = true;
+              }
+            } else {
+              this.messages.push({
+                from: e.message.from,
+                to: e.message.to,
+                text: e.message.text,
+              });
+
+              if (
+                (this.enabled && !this.seeContacts) ||
+                (this.enabled && this.chatMode)
+              ) {
+                this.scroll();
+              }
+              this.scroll();
+              this.updateUnreadCount(e.message.from, false);
+              this.noty();
+              if (!this.enabled) {
+                this.notification = true;
+              }
+            }
+          }
+
+          // this.chatRoom(this.contactId, this.contactName, this.user_photo);
+        });
+      }, 100);
+      }
+    },
+    notificate() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "warning",
+        title:
+          "Un administrador ha " +
+          (this.status ? "Desactivado" : "Activado") +
+          " el chat de clientes",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
+    chatStatus() {
+      axios.post("/chat/chatStatus").then((response) => {
+        this.status = response.data.chatActivated;
+        //console.log(this.status);
+      });
+    },
+    toggleChatEvent() {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger",
+        },
+        buttonsStyling: false,
+      });
+
+      swalWithBootstrapButtons
+        .fire({
+          title: "¿Está seguro?",
+          text:
+            "Esta acción " +
+            (this.status ? "Descativará" : "Activará") +
+            " el chat para los clientes e invitados!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Sí, Cámbialo!",
+          cancelButtonText: "Cancelar!",
+          reverseButtons: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            axios
+              .put("/chat/toggleChat", { changeTo: !this.status })
+              .then((response) => {
+                this.status = response.data.chatActivated;
+                this.chatStatus();
+              });
+            swalWithBootstrapButtons.fire(
+              "Hecho!",
+              "El chat ha sido " +
+                (this.status ? "Desactivado" : "Activado") +
+                ".",
+              "success"
+            );
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire(
+              "Cancelado",
+              "El chat NO ha sido " +
+                (this.status ? "Desactivado" : "Activado") +
+                " ten más cuidado",
+              "error"
+            );
+          }
+        });
+    },
+    toggleChatfoo() {
+      if (this.status == 1) {
+        this.status = true;
+        return "Desactivar chat";
+      } else {
+        this.status = false;
+        return "Activar Chat";
+      }
+    },
     handleResize() {
       this.window.height = window.innerHeight;
       this.window.width = window.innerWidth;
@@ -712,6 +812,13 @@ export default {
 };
 </script>
 <style lang="css">
+.btn-toggleChat {
+  z-index: 100;
+  position: absolute;
+  float: left;
+  left: 13px;
+  top: 11px;
+}
 .chat-header {
   width: 100%;
   background: #2d7d46d6;
