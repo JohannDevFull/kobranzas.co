@@ -19,20 +19,10 @@
                   background: url('/storage/img/photo1.png') center center;
                   height: 200px;
                 "
-              ></div>
+              ></div> 
               <form role="form" method="POST" @submit.prevent="update">
                 <div class="card-body row">
                   <div class="col-sm-6">
-                    <div class="form-group" style="visibility: hidden" hidden>
-                      <label></label>
-                      <span class="required"></span>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Ingrese el nombre"
-                        v-model="id"
-                      />
-                    </div>
                     <div class="form-group">
                       <label>Nombre del Conjunto:</label>
                       <span class="required">*</span>
@@ -43,6 +33,7 @@
                         v-model="name"
                       />
                     </div>
+
                     <div class="form-group">
                       <label>Direccion del conjunto:</label>
                       <span class="required">*</span>
@@ -53,9 +44,7 @@
                         v-model="address"
                       />
                     </div>
-                  </div>
 
-                  <div class="col-sm-6">
                     <div class="form-group">
                       <label>Telefono:</label>
                       <span class="required">*</span>
@@ -64,6 +53,31 @@
                         class="form-control"
                         placeholder="Ingrese un numero de telefono"
                         v-model="phone"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Valor administracion:</label>
+                      <span class="required">*</span>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Ingrese el valor de la administracion"
+                        v-model="administracion"
+                      />
+                    </div>
+
+                    <div class="form-group">
+                      <label>% Gastos cobranzas:</label>
+                      <span class="required">*</span>
+                      <input
+                        type="number"
+                        class="form-control"
+                        min="1"
+                        max="20"
+                        v-model="gastos"
                       />
                     </div>
 
@@ -84,7 +98,9 @@
                     </div>
                   </div>
 
-                  <button type="submit" class="btn btn-primary">Guardar</button>
+                  <button type="submit" class="btn btn-primary">
+                    Actualizar
+                  </button>
                 </div>
                 <!-- /.card-body -->
 
@@ -107,7 +123,7 @@
 </template>
 <script>
 import AppLayout from "@/Layouts/AppLayout";
-
+import { Inertia } from '@inertiajs/inertia'
 export default {
   props: ["conjunto"],
 
@@ -117,20 +133,34 @@ export default {
   data() {
     return {
       administradores: [],
-      administrador: "",
       errors: [],
 
       id: this.conjunto.id_building,
       name: this.conjunto.name_building,
       address: this.conjunto.address_building,
       phone: this.conjunto.phone_building,
+      gastos: this.conjunto.gastos_cobranzas,
       selected: this.conjunto.administrator_id,
+      administrador: this.conjunto.administrator_id,
+      administracion:"",
     };
   },
   created() {
     this.buscarResultados();
+    this.valor();
+  },
+  watch:{
+    administracion: function(){ 
+      var res=this.formatear(this.administracion);
+      this.administracion=res;
+      return this.administracion;
+     
+    },
   },
   methods: {
+    valor(){
+      this.administracion=this.conjunto.valor_administracion;
+    },
     buscarResultados() {
       axios
         .get("/buscar/administradores", {
@@ -148,11 +178,15 @@ export default {
     update() {
       var num = this.id;
       var url = "/conjuntos/update/" + num;
+      var val_admin=this.sinFormatNumber(this.administracion);
       axios
         .put(url, {
+          idconjunto: num,
           nombre: this.name,
           direccion: this.address,
           telefono: this.phone,
+          admin: val_admin,
+          gastos: this.gastos,
           administrador: this.selected,
         })
         .then((response) => {
@@ -164,10 +198,62 @@ export default {
             showConfirmButton: false,
             timer: 1500,
           });
+          Inertia.get('/conjuntos');
+
         })
-        .catch((error) => {
-          alert("Error" + error);
+        .catch((error) => { 
+          this.errors = error.response.data;
         });
+    },
+    formatear(input_val){
+
+          // check for decimal
+          if (input_val.indexOf(".") >= 0) 
+          {
+
+            // get position of first decimal
+            // this prevents multiple decimals from
+            // being entered
+            var decimal_pos = input_val.indexOf(".");
+
+            // split number by decimal point
+            var left_side = input_val.substring(0, decimal_pos);
+            var right_side = input_val.substring(decimal_pos);
+
+            // add commas to left side of number
+            left_side = this.formatNumber(left_side);
+
+            // validate right side
+            right_side = this.formatNumber(right_side);
+            
+            // On blur make sure 2 numbers after decimal
+            if (blur === "blur") 
+            {
+              right_side += "00";
+            }
+            
+            // Limit decimal to only 2 digits
+            right_side = right_side.substring(0, 2);
+
+            // join number by .
+            input_val = left_side + "." + right_side; 
+            return input_val;
+          } 
+          else 
+          {
+            // no decimal entered
+            // add commas to number
+            // remove all non-digits
+            input_val = this.formatNumber(input_val); 
+            return input_val;
+          }
+    },
+    formatNumber(n){
+      // format number 1000000 to 1,234,567
+      return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    },
+    sinFormatNumber(n){ 
+      return n.replace(/,/g, "");
     },
   },
 };

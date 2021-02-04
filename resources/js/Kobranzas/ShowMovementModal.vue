@@ -13,7 +13,7 @@
                 </button>
               </div>
             
-              <div class="modal-body" v-if="boleano===-1">
+              <div class="modal-body" v-if="movimiento===0">
 
               </div>
 
@@ -22,7 +22,7 @@
                   <div class="row" style="background-color: green;">
 
                     <div class="col-sm-6">
-                      <div class="form-group ">
+                      <div class="form-group">
                             <label>Tipo de movimiento</label>
                             <div class="input-group mb-3">
                               <div class="input-group-prepend">
@@ -93,7 +93,7 @@
               </div>
 
               <div class="modal-footer" >
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> 
               </div>
 
             </div>

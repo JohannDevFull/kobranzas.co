@@ -37,6 +37,16 @@ class LlamadasController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function misLlamadas(Request $request)
+    {   
+        return Inertia::render('Empleado/MisLlamadas'); 
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -69,7 +79,14 @@ class LlamadasController extends Controller
             $all=0;
         }
             
-        $acuerdos=DB::select('SELECT * FROM agreements where user_id='.$id);
+        $acuerdos=DB::select('SELECT *,state.description FROM agreements 
+                                INNER JOIN state
+                                on state.id_state= agreements.state_id 
+                                where user_id='.$id);
+
+        if (!$acuerdos){
+            $acuerdos=0;
+        }
 
         $id_building=DB::select('SELECT building_id FROM clients where user_id='.$id);
         $conjunto=DB::select('SELECT * FROM buildings where id_building='.$id_building[0]->building_id);
@@ -100,11 +117,21 @@ class LlamadasController extends Controller
     public function cargarClientes(Request $request)
     {   
         $buscar=$request->buscar;
-        $users_cliente=User::role('Cliente')
-                        ->where('name', 'like', '%'.$buscar.'%')
-                        ->get();
+        // $users_cliente=User::role('Cliente')
+        //                 ->where('name', 'like', '%'.$buscar.'%')
+        //                 ->get();
+
+        $users_cliente=DB::select("SELECT id,name,email,client_code,contract_number,state_id,user_id,building_id,description
+            FROM clients 
+            INNER JOIN state
+            on state.id_state=clients.state_id
+            INNER JOIN users
+            on users.id=clients.user_id
+            WHERE  users.name like '%".$buscar."%'" );
+
         return response()->json($users_cliente);
     }
+
     
     /**
      * Display a listing of the resource.
@@ -139,6 +166,7 @@ class LlamadasController extends Controller
     public function create($id)
     { 
         $empleado = Auth::id();
+        $name=DB::select("SELECT name FROM users WHERE id=".$empleado); 
         
         if ($debito=DB::select("SELECT * FROM movements  WHERE  `user_id`=".$id." LIMIT 1"))
         {
@@ -185,6 +213,7 @@ class LlamadasController extends Controller
             
             return Inertia::render('Empleado/Llamada',[
                 'empleadoid' => $empleado, 
+                'name' => $name[0]->name, 
                 'conjunto' => $conjuntoNombre, 
                 'cliente' => $clienteinfo[0], 
                 'acuerdo' => $acuerdo_actual, 
@@ -302,10 +331,12 @@ class LlamadasController extends Controller
         $agreement=Agreement::create([   
             'user_id'=>$request->cliente,
             'employee_id'=>$request->idempleado,
+            'name_employee'=>$request->nombre_empleado,
             'current_debt'=>$request->deuda_actual,
             'credit'=>$request->abono,
             'quotas'=>$request->cuotas,
             'observations'=>$request->observaciones,
+            'state_id'=>$request->estado,
         ]); 
         $user=User::select('id','name','email')->find(Auth::user()->id)->first();
         $client=Clients::select('users.id','users.name','clients.building_id','buildings.name_building')

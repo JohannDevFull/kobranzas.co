@@ -52,7 +52,7 @@
                           {{ row.email}} 
                       </td>
                       <td> 
-                          {{ row.phone_one }}  
+                          {{ row.description }}  
                       </td>
                       
 

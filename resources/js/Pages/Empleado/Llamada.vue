@@ -11,18 +11,9 @@
             <h3 class="card-title">Registro de llamadas </h3>
 
             <div class="card-tools">
-              <div class="input-group input-group-sm" style="width: 250px;">
-                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                </div>
-
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" style="border: 1px gray solid ;height: 100%;margin:0px; ">
                   <i class="fas fa-minus"></i>
-                </button> 
-
-              </div>
+                </button>    
             </div>   
           
           </div>
@@ -365,7 +356,7 @@
   import { Inertia } from '@inertiajs/inertia'
 
   export default {
-    props: ['cliente','empleadoid','conjunto','admin','llamadas','acuerdo','cuentaTotal'],
+    props: ['cliente','empleadoid','conjunto','admin','llamadas','acuerdo','cuentaTotal','name'],
 
     components: {
         AppLayout, 
@@ -412,6 +403,7 @@
         image: "../../storage/img/avatar.png", 
         nameimg: " avatar user", 
         empleado:this.empleadoid, 
+        nombreempleado:this.name, 
         conj:this.conjunto, 
 
       }
@@ -497,6 +489,7 @@
           estado: this.selestado, 
           cliente: this.cliente.id, 
           idempleado: this.empleado, 
+          nombre_empleado: this.nombreempleado, 
 
           deuda_actual:this.cuentaTotal,
           cuotas:this.form.cuotas,
@@ -507,8 +500,8 @@
         .then((response) => { 
             Swal.fire({
             icon: "success",
-            title: "Llamada Registrada",
-            text:"Éxito al Registrar Llamada",
+            title: "Acuerdo Registrada",
+            text:"Éxito al Registrar Acuerdo",
             showConfirmButton: false,
             timer: 1500,
           });

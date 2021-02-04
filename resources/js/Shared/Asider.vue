@@ -127,21 +127,42 @@
                 <p>Conjuntos</p>
               </inertia-link>
             </li>
+
             <li
               class="nav-item has-treeview"
-              v-if="
-                $inertia.page.rol == 'Admin' || $inertia.page.rol == 'Empleado'
-              "
+              v-if="$inertia.page.rol == 'Admin'"
             >
-              <inertia-link
-                class="nav-link"
-                :href="route('llamadas')"
-                @click="toggle()"
-              >
+              <a href="" class="nav-link">
                 <i class="nav-icon fas fa-phone"></i>
-                <p>Llamadas</p>
-              </inertia-link>
+                <p>
+                  Llamadas
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview" style="display: none">
+                <li class="nav-item">
+                  <inertia-link
+                    class="nav-link"
+                    :href="route('llamadas')"
+                    @click="toggle()"
+                  >
+                    <i class="nav-icon fas fa-users text-success"></i>
+                    <p>Lista clientes</p>
+                  </inertia-link>
+                </li>
+                <li class="nav-item">
+                  <inertia-link
+                    class="nav-link"
+                    :href="route('llamadas.empleado')"
+                    @click="toggle()"
+                  >
+                    <i class="nav-icon fas fa-clipboard-list text-success"></i>
+                    <p>Mis llamadas</p>
+                  </inertia-link>
+                </li>
+              </ul>
             </li>
+
             <li
               class="nav-item"
               v-if="
@@ -189,7 +210,7 @@
               </inertia-link>
             </li>
 
-            <li class="nav-item">
+           <!--  <li class="nav-item">
               <inertia-link
                 class="nav-link"
                 :href="route('construir')"
@@ -201,9 +222,9 @@
                   <span class="badge badge-info right">2</span>
                 </p>
               </inertia-link>
-            </li>
+            </li> -->
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <inertia-link
                 class="nav-link"
                 :href="route('construir')"
@@ -215,7 +236,7 @@
                   <span class="right badge badge-danger">New</span>
                 </p>
               </inertia-link>
-            </li>
+            </li> -->
             <li class="nav-item"
              v-if="$inertia.page.rol == 'Admin'">
               <inertia-link

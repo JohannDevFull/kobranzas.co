@@ -14,6 +14,8 @@ class Agreement extends Model
     protected $fillable = [ 
         'user_id',
         'employee_id',
+        'name_employee',
+        'state_id',
         'current_debt',
         'credit',
         'quotas',

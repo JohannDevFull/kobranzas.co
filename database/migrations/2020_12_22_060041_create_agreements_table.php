@@ -17,6 +17,8 @@ class CreateAgreementsTable extends Migration
             $table->bigIncrements('id_agreement');  
             $table->foreignId('user_id')->references('user_id')->on('clients'); 
             $table->bigInteger('employee_id'); 
+            $table->string('name_employee'); 
+            $table->foreignId('state_id')->references('id_state')->on('state');
             $table->decimal('current_debt',$precision = 13, $scale = 2);
             $table->decimal('credit', $precision = 13, $scale = 2);   
             $table->integer('quotas');  

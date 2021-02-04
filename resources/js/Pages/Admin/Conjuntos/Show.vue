@@ -34,6 +34,12 @@
                 Conjunto : {{ conjunto.name_building }}
               </h5>
               <h5 class="widget-user-desc text-right">
+                Telefono : {{ conjunto.phone_building }}
+              </h5>
+              <h5 class="widget-user-desc text-right">
+                direccion : {{ conjunto.address_building }}
+              </h5>
+              <h5 class="widget-user-desc text-right">
                 Valor administracion : {{ conjunto.valor_administracion }}
               </h5>
               <h5 class="widget-user-desc text-right">
@@ -170,7 +176,7 @@
             <table class="table table-head-fixed text-nowrap">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>ID usuario</th>
                   <th>Nombre</th>
                   <th>Correo</th>
                   <th>Estado</th>
@@ -179,9 +185,9 @@
               </thead>
 
               <tbody>
-                <tr v-for="row in clientes">
+                <tr v-for="row in clients">
                   <td>
-                    {{ row.id_client }}
+                    {{ row.id }}
                   </td>
                   <td>
                     {{ row.name }}
@@ -190,29 +196,17 @@
                     {{ row.email }}
                   </td>
                   <td>
-                    {{ row.phone_one }}
+                    {{ row.description }}
                   </td>
 
                   <td>
-                    <inertia-link
-                      class=""
-                      :href="route('llamadas.create', row.id)"
-                    >
-                      <i
-                        class="nav-icon fas fa-eye text-info"
-                        style="padding: 3px"
-                      ></i>
-                    </inertia-link>
+                    <inertia-link class="" :href="route('llamadas.client',row.id)" > 
+                            <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
+                        </inertia-link>
 
-                    <inertia-link
-                      class=""
-                      :href="route('llamadas.create', row.id)"
-                    >
-                      <i
-                        class="nav-icon fas fa-hands-helping text-success"
-                        style="padding: 6px"
-                      ></i>
-                    </inertia-link>
+                        <inertia-link class="" :href="route('llamadas.agreement',row.id)">
+                            <i class="nav-icon fas fa-hands-helping text-success" style="padding:6px;"></i>  
+                        </inertia-link>
                     <inertia-link
                       class=""
                       :href="route('llamadas.create', row.id)"
@@ -240,7 +234,7 @@
 import AppLayout from "@/Layouts/AppLayout";
  
 export default {
-  props: ["conjunto", "clientes", "num","conjuntoinfo"],
+  props: ["conjunto","num","conjuntoinfo"],
   components: {
     AppLayout,
   },
@@ -251,6 +245,7 @@ export default {
     return {
       files: null,
       usuariosc: [],
+      clients:[],
       buscar: "",
       import_file: "",
       setTimeoutBuscador: "",
@@ -259,27 +254,30 @@ export default {
     };
   },
   methods: {
-    buscarResultados() {
-      axios
-        .get("/buscar", {
-          params: {
-            buscar: this.buscar,
-          },
+
+    buscarResultados(){
+
+        axios.get('/buscar/clients',{
+          params:{
+            buscar:this.buscar,
+            conjunto:this.conjunto.id_building
+          }
         })
-        .then((res) => {
-          console.log("exito al cargar resultados");
+        .then( res => { 
+            this.clients=res.data 
         })
-        .catch((error) => {
-          console.log(error.response);
+        .catch( error => {
+            console.log( error.response )
         });
     },
-    buscarKUP() {
-      clearTimeout(this.setTimeoutBuscador);
-      this.setTimeoutBuscador = setTimeout(this.buscarResultados, 360);
+
+    buscarKUP(){
+        clearTimeout( this.setTimeoutBuscador )
+        this.setTimeoutBuscador=setTimeout( this.buscarResultados ,360) 
     },
-    buscarONC() {
-      this.buscarResultados();
-    },
+    buscarONC(){
+      this.buscarResultados()
+    }, 
     onFileChange(event) {
       this.files = event.target.files;
     },

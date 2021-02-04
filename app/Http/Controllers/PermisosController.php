@@ -137,24 +137,21 @@ class PermisosController extends Controller
     public function test(Request $request,$id='')
     {
 
-        $debito=Permisos::informe($id);
+        $id = Auth::id();
+
+        $empleado=DB::select("SELECT name FROM users WHERE id=".$id); 
 
   
         echo "<br>";
         echo "<br>------------------------------------**** PRUEBAS JOHANN ***--------------------------------------------";
         echo "<br>";
         echo "Debito: ";
-        print_r($debito);
+        print_r($empleado[0]->name);
         echo "<br>";
 
         echo "Credito: ";
         // print_r($res);
-         
-
-
-
-
-
+        
     }
 
         
