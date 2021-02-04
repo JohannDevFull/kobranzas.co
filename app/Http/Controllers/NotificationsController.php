@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use App\Models\User;
+use App\Notifications\Contact;
 use App\Notifications\Notify;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -73,6 +74,21 @@ class NotificationsController extends Controller
             $notification = Notification::where('id', '=', $notifications[$j]->id)->update(['seenBy' => $arr]);
         }
 
+    }
+    public function contact(Request $request)
+    {
+         $this->validate($request, [
+            'nombre' => 'required|regex:/^[\pL\s\-]+$/u',
+            'correo' => 'required|email',
+            'tipo_documento' => 'required',
+            'documento' => 'required',
+            'telefono' => 'required',
+            'ciudad'=>'required',
+            'mensaje'=>'required|max:300'
+
+        ]);
+        NotificationSend::route('mail', 'reyesjohan59@gmail.com')->notify(new Contact($request));
+        return redirect('/');
     }
    
 }

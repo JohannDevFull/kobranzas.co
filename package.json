@@ -29,6 +29,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.1",
         "laravel-echo": "^1.9.0",
+        "push.js": "^1.0.12",
         "pusher-js": "^7.0.2",
         "vue-js-modal": "^2.0.0-rc.6"
     }

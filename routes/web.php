@@ -30,7 +30,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/artisan/migrate', function(){
+Route::get('/artisan/migrate', function () {
     Artisan::call('migrate:fresh');
     Artisan::call('db:seed');
     return redirect('/');
@@ -48,6 +48,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
 Route::post('chat/getUser', [ChatController::class, 'getAuthUser']);
+Route::post('chat/chatStatus', [ChatController::class, 'getChatStatus']);
 Route::post('messages/getMessages', [MessageController::class, 'getMessagesFrom']);
 Route::post('messages/sendMessage', [MessageController::class, 'sendMessage']);
 Route::delete('chat/endChat/{id}', [ChatController::class, 'endChat']);
@@ -58,9 +59,10 @@ Route::get('construir', BuildController::class)->name('construir');
 Route::get('politica',  function () {
     return view('politicas.politica');
 });
-
+Route::post('/contactRequest',[NotificationsController::class,'contact'])->name('contact.request');
 // PERMISOS USUARIO 
 Route::middleware(['auth'])->group(function () {
+    Route::put('chat/toggleChat', [ChatController::class, 'changeStatus'])->middleware('permission:chat.toggle');
     Route::post('/llamadas/sendEmails', [LlamadasController::class, 'sendEmails']);
     Route::post('/notifications', [NotificationsController::class, 'getNotifications']);
     Route::post('/markSeen', [NotificationsController::class, 'markAsSeen']);
@@ -96,7 +98,7 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('permission:clients.show');
     Route::get('clientes/extractos/{id}', [StatementsController::class, 'getStatements'])->name('clientes/extractos')
         ->middleware('permission:statement.details');
-        //ruta para obtener los extractos del cliente
+    //ruta para obtener los extractos del cliente
     Route::get('extractos/cliente', [StatementsController::class, 'getOwnStatements'])->name('extractos.cliente')
         ->middleware('permission:statement.client');
 });

@@ -19,6 +19,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'historial.index']);
         Permission::create(['name' => 'historial.show']);
         Permission::create(['name' => 'chat.index']);
+        Permission::create(['name' => 'chat.toggle']);
         Permission::create(['name' => 'conjuntos.export']);
         Permission::create(['name' => 'clients.import']);
         //Permission Admin 
@@ -67,6 +68,7 @@ class PermissionsTableSeeder extends Seeder
             'user.create',
             'user.destroy',
             'chat.index',
+            'chat.toggle',
             'conjuntos.export',
             'clients.import',
             'historial.index',

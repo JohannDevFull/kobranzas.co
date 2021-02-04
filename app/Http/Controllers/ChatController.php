@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChatToggleEvent;
 use App\Events\DeleteTempUser;
 use App\Events\EndChat;
 use App\Events\GuestJoinChat;
@@ -12,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Message;
+use App\Models\System;
+use Illuminate\Support\Facades\Broadcast;
 use Inertia\Inertia;
 
 class ChatController extends Controller
@@ -20,6 +23,17 @@ class ChatController extends Controller
     public function index()
     {
         return Inertia::render('Chat');
+    }
+    public function changeStatus(Request $request)
+    {
+        System::where('id','=',1)->update([
+            'chatActivated'=>$request->changeTo
+        ]);
+        Broadcast(new ChatToggleEvent())->toOthers();
+    }
+    public function getChatStatus()
+    {
+        return System::first();
     }
     public function getContacts()
     {
