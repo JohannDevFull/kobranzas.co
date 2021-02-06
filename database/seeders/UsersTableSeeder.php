@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name'=>'Johan Reyes',
             'email'=>'jr@jr.com',
-            'password'=>bcrypt("JtwoColombia123"),
+            'password'=>bcrypt("123"),
             'phone_one'=>'123456789',
             'phone_two'=>'987654321',
             'doc_type'=>'cedula_ciudadania',
@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name'=>'Cliente Usuario',
             'email'=>'cliene@kobranzas.co',
-            'password'=>bcrypt("JtwoColombia123"),
+            'password'=>bcrypt("123"),
             'phone_one'=>'987654321',
             'phone_two'=>'311256464',
             'doc_type'=>'cedula_ciudadania',
@@ -37,7 +37,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name'=>'Empleado Usuario',
             'email'=>'empleado@kobranzas.co',
-            'password'=>bcrypt("JtwoColombia123"),
+            'password'=>bcrypt("123"),
             'phone_one'=>'922324321',
             'phone_two'=>'311111464',
             'doc_type'=>'cedula_ciudadania',
@@ -47,7 +47,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name'=>'Administrador Conjunto Usuario',
             'email'=>'administrador@kobranzas.co',
-            'password'=>bcrypt("JtwoColombia123"),
+            'password'=>bcrypt("123"),
             'phone_one'=>'9888881',
             'phone_two'=>'37777764',
             'doc_type'=>'cedula_ciudadania',
@@ -60,7 +60,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name'=>'Administrador Conjunto Cataleya',
             'email'=>'cataleya@kob.co',
-            'password'=>bcrypt("JtwoColombia123"),
+            'password'=>bcrypt("123"),
             'phone_one'=>'78658627',
             'phone_two'=>'78675648',
             'doc_type'=>'cedula_ciudadania',

@@ -78936,7 +78936,8 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.$inertia.page.rol == "Admin"
+                _vm.$inertia.page.rol == "Admin" ||
+                _vm.$inertia.page.rol == "Empleado"
                   ? _c("li", { staticClass: "nav-item has-treeview" }, [
                       _vm._m(2),
                       _vm._v(" "),

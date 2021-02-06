@@ -55,7 +55,7 @@
                     <p class="text-wait soomuchstyle">
                       Espera por favor, nuestros empleados estan un poco
                       ocupados por el momento, pero no te preocupes te atenderán
-                      en breve. <br /><strong>No abandones la pagina</strong>
+                      en breve. <br /><strong>No abandones la página</strong>
                     </p>
                     <Loader />
                   </div>
@@ -85,7 +85,7 @@
                     <input
                       type="text"
                       class="form-control form-inpt"
-                      placeholder="ingresa tu número identificación"
+                      placeholder="ingresa tu número de identificación"
                       @keyup.enter="joinChat()"
                       v-model="number"
                       maxlength="35"

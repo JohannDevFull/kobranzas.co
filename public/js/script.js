@@ -28074,7 +28074,7 @@ var render = function() {
                                         attrs: {
                                           type: "text",
                                           placeholder:
-                                            "ingresa tu número identificación",
+                                            "ingresa tu número de identificación",
                                           maxlength: "35"
                                         },
                                         domProps: { value: _vm.number },
@@ -28394,7 +28394,7 @@ var staticRenderFns = [
         "\n                    Espera por favor, nuestros empleados estan un poco\n                    ocupados por el momento, pero no te preocupes te atenderán\n                    en breve. "
       ),
       _c("br"),
-      _c("strong", [_vm._v("No abandones la pagina")])
+      _c("strong", [_vm._v("No abandones la página")])
     ])
   }
 ]

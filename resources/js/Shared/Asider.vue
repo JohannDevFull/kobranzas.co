@@ -130,7 +130,7 @@
 
             <li
               class="nav-item has-treeview"
-              v-if="$inertia.page.rol == 'Admin'"
+              v-if="$inertia.page.rol == 'Admin' || $inertia.page.rol == 'Empleado'"
             >
               <a href="" class="nav-link">
                 <i class="nav-icon fas fa-phone"></i>
