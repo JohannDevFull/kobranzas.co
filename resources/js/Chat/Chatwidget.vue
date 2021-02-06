@@ -410,7 +410,6 @@ export default {
           this.available = true;
         }
       }
-      // console.log(hoy.getMinutes() + "" + "" + this.available);
     },
     now() {
       setInterval(this.getTime, 1000);
