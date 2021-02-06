@@ -95,7 +95,7 @@ class ChatController extends Controller
     }
     public function getPendingchats(TempUser $tempUser)
     {
-        $tempUser = TempUser::where('status', 0)->get();
+        $tempUser = TempUser::where('status', 0)->orderBy('id','DESC')->get();
         return $tempUser;
     }
     public function endChat($id)
@@ -114,7 +114,9 @@ class ChatController extends Controller
     }
     public function getRequestsChats(Request $request, TempUser $tempUser)
     {
-        $tempUser = TempUser::all();
+        $tempUser = TempUser::
+        orderBy('id','DESC')
+        ->get();
 
         $unreadIds = TempMessage::select(\DB::raw('`from` as sender_id, count(`from`) as messages_count'))
             ->where('to', auth()->id())

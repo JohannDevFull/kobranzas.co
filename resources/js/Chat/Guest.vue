@@ -46,7 +46,7 @@
           <div class="chat-box-overlay"></div>
           <div class="" style="overflow: auto">
             <button class="btn-times" @click="toggle()">
-              <span class="chat-box-toggle"><i class="fas fa-times"></i></span>
+              <span class="chat-box-toggle"><i class="fas fa-minus"></i></span>
             </button>
             <div id="cm-msg-1" class="chat-msg self">
               <div class="form-group text-center">
@@ -138,7 +138,7 @@
         <div class="chat-box-header">
           Chat con {{ contactName }}
           <span class="chat-box-toggle" @click="toggle()"
-            ><i class="fas fa-times"></i
+            ><i class="fas fa-minus"></i
           ></span>
         </div>
         <div class="chat-box-body" id="messagesconotainer">

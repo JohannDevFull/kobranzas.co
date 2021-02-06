@@ -444,48 +444,52 @@ export default {
   },
   methods: {
     newM() {
-      if (this.$page.currentRouteName=='chat.index') {
-      setTimeout(() => {
-        Echo.channel(`chat.${this.$page.user.id}`).listen("NewMessage", (e) => {
-          if (this.contactId == "") {
-            if (e.message.to == this.$page.user.id) {
-              this.updateUnreadCount(e.message.from, false);
-              this.noty();
-            } else {
-              return;
-            }
-          } else if (e.message.to == this.$page.user.id) {
-            if (this.contactId != e.message.from) {
-              this.updateUnreadCount(e.message.from, false);
-              this.noty();
-              if (!this.enabled) {
-                this.notification = true;
-              }
-            } else {
-              this.messages.push({
-                from: e.message.from,
-                to: e.message.to,
-                text: e.message.text,
-              });
+      if (this.$page.currentRouteName == "chat.index") {
+        setTimeout(() => {
+          Echo.channel(`chat.${this.$page.user.id}`).listen(
+            "NewMessage",
+            (e) => {
+              this.getContacts();
+              if (this.contactId == "") {
+                if (e.message.to == this.$page.user.id) {
+                  this.updateUnreadCount(e.message.from, false);
+                  this.noty();
+                } else {
+                  return;
+                }
+              } else if (e.message.to == this.$page.user.id) {
+                if (this.contactId != e.message.from) {
+                  this.updateUnreadCount(e.message.from, false);
+                  this.noty();
+                  if (!this.enabled) {
+                    this.notification = true;
+                  }
+                } else {
+                  this.messages.push({
+                    from: e.message.from,
+                    to: e.message.to,
+                    text: e.message.text,
+                  });
 
-              if (
-                (this.enabled && !this.seeContacts) ||
-                (this.enabled && this.chatMode)
-              ) {
-                this.scroll();
+                  if (
+                    (this.enabled && !this.seeContacts) ||
+                    (this.enabled && this.chatMode)
+                  ) {
+                    this.scroll();
+                  }
+                  this.scroll();
+                  this.updateUnreadCount(e.message.from, false);
+                  this.noty();
+                  if (!this.enabled) {
+                    this.notification = true;
+                  }
+                }
               }
-              this.scroll();
-              this.updateUnreadCount(e.message.from, false);
-              this.noty();
-              if (!this.enabled) {
-                this.notification = true;
-              }
-            }
-          }
 
-          // this.chatRoom(this.contactId, this.contactName, this.user_photo);
-        });
-      }, 100);
+              // this.chatRoom(this.contactId, this.contactName, this.user_photo);
+            }
+          );
+        }, 100);
       }
     },
     notificate() {
@@ -589,6 +593,9 @@ export default {
         })
         .then((res) => {
           this.guests = res.data;
+          this.guests = this.guests.sort(function (a, b) {
+            return b.unread - a.unread;
+          });
         });
     },
     getContacts() {

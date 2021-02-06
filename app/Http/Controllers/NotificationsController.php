@@ -77,6 +77,7 @@ class NotificationsController extends Controller
     }
     public function contact(Request $request)
     {
+
          $this->validate($request, [
             'nombre' => 'required|regex:/^[\pL\s\-]+$/u',
             'correo' => 'required|email',
@@ -84,11 +85,13 @@ class NotificationsController extends Controller
             'documento' => 'required',
             'telefono' => 'required',
             'ciudad'=>'required',
-            'mensaje'=>'required|max:300'
+            'mensaje'=>'required|max:400',
+            'tipo_de_consulta'=>'required'
 
         ]);
         NotificationSend::route('mail', 'reyesjohan59@gmail.com')->notify(new Contact($request));
-        return redirect('/');
+            return $request;
+
     }
    
 }

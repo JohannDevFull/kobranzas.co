@@ -24,15 +24,7 @@
             :disabled="disabled"
           />
         </div>
-        <!-- <div class="form-group">
-          <label>Contraseña:</label>
-          <input
-            type="text"
-            class="form-control"
-            :value="userinfo.password"
-            :disabled="disabled"
-          />
-        </div> -->
+     
         <div class="form-group">
           <label>Telefono:</label>
           <input

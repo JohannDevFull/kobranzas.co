@@ -427,7 +427,7 @@ if (isset($_REQUEST['politica-cookies'])) {
       </div>
     </section>
 
-    <section id="contactenos" class="bg-whisper">
+    <section class="bg-whisper">
       <div class="container">
         <div class="row">
           <div class="col-md-10 col-lg-9 col-xl-12">
@@ -436,113 +436,114 @@ if (isset($_REQUEST['politica-cookies'])) {
               <b>
                 <legend>Por favor, llena este formulario para ponernos en contacto contigo.</legend>
               </b>
-              <form class="rd-mailform" action="{{route('contact.request')}}" method="post" >
+              <form onsubmit="validate(event)">
                 @csrf
                 <div class="row row-30">
                   <div class="col-md-6">
                     <div class="form-wrap">
-                      <input class="form-input" id="request-form-name" type="text" name="nombre">
-                      <label class="form-label" for="request-form-name">Nombre Completo <span class="required">*</span></label>
-                      @error('nombre')
+                      <input class="form-input" id="name" type="text" name="nombre">
+                      <label class="form-label" for="name">Nombre Completo <span class="required">*</span></label>
                       <br>
-                      <small class="required">*{{$message}}</small>
-                      <br>
-                      @enderror
+                      <small id="name-error" class="required"></small>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-wrap">
                       <input class="form-input" id="email" type="email" name="correo">
                       <label class="form-label" for="email">Correo Electronico <span class="required">*</span></label>
-                      @error('correo')
                       <br>
-                      <small class="required">*{{$message}}</small>
-                      <br>
-                      @enderror
+                      <small id="email-error" class="required"></small>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-wrap">
                       <input class="form-input" id="phone" type="text" name="telefono">
                       <label class="form-label" for="phone">Teléfono <span class="required">*</span></label>
-                      @error('telefono')
                       <br>
-                      <small class="required">*{{$message}}</small>
-                      <br>
-                      @enderror
+                      <small id="phone-error" class="required"></small>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-wrap">
                       <input class="form-input" id="city" type="text" name="ciudad">
                       <label class="form-label" for="city">Ciudad <span class="required">*</span></label>
-                      @error('ciudad')
                       <br>
-                      <small class="required">*{{$message}}</small>
-                      <br>
-                      @enderror
+                      <small id="city-error" class="required"></small>
                     </div>
                   </div>
+
                   <div class="col-md-6">
                     <div class="form-wrap form-wrap-outside">
-                      <!--Select 2-->
+                      <label for="select">Tipo de Identificación <span class="required">*</span></label>
                       <select class="form-input select-filter" name="tipo_documento" id="select">
-                        <option>Tipo de Documento <span class="required">*</span></option>
+                        <option value="">Seleccione</option>
                         <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
                         <option value="Cédula de Extrangería">Cédula de Extrangería</option>
                       </select>
+                      <br>
+                      <small id="select-error" class="required"></small>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-wrap ">
+                      <label for="select">Tipo de Consulta <span class="required">*</span></label>
+
+                      <select class="form-input" id="otro">
+                        <option value="">Seleccione</option>
+                        <option value="Ley familiar">Ley familiar</option>
+                        <option value="Derecho empresarial">Derecho empresarial</option>
+                        <option value="Juicio Civil">Juicio civil</option>
+                        <option value="Otra">Otra</option>
+                      </select>
+                      <br>
+                      <small id="otro-error" class="required"></small>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-wrap">
                       <input class="form-input" id="doc" type="text" name="documento">
                       <label class="form-label" for="doc">Identificación <span class="required">*</span></label>
-                      @error('documento')
                       <br>
-                      <small class="required">*{{$message}}</small>
-                      <br>
-                      @enderror
+                      <small id="doc-error" class="required"></small>
                     </div>
                   </div>
                   <div class="col-12">
+                    <small>caracteres <span id="counter">0</span> de 400</small>
                     <div class="form-wrap">
-                      <textarea class="form-input" id="message" name="mensaje"></textarea>
+                      <textarea onkeyup="count()" class="form-input" id="message" name="mensaje"></textarea>
                       <label class="form-label" for="message">Mensaje <span class="required">*</span></label>
-                      @error('mensaje')
                       <br>
-                      <small class="required  ">*{{$message}}</small>
-                      <br>
-                      @enderror
+                      <small id="message-error" class="required"></small>
                     </div>
                   </div>
                   <div class="col-12">
                     <div class="form-wrap">
-
                     </div>
                   </div>
                   <div class="col-12">
                     <div class="row">
-               
                       <div class="col-md-6">
-                        <button class="button button-block button-primary" type="submit">
-                          Enviar
+                        <button style="max-height: 50px;" id="send-btn" class="button button-block button-primary">
+                          <div id="loader" class="lds-ellipsis" style="display: none;">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                          </div>
+                          <span id="send">Enviar</span>
                         </button>
+                        <span id="error" class="required"></span>
                       </div>
-                      @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
+                      <p id="wait-text" class="text-w" style="display: none;"> Espera por favor...</p>
                     </div>
                   </div>
                 </div>
               </form>
             </div>
           </div>
+
 
         </div>
       </div>
@@ -929,7 +930,7 @@ if (isset($_REQUEST['politica-cookies'])) {
   </script>
 
 
-
+  <script src="{{asset('js/form-contact.js')}}"></script>
 </body>
 
 </html>

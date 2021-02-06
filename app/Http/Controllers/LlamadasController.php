@@ -22,7 +22,8 @@ use Illuminate\Support\Facades\Notification as NotificationSend;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-use Inertia\Inertia; 
+use Inertia\Inertia;
+use Prophecy\Call\Call;
 
 class LlamadasController extends Controller
 {
@@ -44,6 +45,28 @@ class LlamadasController extends Controller
     public function misLlamadas(Request $request)
     {   
         return Inertia::render('Empleado/MisLlamadas'); 
+    }
+    public function paginate(Request $request)
+    {
+        $show = $request['show'];
+        $calls =Calls::select('calls.name_call','calls.client_id','calls.phone_call','state.description as state_name','calls.description','buildings.name_building','calls.created_at')
+        ->join('clients','calls.client_id','=','clients.id_client')
+        ->join('buildings','clients.building_id','=','buildings.id_building')
+        ->join('state','clients.state_id','=','state.id_state')
+        ->orderBy('calls.id_call','DESC')
+        ->where('calls.employee_id','=',Auth::user()->id)->paginate($show);
+        return [
+            'pagination' => [
+                'total' => $calls->total(),
+                'current_page' => $calls->currentPage(),
+                'per_page' => $calls->perPage(),
+                'last_page' => $calls->lastPage(),
+                'from' => $calls->firstItem(),
+                'to' => $calls->lastPage(),
+
+            ],
+            'calls' => $calls,
+        ];
     }
 
     /**
@@ -338,13 +361,13 @@ class LlamadasController extends Controller
             'observations'=>$request->observaciones,
             'state_id'=>$request->estado,
         ]); 
-        $user=User::select('id','name','email')->find(Auth::user()->id)->first();
+        $user=User::select('id','name','email')->where('id','=',Auth::user()->id)->get();
         $client=Clients::select('users.id','users.name','clients.building_id','buildings.name_building')
         ->join('users','clients.user_id','=','users.id')
         ->join('buildings', 'clients.building_id', '=', 'buildings.id_building')
         ->where('users.id','=',$request->cliente)->get();
         $notificaction=Notification::create([
-            'from'=>$user,
+            'from'=>$user[0],
             'action'=>'hizo',
             'notificable'=>'acuerdo',
             'info'=>$client[0]

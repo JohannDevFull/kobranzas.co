@@ -30,6 +30,7 @@ class Contact extends Notification
                     ->line('su telefono es: '.$this->data->telefono)
                     ->line('su correo es: '.$this->data->correo)
                     ->line('su '.$this->data->tipo_documento.' es: '.$this->data->documento)
+                    ->line('tipo de consulta: '.$this->data->tipo_de_consulta)
                     ->line('desde: '.$this->data->ciudad)
                     ->line('Mensaje:')
                     ->line($this->data->mensaje)

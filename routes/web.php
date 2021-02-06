@@ -101,6 +101,7 @@ Route::middleware(['auth'])->group(function () {
     //ruta para obtener los extractos del cliente
     Route::get('extractos/cliente', [StatementsController::class, 'getOwnStatements'])->name('extractos.cliente')
         ->middleware('permission:statement.client');
+        Route::get('llamadas/paginate', [LlamadasController::class, 'paginate'])->name('llamadas.paginate');
 });
 
 // RUTAS LLAMADAS 

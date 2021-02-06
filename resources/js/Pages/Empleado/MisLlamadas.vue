@@ -5,12 +5,12 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <inertia-link :href="route('user.create')">
+              <!-- <inertia-link :href="route('user.create')">
                 <button class="btn btn-dark float-right btn-sm">
                   <i class="fas fa-plus"></i> Agregar Usuario
                 </button>
-              </inertia-link>
-              <h3 class="card-title">Listado de Usuarios</h3>
+              </inertia-link> -->
+              <h3 class="card-title">Tus Llamadas</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -21,40 +21,22 @@
                 <div class="row">
                   <div class="col-sm-12 col-md-6">
                     <div class="dataTables_length" id="example1_length">
-                      <label
-                      class="word-break"
+                      <label class="word-break"
                         >Filtrar por Cantidad
                         <select
                           name="example1_length"
                           aria-controls="example1"
                           class="custom-select custom-select-sm form-control form-control-sm"
                           v-model="show"
-                          @click="getUsers(1, show, search)"
+                          @click="getOwnCalls(1, show)"
                         >
                           <option value="5">5</option>
                           <option value="10">10</option>
                           <option value="25">25</option>
-                          <option value="50">50</option> 
+                          <option value="50">50</option>
                         </select>
                         Registros</label
                       >
-                    </div>
-                  </div>
-                  <div class="col-sm-12 col-md-6">
-                    <div
-                      id="example1_filter"
-                      class="float-right"
-                    >
-                      <label  
-                      class="sear-label "
-                        >Buscar por nombre o documento:<input
-                          type="search"
-                          class="form-control form-control-sm"
-                          placeholder=""
-                          aria-controls="example1"
-                          v-model="search"
-                          @keyup="getUsers(1, show, search)"
-                      /></label>
                     </div>
                   </div>
                 </div>
@@ -75,7 +57,7 @@
                             colspan="1"
                             style="width: 170px"
                           >
-                            Nombre
+                            Cliente
                           </th>
                           <th
                             tabindex="0"
@@ -84,7 +66,7 @@
                             colspan="1"
                             style="width: 219px"
                           >
-                            Correo
+                            Telefono
                           </th>
                           <th
                             tabindex="0"
@@ -93,7 +75,7 @@
                             colspan="1"
                             style="width: 194px"
                           >
-                            Tipo de Documento
+                            Conjunto
                           </th>
                           <th
                             tabindex="0"
@@ -102,7 +84,7 @@
                             colspan="1"
                             style="width: 143px"
                           >
-                            Documento
+                            Tipo
                           </th>
                           <th
                             tabindex="0"
@@ -111,9 +93,18 @@
                             colspan="1"
                             style="width: 101px"
                           >
-                            Telefono
+                            Descripcion
                           </th>
                           <th
+                            tabindex="0"
+                            aria-controls="example1"
+                            rowspan="1"
+                            colspan="1"
+                            style="width: 101px"
+                          >
+                            Fecha
+                          </th>
+                           <th
                             tabindex="0"
                             aria-controls="example1"
                             rowspan="1"
@@ -128,61 +119,40 @@
                         <tr
                           role="row"
                           class="odd"
-                          v-for="(user, id) in users"
+                          v-for="(call, id) in calls"
                           :key="id"
                         >
-                        <td>
-                         <jet-nav-link
-                              :href="route('user.show', user.id)"
-                              :active="route().current('user.show')"
-                            >
-                          {{ user.name }}
-                            </jet-nav-link>
-                          </td>
-                          <td>{{ user.email }}</td>
-                          <td>
-                            <select
-                              class="styleDoc"
-                              :value="user.doc_type"
-                              disabled
-                            >
-                              <option value="" disabled>Seleccione...</option>
-                              <option value="cedula_ciudadania">
-                                <b> Cédula de Ciudadanía</b>
-                              </option>
-                              <option value="cedula_extrangeria">
-                                Cédula de Extrangería
-                              </option>
-                            </select>
-                          </td>
-                          <td>{{ user.document }}</td>
-                          <td>{{ user.phone_one }}</td>
                           <td>
                             <jet-nav-link
-                              :href="route('user.show', user.id)"
-                              :active="route().current('user.show')"
+                              :href="route('llamadas.create', call.client_id)"
+                            >
+                              {{ call.name_call }}
+                            </jet-nav-link>
+                          </td>
+                          <td>{{ call.phone_call }}</td>
+                          <td>
+                            {{ call.name_building }}
+                          </td>
+                          <td>{{ camelCase(call.state_name) }}</td>
+                          <td>{{ call.description }}</td>
+                          <td>{{ toLocaleDateString(call.created_at)}}</td>
+                          <td>     <jet-nav-link
+                              :href="route('llamadas.create', call.client_id)"
                             >
                               <button class="btn btn-sm btn-info">
                                 <i class="nav-icon fas fa-eye"></i>
                               </button>
-                            </jet-nav-link>
-                            <button
-                              class="btn btn-danger btn-sm"
-                              @click="deleteUser(user.id)"
-                              v-if="$inertia.page.rol == 'Admin'"
-                            >
-                              <i class="nav-icon fas fa-trash"></i>
-                            </button>
-                          </td>
+                            </jet-nav-link></td>
                         </tr>
                       </tbody>
                       <tfoot>
                         <tr>
-                          <th rowspan="1" colspan="1">Nombre</th>
-                          <th rowspan="1" colspan="1">Correo</th>
-                          <th rowspan="1" colspan="1">Tipo de Documento</th>
-                          <th rowspan="1" colspan="1">Documento</th>
+                          <th rowspan="1" colspan="1">Cliente</th>
                           <th rowspan="1" colspan="1">Telefono</th>
+                          <th rowspan="1" colspan="1">Conjunto</th>
+                          <th rowspan="1" colspan="1">Tipo</th>
+                          <th rowspan="1" colspan="1">Descripcion</th>
+                          <th rowspan="1" colspan="1">Fecha</th>
                           <th rowspan="1" colspan="1">Acción</th>
                         </tr>
                       </tfoot>
@@ -196,11 +166,13 @@
                       id="example1_info"
                       role="status"
                       aria-live="polite"
-                    ><p class="word-break">
-                      Se muestran {{ pagination.from }} de {{ count }} de un
-                      total de
-                      {{ pagination.total }}
-                      registros.</p>
+                    >
+                      <p class="word-break">
+                        Se muestran {{ pagination.from }} de {{ count }} de un
+                        total de
+                        {{ pagination.total }}
+                        registros.
+                      </p>
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-7">
@@ -208,7 +180,7 @@
                       class="dataTables_paginate paging_simple_numbers"
                       id="example1_paginate"
                     >
-                      <ul class="pagination flex-wrap"  >
+                      <ul class="pagination flex-wrap">
                         <li
                           v-if="pagination.current_page > 1"
                           class="paginate_button page-item previous"
@@ -288,9 +260,8 @@ export default {
   },
   data() {
     return {
-      search: "",
       show: 10,
-      users: [],
+      calls: [],
       pagination: {
         total: 0,
         current_page: 0,
@@ -303,7 +274,7 @@ export default {
     };
   },
   created() {
-    this.getUsers();
+    this.getOwnCalls();
   },
   computed: {
     count() {
@@ -336,84 +307,45 @@ export default {
       }
       return pagesArray;
     },
-    searchUser() {
-      return this.users.filter(
-        (user) =>
-          user.name.toLowerCase().includes(this.search.toLowerCase()) ||
-          user.document.includes(this.search)
-      );
-    },
   },
   methods: {
-    getUsers(page) {
+    getOwnCalls(page) {
       axios
-        .get(
-          "user/paginate?page=" +
-            page +
-            "&show=" +
-            this.show +
-            "&search=" +
-            this.search
-        )
+        .get("/llamadas/paginate?page=" + page + "&show=" + this.show)
         .then((response) => {
           this.pagination = response.data.pagination;
-          this.users = response.data.users.data;
+          this.calls = response.data.calls.data;
         });
     },
     changePage(page) {
       this.pagination.current_page = page;
-      this.getUsers(page);
+      this.getOwnCalls(page);
     },
-    deleteUser(idUser) {
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-success",
-          cancelButton: "btn btn-danger",
-        },
-        buttonsStyling: false,
-      });
-
-      swalWithBootstrapButtons
-        .fire({
-          title: "¿Estás Seguro que quieres eliminar a este usuario?",
-          text:
-            "Una vez eliminado el usuario NO podras ver su informacion de nuevo!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: "Sí, Eliminar!",
-          cancelButtonText: "No, Cancelar!",
-          reverseButtons: true,
-          showLoaderOnConfirm: true,
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            axios.delete(`user/${idUser}`).then((response) => {
-              this.getUsers();
-              swalWithBootstrapButtons.fire(
-                "Eliminado!",
-                `El usuario ha sido eliminado.`,
-                "success"
-              );
-            });
-          } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-          ) {
-            swalWithBootstrapButtons.fire(
-              "Cancelado",
-              "El usuario NO se ha eliminado ten más cuidado.",
-              "error"
-            );
-          }
-        });
-    },
+    camelCase(str) {
+  return str.replace(
+    /\w\S*/g,
+    function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }
+  );
   },
+  toLocaleDateString(date) {
+      var options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      var dateConverted = new Date(date).toLocaleString("es-US", options);
+      return dateConverted;
+    },
+  
+}
 };
 </script>
 <style lang="css">
-  .word-break{
-    word-wrap: break-word!important;
-    white-space: normal!important;
-
-  }
+.word-break {
+  word-wrap: break-word !important;
+  white-space: normal !important;
+}
 </style>

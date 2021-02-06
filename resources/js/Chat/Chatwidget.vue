@@ -7,7 +7,7 @@
     <!-- <pop /> -->
     <div
       class="chat-widget-container"
-      style="line-height: 1.2rem"
+      :class="pageVar"
       v-if="!enabled && available == false"
       @click="toggle()"
     >
@@ -23,7 +23,7 @@
     </div>
     <div
       class="chat-widget-container"
-      style="line-height: 1.2rem"
+      :class="pageVar"
       v-if="!enabled && available"
       @click="toggle()"
     >
@@ -43,7 +43,7 @@
         <div class="chat-box-header">
           {{ contactName }}
           <span class="chat-box-toggle" @click="toggle()"
-            ><i class="fas fa-times"></i
+            ><i class="fas fa-minus"></i
           ></span>
           <span class="chat-box-toggle" @click="toggleChatRoom()"
             ><i class="fas fa-user-friends"></i
@@ -93,14 +93,18 @@
           <div class="chat-box-overlay"></div>
           <div class="" style="overflow: auto">
             <button class="btn-times" @click="toggle()">
-              <span class="chat-box-toggle"><i class="fas fa-times"></i></span>
+              <span class="chat-box-toggle"><i class="fas fa-minus"></i></span>
             </button>
             <div id="cm-msg-1" class="chat-msg self">
               <div class="form-group text-center">
                 <div class="chat-box-welcome__welcome-text">
                   <div>
                     <br />
-                    <p class="text-wel soomuchstyle" style="font-size: 1.07rem;" v-if="status == 0">
+                    <p
+                      class="text-wel soomuchstyle"
+                      style="font-size: 1.07rem"
+                      v-if="status == 0"
+                    >
                       <span class="required">
                         El chat está inactivo temporalmente
                       </span>
@@ -112,7 +116,11 @@
                       <br />
                       intenta más tarde.
                     </p>
-                    <p class="text-wel soomuchstyle" style="font-size: 1.07rem;" v-else>
+                    <p
+                      class="text-wel soomuchstyle"
+                      style="font-size: 1.07rem"
+                      v-else
+                    >
                       El chat está inactivo actualmente
                       <br />
                       Los horarios de atención son:
@@ -139,7 +147,7 @@
         <div class="chat-box-header">
           Contactos de soporte
           <span class="chat-box-toggle" @click="toggle()"
-            ><i class="fas fa-times"></i
+            ><i class="fas fa-minus"></i
           ></span>
         </div>
         <div class="chat-box-body">
@@ -245,6 +253,9 @@ export default {
     chat() {
       setTimeout(() => {
         Echo.channel(`chat.${this.userinfo.id}`).listen("NewMessage", (e) => {
+          this.contacts = this.contacts.sort(function (a, b) {
+            return b.unread - a.unread;
+          });
           if (this.contactId == "") {
             if (e.message.to == this.userinfo.id) {
               if (!this.enabled) {
@@ -293,6 +304,9 @@ export default {
           axios.post("/chat/getContacts").then((res) => {
             this.contacts = res.data;
             this.seeContacts = true;
+            this.contacts = this.contacts.sort(function (a, b) {
+              return b.unread - a.unread;
+            });
           });
         }
       });
@@ -396,7 +410,6 @@ export default {
           this.available = true;
         }
       }
-      console.log(hoy.getHours());
       // console.log(hoy.getMinutes() + "" + "" + this.available);
     },
     now() {
@@ -407,6 +420,12 @@ export default {
   computed: {
     info() {
       return this.userinfo;
+    },
+    pageVar(){
+      return{
+      customLineH: this.$page,
+      customLineH2: !this.$page
+      }
     },
     bell() {
       return {
@@ -423,3 +442,11 @@ export default {
   },
 };
 </script>
+<style lang="css">
+  .customLineH{
+    line-height: 1.2rem;
+  }
+  .customLineH2{
+    line-height: 2rem;
+  }
+</style>

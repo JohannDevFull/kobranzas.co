@@ -8,11 +8,10 @@
         <div class="widget-user-header bg-warning">
           <div class="widget-user-image">
             <img
-              
               class="img-circle elevation-2"
               :src="userinfo.profile_photo_url"
               alt="User Avatar"
-            />           
+            />
           </div>
           <h3 class="widget-user-username">{{ userinfo.name }}</h3>
           <h5 class="widget-user-desc">{{ userinfo.roles[0].name }}</h5>
@@ -62,19 +61,26 @@
         </div>
         <div class="card-body">Acción: {{ toSpanish(auditinfo.event) }}</div>
         <div class="card-body">
+          Tipo: {{ modelSpanish(auditinfo.auditable_type) }}
+        </div>  
+        <div class="card-body">
           {{ convert(auditinfo.event) }} el:
           {{ toLocaleDateString(auditinfo.created_at) }}
         </div>
-        
-        <div v-if="!auditinfo.user_id && auditinfo.auditable_type==`App\\Models\\User` && auditinfo.event=='updated'">
-            <div class="card-body">
+
+        <div
+          v-if="
+            !auditinfo.user_id &&
+            auditinfo.auditable_type == `App\\Models\\User` &&
+            auditinfo.event == 'updated'
+          "
+        >
+          <div class="card-body">
             <ul>
               Cambió su contraseña
-              
             </ul>
           </div>
         </div>
-        
       </div>
     </div>
   </app-layout>
@@ -122,19 +128,14 @@ export default {
       switch (action) {
         case "created":
           return "Creado";
-          break;
         case "updated":
           return "Actualizado";
-          break;
         case "deleted":
           return "Eliminado";
-          break;
         case "restored":
           return "Restaurado";
-          break;
         default:
-          "Realizado";
-          break;
+          return "Realizado";
       }
     },
 
@@ -142,19 +143,14 @@ export default {
       switch (action) {
         case "created":
           return "Creó";
-          break;
         case "updated":
           return "Actualizó";
-          break;
         case "deleted":
           return "Eliminó";
-          break;
         case "restored":
           return "Restauró";
-          break;
         default:
-          "Otra";
-          break;
+          return "Otra";
       }
     },
 
@@ -170,6 +166,31 @@ export default {
       };
       var dateConverted = new Date(date).toLocaleString("es-US", options);
       return dateConverted;
+    },
+    modelSpanish(model) {
+      switch (model) {
+        case `App\\Models\\User`:
+          return "Usuario";
+        case `App\\Models\\Buildings`:
+          return "Conjunto";
+        case `App\\Models\\Calls`:
+          return "LLamada";
+        case `App\\Models\\Llamadas`:
+          return "Llamadas";
+        case `App\\Models\\State`:
+          return "Estado";
+        case `App\\Models\\Movements`:
+          return "Movimiento";
+        case `App\\Models\\Agreement`:
+          return "Acuerdo";
+        /*
+
+         //agregar mas modelos
+
+        */
+        default:
+          return "Otro";
+      }
     },
   },
 };

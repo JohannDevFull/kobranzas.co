@@ -22,6 +22,7 @@ class HistoryController extends Controller
         ->where('auditable_type','like', '%Call%')
         ->orwhere('auditable_type','like', '%Llamada%')
         ->where('user_name','like','%'.$request->search.'%')
+        ->orderBy('id','DESC')
         ->paginate($request['show']);
  
       }
@@ -31,6 +32,7 @@ class HistoryController extends Controller
         ->where('event','like', '%'.$request['event'].'%')
         ->where('auditable_type','like', '%'.$request['auditable'].'%')
         ->where('user_name','like','%'.$request->search.'%')
+        ->orderBy('id','DESC')
         ->paginate($request['show']);
 
     }

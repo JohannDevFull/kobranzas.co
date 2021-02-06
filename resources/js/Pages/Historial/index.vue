@@ -75,6 +75,8 @@
                           <option value="Building">Conjuntos</option>
                           <option value="Call">Llamadas</option>
                           <option value="State">Estados</option>
+                          <option value="Movement">Movimientos</option>
+                          <option value="Agreement">Acuerdos</option>
                         </select>
                       </label>
                     </div>
@@ -350,16 +352,12 @@ export default {
       switch (action) {
         case "created":
           return "Se Creó";
-          break;
         case "updated":
           return "Se Actualizó";
-          break;
         case "deleted":
           return "Se Eliminó";
-          break;
         case "restored":
           return "Se Restauró";
-          break;
         default:
           "Otro";
           break;
@@ -369,19 +367,18 @@ export default {
       switch (model) {
         case `App\\Models\\User`:
           return "Usuario";
-          break;
         case `App\\Models\\Buildings`:
           return "Conjunto";
-          break;
         case `App\\Models\\Calls`:
           return "LLamada";
-          break;
         case `App\\Models\\Llamadas`:
           return "Llamadas";
-          break;
         case `App\\Models\\State`:
           return "Estado";
-          break;
+            case `App\\Models\\Movements`:
+          return "Movimiento";
+            case `App\\Models\\Agreement`:
+          return "Acuerdo";
         /*
 
          //agregar mas modelos
@@ -389,7 +386,6 @@ export default {
         */
         default:
           return "Otro";
-          break;
       }
     },
     getAudits(page) {

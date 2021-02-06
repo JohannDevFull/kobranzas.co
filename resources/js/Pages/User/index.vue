@@ -348,7 +348,7 @@ export default {
     getUsers(page) {
       axios
         .get(
-          "user/paginate?page=" +
+          "/user/paginate?page=" +
             page +
             "&show=" +
             this.show +
@@ -387,7 +387,7 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            axios.delete(`user/${idUser}`).then((response) => {
+            axios.delete(`/user/${idUser}`).then((response) => {
               this.getUsers();
               swalWithBootstrapButtons.fire(
                 "Eliminado!",
