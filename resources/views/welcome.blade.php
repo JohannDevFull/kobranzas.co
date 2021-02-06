@@ -98,7 +98,7 @@ if (isset($_REQUEST['politica-cookies'])) {
                         <a href="{{ url('/dashboard') }}" class="button button-smaller button-primary-outline" style="background-color:rgba(109,223,182,1);color: white;">Dashboard</a>
                       </li>
                       @else
-                      <li style="padding-right:5px;margin-right: 5px">
+                      <li style="padding-right:5px;margin-right: 5px" id="ingresar">
                         <a href="{{ route('login') }}" class="button button-smaller button-primary-outline">Ingresar</a>
                       </li>
                       @endauth
@@ -156,7 +156,7 @@ if (isset($_REQUEST['politica-cookies'])) {
                     </div>
                     <h2 class="slider-header" data-caption-animate="fadeInUp" data-caption-delay="150">Ayuda legal asequible y eficaz</h2>
                     <p class="text-bigger slider-text" data-caption-animate="fadeInUp" data-caption-delay="250">Nuestro equipo experto de abogados y consultores estará encantado de brindarle la asistencia legal necesaria.</p>
-                    <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="#">Solicite una consuta gratuita</a></div>
+                    <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="#contactenos">Contáctenos</a></div>
                   </div>
                 </div>
               </div>
@@ -172,7 +172,7 @@ if (isset($_REQUEST['politica-cookies'])) {
                     </div>
                     <h2 class="slider-header" data-caption-animate="fadeInUp" data-caption-delay="150">Obtendrá un amplio apoyo legal</h2>
                     <p class="text-bigger slider-text" data-caption-animate="fadeInUp" data-caption-delay="250">Contamos con años de experiencia en brindar asistencia legal en diversas esferas del derecho.</p>
-                    <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="#">Solicite una consulta gratuita</a></div>
+                    <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="#contactenos">Contáctenos</a></div>
                   </div>
                 </div>
               </div>
@@ -322,7 +322,7 @@ if (isset($_REQUEST['politica-cookies'])) {
               <div class="block-number">06</div>
               <h3 class="text-normal">Expertos</h3>
               <p class="h5 h5-smaller text-style-4">en sus campos</p>
-              <p>Si usted o su empresa enfrentan un desafío legal, contáctenos hoy para programar una consulta inicial gratuita con un abogado.</p><a class="link link-group link-group-animated link-bold link-secondary" href="#"><span>Leer más..</span><span class="novi-icon icon icon-xxs icon-primary fa fa-angle-right"></span></a>
+              <p>Si usted o su empresa enfrentan un desafío legal, contáctenos hoy para programar una consulta inicial con un abogado.</p><a class="link link-group link-group-animated link-bold link-secondary" href="#"><span>Leer más..</span><span class="novi-icon icon icon-xxs icon-primary fa fa-angle-right"></span></a>
             </div>
           </div>
         </div>
@@ -765,6 +765,7 @@ if (isset($_REQUEST['politica-cookies'])) {
       @hasanyrole('Admin|Trabajador|AdminConjunto')
 
       @else
+
       @role('Cliente')
       <chatwidget />
       @else
@@ -910,21 +911,26 @@ if (isset($_REQUEST['politica-cookies'])) {
     function aceptar() {
       document.cookie = "politica=aceptada"
       var x = document.getElementById("cookie");
+
       if (x.style.display === "none") {
         x.style.display = "block";
       } else {
         x.style.display = "none";
       }
-      var x = document.getElementById("chatc");
-      x.style.display = "block";
+      var y = document.getElementById("ingresar");
+      var z = document.getElementById("chatc");
+      y.style.display = "block";
+      z.style.display = "block";
     }
 
     function validacion() {
       var politica = document.cookie.replace(/(?:(?:^|.*;\s*)politica\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
       var x = document.getElementById("chatc");
+      var y = document.getElementById("ingresar");
       if (politica) {} else {
         x.style.display = "none";
+        y.style.display = "none";
       }
     }
   </script>

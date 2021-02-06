@@ -2338,8 +2338,7 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           this.available = true;
         }
-      } // console.log(hoy.getMinutes() + "" + "" + this.available);
-
+      }
     },
     now: function now() {
       setInterval(this.getTime, 1000);
@@ -28193,7 +28192,7 @@ var render = function() {
                                         attrs: {
                                           type: "text",
                                           placeholder:
-                                            "ingresa tu número identificación",
+                                            "ingresa tu número de identificación",
                                           maxlength: "35"
                                         },
                                         domProps: { value: _vm.number },
@@ -28513,7 +28512,7 @@ var staticRenderFns = [
         "\n                    Espera por favor, nuestros empleados estan un poco\n                    ocupados por el momento, pero no te preocupes te atenderán\n                    en breve. "
       ),
       _c("br"),
-      _c("strong", [_vm._v("No abandones la pagina")])
+      _c("strong", [_vm._v("No abandones la página")])
     ])
   }
 ]
@@ -41218,8 +41217,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "7f92a28260a2b4581fb5",
-  cluster: "us2",
+  key: "",
+  cluster: "mt1",
   forceTLS: true
 });
 
