@@ -427,12 +427,12 @@ if (isset($_REQUEST['politica-cookies'])) {
       </div>
     </section>
 
-    <section class="bg-whisper">
+    <section id="contactenos" class="bg-whisper">
       <div class="container">
         <div class="row">
           <div class="col-md-10 col-lg-9 col-xl-12">
             <div class="section-50 section-md-75 section-xl-100">
-              <h3>Contactanos</h3>
+              <h3>Contáctanos</h3>
               <b>
                 <legend>Por favor, llena este formulario para ponernos en contacto contigo.</legend>
               </b>
@@ -709,12 +709,12 @@ if (isset($_REQUEST['politica-cookies'])) {
                   <address class="contact-info text-left">
                     <div class="unit unit-horizontal unit-spacing-md align-items-center">
                       <div class="unit-left"><span class="novi-icon icon icon-xs icon-storm-gray material-icons-phone"></span></div>
-                      <div class="unit-body"><a class="link-white" href="tel:314 441 2784">314 441 2784</a></div>
+                      <div class="unit-body"><a class="link-white" href="tel:3144412784">314 441 2784</a></div>
                     </div>
                     <div class="unit unit-horizontal unit-spacing-md align-items-center">
                       <div class="unit-left"><span class="novi-icon icon icon-xs icon-storm-gray fa fa-envelope-o"></span></div>
                       <div class="unit-body">
-                        <a class="link-white" href="mailto:#">
+                        <a class="link-white" href="mailto:gerenciajuridica@lsa.com.co">
                           gerenciajuridica@lsa.com.co
                         </a>
                       </div>
