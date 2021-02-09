@@ -6,6 +6,7 @@ use App\Imports\ClientsImport;
 use App\Models\Clients;
 use App\Models\Movements;
 use App\Models\State;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -17,6 +18,21 @@ class ClientsController extends Controller
     {
         return Inertia::render('Clientes');
     }
+ 
+    public function show($id)
+    { 
+        $user=User::where('id','=',$id)->get();
+        $id_building=DB::select('SELECT building_id FROM clients where user_id='.$id);
+        $conjunto=DB::select('SELECT * FROM buildings where id_building='.$id_building[0]->building_id);
+        $conjuntoNombre=$conjunto[0]->name_building;   
+        
+        return Inertia::render('Clientes/Show', [
+            'cliente' => $user[0],  
+            'nombre_conjunto' => $conjuntoNombre,  
+        ]);
+
+    }
+
     public function getDetails()
     {
         return Inertia::render('Clientes/detalles');

@@ -81,6 +81,72 @@
             </div>
             <!-- /.widget-user -->
       </div>
+
+      <div class="col-12">
+        <div class="card card-primary collapsed-card">
+              <div class="card-header">
+                <h3 class="card-title">Historial de llamadas</h3>
+
+                <div class="card-tools" v-if="acuerdos != 0"> 
+                     
+                
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" style="border: 1px gray solid ;height: 100%;margin:0px; ">
+                      <i class="fas fa-plus"></i>
+                    </button> 
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0" style="height: 300px;">
+                <table class="table table-head-fixed text-nowrap">
+                  <thead>
+
+                    <tr>
+                      <th>ID </th>
+                      <th>Persona llamada</th>
+                      <th>Telefono</th>
+                      <th>Fecha / Hora</th>
+                      <th>Nombre Empleado</th>
+                      <th >Descripcion</th>
+                      <th>Ver</th>
+                    </tr>
+
+                  </thead>
+
+                  <tbody>
+ 
+                    <tr v-if="!llamadas"  > 
+                    </tr>  
+                    
+                    <tr v-else v-for="(row,index) in llamadas" > 
+                      <td > {{ row.id_call }} </td>
+                      <td style="width: 120px"> 
+                        <div style='width:150px; overflow:hidden;'>
+                        {{ row.name_call }} 
+                        </div>
+                      </td>
+                      <td > {{ row.phone_call }} </td>
+                      <td >{{ row.created_at }} </td>
+                      <td  >{{ row.employee_id }} </td> 
+                      <td style="width: 240px">
+                        <div style='width:250px; overflow:hidden;'>
+                            {{ row.description }}
+                        </div> 
+                      </td>
+                      <td >
+
+                        <button type="button" style="margin-top:-4px" class="btn btn-success" @click="verLlamada(index)"  >
+                            <i class="nav-icon fas fa-eye text-info"  ></i>         
+                        </button>
+
+                      </td>
+                    </tr>  
+                   
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+      </div>
       
       <div class="col-12">
             <div class="card">
@@ -223,17 +289,19 @@
             </div>
             <!-- /.card -->    
       </div> 
+      
 
       <create-account v-bind:cliente_id="cliente.user_id"/>
       <movements v-bind:cliente_id="cliente.user_id"/>
       <agreement-modal v-bind:acuerdo="acuerdos" v-bind:id="inde"  v-bind:totalCuenta="cuenta" />
-      
-      <show-movement-modal v-bind:movimiento="movimientos" v-bind:id="id_movement"  v-bind:boleno="bol_dos"  />
+      <show-movement-modal v-bind:movimiento="movimientos" v-bind:id="id_movement"  v-bind:boleno="bol_dos"/>
+      <call-modal v-bind:llamadas="llamadas" v-bind:ides="inde2" v-bind:id="state" v-bind:kk="llam" v-bind:name="cliente.name" />
 
     </div>
   </app-layout>
 </template>
 <script>
+import CallModal from '@/Kobranzas/CallModal' 
 import AppLayout from "@/Layouts/AppLayout";
 import AgreementModal from '@/Kobranzas/AgreementModal' 
 import CreateAccount from "@/Kobranzas/CreateAccount"; 
@@ -241,9 +309,10 @@ import Movements from "@/Kobranzas/MovementsModal";
 import ShowMovementModal from "@/Kobranzas/ShowMovementModal"; 
 
 export default {
-  props: ['conjunto','cliente','cuenta','acuerdo','photo','acuerdos','movimientos'],
+  props: ['conjunto','cliente','cuenta','acuerdo','photo','acuerdos','movimientos','llamadas'],
   components: {
     AppLayout, 
+    CallModal, 
     CreateAccount, 
     AgreementModal,
     ShowMovementModal,
@@ -265,6 +334,11 @@ export default {
       id_movement:0,
       bol:-1,
       bol_dos:-1,
+
+      inde2:0,
+      llam:-1,
+      index:"",
+      state:0,
     }
   },
   methods: {
@@ -359,6 +433,16 @@ export default {
       $("#showMovementModal").modal();
 
 
+    },
+    verLlamada(id){  
+         
+        this.inde=id; 
+        this.llam=0; 
+        
+        this.state=this.llamadas[id].state_id; 
+
+        $("#myModalCall").modal();
+        
     },
 
     abrir(){   

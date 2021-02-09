@@ -139,14 +139,14 @@ class PermisosController extends Controller
 
         $id = Auth::id();
 
-        $empleado=DB::select("SELECT name FROM users WHERE id=".$id); 
+        $user=User::select('*')->where('id',$id)->first();
 
   
         echo "<br>";
         echo "<br>------------------------------------**** PRUEBAS JOHANN ***--------------------------------------------";
         echo "<br>";
         echo "Debito: ";
-        print_r($empleado[0]->name);
+        print_r($user);
         echo "<br>";
 
         echo "Credito: ";
