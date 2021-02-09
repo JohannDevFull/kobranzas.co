@@ -322,6 +322,10 @@ class LlamadasController extends Controller
             'description'=>$request->descripcion,
             'state_id'=>$request->estado,
         ]); 
+
+        Clients::where('user_id',$request->cliente)->update([
+            'state_id' => $request->estado
+        ]);
   
     }
 
@@ -361,6 +365,11 @@ class LlamadasController extends Controller
             'observations'=>$request->observaciones,
             'state_id'=>$request->estado,
         ]); 
+
+        Clients::where('user_id',$request->cliente)->update([
+            'state_id' => $request->estado
+        ]);
+
         $user=User::select('id','name','email')->where('id','=',Auth::user()->id)->get();
         $client=Clients::select('users.id','users.name','clients.building_id','buildings.name_building')
         ->join('users','clients.user_id','=','users.id')
