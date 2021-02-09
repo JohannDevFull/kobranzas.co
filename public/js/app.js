@@ -70707,7 +70707,7 @@ var render = function() {
           _c("div", { staticClass: "card card-widget widget-user" }, [
             _c("div", { staticClass: "card-header" }, [
               _c("h3", { staticClass: "card-title" }, [
-                _vm._v("Cuenta, Acuerdos y Pagos")
+                _vm._v("Cuenta, Llamadaas, Acuerdos y Movimientos")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-tools" }, [
