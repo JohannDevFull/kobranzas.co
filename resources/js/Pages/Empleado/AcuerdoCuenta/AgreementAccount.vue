@@ -6,7 +6,7 @@
             <!-- Widget: user widget style 1 -->
             <div class="card card-widget widget-user" >
               <div class="card-header">
-                <h3 class="card-title">Cuenta, Llamadaas, Acuerdos y Movimientos</h3>
+                <h3 class="card-title">Cuenta, Llamadas, Acuerdos y Movimientos</h3>
 
                 <div class="card-tools"> 
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" style="border: 1px gray solid ;height: 100%;margin:0px; ">

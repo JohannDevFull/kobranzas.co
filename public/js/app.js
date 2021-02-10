@@ -8081,18 +8081,230 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["conjunto", "num", "conjuntoinfo"],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  created: function created() {
+    this.buscarResultados();
+  },
   data: function data() {
     return {
-      client: {
-        id: 10,
-        name: 'johan'
-      }
+      files: null,
+      usuariosc: [],
+      clients: [],
+      buscar: "",
+      import_file: "",
+      setTimeoutBuscador: "",
+      img: "/storage/" + this.conjunto.profile_photo_path,
+      errors: {}
     };
+  },
+  methods: {
+    buscarResultados: function buscarResultados() {
+      var _this = this;
+
+      axios.get('/buscar/clients', {
+        params: {
+          buscar: this.buscar,
+          conjunto: this.conjunto.id_building
+        }
+      }).then(function (res) {
+        _this.clients = res.data;
+      })["catch"](function (error) {
+        console.log(error.response);
+      });
+    },
+    buscarKUP: function buscarKUP() {
+      clearTimeout(this.setTimeoutBuscador);
+      this.setTimeoutBuscador = setTimeout(this.buscarResultados, 360);
+    },
+    buscarONC: function buscarONC() {
+      this.buscarResultados();
+    },
+    onFileChange: function onFileChange(event) {
+      this.files = event.target.files;
+    },
+    exportar: function exportar() {
+      var page = window.location.origin + "/conjuntos/template";
+      window.open(page);
+    },
+    importar: function importar() {
+      var _this2 = this;
+
+      if (this.files) {
+        var formData = new FormData();
+        formData.append("file", this.files[0]);
+        axios.post("/importar/clientes", formData, {
+          headers: {
+            "content-type": "multipart/form-data"
+          }
+        }).then(function (response) {
+          if (response.status === 200) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Los Clientes han sido subidos",
+              showConfirmButton: false,
+              timer: 1500
+            });
+            _this2.errors = {};
+            _this2.files = null;
+            console.log("subido");
+          }
+        })["catch"](function (error) {
+          _this2.uploading = false;
+          _this2.errors = error.response.data;
+          console.log("check error: ", _this2.errors);
+        });
+      } else {
+        this.errors = {
+          errors: [["No se ha subido ningún archivo."]]
+        };
+        return;
+      }
+    }
+  },
+  computed: {
+    filexist: function filexist() {
+      return {
+        fileExist: this.files != null,
+        "": this.files == null
+      };
+    },
+    button: function button() {
+      return {
+        buttonWhenIsActived: this.files != null,
+        "": this.files == null
+      };
+    }
   }
 });
 
@@ -70422,197 +70634,443 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("app-layout", [
-    _c("section", { staticClass: "content" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _c("h3", { staticClass: "card-title" }, [
-                _vm._v("Listado de Clientes")
-              ])
+    _c("div", [
+      _c("div", { staticClass: "py-12" }, [
+        _c("div", { staticClass: "card card-widget widget-user" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [
+              _vm._v("Detalles conjunto")
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-tool",
+                  staticStyle: {
+                    border: "1px gray solid",
+                    height: "100%",
+                    margin: "0px"
+                  },
+                  attrs: { type: "button", "data-card-widget": "collapse" }
+                },
+                [_c("i", { staticClass: "fas fa-minus" })]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body", staticStyle: { padding: "0px" } },
+            [
               _c(
                 "div",
                 {
-                  staticClass: "dataTables_wrapper dt-bootstrap4",
-                  attrs: { id: "example1_wrapper" }
+                  staticClass: "widget-user-header text-white",
+                  staticStyle: {
+                    background: "url('/storage/img/photo1.png') center center",
+                    height: "300px"
+                  }
                 },
                 [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-sm-12 col-md-6" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "dataTables_length",
-                          attrs: { id: "example1_length" }
-                        },
-                        [
-                          _c("label", { staticClass: "word-break" }, [
-                            _vm._v(
-                              "Filtrar por Cantidad\n                      "
-                            ),
-                            _c(
-                              "select",
-                              {
-                                staticClass:
-                                  "custom-select custom-select-sm form-control form-control-sm",
-                                attrs: {
-                                  name: "example1_length",
-                                  "aria-controls": "example1"
-                                }
-                              },
-                              [
-                                _c("option", { attrs: { value: "5" } }, [
-                                  _vm._v("5")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "10" } }, [
-                                  _vm._v("10")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "25" } }, [
-                                  _vm._v("25")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "50" } }, [
-                                  _vm._v("50")
-                                ])
-                              ]
-                            ),
-                            _vm._v("\n                      Registros")
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-sm-12 col-md-6" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "float-right",
-                          attrs: { id: "example1_filter" }
-                        },
-                        [
-                          _c("label", { staticClass: "sear-label" }, [
-                            _vm._v("Buscar por nombre o documento:"),
-                            _c("input", {
-                              staticClass: "form-control form-control-sm",
-                              attrs: {
-                                type: "search",
-                                placeholder: "",
-                                "aria-controls": "example1"
-                              }
-                            })
-                          ])
-                        ]
-                      )
-                    ])
+                  _c("h3", { staticClass: "widget-user-username text-right" }, [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s(_vm.conjuntoinfo.name) +
+                        "\n            "
+                    )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "row ajust" }, [
-                    _c("div", { staticClass: "col-sm-12" }, [
-                      _c(
-                        "table",
-                        {
-                          staticClass:
-                            "table table-bordered table-striped dataTable",
-                          attrs: {
-                            id: "example1",
-                            role: "grid",
-                            "aria-describedby": "example1_info"
-                          }
-                        },
-                        [
-                          _c("thead", [
-                            _c("tr", { attrs: { role: "row" } }, [
-                              _c(
-                                "th",
-                                {
-                                  staticStyle: { width: "170px" },
-                                  attrs: {
-                                    tabindex: "0",
-                                    "aria-controls": "example1",
-                                    rowspan: "1",
-                                    colspan: "1"
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                          Nombre\n                        "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "th",
-                                {
-                                  staticStyle: { width: "170px" },
-                                  attrs: {
-                                    tabindex: "0",
-                                    "aria-controls": "example1",
-                                    rowspan: "1",
-                                    colspan: "1"
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                          Detalles\n                        "
-                                  )
-                                ]
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tbody", [
+                  _c("h5", { staticClass: "widget-user-desc text-right" }, [
+                    _vm._v(
+                      "\n              Conjunto : " +
+                        _vm._s(_vm.conjunto.name_building) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "widget-user-desc text-right" }, [
+                    _vm._v(
+                      "\n              Telefono : " +
+                        _vm._s(_vm.conjunto.phone_building) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "widget-user-desc text-right" }, [
+                    _vm._v(
+                      "\n              direccion : " +
+                        _vm._s(_vm.conjunto.address_building) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "widget-user-desc text-right" }, [
+                    _vm._v(
+                      "\n              Valor administracion : " +
+                        _vm._s(_vm.conjunto.valor_administracion) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "widget-user-desc text-right" }, [
+                    _vm._v(
+                      "\n              Gastos cobranzas : " +
+                        _vm._s(_vm.conjunto.gastos_cobranzas) +
+                        "%\n            "
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "widget-user-image",
+                  staticStyle: { position: "absolute", top: "300px" }
+                },
+                [
+                  _c("img", {
+                    staticClass: "img-circle",
+                    attrs: {
+                      src: _vm.conjuntoinfo.profile_photo_url,
+                      alt: "User Avatar"
+                    }
+                  })
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-footer" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-4 border-right" }, [
+                _c("div", { staticClass: "description-block" }, [
+                  _c("h5", { staticClass: "description-header" }, [
+                    _vm._v("x")
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "description-text" }, [
+                    _vm._v("Acuerdos")
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-4 border-right" }, [
+                _vm.num === 0
+                  ? _c("div", { staticClass: "description-block" }, [
+                      _c("div", { staticClass: "uploadFile" }, [
+                        _c(
+                          "div",
+                          { staticClass: "fileSel", class: _vm.filexist },
+                          [
                             _c(
-                              "tr",
-                              { staticClass: "odd", attrs: { role: "row" } },
+                              "div",
+                              {
+                                staticClass: "fileSel-button",
+                                class: _vm.button,
+                                staticStyle: { float: "right" }
+                              },
                               [
-                                _c("td", [_vm._v(_vm._s(_vm.client.name))]),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  [
-                                    _c(
-                                      "inertia-link",
+                                _vm._v(
+                                  "\n                      Cargar Archivo\n                    "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              ref: "file",
+                              attrs: {
+                                type: "file",
+                                name: "file",
+                                id: "file",
+                                accept: "xls,xlsx"
+                              },
+                              on: { change: _vm.onFileChange }
+                            }),
+                            _vm._v(" "),
+                            !_vm.files || !_vm.files.length
+                              ? _c("span", { staticClass: "file-info" }, [
+                                  _vm._v("Ningún Archivo Seleccionado...")
+                                ])
+                              : _c(
+                                  "div",
+                                  _vm._l(_vm.files, function(file) {
+                                    return _c(
+                                      "span",
                                       {
-                                        attrs: {
-                                          href: _vm.route(
-                                            "clientes.detalles",
-                                            _vm.client.id
-                                          )
-                                        }
+                                        key: file.name,
+                                        staticClass: "file-info"
                                       },
                                       [
-                                        _c(
-                                          "button",
-                                          {
-                                            staticClass: "btn btn-sm btn-info"
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass: "nav-icon fas fa-eye"
-                                            })
-                                          ]
+                                        _vm._v(
+                                          "\n                        " +
+                                            _vm._s(file.name) +
+                                            "\n                      "
                                         )
                                       ]
                                     )
-                                  ],
-                                  1
+                                  }),
+                                  0
                                 )
-                              ]
-                            )
-                          ])
-                        ]
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticStyle: { padding: "5px", margin: "auto" } },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              attrs: { type: "submit" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.importar()
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                    Cargar clientes\n                  "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-info",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.exportar()
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                    Descargar plantilla\n                    \n                  "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.errors.errors, function(error) {
+                            return _c("ul", [
+                              _c("li", { staticClass: "required" }, [
+                                _vm._v(_vm._s(error[0]))
+                              ])
+                            ])
+                          })
+                        ],
+                        2
                       )
                     ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.num > 0
+                  ? _c("div", { staticClass: "description-block" }, [
+                      _c("h5", { staticClass: "description-header" }, [
+                        _vm._v(_vm._s(_vm.num))
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "description-text" }, [
+                        _vm._v("Clientes")
+                      ])
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-4" }, [
+                _c("div", { staticClass: "description-block" }, [
+                  _c("h5", { staticClass: "description-header" }, [
+                    _vm._v("x")
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "description-text" }, [
+                    _vm._v("Pendientes")
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [
+              _vm._v("Lista de clientes")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "input-group input-group-sm",
+                  staticStyle: { width: "250px" }
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.buscar,
+                        expression: "buscar"
+                      }
+                    ],
+                    staticClass: "form-control float-right",
+                    attrs: {
+                      type: "search",
+                      placeholder: "Buscar por nombre ...",
+                      "aria-label": "Search"
+                    },
+                    domProps: { value: _vm.buscar },
+                    on: {
+                      keyup: _vm.buscarKUP,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.buscar = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group-append" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-default",
+                        on: { click: _vm.buscarONC }
+                      },
+                      [_c("i", { staticClass: "fas fa-search" })]
+                    )
                   ])
                 ]
               )
             ])
-          ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "card-body table-responsive p-0",
+              staticStyle: { height: "400px" }
+            },
+            [
+              _c(
+                "table",
+                { staticClass: "table table-head-fixed text-nowrap" },
+                [
+                  _c("thead", [
+                    _c("tr", [
+                      _c("th", [_vm._v("ID usuario")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Nombre")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Correo")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Estado")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Acciones")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    [
+                      _vm._l(_vm.clients, function(row) {
+                        return _c("tr", [
+                          _c("td", [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(row.id) +
+                                "\n                "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(row.name) +
+                                "\n                "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(row.email) +
+                                "\n                "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(row.description) +
+                                "\n                "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "inertia-link",
+                                {
+                                  attrs: {
+                                    href: _vm.route(
+                                      "llamadas.agreement",
+                                      row.id
+                                    )
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "nav-icon fas fa-eye text-info",
+                                    staticStyle: { padding: "3px" }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "inertia-link",
+                                {
+                                  attrs: {
+                                    href: _vm.route("llamadas.create", row.id)
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "nav-icon fas fa-phone text-success",
+                                    staticStyle: { padding: "6px" }
+                                  })
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ])
+                      }),
+                      _vm._v(" "),
+                      _c("tr")
+                    ],
+                    2
+                  )
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-footer" })
         ])
       ])
     ])
@@ -70707,7 +71165,7 @@ var render = function() {
           _c("div", { staticClass: "card card-widget widget-user" }, [
             _c("div", { staticClass: "card-header" }, [
               _c("h3", { staticClass: "card-title" }, [
-                _vm._v("Cuenta, Llamadaas, Acuerdos y Movimientos")
+                _vm._v("Cuenta, Llamadas, Acuerdos y Movimientos")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-tools" }, [

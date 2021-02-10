@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Imports\ClientsImport;
+use App\Models\Buildings;
 use App\Models\Clients;
 use App\Models\Movements;
 use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
@@ -16,7 +18,30 @@ class ClientsController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Clientes');
+        $id = Auth::id();
+        $buscar=$id;
+
+        $conj=Buildings::where('administrator_id',$buscar)->get();
+
+        $conjunto=$conj[0];
+        
+        $conju=User::where('id','=',$conjunto->administrator_id)->get();
+
+        $clients=DB::select("SELECT id,name,email,client_code,contract_number,state_id,user_id,building_id,description
+            FROM clients 
+            INNER JOIN state
+            on state.id_state=clients.state_id
+            INNER JOIN users
+            on users.id=clients.user_id
+            WHERE `building_id`=".$conj[0]->id_building);
+        $num=sizeof($clients);  
+
+        return Inertia::render('Clientes/index',[
+            'conjunto' => $conjunto,
+            'clientes' => $clients,
+            'conjuntoinfo'=>$conju[0],
+            'num' => $num,
+        ]);
     }
  
     public function show($id)
