@@ -32217,7 +32217,7 @@ p {
     height: 80px;
     position: absolute;
     top: -16px;
-    right: 13px;
+    right: 7px;
     border: 4px solid white;
     border-radius: 50%;
   }
@@ -32524,7 +32524,7 @@ p {
     z-index: 3;
     color: gold;
   
-    left: 62%;
+    left: 71%;
     width: 12%;
     top: -38%;
     position: absolute;
@@ -32691,6 +32691,106 @@ p {
     display: inline-block;
     padding: 0 10px;
   }
+  img {
+    vertical-align: middle;
+    max-width: 100%;
+    height: auto;
+}
+  .bg-whisper {
+    background: #f2f3f8;
+    fill: #f2f3f8;
+  }
+  .section-50 {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  .section-md-75 {
+		padding-top: 75px;
+		padding-bottom: 75px;
+	}
+  .section-xl-100 {
+		padding-top: 100px;
+		padding-bottom: 100px;
+	}
+  .form-wrap {
+    position: relative;
+    margin-bottom: 0;
+  }
+  .form-input {
+    font-weight: 400;
+    width: 100%;
+    height: auto;
+    min-height: 52px;
+    padding: 14px 19px;
+    border: 0px solid;
+    border-radius: 0;
+    -webkit-appearance: none;
+    line-height: 24px;
+  }
+  .form-label{
+
+    font-size: 14px;
+    color: #9f9f9f;
+    
+}
+textarea.form-input {
+  height: 166px;
+  min-height: 52px;
+  max-height: 249px;
+  resize: vertical;
+}
+.button-block {
+  display: block;
+  min-width: 30px;
+  width: 100%;
+}
+.button {
+  text-align: center;
+  max-width: 100%;
+  padding: 9px 40px;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.71429;
+  font-weight: 700;
+  border-radius: 0;
+  border: 2px solid;
+  transition: .3s ease-out;
+}
+html .button-primary.disabled, html .button-primary[disabled],
+fieldset[disabled] html .button-primary {
+	pointer-events: none;
+	opacity: .5;
+}
+.button-primary{
+  color: #fff;
+  background-color: #009ecf;
+  border-color: #009ecf;
+
+}
+legend{
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 20px;
+  font-size: 21px;
+  line-height: inherit;
+  color: #333;
+  border: 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}html .button-primary-outline, html .button-primary-outline:active, html .button-primary-outline.active, html .button-primary-outline:active:focus, html .button-primary-outline.active:focus, html .button-primary-outline:focus:active, html .button-primary-outline:focus {
+	color: #009ecf!important;
+	background-color: transparent!important;
+	border-color: #009ecf!important;
+}
+.open > html .button-primary-outline.dropdown-toggle, html .button-primary-outline:hover {
+  color: #fff!important;
+  background-color: #009ecf!important;
+  border-color: #009ecf!important;
+}
 /*@preserve
  * Tempus Dominus Bootstrap4 v5.1.2 (https://tempusdominus.github.io/bootstrap-4/)
  * Copyright 2016-2018 Jonathan Peterson

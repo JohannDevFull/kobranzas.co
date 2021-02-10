@@ -204,10 +204,10 @@ a:focus {
 .go2top,
 .go2top:focus {
   right: 15px;
-  bottom: 8px;
+  bottom: 104px;
   width: 38px;
   height: 38px;
-  z-index: 9999;
+  z-index: 999;
   line-height: 1;
   font-size: 18px;
   position: fixed;
@@ -1045,7 +1045,7 @@ a:focus {
     height: 3px;
     width: 50px;
     content: " ";
-    bottom: -50px;
+    bottom: -28px;
     margin-left: -25px;
     position: absolute;
     background: #bf5757; }

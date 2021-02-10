@@ -30,6 +30,11 @@ if (isset($_REQUEST['politica-cookies'])) {
   <link href="{{asset('main/plugins/owl.carousel/assets/owl.carousel.css')}}" rel="stylesheet" type="text/css" />
   <link href="{{asset('main/onepage2/css/layout.css')}}" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="{{ asset('css/mycss.css') }}">
+  
+
+
+  @laravelPWA
+
 </head>
 
 <body class="page-header-fixed" onload="validacion()">
@@ -91,7 +96,7 @@ if (isset($_REQUEST['politica-cookies'])) {
   </header>
 
   <section id="intro">
-    <div id="carousel-example-generic" class="carousel slide">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
         <li data-target="#carousel-example-generic" data-slide-to="1"></li>
@@ -114,10 +119,10 @@ if (isset($_REQUEST['politica-cookies'])) {
         <div class="item carousel-item-two">
           <div class="container">
             <h3 class="carousel-position-one animate-delay carousel-title-v2" data-animation="animated fadeInDown">
-              Ultimate Apps <br> for Business
+             LSA
             </h3>
             <p class="carousel-position-three animate-delay carousel-subtitle-v2" data-animation="animated fadeInDown">
-              Available in: Android &amp; IOS
+              Abogados
             </p>
           </div>
         </div>
@@ -126,10 +131,10 @@ if (isset($_REQUEST['politica-cookies'])) {
             <div class="center-block-wrap">
               <div class="center-block-body">
                 <h3 class="margin-bottom-20 animate-delay carousel-title-v1" data-animation="animated fadeInDown">
-                  Let us show you
+                  LSA
                 </h3>
                 <p class="margin-bottom-20 animate-delay carousel-title-v3" data-animation="animated fadeInDown">
-                  A few things
+                  Abogados
                 </p>
                 <a href="#" class="animate-delay btn-brd-white" data-animation="animated fadeInUp">Learn More</a>
               </div>
@@ -415,49 +420,152 @@ if (isset($_REQUEST['politica-cookies'])) {
         </div>
       </div>
     </section>
-    <section id="contact">
-      <div class="footer">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="heading-left-light">
-                <h2>Say hello to Metronic</h2>
-                <p>To try the most advanced business platform <br> for mobile and desktop</p>
+
+    <section id="contact" class="bg-whisper">
+      <div class="container">
+        <div class="row">
+          <div class="">
+            <div class="section-50">
+              <div class="heading">
+              <h2>Contáctanos</h2>
+              
+                <p>Por favor, llena este formulario para ponernos en contacto contigo.</p>
+              
               </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="form">
-                <div class="form-wrap">
-                  <div class="form-wrap-group">
-                    <input type="text" placeholder="Your Name" class="form-control">
-                    <input type="text" placeholder="Subject" class="border-top-transparent form-control">
+              <form onsubmit="validate(event)">
+                @csrf
+                <div class="row row-30">
+                  <div class="col-md-6">
+                    <div class="form-wrap">
+                      <label class="form-label" for="name">Nombre Completo <span class="required">*</span></label>
+
+                      <input class="form-input" id="name" type="text" name="nombre" placeholder="Nombre Completo">
+                      <br>
+                      <small id="name-error" class="required"></small>
+                    </div>
                   </div>
-                  <div class="form-wrap-group border-left-transparent">
-                    <input type="text" placeholder="Your Email" class="form-control">
-                    <input type="text" placeholder="Contact Phone" class="border-top-transparent form-control">
+                  <div class="col-md-6">
+                    <div class="form-wrap">
+                      <label class="form-label" for="email">Correo Electronico <span class="required">*</span></label>
+
+                      <input class="form-input" id="email" type="email" name="correo" placeholder="Correo Electrónico">
+                      <br>
+                      <small id="email-error" class="required"></small>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-wrap">
+                      <label class="form-label" for="phone">Teléfono <span class="required">*</span></label>
+
+                      <input class="form-input" id="phone" type="text" name="telefono" placeholder="Telefono">
+                      <br>
+                      <small id="phone-error" class="required"></small>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-wrap">
+                      <label class="form-label" for="city">Ciudad <span class="required">*</span></label>
+
+                      <input class="form-input" id="city" type="text" name="ciudad" placeholder="Ciudad">
+                      <br>
+                      <small id="city-error" class="required"></small>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-wrap form-wrap-outside">
+                      <label class="form-label" for="select">Tipo de Identificación <span class="required">*</span></label>
+                      <select class="form-input select-filter" name="tipo_documento" id="select">
+                        <option value="">Seleccione</option>
+                        <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
+                        <option value="Cédula de Extrangería">Cédula de Extrangería</option>
+                      </select>
+                      <br>
+                      <small id="select-error" class="required"></small>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-wrap ">
+                      <label class="form-label" for="select">Tipo de Consulta <span class="required">*</span></label>
+
+                      <select class="form-input" id="otro">
+                        <option value="">Seleccione</option>
+                        <option value="Ley familiar">Ley familiar</option>
+                        <option value="Derecho empresarial">Derecho empresarial</option>
+                        <option value="Juicio Civil">Juicio civil</option>
+                        <option value="Otra">Otra</option>
+                      </select>
+                      <br>
+                      <small id="otro-error" class="required"></small>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-wrap">
+                      <label class="form-label" for="doc">Identificación <span class="required">*</span></label>
+
+                      <input class="form-input" id="doc" type="text" name="documento" placeholder="Número de Documento">
+                      <br>
+                      <small id="doc-error" class="required"></small>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-wrap">
+                      <label class="form-label" for="message">Mensaje <span class="required">*</span></label>
+                      <br>
+                      <small>caracteres <span id="counter">0</span> de 400</small>
+
+                      <textarea onkeyup="count()" class="form-input" id="message" name="mensaje" placeholder="Tu mensaje aquí..."></textarea>
+                      <br>
+                      <small id="message-error" class="required"></small>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-wrap">
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <button style="max-height: 50px;" id="send-btn" class="button button-block button-primary">
+                          <div id="loader" class="lds-ellipsis" style="display: none;">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                          </div>
+                          <span id="send">Enviar</span>
+                        </button>
+                        <span id="error" class="required"></span>
+                      </div>
+
+                      <p id="wait-text" class="text-w" style="display: none;"> Espera por favor...</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <textarea rows="8" name="message" placeholder="Write comment here ..." class="border-top-transparent form-control"></textarea>
-              <button type="submit" class="btn-danger btn-md btn-block">Send it</button>
+              </form>
             </div>
           </div>
+
+
         </div>
       </div>
+
       <div class="footer-copyright">
         <div class="container">
           <h3>LSA Abogados</h3>
           <ul class="copyright-socials">
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
+            <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+            <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
           </ul>
-          <P>Copyright © 2020-2021  <a href="http://www.jtwo.tk/">jtwo.tk</a>. All rights reserved.</P>
+          <p>Copyright © 2020-2021 <a href="http://jtwo.tk">jtwo.tk</a>. All rights reserved.</p>
         </div>
       </div>
     </section>
+
   </div>
   <div class="snackbars" id="form-output-global"></div>
   <audio id="myAudio">
@@ -607,9 +715,9 @@ if (isset($_REQUEST['politica-cookies'])) {
     <?php endif; ?>
 
     <script src="{{asset('js/script.js')}}"></script>
-    <script src="{{asset('plugins/jquery/jquery.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('main/plugins/jquery.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('main/plugins/jquery-migrate.min.js')}}" type="text/javascript"></script>
-    <script src="{{asset('plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('main/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('main/plugins/jquery.easing.js')}}" type="text/javascript"></script>
     <script src="{{asset('main/plugins/jquery.parallax.js')}}" type="text/javascript"></script>
     <script src="{{asset('main/plugins/smooth-scroll/smooth-scroll.js')}}" type="text/javascript"></script>
@@ -659,6 +767,8 @@ if (isset($_REQUEST['politica-cookies'])) {
         }
       }
     </script>
+    <script src="{{asset('js/form-contact.js')}}"></script>
+
 
 </body>
 
