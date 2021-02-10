@@ -22,6 +22,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'chat.toggle']);
         Permission::create(['name' => 'conjuntos.export']);
         Permission::create(['name' => 'clients.import']);
+        Permission::create(['name' => 'notifications.index']);
         //Permission Admin 
         Permission::create(['name' => 'user.index']);
         Permission::create(['name' => 'user.edit']);
@@ -75,7 +76,8 @@ class PermissionsTableSeeder extends Seeder
             'historial.show',
             'clients.index',
             'clients.show',
-            'statement.details'
+            'statement.details',
+            'notifications.index'
         ]);
         // *****
 
@@ -103,7 +105,8 @@ class PermissionsTableSeeder extends Seeder
             'user.show',
             'clients.index',
             'clients.show',
-            'statement.details'
+            'statement.details',
+            'notifications.index'
         ]);
         // *****
 

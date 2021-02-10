@@ -6,6 +6,13 @@
     ></span>
     <!-- <pop /> -->
     <div
+      class="chat-widget-avatar"
+      v-if="!enabled && available == false"
+      @click="toggle()"
+    >
+      <img src="/storage/img/chat.png" style="width: 72px" alt="" />
+    </div>
+    <div
       class="chat-widget-container"
       :class="pageVar"
       v-if="!enabled && available == false"
@@ -17,9 +24,13 @@
           No Disponible <span class="forbidden" style="font-size: 21px">•</span>
         </p>
       </div>
-      <div class="chat-widget-avatar">
-        <img src="/storage/img/chat.svg" style="width: 72px" alt="" />
-      </div>
+    </div>
+    <div
+      class="chat-widget-avatar"
+      v-if="!enabled && available"
+      @click="toggle()"
+    >
+      <img src="/storage/img/chat.png" style="width: 72px" alt="" />
     </div>
     <div
       class="chat-widget-container"
@@ -31,9 +42,6 @@
         <p class="heading">CHAT DE CONTACTO</p>
 
         <p>¿Cómo te podemos ayudar?</p>
-      </div>
-      <div class="chat-widget-avatar">
-        <img src="/storage/img/chat.svg" style="width: 72px" alt="" />
       </div>
     </div>
 
@@ -102,7 +110,7 @@
                     <br />
                     <p
                       class="text-wel soomuchstyle"
-                      style="font-size: 1.07rem"
+                      :class="fontcustom"
                       v-if="status == 0"
                     >
                       <span class="required">
@@ -118,7 +126,7 @@
                     </p>
                     <p
                       class="text-wel soomuchstyle"
-                      style="font-size: 1.07rem"
+                      :class="fontcustom"
                       v-else
                     >
                       El chat está inactivo actualmente
@@ -420,11 +428,17 @@ export default {
     info() {
       return this.userinfo;
     },
-    pageVar(){
-      return{
-      customLineH: this.$page,
-      customLineH2: !this.$page
-      }
+    pageVar() {
+      return {
+        customLineH: this.$page,
+        customLineH2: !this.$page,
+      };
+    },
+    fontcustom() {
+      return {
+        customfsize: this.$page,
+        customfsize2: !this.$page,
+      };
     },
     bell() {
       return {
@@ -442,10 +456,16 @@ export default {
 };
 </script>
 <style lang="css">
-  .customLineH{
-    line-height: 1.2rem;
-  }
-  .customLineH2{
-    line-height: 2rem;
-  }
+.customLineH {
+  line-height: 1.2rem;
+}
+.customLineH2 {
+  line-height: 2rem;
+}
+.customfsize {
+  font-size: 1.07rem!important;
+}
+.customfsize2 {
+  font-size: 1.77rem!important;
+}
 </style>

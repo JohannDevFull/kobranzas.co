@@ -1,8 +1,6 @@
 <template>
   <div>
-    <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-      <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button">
@@ -15,10 +13,7 @@
           </h6>
         </li>
       </ul>
-
-      <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
-        <!-- Notifications Dropdown Menu -->
         <li
           v-if="
             $inertia.page.rol == 'Admin' || $inertia.page.rol == 'AdminConjunto'
@@ -34,13 +29,11 @@
             }}</span>
           </a>
           <div
-            style="max-height: 300px; overflow: auto"
             class="dropdown-menu dropdown-menu-lg dropdown-menu-right"
             :class="{ show: expand }"
           >
             <div v-if="notifications.length == 0">
               <a href="#" class="dropdown-item">
-                <!-- Message Start -->
                 <div class="media">
                   <div class="media-body">
                     <h3 class="dropdown-item-title">
@@ -48,13 +41,11 @@
                     </h3>
                   </div>
                 </div>
-                <!-- Message End -->
               </a>
               <div class="dropdown-divider"></div>
             </div>
             <div v-for="item in notifications" v-else>
               <a href="#" class="dropdown-item">
-                <!-- Message Start -->
                 <div class="media">
                   <img
                     :src="parse(item.from).profile_photo_url"
@@ -75,10 +66,16 @@
                     </p>
                   </div>
                 </div>
-                <!-- Message End -->
               </a>
               <div class="dropdown-divider"></div>
             </div>
+            <div style="max-height: 300px; overflow: auto"></div>
+            <inertia-link
+              class="dropdown-item dropdown-footer"
+              :href="route('notificaciones.index')"
+            >
+              Ver todas las notificaciones
+            </inertia-link>
           </div>
         </li>
         <li class="nav-item">
@@ -95,10 +92,8 @@
         </li>
       </ul>
     </nav>
-    <!-- /.navbar -->
   </div>
 </template>
-
 <script>
 export default {
   data() {

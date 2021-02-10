@@ -11,8 +11,15 @@
       Your browser does not support the audio element.
     </audio> -->
     <div
+      class="chat-widget-avatar"
+      @click="toggle()"
+      v-if="!enabled && available == false"
+    >
+      <img src="/storage/img/chat.png" style="width: 72px" alt="" />
+    </div>
+    <div
       class="chat-widget-container"
-      style="line-height: 2rem; "
+      style="line-height: 2rem"
       v-if="!enabled && available == false"
       @click="toggle()"
     >
@@ -20,13 +27,17 @@
         <p class="heading">CHAT NO DISPONIBLE</p>
         <p>No Disponible <span class="forbidden">•</span></p>
       </div>
-      <div class="chat-widget-avatar">
-        <img src="/storage/img/chat.svg" style="width: 72px" alt="" />
-      </div>
+    </div>
+    <div
+      class="chat-widget-avatar"
+      v-if="!enabled && available"  
+      @click="toggle()"
+    >
+      <img src="/storage/img/chat.png" style="width: 72px" alt="" />
     </div>
     <div
       class="chat-widget-container"
-      style="line-height: 2rem; "
+      style="line-height: 2rem"
       v-if="!enabled && available"
       @click="toggle()"
     >
@@ -34,9 +45,6 @@
         <p class="heading">CHAT DE CONTACTO</p>
 
         <p>¿Cómo te podemos ayudar?</p>
-      </div>
-      <div class="chat-widget-avatar">
-        <img src="/storage/img/chat.svg" style="width: 72px" alt="" />
       </div>
     </div>
     <div class="chat-box-container" v-if="enabled && !chatMode">

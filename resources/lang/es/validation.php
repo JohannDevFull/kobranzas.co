@@ -133,8 +133,8 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
-        'contraseña'=>[
-            'regex'=>'El campo :attribute debe contener letras y numeros'
+        'contraseña' => [
+            'regex' => 'El campo :attribute debe contener letras y numeros'
         ]
     ],
 
@@ -149,6 +149,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'password'                  => 'contraseña',
+        'current_password'                  => 'contraseña actual',
+        'email'                 => 'correo electrónico',
+    ]
 
 ];

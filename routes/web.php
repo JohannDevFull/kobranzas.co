@@ -59,7 +59,7 @@ Route::get('construir', BuildController::class)->name('construir');
 Route::get('politica',  function () {
     return view('politicas.politica');
 });
-Route::post('/contactRequest',[NotificationsController::class,'contact'])->name('contact.request');
+Route::post('/contactRequest', [NotificationsController::class, 'contact'])->name('contact.request');
 // PERMISOS USUARIO 
 Route::middleware(['auth'])->group(function () {
     Route::put('chat/toggleChat', [ChatController::class, 'changeStatus'])->middleware('permission:chat.toggle');
@@ -101,7 +101,12 @@ Route::middleware(['auth'])->group(function () {
     //ruta para obtener los extractos del cliente
     Route::get('extractos/cliente', [StatementsController::class, 'getOwnStatements'])->name('extractos.cliente')
         ->middleware('permission:statement.client');
-        Route::get('llamadas/paginate', [LlamadasController::class, 'paginate'])->name('llamadas.paginate');
+    Route::get('llamadas/paginate', [LlamadasController::class, 'paginate'])->name('llamadas.paginate');
+
+    Route::get('/notificaciones', [NotificationsController::class, 'index'])
+        ->name('notificaciones.index')->middleware('permission:notifications.index');
+        Route::get('/notifications/paginate', [NotificationsController::class, 'getAll'])
+        ->name('notifications.paginate')->middleware('permission:notifications.index');
 });
 
 // RUTAS LLAMADAS 
@@ -112,7 +117,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/llamadas/buscar', [LlamadasController::class, 'searchCall']);
 
     Route::get('llamadas', [LlamadasController::class, 'index'])
-        ->name('llamadas'); 
+        ->name('llamadas');
 
     Route::get('/llamadas/mis-llamadas', [LlamadasController::class, 'misLlamadas'])
         ->name('llamadas.empleado');
@@ -163,7 +168,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/buscar/conjuntos', [BuildingsController::class, 'cargarConjuntos']);
     Route::get('/buscar/conjuntos/short', [BuildingsController::class, 'cargarConjuntosShort']);
     Route::get('/buscar/administradores', [BuildingsController::class, 'cargarAdministradores']);
-    
+
     Route::get('/buscar/clients', [ClientsController::class, 'clientsConjunto']);
 
 

@@ -2108,6 +2108,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2354,6 +2362,12 @@ __webpack_require__.r(__webpack_exports__);
         customLineH2: !this.$page
       };
     },
+    fontcustom: function fontcustom() {
+      return {
+        customfsize: this.$page,
+        customfsize2: !this.$page
+      };
+    },
     bell: function bell() {
       return {
         bell: this.notification,
@@ -2381,6 +2395,14 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Kobranzas_Loading__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Kobranzas/Loading */ "./resources/js/Kobranzas/Loading.vue");
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3003,7 +3025,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".customLineH{\n  line-height: 1.2rem;\n}\n.customLineH2{\n  line-height: 2rem;\n}\n", ""]);
+exports.push([module.i, ".customLineH {\n  line-height: 1.2rem;\n}\n.customLineH2 {\n  line-height: 2rem;\n}\n.customfsize {\n  font-size: 1.07rem!important;\n}\n.customfsize2 {\n  font-size: 1.77rem!important;\n}\r\n", ""]);
 
 // exports
 
@@ -27547,6 +27569,26 @@ var render = function() {
       ? _c(
           "div",
           {
+            staticClass: "chat-widget-avatar",
+            on: {
+              click: function($event) {
+                return _vm.toggle()
+              }
+            }
+          },
+          [
+            _c("img", {
+              staticStyle: { width: "72px" },
+              attrs: { src: "/storage/img/chat.png", alt: "" }
+            })
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    !_vm.enabled && _vm.available == false
+      ? _c(
+          "div",
+          {
             staticClass: "chat-widget-container",
             class: _vm.pageVar,
             on: {
@@ -27555,7 +27597,27 @@ var render = function() {
               }
             }
           },
-          [_vm._m(0), _vm._v(" "), _vm._m(1)]
+          [_vm._m(0)]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    !_vm.enabled && _vm.available
+      ? _c(
+          "div",
+          {
+            staticClass: "chat-widget-avatar",
+            on: {
+              click: function($event) {
+                return _vm.toggle()
+              }
+            }
+          },
+          [
+            _c("img", {
+              staticStyle: { width: "72px" },
+              attrs: { src: "/storage/img/chat.png", alt: "" }
+            })
+          ]
         )
       : _vm._e(),
     _vm._v(" "),
@@ -27571,7 +27633,7 @@ var render = function() {
               }
             }
           },
-          [_vm._m(2), _vm._v(" "), _vm._m(3)]
+          [_vm._m(1)]
         )
       : _vm._e(),
     _vm._v(" "),
@@ -27726,7 +27788,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._m(4)]
+                      [_vm._m(2)]
                     ),
                     _vm._v(" "),
                     _c(
@@ -27749,7 +27811,7 @@ var render = function() {
                                       "p",
                                       {
                                         staticClass: "text-wel soomuchstyle",
-                                        staticStyle: { "font-size": "1.07rem" }
+                                        class: _vm.fontcustom
                                       },
                                       [
                                         _c(
@@ -27780,7 +27842,7 @@ var render = function() {
                                       "p",
                                       {
                                         staticClass: "text-wel soomuchstyle",
-                                        staticStyle: { "font-size": "1.07rem" }
+                                        class: _vm.fontcustom
                                       },
                                       [
                                         _vm._v(
@@ -27930,32 +27992,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "chat-widget-avatar" }, [
-      _c("img", {
-        staticStyle: { width: "72px" },
-        attrs: { src: "/storage/img/chat.svg", alt: "" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "chat-widget-text" }, [
       _c("p", { staticClass: "heading" }, [_vm._v("CHAT DE CONTACTO")]),
       _vm._v(" "),
       _c("p", [_vm._v("¿Cómo te podemos ayudar?")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "chat-widget-avatar" }, [
-      _c("img", {
-        staticStyle: { width: "72px" },
-        attrs: { src: "/storage/img/chat.svg", alt: "" }
-      })
     ])
   },
   function() {
@@ -28000,6 +28040,26 @@ var render = function() {
       ? _c(
           "div",
           {
+            staticClass: "chat-widget-avatar",
+            on: {
+              click: function($event) {
+                return _vm.toggle()
+              }
+            }
+          },
+          [
+            _c("img", {
+              staticStyle: { width: "72px" },
+              attrs: { src: "/storage/img/chat.png", alt: "" }
+            })
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    !_vm.enabled && _vm.available == false
+      ? _c(
+          "div",
+          {
             staticClass: "chat-widget-container",
             staticStyle: { "line-height": "2rem" },
             on: {
@@ -28008,7 +28068,27 @@ var render = function() {
               }
             }
           },
-          [_vm._m(0), _vm._v(" "), _vm._m(1)]
+          [_vm._m(0)]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    !_vm.enabled && _vm.available
+      ? _c(
+          "div",
+          {
+            staticClass: "chat-widget-avatar",
+            on: {
+              click: function($event) {
+                return _vm.toggle()
+              }
+            }
+          },
+          [
+            _c("img", {
+              staticStyle: { width: "72px" },
+              attrs: { src: "/storage/img/chat.png", alt: "" }
+            })
+          ]
         )
       : _vm._e(),
     _vm._v(" "),
@@ -28024,7 +28104,7 @@ var render = function() {
               }
             }
           },
-          [_vm._m(2), _vm._v(" "), _vm._m(3)]
+          [_vm._m(1)]
         )
       : _vm._e(),
     _vm._v(" "),
@@ -28056,7 +28136,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._m(4)]
+                      [_vm._m(2)]
                     ),
                     _vm._v(" "),
                     _c(
@@ -28074,7 +28154,7 @@ var render = function() {
                               _vm.isLoading
                                 ? _c(
                                     "div",
-                                    [_vm._m(5), _vm._v(" "), _c("Loader")],
+                                    [_vm._m(3), _vm._v(" "), _c("Loader")],
                                     1
                                   )
                                 : _vm._e(),
@@ -28467,32 +28547,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "chat-widget-avatar" }, [
-      _c("img", {
-        staticStyle: { width: "72px" },
-        attrs: { src: "/storage/img/chat.svg", alt: "" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "chat-widget-text" }, [
       _c("p", { staticClass: "heading" }, [_vm._v("CHAT DE CONTACTO")]),
       _vm._v(" "),
       _c("p", [_vm._v("¿Cómo te podemos ayudar?")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "chat-widget-avatar" }, [
-      _c("img", {
-        staticStyle: { width: "72px" },
-        attrs: { src: "/storage/img/chat.svg", alt: "" }
-      })
     ])
   },
   function() {
@@ -41217,8 +41275,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "",
-  cluster: "mt1",
+  key: "7f92a28260a2b4581fb5",
+  cluster: "us2",
   forceTLS: true
 });
 

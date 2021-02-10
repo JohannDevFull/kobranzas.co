@@ -12,11 +12,18 @@ return [
     | these language lines according to your application's requirements.
     |
     */
+     'attributes' => [
+        'name'                  => 'nombre',
+        'username'              => 'usuario',
+        'email'                 => 'correo electrónico',
+        'first_name'            => 'nombre',
+     ],
 
     'failed' => 'Estas credenciales no coinciden con nuestros registros.',
     'password' => 'La contraseña ingresada es incorrecta, por favor verifiquela y vuelva a intentar.',
     'throttle' => 'Demasiados intentos de acceso. Por favor inténtelo de nuevo en :seconds segundos.',
 
 ];
+
 
 
