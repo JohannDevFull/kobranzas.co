@@ -118,15 +118,19 @@ class LlamadasController extends Controller
 
         $acuerdo_actual=DB::select('SELECT description FROM state where id_state='.$estado);
         
-        $conjuntoNombre=$conjunto[0]->name_building;     
-  
+        $conjuntoNombre=$conjunto[0]->name_building;  
 
+        $llamadas=DB::select("SELECT id_call,client_id,name_call,phone_call,users.name as 'employee_id',description,state_id,calls.created_at,calls.updated_at FROM calls 
+                INNER JOIN users
+                on calls.employee_id = users.id  WHERE client_id=".$id);   
+  
         return Inertia::render('Empleado/AcuerdoCuenta/AgreementAccount',[
              'conjunto' => $conjunto[0],
              'cliente' => $cliente[0],
              'cuenta' => $cuenta,
              'acuerdo' => $acuerdo_actual,
              'acuerdos' => $acuerdos,
+             'llamadas' => $llamadas,
              'movimientos' => $all,
              'photo' => $clienteUser[0]->profile_photo_url,
         ]);
@@ -252,18 +256,7 @@ class LlamadasController extends Controller
 
 
 
-    public function client($id)
-    {
-        $empleado = Auth::id();
-        $user=User::find($id); 
-         
-        
-        return Inertia::render('Empleado/AcuerdoCuenta/Client', [
-            'cliente' => $user, 
-            'empleadoid' => $empleado,  
-        ]);
-
-    }
+    
 
     public function account($id)
     {
@@ -322,6 +315,10 @@ class LlamadasController extends Controller
             'description'=>$request->descripcion,
             'state_id'=>$request->estado,
         ]); 
+
+        Clients::where('user_id',$request->cliente)->update([
+            'state_id' => $request->estado
+        ]);
   
     }
 
@@ -361,6 +358,11 @@ class LlamadasController extends Controller
             'observations'=>$request->observaciones,
             'state_id'=>$request->estado,
         ]); 
+
+        Clients::where('user_id',$request->cliente)->update([
+            'state_id' => $request->estado
+        ]);
+
         $user=User::select('id','name','email')->where('id','=',Auth::user()->id)->get();
         $client=Clients::select('users.id','users.name','clients.building_id','buildings.name_building')
         ->join('users','clients.user_id','=','users.id')

@@ -107,7 +107,7 @@
                 <p>Ver Extractos</p>
               </inertia-link>
             </li>
-             <li class="nav-item" v-if="$inertia.page.rol == 'Admin' || $inertia.page.rol == 'AdminConjunto'">
+             <li class="nav-item" v-if="$inertia.page.rol == 'AdminConjunto'">
               <inertia-link
                 class="nav-link"
                 :href="route('clientes.index')"

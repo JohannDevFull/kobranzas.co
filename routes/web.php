@@ -59,7 +59,9 @@ Route::get('construir', BuildController::class)->name('construir');
 Route::get('politica',  function () {
     return view('politicas.politica');
 });
-Route::post('/contactRequest', [NotificationsController::class, 'contact'])->name('contact.request');
+
+Route::post('/contactRequest',[NotificationsController::class,'contact'])->name('contact.request');
+
 // PERMISOS USUARIO 
 Route::middleware(['auth'])->group(function () {
     Route::put('chat/toggleChat', [ChatController::class, 'changeStatus'])->middleware('permission:chat.toggle');
@@ -125,8 +127,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/llamadas/show/{id}', [BuildingsController::class, 'show'])
         ->name('conjuntos.show');
 
-    Route::get('/llamadas/client/{id}', [LlamadasController::class, 'client'])
-        ->name('llamadas.client');
 
     Route::get('/llamadas/agreement/{id}', [LlamadasController::class, 'agreement'])
         ->name('llamadas.agreement');
@@ -204,14 +204,18 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/buscar/estados/', [ClientsController::class, 'estados']);
+
     Route::get('/buscar/tipo_movimiento/', [ClientsController::class, 'tipo_movimiento']);
+
     Route::get('/buscar/descripcion_movimiento_cargue/', [ClientsController::class, 'descripcion_movimiento_cargue']);
     Route::get('/buscar/descripcion_movimiento_abono/', [ClientsController::class, 'descripcion_movimiento_abono']);
     Route::get('/buscar/clientes', [ClientsController::class, 'cargarClientes']);
-    Route::post('/importar/clientes', [ClientsController::class, 'importClients'])->middleware('permission:clients.import');
 
+    Route::post('/importar/clientes', [ClientsController::class, 'importClients'])->middleware('permission:clients.import');
     Route::post('/movement/store', [ClientsController::class, 'storeMovement'])
         ->name('account.store');
+    Route::get('/cliente/show/{id}', [ClientsController::class, 'show'])
+        ->name('cliente.show');
 });
 
 
@@ -228,23 +232,14 @@ Route::middleware(['auth'])->group(function () {
     // *** POST SOTORE : Asiganar rol a un usuario por id
     Route::post('/asignar', [PermisosController::class, 'test'])->name('asignar');
 
-
     // TEST=  STORE ROL
     Route::post('/create/rol', [PermisosController::class, 'storeRol'])->name('create.rol');
 
     Route::post('/permisos/crear', [PermisosController::class, 'test'])->name('rol.permisos');
 
-    // Testing  
-    // Route::post('/permisos',[PermisosController::class,'testIP'])->name('permisos.dos');
-    // // 
-    // Route::get('/asigna', [PermisosController::class,'asignaT'])->name('asigna');
-    // // 
-    // Route::get('asigna/permisos', [PermisosController::class, 'asignaTP'])->name('asigna.permisos');
-
-    // Route::get('/permisos/show', [PermisosController::class, 'index'])->name('permisos.show');
-
     Route::get('iframe', [PermisosController::class, 'iframe'])->name('iframe');
     Route::get('/ventana', [LlamadasController::class, 'indexVentana'])->name('ventana');
     Route::get('/ventana/create', [LlamadasController::class, 'ventanaIndes'])->name('ventana.create');
 });
+
 Route::get('prueba/{id}', [PermisosController::class, 'test'])->name('prueba');

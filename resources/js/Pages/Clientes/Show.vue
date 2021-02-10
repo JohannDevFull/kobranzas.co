@@ -365,7 +365,7 @@
     import AppLayout from '@/Layouts/AppLayout' 
 
     export default {
-        props: ['sessions'],
+        props: ['user','cliente'],
 
         components: {
             AppLayout, 

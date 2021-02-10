@@ -556,7 +556,7 @@
         
         this.state=this.llamadas[id].state_id; 
 
-        $("#myModal").modal();
+        $("#myModalCall").modal();
         
       },
       formatear(input_val){
