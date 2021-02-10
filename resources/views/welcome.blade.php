@@ -32,7 +32,7 @@ if (isset($_REQUEST['politica-cookies'])) {
   <link rel="stylesheet" href="{{ asset('css/mycss.css') }}">
 </head>
 
-<body class="page-header-fixed">
+<body class="page-header-fixed" onload="validacion()">
   <header class="page-header">
     <nav class="navbar navbar-fixed-top" role="navigation">
       <div class="container">
