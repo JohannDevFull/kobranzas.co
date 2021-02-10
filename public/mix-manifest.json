@@ -1,5 +1,10 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/js/script.js": "/js/script.js"
+    "/js/script.js": "/js/script.js",
+    "/css/all.css": "/css/all.css",
+    "/vendor/inertiajs/inertia-laravel/src/Response.php": "/vendor/inertiajs/inertia-laravel/src/Response.php",
+    "/vendor/maatwebsite/excel/src/Validators/Failure.php": "/vendor/maatwebsite/excel/src/Validators/Failure.php",
+    "/vendor/owen-it/laravel-auditing/src/Auditable.php": "/vendor/owen-it/laravel-auditing/src/Auditable.php",
+    "/vendor/inertiajs/inertia-laravel/src/Ejemplo.php": "/vendor/inertiajs/inertia-laravel/src/Ejemplo.php"
 }
