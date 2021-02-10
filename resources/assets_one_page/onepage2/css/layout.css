@@ -1282,118 +1282,7 @@ a:focus {
 /*--------------------------------------------------
 	[TEAM]
 ----------------------------------------------------*/
-.team-bg {
-  z-index: 1;
-  height: auto;
-  overflow: hidden;
-  padding: 100px 0 100px 0;
-  background: url(../../../main/onepage2/img/bg/bg_parallax.jpg) 50% 0 fixed;
-  background-size: cover;
-  background-position: center center;
-  /* Team Members */
-  /* Team About */ }
-  .team-bg .team-members {
-    width: 100%;
-    cursor: pointer;
-    overflow: hidden;
-    position: relative;
-    margin-bottom: 35px; }
-    .team-bg .team-members .team-avatar {
-      position: relative; }
-      .team-bg .team-members .team-avatar:after {
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        content: " ";
-        position: absolute;
-        background: rgba(129, 129, 129, 0.1);
-        transition-duration: 300ms;
-        transition-property: all;
-        transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1); }
-      .team-bg .team-members .team-avatar img {
-        display: block;
-        margin: 0 auto;
-        text-align: center; }
-    .team-bg .team-members .team-desc {
-      left: auto;
-      bottom: 0;
-      width: 100%;
-      padding: 0 20px;
-      position: absolute;
-      opacity: 0;
-      color: #fff;
-      -webkit-transform: translate3d(0, 10%, 0);
-      transform: translate3d(0, 10%, 0);
-      -webkit-transition: opacity 0.3s;
-      -moz-transition: opacity 0.3s;
-      -ms-transition: opacity 0.3s;
-      -o-transition: opacity 0.3s;
-      transition: opacity 0.3s; }
-      .team-bg .team-members .team-desc .team-details {
-        float: left; }
-        .team-bg .team-members .team-desc .team-details h4 {
-          font-size: 22px;
-          font-weight: 600;
-          margin: 0 0 10px;
-          color: #fff; }
-        .team-bg .team-members .team-desc .team-details span {
-          display: block;
-          font-size: 13px;
-          font-weight: 600;
-          text-transform: uppercase;
-          color: #fff; }
-      .team-bg .team-members .team-desc .team-socials {
-        right: 20px;
-        bottom: 0;
-        margin: 0;
-        padding: 0;
-        text-align: right;
-        list-style: none;
-        position: absolute; }
-        .team-bg .team-members .team-desc .team-socials li {
-          padding: 0 3px;
-          display: inline-block; }
-          .team-bg .team-members .team-desc .team-socials li a {
-            text-decoration: none; }
-            .team-bg .team-members .team-desc .team-socials li a i {
-              font-size: 20px;
-              color: #fff; }
-              .team-bg .team-members .team-desc .team-socials li a i:hover {
-                color: #d15d5d; }
-    .team-bg .team-members:hover .team-avatar:after {
-      background: rgba(47, 60, 72, 0.5);
-      transition-duration: 300ms;
-      transition-property: all;
-      transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1); }
-    .team-bg .team-members:hover .team-desc {
-      -webkit-transform: translate3d(0, -5%, 0);
-      transform: translate3d(0, -5%, 0);
-      -webkit-transform: translate3d(0, -10%, 0);
-      transform: translate3d(0, -10%, 0); }
-    .team-bg .team-members:hover .team-desc {
-      opacity: 1;
-      -webkit-transition: all 0.4s;
-      -moz-transition: all 0.4s;
-      -ms-transition: all 0.4s;
-      -o-transition: all 0.4s;
-      transition: all 0.4s; }
-  .team-bg .team-about {
-    padding: 30px;
-    background: rgba(129, 129, 129, 0.1); }
-    .team-bg .team-about h3 {
-      color: #d4d9de;
-      font-size: 20px;
-      margin: 0 0 10px;
-      text-transform: capitalize; }
-    .team-bg .team-about p {
-      color: #8693a7; }
 
-/* Stylesheet design for above 992px */
-@media (min-width: 992px) {
-  /* 992px */
-  .team-about {
-    min-height: 495px; } }
 /*--------------------------------------------------
 	[CLIENTS]
 ----------------------------------------------------*/
@@ -1682,15 +1571,15 @@ a:focus {
     height: 100%;
     min-height: 580px; }
   .carousel .carousel-item-one {
-    background: url(../../../main/onepage2/img/bg/bg_slider1.jpg);
+    background: url(/storage/img/fondo1.jpg);
     background-size: cover;
     background-position: center center; }
   .carousel .carousel-item-two {
-    background: url(../../../main/onepage2/img/bg/bg_slider2.jpg);
+    background: url(/storage/img/fondo2.jpg);
     background-size: cover;
     background-position: center center; }
   .carousel .carousel-item-three {
-    background: url(../../../main/onepage2/img/bg/bg_slider3.jpg);
+    background: url(/storage/img/buildings.jpg);
     background-size: cover;
     background-position: center center; }
   .carousel .carousel-title-v1 {

@@ -102,12 +102,12 @@ if (isset($_REQUEST['politica-cookies'])) {
         <div class="item carousel-item-one active">
           <div class="container">
             <h3 class="carousel-position-one animate-delay carousel-title-v1" data-animation="animated fadeInDown">
-              The New Way
+              LSA
             </h3>
             <p class="carousel-position-two animate-delay carousel-subtitle-v1" data-animation="animated fadeInDown">
-              To Manage Your <br> Small to Enterprise Business
+              Abogados
             </p>
-            <a href="#" class="carousel-position-three animate-delay btn-brd-white" data-animation="animated fadeInUp">Learn More</a>
+            <a href="#" class="carousel-position-three animate-delay btn-brd-white" data-animation="animated fadeInUp">Contactenos</a>
           </div>
         </div>
 
@@ -148,7 +148,7 @@ if (isset($_REQUEST['politica-cookies'])) {
             <div class="services sm-margin-bottom-100">
               <div class="services-wrap">
                 <div class="service-body">
-                  <img src="main/onepage2/img/widgets/icon1.png" alt="">
+                  <!-- <img src="main/onepage2/img/widgets/icon1.png" alt=""> -->
                 </div>
               </div>
               <h2>Metronic is time saver</h2>
@@ -159,7 +159,7 @@ if (isset($_REQUEST['politica-cookies'])) {
             <div class="services sm-margin-bottom-100">
               <div class="services-wrap">
                 <div class="service-body">
-                  <img src="main/onepage2/img/widgets/icon2.png" alt="">
+                  <!-- <img src="main/onepage2/img/widgets/icon2.png" alt=""> -->
                 </div>
               </div>
               <h2>Created for all type Devices</h2>
@@ -170,7 +170,7 @@ if (isset($_REQUEST['politica-cookies'])) {
             <div class="services">
               <div class="services-wrap">
                 <div class="service-body">
-                  <img src="main/onepage2/img/widgets/icon3.png" alt="">
+                  <!-- <img src="main/onepage2/img/widgets/icon3.png" alt=""> -->
                 </div>
               </div>
               <h2>Great individual Design</h2>
@@ -190,7 +190,7 @@ if (isset($_REQUEST['politica-cookies'])) {
           <div class="row margin-bottom-70">
             <div class="col-md-6 md-margin-bottom-70">
               <div class="features">
-                <img src="main/onepage2/img/widgets/screen1.png" alt="">
+                <!-- <img src="main/onepage2/img/widgets/screen1.png" alt=""> -->
                 <div class="features-in">
                   <h3><a href="#">Full sass support</a></h3>
                   <p>Lorem niam ipsum dolor sit ammet adipiscing et suitem elit et nonuy nibh elit niam dolor</p>
@@ -199,7 +199,7 @@ if (isset($_REQUEST['politica-cookies'])) {
             </div>
             <div class="col-md-6">
               <div class="features">
-                <img src="main/onepage2/img/widgets/screen2.png" alt="">
+                <!-- <img src="main/onepage2/img/widgets/screen2.png" alt=""> -->
                 <div class="features-in">
                   <h3><a href="#">Awesome design</a></h3>
                   <p>Lorem niam ipsum dolor sit ammet adipiscing et suitem elit et nonuy nibh elit niam dolor</p>
@@ -210,7 +210,7 @@ if (isset($_REQUEST['politica-cookies'])) {
           <div class="row margin-bottom-80">
             <div class="col-md-6 md-margin-bottom-70">
               <div class="features">
-                <img src="main/onepage2/img/widgets/screen3.png" alt="">
+                <!-- <img src="main/onepage2/img/widgets/screen3.png" alt=""> -->
                 <div class="features-in">
                   <h3><a href="#">Built with bootstrap</a></h3>
                   <p>Lorem niam ipsum dolor sit ammet adipiscing et suitem elit et nonuy nibh elit niam dolor</p>
@@ -219,7 +219,7 @@ if (isset($_REQUEST['politica-cookies'])) {
             </div>
             <div class="col-md-6">
               <div class="features">
-                <img src="main/onepage2/img/widgets/screen4.png" alt="">
+                <!-- <img src="main/onepage2/img/widgets/screen4.png" alt=""> -->
                 <div class="features-in">
                   <h3><a href="#">AngularJS support</a></h3>
                   <p>Lorem niam ipsum dolor sit ammet adipiscing et suitem elit et nonuy nibh elit niam dolor</p>
@@ -446,7 +446,7 @@ if (isset($_REQUEST['politica-cookies'])) {
       </div>
       <div class="footer-copyright">
         <div class="container">
-          <h3>Metronic</h3>
+          <h3>LSA Abogados</h3>
           <ul class="copyright-socials">
             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -454,7 +454,7 @@ if (isset($_REQUEST['politica-cookies'])) {
             <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
             <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
           </ul>
-          <P>Designed with love by <a href="http://www.keenthemes.com/">KeenThemes</a></P>
+          <P>Copyright © 2020-2021  <a href="http://www.jtwo.tk/">jtwo.tk</a>. All rights reserved.</P>
         </div>
       </div>
     </section>
