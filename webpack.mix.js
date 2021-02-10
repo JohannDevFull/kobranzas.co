@@ -33,6 +33,9 @@ mix.styles([
     'resources/assets/plugins/summernote/summernote-bs4.css'
 ], 'public/css/all.css');
 
+//ASSETS TEMPLATE ONE PAGE
+mix.copyDirectory('resources/assets_one_page', 'public/main');
+
 
 // DIRECTORIO DE IMAGENES
 mix.copyDirectory('resources/assets/img', 'storage/app/public/img');

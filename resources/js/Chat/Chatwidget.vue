@@ -19,7 +19,7 @@
       @click="toggle()"
     >
       <div class="chat-widget-text">
-        <p class="heading">CHAT NO DISPONIBLE</p>
+        <p class="heading-c">CHAT NO DISPONIBLE</p>
         <p>
           No Disponible <span class="forbidden" style="font-size: 21px">•</span>
         </p>
@@ -39,7 +39,7 @@
       @click="toggle()"
     >
       <div class="chat-widget-text">
-        <p class="heading">CHAT DE CONTACTO</p>
+        <p class="heading-c">CHAT DE CONTACTO</p>
 
         <p>¿Cómo te podemos ayudar?</p>
       </div>

@@ -27976,7 +27976,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "chat-widget-text" }, [
-      _c("p", { staticClass: "heading" }, [_vm._v("CHAT NO DISPONIBLE")]),
+      _c("p", { staticClass: "heading-c" }, [_vm._v("CHAT NO DISPONIBLE")]),
       _vm._v(" "),
       _c("p", [
         _vm._v("\n        No Disponible "),
@@ -27993,7 +27993,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "chat-widget-text" }, [
-      _c("p", { staticClass: "heading" }, [_vm._v("CHAT DE CONTACTO")]),
+      _c("p", { staticClass: "heading-c" }, [_vm._v("CHAT DE CONTACTO")]),
       _vm._v(" "),
       _c("p", [_vm._v("¿Cómo te podemos ayudar?")])
     ])
@@ -28186,7 +28186,7 @@ var render = function() {
                                             expression: "guest"
                                           }
                                         ],
-                                        staticClass: "form-control form-inpt",
+                                        staticClass: "form-control-c form-inpt",
                                         attrs: {
                                           type: "text",
                                           placeholder: "ingresa tu nombre",
@@ -28227,7 +28227,7 @@ var render = function() {
                                             expression: "email"
                                           }
                                         ],
-                                        staticClass: "form-control form-inpt",
+                                        staticClass: "form-control-c form-inpt",
                                         attrs: {
                                           type: "text",
                                           placeholder: "ingresa tu correo",
@@ -28268,7 +28268,7 @@ var render = function() {
                                             expression: "number"
                                           }
                                         ],
-                                        staticClass: "form-control form-inpt",
+                                        staticClass: "form-control-c form-inpt",
                                         attrs: {
                                           type: "text",
                                           placeholder:
@@ -28305,7 +28305,7 @@ var render = function() {
                                         "button",
                                         {
                                           staticClass:
-                                            "form-control btn btn-outline-dark center",
+                                            "form-control-c btn btn-outline-dark-c center",
                                           on: {
                                             click: function($event) {
                                               return _vm.joinChat()
@@ -28535,7 +28535,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "chat-widget-text" }, [
-      _c("p", { staticClass: "heading" }, [_vm._v("CHAT NO DISPONIBLE")]),
+      _c("p", { staticClass: "heading-c" }, [_vm._v("CHAT NO DISPONIBLE")]),
       _vm._v(" "),
       _c("p", [
         _vm._v("No Disponible "),
@@ -28548,7 +28548,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "chat-widget-text" }, [
-      _c("p", { staticClass: "heading" }, [_vm._v("CHAT DE CONTACTO")]),
+      _c("p", { staticClass: "heading-c" }, [_vm._v("CHAT DE CONTACTO")]),
       _vm._v(" "),
       _c("p", [_vm._v("¿Cómo te podemos ayudar?")])
     ])

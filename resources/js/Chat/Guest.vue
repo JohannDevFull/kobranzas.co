@@ -24,7 +24,7 @@
       @click="toggle()"
     >
       <div class="chat-widget-text">
-        <p class="heading">CHAT NO DISPONIBLE</p>
+        <p class="heading-c">CHAT NO DISPONIBLE</p>
         <p>No Disponible <span class="forbidden">•</span></p>
       </div>
     </div>
@@ -42,7 +42,7 @@
       @click="toggle()"
     >
       <div class="chat-widget-text">
-        <p class="heading">CHAT DE CONTACTO</p>
+        <p class="heading-c">CHAT DE CONTACTO</p>
 
         <p>¿Cómo te podemos ayudar?</p>
       </div>
@@ -76,7 +76,7 @@
                     <br />
                     <input
                       type="text"
-                      class="form-control form-inpt"
+                      class="form-control-c form-inpt"
                       placeholder="ingresa tu nombre"
                       @keyup.enter="joinChat()"
                       v-model="guest"
@@ -84,7 +84,7 @@
                     />
                     <input
                       type="text"
-                      class="form-control form-inpt"
+                      class="form-control-c form-inpt"
                       placeholder="ingresa tu correo"
                       @keyup.enter="joinChat()"
                       v-model="email"
@@ -92,7 +92,7 @@
                     />
                     <input
                       type="text"
-                      class="form-control form-inpt"
+                      class="form-control-c form-inpt"
                       placeholder="ingresa tu número de identificación"
                       @keyup.enter="joinChat()"
                       v-model="number"
@@ -100,7 +100,7 @@
                     />
 
                     <button
-                      class="form-control btn btn-outline-dark center"
+                      class="form-control-c btn btn-outline-dark-c center"
                       @click="joinChat()"
                     >
                       Entrar
