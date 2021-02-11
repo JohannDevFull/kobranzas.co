@@ -53,7 +53,7 @@
                           placeholder=""
                           aria-controls="example1"
                           v-model="search"
-                          @keyup="getUsers(1, show, search)"
+                          @keyup="delay(page)"
                       /></label>
                     </div>
                   </div>
@@ -300,6 +300,7 @@ export default {
         to: 0,
       },
       offset: 3,
+      setTimeoutBuscador: ''
     };
   },
   created() {
@@ -336,15 +337,13 @@ export default {
       }
       return pagesArray;
     },
-    searchUser() {
-      return this.users.filter(
-        (user) =>
-          user.name.toLowerCase().includes(this.search.toLowerCase()) ||
-          user.document.includes(this.search)
-      );
-    },
+
   },
   methods: {
+     delay(){
+          clearTimeout( this.setTimeoutBuscador )
+          this.setTimeoutBuscador=setTimeout( this.getUsers ,360) 
+      },
     getUsers(page) {
       axios
         .get(

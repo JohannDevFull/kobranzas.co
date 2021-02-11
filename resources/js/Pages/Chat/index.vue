@@ -371,7 +371,6 @@ export default {
   },
 
   created() {
-    console.log(this.$page.currentRouteName);
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
     this.getGuests();

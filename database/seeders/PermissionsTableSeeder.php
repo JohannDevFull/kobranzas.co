@@ -16,6 +16,13 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+        //dashboard
+        Permission::create(['name' => 'dashboard.admin']);
+        Permission::create(['name' => 'dashboard.adminConjunto']);
+        Permission::create(['name' => 'dashboard.empleado']);
+        Permission::create(['name' => 'dashboard.cliente']);
+
+
         Permission::create(['name' => 'historial.index']);
         Permission::create(['name' => 'historial.show']);
         Permission::create(['name' => 'chat.index']);
@@ -77,13 +84,16 @@ class PermissionsTableSeeder extends Seeder
             'clients.index',
             'clients.show',
             'statement.details',
-            'notifications.index'
+            'notifications.index',
+            'dashboard.admin'
         ]);
         // *****
 
         //Asignar permisos Cliente
         $cliente->givePermissionTo([
             'statement.client',
+            'dashboard.cliente'
+
             
         ]);
         // *****
@@ -94,7 +104,9 @@ class PermissionsTableSeeder extends Seeder
             'user.index',
             'user.edit',
             'user.show',
-            'user.create'
+            'user.create',
+            'dashboard.empleado'
+
         ]);
         // *****
 
@@ -106,7 +118,9 @@ class PermissionsTableSeeder extends Seeder
             'clients.index',
             'clients.show',
             'statement.details',
-            'notifications.index'
+            'notifications.index',
+            'dashboard.adminConjunto'
+
         ]);
         // *****
 

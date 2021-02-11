@@ -200,7 +200,7 @@
                   </td>
 
                   <td>
-                    <inertia-link class="" :href="route('llamadas.client',row.id)" > 
+                    <!-- <inertia-link class="" :href="route('llamadas.client',row.id)" > 
                             <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
                         </inertia-link>
 
@@ -215,7 +215,7 @@
                         class="nav-icon fas fa-phone text-success"
                         style="padding: 6px"
                       ></i>
-                    </inertia-link>
+                    </inertia-link> -->
                   </td>
                 </tr>
                 <tr></tr>
