@@ -67,7 +67,7 @@ Route::post('/contactRequest', [NotificationsController::class, 'contact'])->nam
 Route::middleware(['auth'])->group(function () {
     //Dashboard
     Route::post('/dashboard/admin', [DashboardController::class, 'admin'])->middleware('permission:dashboard.admin');
-    Route::get('/dashboard/getClients', [DashboardController::class, 'getClients'])->middleware('permission:dashboard.admin');
+    Route::post('/dashboard/getClients', [DashboardController::class, 'getClients'])->middleware('permission:dashboard.admin');
     Route::post('/dashboard/adminConjunto', [DashboardController::class, 'adminConjunto'])->middleware('permission:dashboard.adminCliente');
     Route::post('/dashboard/empleado', [DashboardController::class, 'empleado'])->middleware('permission:dashboard.empleado');
     Route::post('/dashboard/cliente', [DashboardController::class, 'cliente'])->middleware('permission:dashboard.cliente');
