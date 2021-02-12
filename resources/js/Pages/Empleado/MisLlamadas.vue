@@ -124,7 +124,7 @@
                         >
                           <td>
                             <jet-nav-link
-                              :href="route('llamadas.create', call.client_id)"
+                              :href="route('llamadas.agreement', call.client_id)"
                             >
                               {{ call.name_call }}
                             </jet-nav-link>

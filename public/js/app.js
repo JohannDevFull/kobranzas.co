@@ -5923,9 +5923,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["conjunto", "num", "conjuntoinfo"],
@@ -67966,22 +67963,6 @@ var render = function() {
                                 "inertia-link",
                                 {
                                   attrs: {
-                                    href: _vm.route("llamadas.client", row.id)
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "nav-icon fas fa-eye text-info",
-                                    staticStyle: { padding: "3px" }
-                                  })
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "inertia-link",
-                                {
-                                  attrs: {
                                     href: _vm.route(
                                       "llamadas.agreement",
                                       row.id
@@ -67991,8 +67972,8 @@ var render = function() {
                                 [
                                   _c("i", {
                                     staticClass:
-                                      "nav-icon fas fa-hands-helping text-success",
-                                    staticStyle: { padding: "6px" }
+                                      "nav-icon fas fa-eye text-info",
+                                    staticStyle: { padding: "3px" }
                                   })
                                 ]
                               ),
@@ -74148,7 +74129,7 @@ var render = function() {
                                         {
                                           attrs: {
                                             href: _vm.route(
-                                              "llamadas.create",
+                                              "llamadas.agreement",
                                               call.client_id
                                             )
                                           }
@@ -98542,8 +98523,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "7f92a28260a2b4581fb5",
-  cluster: "us2",
+  key: "",
+  cluster: "mt1",
   forceTLS: true
 });
 
