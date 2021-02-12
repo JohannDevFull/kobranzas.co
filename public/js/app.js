@@ -5924,8 +5924,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["conjunto", "num", "conjuntoinfo"],
@@ -68198,7 +68196,47 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
-                          _c("td")
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "inertia-link",
+                                {
+                                  attrs: {
+                                    href: _vm.route(
+                                      "llamadas.agreement",
+                                      row.id
+                                    )
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "nav-icon fas fa-eye text-info",
+                                    staticStyle: { padding: "3px" }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "inertia-link",
+                                {
+                                  attrs: {
+                                    href: _vm.route("llamadas.create", row.id)
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "nav-icon fas fa-phone text-success",
+                                    staticStyle: { padding: "6px" }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" -->\n                ")
+                            ],
+                            1
+                          )
                         ])
                       }),
                       _vm._v(" "),
@@ -74789,7 +74827,7 @@ var render = function() {
                                         {
                                           attrs: {
                                             href: _vm.route(
-                                              "llamadas.create",
+                                              "llamadas.agreement",
                                               call.client_id
                                             )
                                           }
