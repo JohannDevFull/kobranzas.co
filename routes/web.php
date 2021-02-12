@@ -5,6 +5,7 @@ use App\Http\Controllers\BuildingsController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ConjuntosController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LlamadasController;
 use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\UserController;
@@ -60,10 +61,18 @@ Route::get('politica',  function () {
     return view('politicas.politica');
 });
 
-Route::post('/contactRequest',[NotificationsController::class,'contact'])->name('contact.request');
+Route::post('/contactRequest', [NotificationsController::class, 'contact'])->name('contact.request');
 
 // PERMISOS USUARIO 
 Route::middleware(['auth'])->group(function () {
+    //Dashboard
+    Route::post('/dashboard/admin', [DashboardController::class, 'admin'])->middleware('permission:dashboard.admin');
+    Route::post('/dashboard/getClients', [DashboardController::class, 'getClients'])->middleware('permission:dashboard.admin');
+    Route::post('/dashboard/adminConjunto', [DashboardController::class, 'adminConjunto'])->middleware('permission:dashboard.adminCliente');
+    Route::post('/dashboard/empleado', [DashboardController::class, 'empleado'])->middleware('permission:dashboard.empleado');
+    Route::post('/dashboard/cliente', [DashboardController::class, 'cliente'])->middleware('permission:dashboard.cliente');
+
+
     Route::put('chat/toggleChat', [ChatController::class, 'changeStatus'])->middleware('permission:chat.toggle');
     Route::post('/llamadas/sendEmails', [LlamadasController::class, 'sendEmails']);
     Route::post('/notifications', [NotificationsController::class, 'getNotifications']);
@@ -107,7 +116,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/notificaciones', [NotificationsController::class, 'index'])
         ->name('notificaciones.index')->middleware('permission:notifications.index');
-        Route::get('/notifications/paginate', [NotificationsController::class, 'getAll'])
+    Route::get('/notifications/paginate', [NotificationsController::class, 'getAll'])
         ->name('notifications.paginate')->middleware('permission:notifications.index');
 });
 
