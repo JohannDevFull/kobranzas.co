@@ -100,15 +100,15 @@ class ChatController extends Controller
     }
     public function endChat($id)
     {
-        $tempmessage = new TempMessage;
-        $tempmessage =  TempMessage::where('to', '=', $id);
-        $tempmessage->delete();
-        $tempmessage2 = new TempMessage;
-        $tempmessage2 =  TempMessage::where('from', '=', $id);
-        $tempmessage2->delete();
-        $tempUser = new TempUser();
-        $tempUser =  TempUser::where('idTemp', '=', $id);
-        $tempUser->delete();
+        // $tempmessage = new TempMessage;
+        // $tempmessage =  TempMessage::where('to', '=', $id);
+        // $tempmessage->delete();
+        // $tempmessage2 = new TempMessage;
+        // $tempmessage2 =  TempMessage::where('from', '=', $id);
+        // $tempmessage2->delete();
+        // $tempUser = new TempUser();
+        // $tempUser =  TempUser::where('idTemp', '=', $id);
+        // $tempUser->delete();
         broadcast(new DeleteTempUser($id));
         broadcast(new EndChat($id));
     }

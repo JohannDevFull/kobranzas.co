@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\TempMessage;
 use App\Models\Message;
 use App\Models\TempUser;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -42,7 +43,8 @@ class MessageController extends Controller
         if ($guest[0]->status == 0) {
             TempUser::where('idTemp', $id)->update([
                 'status' => true,
-                'user_id' => auth()->id()
+                'user_id' => auth()->id(),
+                'user_name'=>Auth::user()->name
             ]);
 
             broadcast(new ChatWithGuest($guest, auth()->user()));

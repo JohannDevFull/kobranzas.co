@@ -6836,6 +6836,111 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6869,7 +6974,9 @@ __webpack_require__.r(__webpack_exports__);
         width: 0
       },
       chatActive: true,
-      status: false
+      status: false,
+      search: "",
+      guestinfo: ""
     };
   },
   created: function created() {
@@ -6946,50 +7053,65 @@ __webpack_require__.r(__webpack_exports__);
     }, 100);
   },
   methods: {
-    newM: function newM() {
+    action: function action() {
+      if (this.isGuest) {
+        this.openModal(this.idChat);
+      } else {
+        this.$inertia.visit('user/' + this.contactId);
+      }
+    },
+    openModal: function openModal($id) {
       var _this2 = this;
+
+      axios.post("/getGuestInfo/" + $id).then(function (response) {
+        _this2.guestinfo = response.data;
+      });
+      $("#GuestModal").modal();
+    },
+    newM: function newM() {
+      var _this3 = this;
 
       if (this.$page.currentRouteName == "chat.index") {
         setTimeout(function () {
-          Echo.channel("chat.".concat(_this2.$page.user.id)).listen("NewMessage", function (e) {
-            _this2.getContacts();
+          Echo.channel("chat.".concat(_this3.$page.user.id)).listen("NewMessage", function (e) {
+            _this3.getContacts();
 
-            if (_this2.contactId == "") {
-              if (e.message.to == _this2.$page.user.id) {
-                _this2.updateUnreadCount(e.message.from, false);
+            if (_this3.contactId == "") {
+              if (e.message.to == _this3.$page.user.id) {
+                _this3.updateUnreadCount(e.message.from, false);
 
-                _this2.noty();
+                _this3.noty();
               } else {
                 return;
               }
-            } else if (e.message.to == _this2.$page.user.id) {
-              if (_this2.contactId != e.message.from) {
-                _this2.updateUnreadCount(e.message.from, false);
+            } else if (e.message.to == _this3.$page.user.id) {
+              if (_this3.contactId != e.message.from) {
+                _this3.updateUnreadCount(e.message.from, false);
 
-                _this2.noty();
+                _this3.noty();
 
-                if (!_this2.enabled) {
-                  _this2.notification = true;
+                if (!_this3.enabled) {
+                  _this3.notification = true;
                 }
               } else {
-                _this2.messages.push({
+                _this3.messages.push({
                   from: e.message.from,
                   to: e.message.to,
                   text: e.message.text
                 });
 
-                if (_this2.enabled && !_this2.seeContacts || _this2.enabled && _this2.chatMode) {
-                  _this2.scroll();
+                if (_this3.enabled && !_this3.seeContacts || _this3.enabled && _this3.chatMode) {
+                  _this3.scroll();
                 }
 
-                _this2.scroll();
+                _this3.scroll();
 
-                _this2.updateUnreadCount(e.message.from, false);
+                _this3.updateUnreadCount(e.message.from, false);
 
-                _this2.noty();
+                _this3.noty();
 
-                if (!_this2.enabled) {
-                  _this2.notification = true;
+                if (!_this3.enabled) {
+                  _this3.notification = true;
                 }
               }
             } // this.chatRoom(this.contactId, this.contactName, this.user_photo);
@@ -7009,14 +7131,14 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     chatStatus: function chatStatus() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.post("/chat/chatStatus").then(function (response) {
-        _this3.status = response.data.chatActivated; //console.log(this.status);
+        _this4.status = response.data.chatActivated; //console.log(this.status);
       });
     },
     toggleChatEvent: function toggleChatEvent() {
-      var _this4 = this;
+      var _this5 = this;
 
       var swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -7036,15 +7158,15 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.isConfirmed) {
           axios.put("/chat/toggleChat", {
-            changeTo: !_this4.status
+            changeTo: !_this5.status
           }).then(function (response) {
-            _this4.status = response.data.chatActivated;
+            _this5.status = response.data.chatActivated;
 
-            _this4.chatStatus();
+            _this5.chatStatus();
           });
-          swalWithBootstrapButtons.fire("Hecho!", "El chat ha sido " + (_this4.status ? "Desactivado" : "Activado") + ".", "success");
+          swalWithBootstrapButtons.fire("Hecho!", "El chat ha sido " + (_this5.status ? "Desactivado" : "Activado") + ".", "success");
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-          swalWithBootstrapButtons.fire("Cancelado", "El chat NO ha sido " + (_this4.status ? "Desactivado" : "Activado") + " ten más cuidado", "error");
+          swalWithBootstrapButtons.fire("Cancelado", "El chat NO ha sido " + (_this5.status ? "Desactivado" : "Activado") + " ten más cuidado", "error");
         }
       });
     },
@@ -7070,38 +7192,38 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     scroll: function scroll() {
-      var _this5 = this;
+      var _this6 = this;
 
       setTimeout(function () {
-        var container = _this5.$el.querySelector("#messages");
+        var container = _this6.$el.querySelector("#messages");
 
         container.scrollTop = 10000000;
       }, 10);
     },
     getGuests: function getGuests() {
-      var _this6 = this;
+      var _this7 = this;
 
       axios.post("/chat/getRequests", {
         from: this.$page.user.from
       }).then(function (res) {
-        _this6.guests = res.data;
-        _this6.guests = _this6.guests.sort(function (a, b) {
+        _this7.guests = res.data;
+        _this7.guests = _this7.guests.sort(function (a, b) {
           return b.unread - a.unread;
         });
       });
     },
     getContacts: function getContacts() {
-      var _this7 = this;
+      var _this8 = this;
 
       axios.post("/chat/getContacts").then(function (res) {
-        _this7.contacts = res.data;
-        _this7.contacts = _this7.contacts.sort(function (a, b) {
+        _this8.contacts = res.data;
+        _this8.contacts = _this8.contacts.sort(function (a, b) {
           return b.unread - a.unread;
         });
       });
     },
     chatRoomGuest: function chatRoomGuest(id, nombre, photo, user_id) {
-      var _this8 = this;
+      var _this9 = this;
 
       if (this.idChat == id && this.contactId != "" && !this.messageIncoming) {
         return;
@@ -7111,26 +7233,26 @@ __webpack_require__.r(__webpack_exports__);
           from: this.$page.user.id,
           to: id
         }).then(function (resMessages) {
-          _this8.chatMode = true;
-          _this8.messages = resMessages.data;
-          _this8.contactName = nombre;
-          _this8.user_photo = photo;
-          _this8.contactId = id;
+          _this9.chatMode = true;
+          _this9.messages = resMessages.data;
+          _this9.contactName = nombre;
+          _this9.user_photo = photo;
+          _this9.contactId = id;
 
-          _this8.scroll();
+          _this9.scroll();
 
-          _this8.isLoading = false;
-          _this8.messageIncoming = false;
+          _this9.isLoading = false;
+          _this9.messageIncoming = false;
         })["catch"](function (err) {
           console.log("error");
           console.log(err);
-          _this8.chatMode = true;
-          _this8.messages = [];
+          _this9.chatMode = true;
+          _this9.messages = [];
         });
       }
     },
     chatRoom: function chatRoom(idcontact, nombre, photo) {
-      var _this9 = this;
+      var _this10 = this;
 
       if (this.idChat == idcontact && this.contactId != "" && !this.isGuest) {
         return;
@@ -7140,18 +7262,18 @@ __webpack_require__.r(__webpack_exports__);
           from: this.$page.user.id,
           to: idcontact
         }).then(function (resMessages) {
-          _this9.chatMode = true;
-          _this9.messages = resMessages.data;
-          _this9.contactName = nombre;
-          _this9.user_photo = photo;
-          _this9.contactId = idcontact; //this.isLoading=false;
+          _this10.chatMode = true;
+          _this10.messages = resMessages.data;
+          _this10.contactName = nombre;
+          _this10.user_photo = photo;
+          _this10.contactId = idcontact; //this.isLoading=false;
 
-          _this9.scroll();
+          _this10.scroll();
         })["catch"](function (err) {
           console.log("error");
           console.log(err);
-          _this9.chatMode = true;
-          _this9.messages = [];
+          _this10.chatMode = true;
+          _this10.messages = [];
         });
       }
     },
@@ -7177,7 +7299,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     endChat: function endChat(idTemp) {
-      var _this10 = this;
+      var _this11 = this;
 
       var swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -7197,9 +7319,9 @@ __webpack_require__.r(__webpack_exports__);
         showLoaderOnConfirm: true
       }).then(function (result) {
         if (result.isConfirmed) {
-          _this10.isLoading = true;
-          _this10.messages = [];
-          _this10.contactId = "";
+          _this11.isLoading = true;
+          _this11.messages = [];
+          _this11.contactId = "";
           axios["delete"]("/chat/endChat/" + idTemp).then(function (response) {
             if (window.window.innerWidth > 785) {} else {
               $("#user-friends").removeClass("hide");
@@ -7207,7 +7329,7 @@ __webpack_require__.r(__webpack_exports__);
               $("#contacts").removeClass("hide");
             }
 
-            _this10.isLoading = false;
+            _this11.isLoading = false;
             swalWithBootstrapButtons.fire("Eliminado!", "El chat ha sido terminado.", "success");
           });
         } else if (
@@ -7293,7 +7415,22 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  computed: {}
+  computed: {
+    searchContact: function searchContact() {
+      var _this12 = this;
+
+      return this.contacts.filter(function (contacts) {
+        return contacts.name.toLowerCase().includes(_this12.search.toLowerCase());
+      });
+    },
+    searchGuest: function searchGuest() {
+      var _this13 = this;
+
+      return this.guests.filter(function (guests) {
+        return guests.name.toLowerCase().includes(_this13.search.toLowerCase());
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -8642,18 +8779,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["infoName", "info"]
 });
@@ -9752,13 +9877,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -9893,7 +10011,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         Swal.fire({
           icon: "success",
-          title: "Acuerdo Registrada",
+          title: "Acuerdo Registrado",
           text: "Éxito al Registrar Acuerdo",
           showConfirmButton: false,
           timer: 1500
@@ -9906,11 +10024,13 @@ __webpack_require__.r(__webpack_exports__);
         }, {
           only: ['users']
         });
-        axios.post('/llamadas/sendEmails', {
-          notification: response.data.id
-        })["catch"](function (err) {
-          console.log(err);
-        });
+        setTimeout(function () {
+          axios.post('/llamadas/sendEmails', {
+            notification: response.data.id
+          })["catch"](function (err) {
+            console.log(err);
+          });
+        }, 400);
       })["catch"](function (error) {
         _this2.errors = error.response.data;
         console.log("Este es el error" + error.response.data);
@@ -14663,7 +14783,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".btn-toggleChat {\n  z-index: 100;\n  position: absolute;\n  float: left;\n  left: 13px;\n  top: 11px;\n}\n.chat-header {\n  width: 100%;\n  background: #2d7d46d6;\n  margin: 0px 0px 0px 0px;\n  position: relative;\n  box-shadow: 0px 2px 6px #9c8e8e;\n  color: white;\n}\n.text-noMessages {\n  margin-top: 15px;\n  text-align: center;\n  font-family: \"dosis\", sans-serif;\n  font-weight: 500;\n  font-size: 1.2rem;\n}\nimg {\n  max-width: 40px;\n}\n.inbox_people {\n  background: #f8f8f8 none repeat scroll 0 0;\n  float: left;\n  width: 40%;\n  border-right: 1px solid #c4c4c4;\n}\n.inbox_msg {\n  border: 1px solid #c4c4c4;\n  clear: both;\n}\n.top_spac {\n  margin: 20px 0 0;\n}\n.recent_heading {\n  float: left;\n  width: 100%;\n}\n.headind_srch {\n  background: #4e9163;\n  text-align: center;\n}\n.srch_bar {\n  display: inline-block;\n  text-align: right;\n  width: 60%;\n}\n.btn-tosel {\n  padding: 0;\n  text-align: inherit;\n}\n.recent_heading h4 {\n  top: 10px;\n  color: white;\n  font-size: 21px;\n  margin: auto;\n  position: relative;\n}\n.send-btn {\n  position: relative;\n  float: right;\n  top: -15px;\n}\n.srch_bar input {\n  border: 1px solid #cdcdcd;\n  border-width: 0 0 1px 0;\n  width: 80%;\n  padding: 2px 0 4px 6px;\n  background: none;\n}\n.srch_bar .input-group-addon button {\n  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n  border: medium none;\n  padding: 0;\n  color: #707070;\n  font-size: 18px;\n}\n.srch_bar .input-group-addon {\n  margin: 0 0 0 -27px;\n}\n.chat_ib h5 {\n  font-size: 15px;\n  color: #464646;\n  margin: 0 0 8px 0;\n}\n.chat_ib h5 span {\n  font-size: 13px;\n  float: right;\n}\n.chat_ib p {\n  font-size: 14px;\n  color: #989898;\n  margin: auto;\n}\n.chat_img {\n  float: left;\n  width: 10%;\n}\n.chat_ib {\n  float: left;\n  padding: 0 0 0 20px;\n  width: 88%;\n}\n.chat_people {\n  overflow: hidden;\n  clear: both;\n}\n.inbox_chat::-webkit-scrollbar-track {\n  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);\n  background-color: #f5f5f5;\n}\n.inbox_chat::-webkit-scrollbar {\n  width: 5px;\n  background-color: #f5f5f5;\n}\n.inbox_chat::-webkit-scrollbar-thumb {\n  background-color: #001f3f;\n}\n.msg_history::-webkit-scrollbar-track {\n  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);\n  background-color: #f5f5f5;\n}\n.msg_history::-webkit-scrollbar {\n  width: 5px;\n  background-color: #f5f5f5;\n}\n.msg_history::-webkit-scrollbar-thumb {\n  background-color: #001f3f;\n}\n.chat_list {\n  border-bottom: 1px solid #c4c4c4;\n  margin: 0;\n  padding: 18px 16px 10px;\n}\n.inbox_chat {\n  height: 481px;\n  overflow-y: auto;\n}\n.active_chat {\n  background: #ebebeb;\n}\n.incoming_msg_img {\n  display: inline-block;\n  width: 6%;\n}\n.received_msg {\n  display: inline-block;\n  padding: 0 0 0 10px;\n  vertical-align: top;\n  width: 92%;\n}\n.received_withd_msg p {\n  background: #00000063;\n  padding: 10px 15px 10px 15px;\n  color: white;\n  max-width: 60%;\n  float: left;\n  margin: 0;\n  position: relative;\n  border-radius: 30px;\n  word-wrap: break-word;\n  white-space: normal;\n}\n.time_date {\n  color: #747474;\n  display: block;\n  font-size: 12px;\n  margin: 0;\n  width: 100%;\n}\n.received_withd_msg {\n  width: 99%;\n}\n.mesgs {\n  float: left;\n  width: 60%;\n}\n.sent_msg p {\n  float: right;\n  background: #09904bb8;\n  color: white;\n}\n.outgoing_msg {\n  overflow: hidden;\n  margin: 8px 0 8px;\n}\n.sent_msg {\n  float: right;\n  width: 100%;\n}\n.input_msg_write input {\n  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n  border: medium none;\n  color: #4c4c4c;\n  font-size: 15px;\n  min-height: 30px;\n  width: 85%;\n  top: -17px;\n  position: absolute;\n  margin: 13px 0px -1px 3px;\n  height: 14px;\n  border-bottom: 1px solid #a9a1a1;\n}\n.input_msg_write input:focus {\n  outline: none;\n}\n.type_msg {\n  position: relative;\n  bottom: -8px;\n}\n.msg_send_btn {\n  background: #05728f none repeat scroll 0 0;\n  border: medium none;\n  border-radius: 50%;\n  color: #fff;\n  cursor: pointer;\n  font-size: 17px;\n  height: 33px;\n  position: absolute;\n  right: 0;\n  top: 11px;\n  width: 33px;\n}\n.messaging {\n  padding: 0 0 50px 0;\n}\n.msg_history {\n  overflow-y: auto;\n  overflow-x: hidden;\n}\n\n/* .msg_history::after {\r\n  content: \"\";\r\n  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAgOCkiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PGNpcmNsZSBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIgY3g9IjE3NiIgY3k9IjEyIiByPSI0Ii8+PHBhdGggZD0iTTIwLjUuNWwyMyAxMW0tMjkgODRsLTMuNzkgMTAuMzc3TTI3LjAzNyAxMzEuNGw1Ljg5OCAyLjIwMy0zLjQ2IDUuOTQ3IDYuMDcyIDIuMzkyLTMuOTMzIDUuNzU4bTEyOC43MzMgMzUuMzdsLjY5My05LjMxNiAxMC4yOTIuMDUyLjQxNi05LjIyMiA5LjI3NC4zMzJNLjUgNDguNXM2LjEzMSA2LjQxMyA2Ljg0NyAxNC44MDVjLjcxNSA4LjM5My0yLjUyIDE0LjgwNi0yLjUyIDE0LjgwNk0xMjQuNTU1IDkwcy03LjQ0NCAwLTEzLjY3IDYuMTkyYy02LjIyNyA2LjE5Mi00LjgzOCAxMi4wMTItNC44MzggMTIuMDEybTIuMjQgNjguNjI2cy00LjAyNi05LjAyNS0xOC4xNDUtOS4wMjUtMTguMTQ1IDUuNy0xOC4xNDUgNS43IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTg1LjcxNiAzNi4xNDZsNS4yNDMtOS41MjFoMTEuMDkzbDUuNDE2IDkuNTIxLTUuNDEgOS4xODVIOTAuOTUzbC01LjIzNy05LjE4NXptNjMuOTA5IDE1LjQ3OWgxMC43NXYxMC43NWgtMTAuNzV6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIvPjxjaXJjbGUgZmlsbD0iIzAwMCIgY3g9IjcxLjUiIGN5PSI3LjUiIHI9IjEuNSIvPjxjaXJjbGUgZmlsbD0iIzAwMCIgY3g9IjE3MC41IiBjeT0iOTUuNSIgcj0iMS41Ii8+PGNpcmNsZSBmaWxsPSIjMDAwIiBjeD0iODEuNSIgY3k9IjEzNC41IiByPSIxLjUiLz48Y2lyY2xlIGZpbGw9IiMwMDAiIGN4PSIxMy41IiBjeT0iMjMuNSIgcj0iMS41Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTkzIDcxaDN2M2gtM3ptMzMgODRoM3YzaC0zem0tODUgMThoM3YzaC0zeiIvPjxwYXRoIGQ9Ik0zOS4zODQgNTEuMTIybDUuNzU4LTQuNDU0IDYuNDUzIDQuMjA1LTIuMjk0IDcuMzYzaC03Ljc5bC0yLjEyNy03LjExNHpNMTMwLjE5NSA0LjAzbDEzLjgzIDUuMDYyLTEwLjA5IDcuMDQ4LTMuNzQtMTIuMTF6bS04MyA5NWwxNC44MyA1LjQyOS0xMC44MiA3LjU1Ny00LjAxLTEyLjk4N3pNNS4yMTMgMTYxLjQ5NWwxMS4zMjggMjAuODk3TDIuMjY1IDE4MGwyLjk0OC0xOC41MDV6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIvPjxwYXRoIGQ9Ik0xNDkuMDUgMTI3LjQ2OHMtLjUxIDIuMTgzLjk5NSAzLjM2NmMxLjU2IDEuMjI2IDguNjQyLTEuODk1IDMuOTY3LTcuNzg1LTIuMzY3LTIuNDc3LTYuNS0zLjIyNi05LjMzIDAtNS4yMDggNS45MzYgMCAxNy41MSAxMS42MSAxMy43MyAxMi40NTgtNi4yNTcgNS42MzMtMjEuNjU2LTUuMDczLTIyLjY1NC02LjYwMi0uNjA2LTE0LjA0MyAxLjc1Ni0xNi4xNTcgMTAuMjY4LTEuNzE4IDYuOTIgMS41ODQgMTcuMzg3IDEyLjQ1IDIwLjQ3NiAxMC44NjYgMy4wOSAxOS4zMzEtNC4zMSAxOS4zMzEtNC4zMSIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjEuMjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvZz48L3N2Zz4=);\r\n  opacity: 0.1;\r\n  top: 0%;\r\n  left: 40%;\r\n  bottom: 0;\r\n  right: 0;\r\n \r\n  position: absolute;\r\n  z-index: 0;\r\n} */\n.fill {\n  position: relative;\n  top: -22px;\n}\n.spantitle {\n  margin-left: 10px;\n  font-weight: 600;\n}\n.pro {\n  margin-left: 5px;\n  margin-top: 4px;\n  box-shadow: 0px 0px 3px;\n}\n.btn-end {\n  float: right;\n  margin: 8px 9px 0px 8px;\n  position: relative;\n}\n.btn-bars {\n  color: black;\n  cursor: pointer;\n  display: none;\n  position: absolute;\n  top: 16px;\n  padding-right: 15px;\n  right: 0;\n}\n.vis {\n  display: block !important;\n  visibility: visible;\n}\n@media (max-width: 785px) {\n.btn-bars {\n    display: block !important;\n}\n.inbox_people {\n    width: 100%;\n}\n.mesgs {\n    display: none;\n    width: 100%;\n}\n.hide {\n    display: none !important;\n    visibility: hidden;\n}\n}\n@media (max-width: 360px) {\n.chat_ib {\n    padding: 0 0 0 33px;\n}\n}\r\n", ""]);
+exports.push([module.i, ".btn-toggleChat {\n  z-index: 100;\n  position: absolute;\n  float: left;\n  left: 13px;\n  top: 11px;\n}\n.chat-header {\n  width: 100%;\n  background: #2d7d46d6;\n  margin: 0px 0px 0px 0px;\n  position: relative;\n  box-shadow: 0px 2px 6px #9c8e8e;\n  color: white;\n}\n.text-noMessages {\n  margin-top: 15px;\n  text-align: center;\n  font-family: \"dosis\", sans-serif;\n  font-weight: 500;\n  font-size: 1.2rem;\n}\nimg {\n  max-width: 40px;\n}\n.inbox_people {\n  background: #f8f8f8 none repeat scroll 0 0;\n  float: left;\n  width: 40%;\n  border-right: 1px solid #c4c4c4;\n}\n.inbox_msg {\n  border: 1px solid #c4c4c4;\n  clear: both;\n}\n.top_spac {\n  margin: 20px 0 0;\n}\n.recent_heading {\n  float: left;\n  width: 100%;\n}\n.headind_srch {\n  background: #4e9163;\n  text-align: center;\n}\n.srch_bar {\n  display: inline-block;\n  text-align: right;\n  width: 60%;\n}\n.btn-tosel {\n  padding: 0;\n  text-align: inherit;\n}\n.recent_heading h4 {\n  top: 10px;\n  color: white;\n  font-size: 21px;\n  margin: auto;\n  position: relative;\n}\n.send-btn {\n  position: relative;\n  float: right;\n  top: -15px;\n}\n.srch_bar input {\n  border: 1px solid #cdcdcd;\n  border-width: 0 0 1px 0;\n  width: 80%;\n  padding: 2px 0 4px 6px;\n  background: none;\n}\n.srch_bar .input-group-addon button {\n  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n  border: medium none;\n  padding: 0;\n  color: #707070;\n  font-size: 18px;\n}\n.srch_bar .input-group-addon {\n  margin: 0 0 0 -27px;\n}\n.chat_ib h5 {\n  font-size: 15px;\n  color: #464646;\n  margin: 0 0 8px 0;\n}\n.chat_ib h5 span {\n  font-size: 13px;\n  float: right;\n}\n.chat_ib p {\n  font-size: 14px;\n  color: #989898;\n  margin: auto;\n}\n.chat_img {\n  float: left;\n  width: 10%;\n  cursor: pointer;\n}\n.chat_ib {\n  float: left;\n  padding: 0 0 0 20px;\n  width: 88%;\n}\n.chat_people {\n  overflow: hidden;\n  clear: both;\n}\n.inbox_chat::-webkit-scrollbar-track {\n  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);\n  background-color: #f5f5f5;\n}\n.inbox_chat::-webkit-scrollbar {\n  width: 5px;\n  background-color: #f5f5f5;\n}\n.inbox_chat::-webkit-scrollbar-thumb {\n  background-color: #001f3f;\n}\n.msg_history::-webkit-scrollbar-track {\n  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);\n  background-color: #f5f5f5;\n}\n.msg_history::-webkit-scrollbar {\n  width: 5px;\n  background-color: #f5f5f5;\n}\n.msg_history::-webkit-scrollbar-thumb {\n  background-color: #001f3f;\n}\n.chat_list {\n  border-bottom: 1px solid #c4c4c4;\n  margin: 0;\n  padding: 18px 16px 10px;\n}\n.inbox_chat {\n  height: 481px;\n  overflow-y: auto;\n}\n.active_chat {\n  background: #ebebeb;\n}\n.incoming_msg_img {\n  display: inline-block;\n  width: 6%;\n}\n.received_msg {\n  display: inline-block;\n  padding: 0 0 0 10px;\n  vertical-align: top;\n  width: 92%;\n}\n.received_withd_msg p {\n  background: #00000063;\n  padding: 10px 15px 10px 15px;\n  color: white;\n  max-width: 60%;\n  float: left;\n  margin: 0;\n  position: relative;\n  border-radius: 30px;\n  word-wrap: break-word;\n  white-space: normal;\n}\n.time_date {\n  color: #747474;\n  display: block;\n  font-size: 12px;\n  margin: 0;\n  width: 100%;\n}\n.received_withd_msg {\n  width: 99%;\n}\n.mesgs {\n  float: left;\n  width: 60%;\n}\n.sent_msg p {\n  float: right;\n  background: #09904bb8;\n  color: white;\n}\n.outgoing_msg {\n  overflow: hidden;\n  margin: 8px 0 8px;\n}\n.sent_msg {\n  float: right;\n  width: 100%;\n}\n.input_msg_write input {\n  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n  border: medium none;\n  color: #4c4c4c;\n  font-size: 15px;\n  min-height: 30px;\n  width: 85%;\n  top: -17px;\n  position: absolute;\n  margin: 13px 0px -1px 3px;\n  height: 14px;\n  border-bottom: 1px solid #a9a1a1;\n}\n.input_msg_write input:focus {\n  outline: none;\n}\n.type_msg {\n  position: relative;\n  bottom: -8px;\n}\n.msg_send_btn {\n  background: #05728f none repeat scroll 0 0;\n  border: medium none;\n  border-radius: 50%;\n  color: #fff;\n  cursor: pointer;\n  font-size: 17px;\n  height: 33px;\n  position: absolute;\n  right: 0;\n  top: 11px;\n  width: 33px;\n}\n.messaging {\n  padding: 0 0 50px 0;\n}\n.msg_history {\n  overflow-y: auto;\n  overflow-x: hidden;\n}\n\n/* .msg_history::after {\r\n  content: \"\";\r\n  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAgOCkiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PGNpcmNsZSBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIgY3g9IjE3NiIgY3k9IjEyIiByPSI0Ii8+PHBhdGggZD0iTTIwLjUuNWwyMyAxMW0tMjkgODRsLTMuNzkgMTAuMzc3TTI3LjAzNyAxMzEuNGw1Ljg5OCAyLjIwMy0zLjQ2IDUuOTQ3IDYuMDcyIDIuMzkyLTMuOTMzIDUuNzU4bTEyOC43MzMgMzUuMzdsLjY5My05LjMxNiAxMC4yOTIuMDUyLjQxNi05LjIyMiA5LjI3NC4zMzJNLjUgNDguNXM2LjEzMSA2LjQxMyA2Ljg0NyAxNC44MDVjLjcxNSA4LjM5My0yLjUyIDE0LjgwNi0yLjUyIDE0LjgwNk0xMjQuNTU1IDkwcy03LjQ0NCAwLTEzLjY3IDYuMTkyYy02LjIyNyA2LjE5Mi00LjgzOCAxMi4wMTItNC44MzggMTIuMDEybTIuMjQgNjguNjI2cy00LjAyNi05LjAyNS0xOC4xNDUtOS4wMjUtMTguMTQ1IDUuNy0xOC4xNDUgNS43IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTg1LjcxNiAzNi4xNDZsNS4yNDMtOS41MjFoMTEuMDkzbDUuNDE2IDkuNTIxLTUuNDEgOS4xODVIOTAuOTUzbC01LjIzNy05LjE4NXptNjMuOTA5IDE1LjQ3OWgxMC43NXYxMC43NWgtMTAuNzV6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIvPjxjaXJjbGUgZmlsbD0iIzAwMCIgY3g9IjcxLjUiIGN5PSI3LjUiIHI9IjEuNSIvPjxjaXJjbGUgZmlsbD0iIzAwMCIgY3g9IjE3MC41IiBjeT0iOTUuNSIgcj0iMS41Ii8+PGNpcmNsZSBmaWxsPSIjMDAwIiBjeD0iODEuNSIgY3k9IjEzNC41IiByPSIxLjUiLz48Y2lyY2xlIGZpbGw9IiMwMDAiIGN4PSIxMy41IiBjeT0iMjMuNSIgcj0iMS41Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTkzIDcxaDN2M2gtM3ptMzMgODRoM3YzaC0zem0tODUgMThoM3YzaC0zeiIvPjxwYXRoIGQ9Ik0zOS4zODQgNTEuMTIybDUuNzU4LTQuNDU0IDYuNDUzIDQuMjA1LTIuMjk0IDcuMzYzaC03Ljc5bC0yLjEyNy03LjExNHpNMTMwLjE5NSA0LjAzbDEzLjgzIDUuMDYyLTEwLjA5IDcuMDQ4LTMuNzQtMTIuMTF6bS04MyA5NWwxNC44MyA1LjQyOS0xMC44MiA3LjU1Ny00LjAxLTEyLjk4N3pNNS4yMTMgMTYxLjQ5NWwxMS4zMjggMjAuODk3TDIuMjY1IDE4MGwyLjk0OC0xOC41MDV6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIvPjxwYXRoIGQ9Ik0xNDkuMDUgMTI3LjQ2OHMtLjUxIDIuMTgzLjk5NSAzLjM2NmMxLjU2IDEuMjI2IDguNjQyLTEuODk1IDMuOTY3LTcuNzg1LTIuMzY3LTIuNDc3LTYuNS0zLjIyNi05LjMzIDAtNS4yMDggNS45MzYgMCAxNy41MSAxMS42MSAxMy43MyAxMi40NTgtNi4yNTcgNS42MzMtMjEuNjU2LTUuMDczLTIyLjY1NC02LjYwMi0uNjA2LTE0LjA0MyAxLjc1Ni0xNi4xNTcgMTAuMjY4LTEuNzE4IDYuOTIgMS41ODQgMTcuMzg3IDEyLjQ1IDIwLjQ3NiAxMC44NjYgMy4wOSAxOS4zMzEtNC4zMSAxOS4zMzEtNC4zMSIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjEuMjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvZz48L3N2Zz4=);\r\n  opacity: 0.1;\r\n  top: 0%;\r\n  left: 40%;\r\n  bottom: 0;\r\n  right: 0;\r\n \r\n  position: absolute;\r\n  z-index: 0;\r\n} */\n.fill {\n  position: relative;\n  top: -22px;\n}\n.spantitle {\n  margin-left: 10px;\n  font-weight: 600;\n}\n.pro {\n  margin-left: 5px;\n  margin-top: 4px;\n  box-shadow: 0px 0px 3px;\n}\n.btn-end {\n  float: right;\n  margin: 8px 9px 0px 8px;\n  position: relative;\n}\n.btn-bars {\n  color: black;\n  cursor: pointer;\n  display: none;\n  position: absolute;\n  top: 16px;\n  padding-right: 15px;\n  right: 0;\n}\n.vis {\n  display: block !important;\n  visibility: visible;\n}\n@media (max-width: 785px) {\n.btn-bars {\n    display: block !important;\n}\n.inbox_people {\n    width: 100%;\n}\n.mesgs {\n    display: none;\n    width: 100%;\n}\n.hide {\n    display: none !important;\n    visibility: hidden;\n}\n}\n@media (max-width: 360px) {\n.chat_ib {\n    padding: 0 0 0 33px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -68232,8 +68352,7 @@ var render = function() {
                                     staticStyle: { padding: "6px" }
                                   })
                                 ]
-                              ),
-                              _vm._v(" -->\n                ")
+                              )
                             ],
                             1
                           )
@@ -69355,6 +69474,32 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.search,
+                              expression: "search"
+                            }
+                          ],
+                          staticClass:
+                            "custom-select-sm form-control form-control-sm",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Buscar contacto"
+                          },
+                          domProps: { value: _vm.search },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.search = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
                         _c(
                           "div",
                           {
@@ -69362,7 +69507,7 @@ var render = function() {
                             style: { height: _vm.window.height - 170 + "px" }
                           },
                           [
-                            _vm.guests != 0
+                            _vm.searchGuest != 0
                               ? _c("span", { staticClass: "spantitle" }, [
                                   _vm._v("Visitantes")
                                 ])
@@ -69370,7 +69515,7 @@ var render = function() {
                             _vm._v(" "),
                             _c("hr", { staticStyle: { margin: "0" } }),
                             _vm._v(" "),
-                            _vm._l(_vm.guests, function(guest) {
+                            _vm._l(_vm.searchGuest, function(guest) {
                               return _c("div", { attrs: { id: "guests" } }, [
                                 guest.user_id == _vm.$page.user.id ||
                                 guest.user_id == null
@@ -69389,7 +69534,8 @@ var render = function() {
                                               (_vm.isGuest = true),
                                               (guest.unread = 0),
                                               _vm.isLoad(),
-                                              _vm.toggleCollapseBtn()
+                                              _vm.toggleCollapseBtn(),
+                                              (_vm.search = "")
                                           }
                                         }
                                       },
@@ -69400,7 +69546,17 @@ var render = function() {
                                           [
                                             _c(
                                               "div",
-                                              { staticClass: "chat_img" },
+                                              {
+                                                staticClass: "chat_img",
+                                                on: {
+                                                  click: function($event) {
+                                                    $event.stopPropagation()
+                                                    return _vm.openModal(
+                                                      guest.idTemp
+                                                    )
+                                                  }
+                                                }
+                                              },
                                               [
                                                 _c("img", {
                                                   staticClass: "img-circle pro",
@@ -69453,7 +69609,7 @@ var render = function() {
                                                         },
                                                         [
                                                           _vm._v(
-                                                            "En Proceso..."
+                                                            "Atendido por otro"
                                                           )
                                                         ]
                                                       )
@@ -69503,11 +69659,27 @@ var render = function() {
                                               [
                                                 _c(
                                                   "div",
-                                                  { staticClass: "chat_img" },
+                                                  {
+                                                    staticClass: "chat_img",
+                                                    staticStyle: {
+                                                      cursor: "pointer"
+                                                    },
+                                                    on: {
+                                                      click: function($event) {
+                                                        $event.stopPropagation()
+                                                        return _vm.openModal(
+                                                          guest.idTemp
+                                                        )
+                                                      }
+                                                    }
+                                                  },
                                                   [
                                                     _c("img", {
                                                       staticClass:
                                                         "img-circle pro",
+                                                      staticStyle: {
+                                                        cursor: "pointer"
+                                                      },
                                                       attrs: {
                                                         src: guest.photo,
                                                         alt: "sunil"
@@ -69561,7 +69733,7 @@ var render = function() {
                                                             },
                                                             [
                                                               _vm._v(
-                                                                "En Proceso..."
+                                                                "Atendido por otro"
                                                               )
                                                             ]
                                                           )
@@ -69597,7 +69769,192 @@ var render = function() {
                                         )
                                       ]
                                     )
-                                  : _vm._e()
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c("div", [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "modal fade",
+                                      attrs: {
+                                        id: "GuestModal",
+                                        tabindex: "-1",
+                                        role: "dialog",
+                                        "aria-labelledby": "GuestModalLabel",
+                                        "aria-hidden": "true"
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "modal-dialog modal-dialog-centered",
+                                          attrs: { role: "document" }
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "modal-content" },
+                                            [
+                                              _c(
+                                                "div",
+                                                { staticClass: "modal-header" },
+                                                [
+                                                  _c(
+                                                    "h5",
+                                                    {
+                                                      staticClass:
+                                                        "modal-title",
+                                                      attrs: {
+                                                        id: "GuestModalLabel"
+                                                      }
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                                  Información de Invitado\n                                "
+                                                      )
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass: "close",
+                                                      attrs: {
+                                                        type: "button",
+                                                        "data-dismiss": "modal",
+                                                        "aria-label": "Close"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "span",
+                                                        {
+                                                          attrs: {
+                                                            "aria-hidden":
+                                                              "true"
+                                                          }
+                                                        },
+                                                        [_vm._v("×")]
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                { staticClass: "modal-body" },
+                                                [
+                                                  _c("div", [
+                                                    _c("label", [
+                                                      _vm._v("Nombre")
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("input", {
+                                                      staticClass:
+                                                        "form-control disabled",
+                                                      attrs: { type: "text" },
+                                                      domProps: {
+                                                        value:
+                                                          _vm.guestinfo.name
+                                                      }
+                                                    }),
+                                                    _vm._v(" "),
+                                                    _c("label", [
+                                                      _vm._v("Correo")
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("input", {
+                                                      staticClass:
+                                                        "form-control disabled",
+                                                      attrs: { type: "text" },
+                                                      domProps: {
+                                                        value:
+                                                          _vm.guestinfo.email
+                                                      }
+                                                    }),
+                                                    _vm._v(" "),
+                                                    _c("label", [
+                                                      _vm._v("Documento")
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("input", {
+                                                      staticClass:
+                                                        "form-control disabled",
+                                                      attrs: { type: "text" },
+                                                      domProps: {
+                                                        value:
+                                                          _vm.guestinfo.document
+                                                      }
+                                                    }),
+                                                    _vm._v(" "),
+                                                    _c("label", [
+                                                      _vm._v("Atendido por")
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    guest.status != 0
+                                                      ? _c("input", {
+                                                          staticClass:
+                                                            "form-control disabled",
+                                                          attrs: {
+                                                            type: "text"
+                                                          },
+                                                          domProps: {
+                                                            value:
+                                                              _vm.guestinfo
+                                                                .user_name
+                                                          }
+                                                        })
+                                                      : _c("input", {
+                                                          staticClass:
+                                                            "form-control disabled",
+                                                          attrs: {
+                                                            type: "text",
+                                                            value: "Nadie Aún"
+                                                          }
+                                                        })
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("div", {
+                                                    staticStyle: {
+                                                      padding: "5px",
+                                                      margin: "auto"
+                                                    }
+                                                  })
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                { staticClass: "modal-footer" },
+                                                [
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass:
+                                                        "btn btn-secondary",
+                                                      attrs: {
+                                                        type: "button",
+                                                        "data-dismiss": "modal"
+                                                      }
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                                  Cancelar\n                                "
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ])
                               ])
                             }),
                             _vm._v(" "),
@@ -69607,7 +69964,7 @@ var render = function() {
                             _vm._v(" "),
                             _c("hr", { staticStyle: { margin: "0" } }),
                             _vm._v(" "),
-                            _vm._l(_vm.contacts, function(contact) {
+                            _vm._l(_vm.searchContact, function(contact) {
                               return _c("div", { attrs: { id: "users" } }, [
                                 _c(
                                   "div",
@@ -69625,21 +69982,36 @@ var render = function() {
                                             true
                                           ),
                                           (_vm.isGuest = false),
-                                          _vm.toggleCollapseBtn()
+                                          _vm.toggleCollapseBtn(),
+                                          (_vm.search = "")
                                       }
                                     }
                                   },
                                   [
                                     _c("div", { staticClass: "chat_people" }, [
-                                      _c("div", { staticClass: "chat_img" }, [
-                                        _c("img", {
-                                          staticClass: "img-circle pro",
-                                          attrs: {
-                                            src: contact.profile_photo_url,
-                                            alt: "sunil"
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "chat_img",
+                                          on: {
+                                            click: function($event) {
+                                              $event.stopPropagation()
+                                              return _vm.$inertia.visit(
+                                                "user/" + contact.id
+                                              )
+                                            }
                                           }
-                                        })
-                                      ]),
+                                        },
+                                        [
+                                          _c("img", {
+                                            staticClass: "img-circle pro",
+                                            attrs: {
+                                              src: contact.profile_photo_url,
+                                              alt: "sunil"
+                                            }
+                                          })
+                                        ]
+                                      ),
                                       _vm._v(" "),
                                       _c("div", { staticClass: "chat_ib" }, [
                                         _c("h5", [
@@ -69693,7 +70065,17 @@ var render = function() {
                             ? _c("div", [
                                 _c(
                                   "div",
-                                  { staticStyle: { display: "inline-block" } },
+                                  {
+                                    staticStyle: {
+                                      display: "inline-block",
+                                      cursor: "pointer"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.action()
+                                      }
+                                    }
+                                  },
                                   [
                                     _c("img", {
                                       staticClass: "img-circle pro",
@@ -72100,9 +72482,7 @@ var render = function() {
           _c("p", [_vm._v(_vm._s(_vm.infoName.infoName[0]))])
         ]),
         _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._m(1)
+        _vm._m(0)
       ])
     ]),
     _vm._v(" "),
@@ -72114,9 +72494,7 @@ var render = function() {
           _c("p", [_vm._v(_vm._s(_vm.infoName.infoName[1]))])
         ]),
         _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _vm._m(3)
+        _vm._m(1)
       ])
     ]),
     _vm._v(" "),
@@ -72128,9 +72506,7 @@ var render = function() {
           _c("p", [_vm._v(_vm._s(_vm.infoName.infoName[2]))])
         ]),
         _vm._v(" "),
-        _vm._m(4),
-        _vm._v(" "),
-        _vm._m(5)
+        _vm._m(2)
       ])
     ]),
     _vm._v(" "),
@@ -72142,9 +72518,7 @@ var render = function() {
           _c("p", [_vm._v(_vm._s(_vm.infoName.infoName[3]))])
         ]),
         _vm._v(" "),
-        _vm._m(6),
-        _vm._v(" "),
-        _vm._m(7)
+        _vm._m(3)
       ]),
       _vm._v(" "),
       _c("div")
@@ -72164,26 +72538,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
-      _vm._v("\n        Más informacion "),
-      _c("i", { staticClass: "fas fa-arrow-circle-right" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "icon" }, [
       _c("i", { staticClass: "fas fa-building" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
-      _vm._v("\n        Más informacion "),
-      _c("i", { staticClass: "fas fa-arrow-circle-right" })
     ])
   },
   function() {
@@ -72198,26 +72554,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
-      _vm._v("\n        Más informacion "),
-      _c("i", { staticClass: "fas fa-arrow-circle-right" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "icon" }, [
       _c("i", { staticClass: "ion ion-pie-graph" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
-      _vm._v("\n        Más informacion "),
-      _c("i", { staticClass: "fas fa-arrow-circle-right" })
     ])
   }
 ]
@@ -74366,36 +74704,7 @@ var render = function() {
                       _vm._v("Historial de llamadas")
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "card-tools" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "input-group input-group-sm",
-                          staticStyle: { width: "150px" }
-                        },
-                        [
-                          _c("input", {
-                            staticClass: "form-control float-right",
-                            attrs: {
-                              type: "text",
-                              name: "table_search",
-                              placeholder: "Search"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "input-group-append" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-default",
-                                attrs: { type: "submit" }
-                              },
-                              [_c("i", { staticClass: "fas fa-search" })]
-                            )
-                          ])
-                        ]
-                      )
-                    ])
+                    _c("div", { staticClass: "card-tools" })
                   ]),
                   _vm._v(" "),
                   _c(
@@ -79685,20 +79994,22 @@ var render = function() {
               "div",
               { staticClass: "card-header" },
               [
-                _c(
-                  "inertia-link",
-                  { attrs: { href: _vm.route("user.create") } },
-                  [
-                    _c(
-                      "button",
-                      { staticClass: "btn btn-dark float-right btn-sm" },
+                _vm.$inertia.page.rol == "Admin"
+                  ? _c(
+                      "inertia-link",
+                      { attrs: { href: _vm.route("user.create") } },
                       [
-                        _c("i", { staticClass: "fas fa-plus" }),
-                        _vm._v(" Agregar Usuario\n              ")
+                        _c(
+                          "button",
+                          { staticClass: "btn btn-dark float-right btn-sm" },
+                          [
+                            _c("i", { staticClass: "fas fa-plus" }),
+                            _vm._v(" Agregar Usuario\n              ")
+                          ]
+                        )
                       ]
                     )
-                  ]
-                ),
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("h3", { staticClass: "card-title" }, [
                   _vm._v("Listado de Usuarios")
@@ -80702,76 +81013,80 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "card-footer" },
-        [
-          _vm.disabled
-            ? _c(
+      _vm.$inertia.page.rol == "Admin"
+        ? _c(
+            "div",
+            { staticClass: "card-footer" },
+            [
+              _vm.disabled
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-sm btn-warning",
+                      on: {
+                        click: function($event) {
+                          return _vm.toggle()
+                        }
+                      }
+                    },
+                    [_vm._v("\n        Editar\n      ")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.disabled
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-sm btn-info",
+                      on: {
+                        click: function($event) {
+                          return _vm.updateUser(_vm.userinfo.id)
+                        }
+                      }
+                    },
+                    [_vm._v("\n        Actualizar\n      ")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.errors.errors, function(error) {
+                return _c("ul", [
+                  _c("li", { staticClass: "required" }, [
+                    _vm._v(_vm._s(error[0]))
+                  ])
+                ])
+              }),
+              _vm._v(" "),
+              !_vm.disabled
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-sm btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.cancel()
+                        }
+                      }
+                    },
+                    [_vm._v("\n        Cancelar\n      ")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
                 "button",
                 {
-                  staticClass: "btn btn-sm btn-warning",
+                  staticClass: "btn btn-sm btn-outline-danger float-right",
                   on: {
                     click: function($event) {
-                      return _vm.toggle()
+                      return _vm.deleteUser(_vm.userinfo.id)
                     }
                   }
                 },
-                [_vm._v("\n        Editar\n      ")]
+                [_vm._v("\n        Eliminar\n      ")]
               )
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.disabled
-            ? _c(
-                "button",
-                {
-                  staticClass: "btn btn-sm btn-info",
-                  on: {
-                    click: function($event) {
-                      return _vm.updateUser(_vm.userinfo.id)
-                    }
-                  }
-                },
-                [_vm._v("\n        Actualizar\n      ")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm._l(_vm.errors.errors, function(error) {
-            return _c("ul", [
-              _c("li", { staticClass: "required" }, [_vm._v(_vm._s(error[0]))])
-            ])
-          }),
-          _vm._v(" "),
-          !_vm.disabled
-            ? _c(
-                "button",
-                {
-                  staticClass: "btn btn-sm btn-danger",
-                  on: {
-                    click: function($event) {
-                      return _vm.cancel()
-                    }
-                  }
-                },
-                [_vm._v("\n        Cancelar\n      ")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-sm btn-outline-danger float-right",
-              on: {
-                click: function($event) {
-                  return _vm.deleteUser(_vm.userinfo.id)
-                }
-              }
-            },
-            [_vm._v("\n        Eliminar\n      ")]
+            ],
+            2
           )
-        ],
-        2
-      ),
+        : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "card bg-gradient-info my-2 mx-4" }, [
         _c("div", { staticClass: "card-header" }, [
@@ -99510,8 +99825,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "",
-  cluster: "mt1",
+  key: "7f92a28260a2b4581fb5",
+  cluster: "us2",
   forceTLS: true
 });
 

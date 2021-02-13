@@ -278,13 +278,6 @@
                 <h3 class="card-title">Historial de llamadas</h3>
 
                 <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                    </div>
-                  </div>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -500,16 +493,18 @@
         .then((response) => { 
             Swal.fire({
             icon: "success",
-            title: "Acuerdo Registrada",
+            title: "Acuerdo Registrado",
             text:"Éxito al Registrar Acuerdo",
             showConfirmButton: false,
             timer: 1500,
           });
           Inertia.reload({ only: ['llamadas'] },)
           Inertia.visit('/llamadas/create/'+this.cliente.id,{ preserveScroll: true }, { only: ['users'] });
-          axios.post('/llamadas/sendEmails',{notification:response.data.id}).catch((err)=>{
+          setTimeout(()=>{
+             axios.post('/llamadas/sendEmails',{notification:response.data.id}).catch((err)=>{
           console.log(err);            
           });
+          },400);
           })
         .catch((error) => {
           this.errors = error. response.data;

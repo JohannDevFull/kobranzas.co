@@ -114,7 +114,7 @@
           </div>
         </div>
       </div>
-      <div class="card-footer">
+      <div class="card-footer" v-if="$inertia.page.rol=='Admin'">
         <button
           class="btn btn-sm btn-warning"
           @click="toggle()"

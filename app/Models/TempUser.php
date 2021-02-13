@@ -11,6 +11,7 @@ class TempUser extends Model
     protected $fillable=[
         'idTemp',
         'name',
-        'status'
+        'status',
+        'name_user'
     ];
 }

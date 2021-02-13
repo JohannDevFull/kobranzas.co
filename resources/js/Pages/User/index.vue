@@ -5,7 +5,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <inertia-link :href="route('user.create')">
+              <inertia-link v-if="$inertia.page.rol=='Admin'" :href="route('user.create')">
                 <button class="btn btn-dark float-right btn-sm">
                   <i class="fas fa-plus"></i> Agregar Usuario
                 </button>

@@ -11,9 +11,6 @@
         <div class="icon">
           <i class="nav-icon fas fa-hands-helping"></i>
         </div>
-        <a href="#" class="small-box-footer">
-          Más informacion <i class="fas fa-arrow-circle-right"></i>
-        </a>
       </div>
     </div>
     <!-- ./col -->
@@ -28,9 +25,6 @@
         <div class="icon">
           <i class="fas fa-building"></i>
         </div>
-        <a href="#" class="small-box-footer">
-          Más informacion <i class="fas fa-arrow-circle-right"></i>
-        </a>
       </div>
     </div>
     <!-- ./col -->
@@ -45,9 +39,6 @@
         <div class="icon">
           <i class="ion ion-person-add"></i>
         </div>
-        <a href="#" class="small-box-footer">
-          Más informacion <i class="fas fa-arrow-circle-right"></i>
-        </a>
       </div>
     </div>
     <!-- ./col -->
@@ -62,9 +53,6 @@
         <div class="icon">
           <i class="ion ion-pie-graph"></i>
         </div>
-        <a href="#" class="small-box-footer">
-          Más informacion <i class="fas fa-arrow-circle-right"></i>
-        </a>
       </div>
       <div></div>
     </div>

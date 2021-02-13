@@ -13,6 +13,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\StatementsController;
+use App\Http\Controllers\TempUserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 
@@ -53,6 +54,8 @@ Route::post('chat/chatStatus', [ChatController::class, 'getChatStatus']);
 Route::post('messages/getMessages', [MessageController::class, 'getMessagesFrom']);
 Route::post('messages/sendMessage', [MessageController::class, 'sendMessage']);
 Route::delete('chat/endChat/{id}', [ChatController::class, 'endChat']);
+Route::post('/getGuestInfo/{id}', [TempUserController::class, 'getGuestInfo']);
+
 
 // PAGINA EN CONSTRUCCION
 Route::get('construir', BuildController::class)->name('construir');
@@ -72,7 +75,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/dashboard/empleado', [DashboardController::class, 'empleado'])->middleware('permission:dashboard.empleado');
     Route::post('/dashboard/cliente', [DashboardController::class, 'cliente'])->middleware('permission:dashboard.cliente');
 
-
+    
     Route::put('chat/toggleChat', [ChatController::class, 'changeStatus'])->middleware('permission:chat.toggle');
     Route::post('/llamadas/sendEmails', [LlamadasController::class, 'sendEmails']);
     Route::post('/notifications', [NotificationsController::class, 'getNotifications']);

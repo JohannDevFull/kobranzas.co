@@ -34,15 +34,23 @@
                         <i class="fas fa-bars"></i>
                       </div>
                     </div>
+                    <input
+                      class="custom-select-sm form-control form-control-sm"
+                      type="text"
+                      placeholder="Buscar contacto"
+                      v-model="search"
+                    />
+
                     <div
                       class="inbox_chat"
                       :style="{ height: window.height - 170 + 'px' }"
                     >
-                      <span v-if="guests != 0" class="spantitle"
+                      <span v-if="searchGuest != 0" class="spantitle"
                         >Visitantes</span
                       >
                       <hr style="margin: 0" />
-                      <div id="guests" v-for="guest in guests">
+                      <div id="guests" v-for="guest in searchGuest">
+                        <!-- &nbsp; <button class="btn btn-outline-dark" style="z-index:9999;"><i class="fas fa-info-circle"></i></button> -->
                         <div
                           v-if="
                             guest.user_id == $page.user.id ||
@@ -59,11 +67,15 @@
                               (isGuest = true),
                               (guest.unread = 0),
                               isLoad(),
-                              toggleCollapseBtn()
+                              toggleCollapseBtn(),
+                              (search = '')
                           "
                         >
                           <div class="chat_people">
-                            <div class="chat_img">
+                            <div
+                              class="chat_img"
+                              @click.stop="openModal(guest.idTemp)"
+                            >
                               <img
                                 class="img-circle pro"
                                 :src="guest.photo"
@@ -82,7 +94,7 @@
                                   >Atendido por ti</span
                                 >
                                 <span v-else class="chat_date"
-                                  >En Proceso...</span
+                                  >Atendido por otro</span
                                 >
                               </h5>
                               <p>Usuario Visitante</p>
@@ -103,9 +115,14 @@
                         >
                           <div class="chat_list">
                             <div class="chat_people">
-                              <div class="chat_img">
+                              <div
+                                class="chat_img"
+                                style="cursor: pointer"
+                                @click.stop="openModal(guest.idTemp)"
+                              >
                                 <img
                                   class="img-circle pro"
+                                  style="cursor: pointer"
                                   :src="guest.photo"
                                   alt="sunil"
                                 />
@@ -125,10 +142,11 @@
                                     >Atendido por ti</span
                                   >
                                   <span v-else class="chat_date"
-                                    >En Proceso...</span
+                                    >Atendido por otro</span
                                   >
                                 </h5>
                                 <p>Usuario Visitante</p>
+
                                 <span v-if="guest.unread != 0" class="unread">{{
                                   guest.unread
                                 }}</span>
@@ -136,11 +154,94 @@
                             </div>
                           </div>
                         </button>
+                        <div>
+                          <!-- Modal -->
+                          <div
+                            class="modal fade"
+                            id="GuestModal"
+                            tabindex="-1"
+                            role="dialog"
+                            aria-labelledby="GuestModalLabel"
+                            aria-hidden="true"
+                          >
+                            <div
+                              class="modal-dialog modal-dialog-centered"
+                              role="document"
+                            >
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="GuestModalLabel">
+                                    Información de Invitado
+                                  </h5>
+                                  <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close"
+                                  >
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <!--  -->
+                                  <div>
+                                    <label>Nombre</label>
+                                    <input
+                                      class="form-control disabled"
+                                      type="text"
+                                      :value="guestinfo.name"
+                                    />
+                                    <label>Correo</label>
+                                    <input
+                                      class="form-control disabled"
+                                      type="text"
+                                      :value="guestinfo.email"
+                                    />
+                                    <label>Documento</label>
+                                    <input
+                                      class="form-control disabled"
+                                      type="text"
+                                      :value="guestinfo.document"
+                                    />
+                                    <label>Atendido por</label>
+                                    <input
+                                      v-if="guest.status != 0"
+                                      class="form-control disabled"
+                                      type="text"
+                                      :value="guestinfo.user_name"
+                                    />
+                                    <input
+                                      v-else
+                                      class="form-control disabled"
+                                      type="text"
+                                      value="Nadie Aún"
+                                    />
+                                  </div>
+
+                                  <div style="padding: 5px; margin: auto"></div>
+                                </div>
+
+                                <!--  -->
+
+                                <div class="modal-footer">
+                                  <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-dismiss="modal"
+                                  >
+                                    Cancelar
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--  -->
+                        </div>
                         <!--  -->
                       </div>
                       <span class="spantitle">Usuarios</span>
                       <hr style="margin: 0" />
-                      <div id="users" v-for="contact in contacts">
+                      <div id="users" v-for="contact in searchContact">
                         <div
                           class="chat_list"
                           @click="
@@ -151,11 +252,15 @@
                             ),
                               updateUnreadCount(contact.id, true),
                               (isGuest = false),
-                              toggleCollapseBtn()
+                              toggleCollapseBtn(),
+                              (search = '')
                           "
                         >
                           <div class="chat_people">
-                            <div class="chat_img">
+                            <div
+                              class="chat_img"
+                              @click.stop="$inertia.visit('user/' + contact.id)"
+                            >
                               <img
                                 class="img-circle pro"
                                 :src="contact.profile_photo_url"
@@ -189,7 +294,7 @@
                   <div class="mesgs" id="inboxChat">
                     <div class="chat-header">
                       <div v-if="contactId && !isLoading">
-                        <div style="display: inline-block">
+                        <div style="display: inline-block; cursor:pointer;" @click="action()">
                           <img
                             style="margin-bottom: 4px"
                             class="img-circle pro"
@@ -367,6 +472,8 @@ export default {
       },
       chatActive: true,
       status: false,
+      search: "",
+      guestinfo: "",
     };
   },
 
@@ -442,6 +549,19 @@ export default {
     }, 100);
   },
   methods: {
+    action() {
+      if (this.isGuest) {
+        this.openModal(this.idChat);
+      } else {
+        this.$inertia.visit('user/' + this.contactId);
+      }
+    },
+    openModal($id) {
+      axios.post("/getGuestInfo/" + $id).then((response) => {
+        this.guestinfo = response.data;
+      });
+      $("#GuestModal").modal();
+    },
     newM() {
       if (this.$page.currentRouteName == "chat.index") {
         setTimeout(() => {
@@ -814,7 +934,18 @@ export default {
       });
     },
   },
-  computed: {},
+  computed: {
+    searchContact() {
+      return this.contacts.filter((contacts) =>
+        contacts.name.toLowerCase().includes(this.search.toLowerCase())
+      );
+    },
+    searchGuest() {
+      return this.guests.filter((guests) =>
+        guests.name.toLowerCase().includes(this.search.toLowerCase())
+      );
+    },
+  },
 };
 </script>
 <style lang="css">
@@ -922,6 +1053,7 @@ img {
 .chat_img {
   float: left;
   width: 10%;
+  cursor: pointer;
 }
 .chat_ib {
   float: left;

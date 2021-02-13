@@ -213,7 +213,7 @@
                         class="nav-icon fas fa-phone text-success"
                         style="padding: 6px"
                       ></i>
-                    </inertia-link> -->
+                    </inertia-link>
                   </td>
                 </tr>
                 <tr></tr>
