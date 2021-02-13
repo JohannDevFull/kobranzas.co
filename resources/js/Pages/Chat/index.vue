@@ -16,14 +16,34 @@
                   >
                     <div class="headind_srch">
                       <div class="recent_heading">
-                        <button
-                          v-if="$inertia.page.rol == 'Admin'"
-                          @click="toggleChatEvent()"
-                          class="btn btn-outline-light btn-sm btn-toggleChat"
-                        >
-                          {{ toggleChatfoo() }}
-                        </button>
                         <h4>Chat de Soporte</h4>
+                        <ul class="navbar-nav">
+                          <li
+                            class="nav-item dropdown pointer"
+                            @click="toggle()"
+                          >
+                            <a
+                              class="btn btn-outline-light btn-sm btn-toggleChat btnToggle"
+                            >
+                              <i class="fas fa-ellipsis-v"></i>
+                            </a>
+                            <div
+                              class="btn-show dropdown-menu dropdown-menu-lg dropdown-menu-right"
+                              :class="{ show: expand }"
+                            >
+                              <div></div>
+                              <div>
+                                <button
+                                  v-if="$inertia.page.rol == 'Admin'"
+                                  @click="toggleChatEvent()"
+                                  class="btn btn-light btn-sm"
+                                >
+                                  {{ toggleChatfoo() }}
+                                </button>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
                       </div>
                       <div class="srch_bar"></div>
                       <div
@@ -294,7 +314,10 @@
                   <div class="mesgs" id="inboxChat">
                     <div class="chat-header">
                       <div v-if="contactId && !isLoading">
-                        <div style="display: inline-block; cursor:pointer;" @click="action()">
+                        <div
+                          style="display: inline-block; cursor: pointer"
+                          @click="action()"
+                        >
                           <img
                             style="margin-bottom: 4px"
                             class="img-circle pro"
@@ -474,6 +497,7 @@ export default {
       status: false,
       search: "",
       guestinfo: "",
+      expand: false,
     };
   },
 
@@ -549,11 +573,14 @@ export default {
     }, 100);
   },
   methods: {
+    toggle() {
+      this.expand = !this.expand;
+    },
     action() {
       if (this.isGuest) {
         this.openModal(this.idChat);
       } else {
-        this.$inertia.visit('user/' + this.contactId);
+        this.$inertia.visit("user/" + this.contactId);
       }
     },
     openModal($id) {
@@ -813,8 +840,7 @@ export default {
       swalWithBootstrapButtons
         .fire({
           title: "¿Estás Seguro que quieres terminar el chat?",
-          text:
-            "Una vez terminado el chat NO podras ver los mensajes de nuevo!",
+          text: "esta acción cerrará el chat a la persona visitante!",
           icon: "warning",
           showCancelButton: true,
           confirmButtonText: "Sí, Terminar!",
@@ -837,7 +863,7 @@ export default {
               this.isLoading = false;
               swalWithBootstrapButtons.fire(
                 "Eliminado!",
-                `El chat ha sido terminado.`,
+                `El chat ha sido cerrado y se ha guardado el chat.`,
                 "success"
               );
             });
@@ -1261,6 +1287,23 @@ img {
     display: none !important;
     visibility: hidden;
   }
+}
+.btn-show {
+  position: absolute !important;
+  width: 115px;
+  min-width: 1px;
+  left: 0;
+  top: 14px;
+}
+.btnToggle {
+  z-index: 100;
+  position: absolute;
+  color: white !important;
+  left: 13px;
+  top: -18px;
+}
+.btnToggle:hover {
+  color: black !important;
 }
 @media (max-width: 360px) {
   .chat_ib {

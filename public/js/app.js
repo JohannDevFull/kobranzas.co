@@ -6941,6 +6941,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6976,7 +6999,8 @@ __webpack_require__.r(__webpack_exports__);
       chatActive: true,
       status: false,
       search: "",
-      guestinfo: ""
+      guestinfo: "",
+      expand: false
     };
   },
   created: function created() {
@@ -7053,11 +7077,14 @@ __webpack_require__.r(__webpack_exports__);
     }, 100);
   },
   methods: {
+    toggle: function toggle() {
+      this.expand = !this.expand;
+    },
     action: function action() {
       if (this.isGuest) {
         this.openModal(this.idChat);
       } else {
-        this.$inertia.visit('user/' + this.contactId);
+        this.$inertia.visit("user/" + this.contactId);
       }
     },
     openModal: function openModal($id) {
@@ -7310,7 +7337,7 @@ __webpack_require__.r(__webpack_exports__);
       });
       swalWithBootstrapButtons.fire({
         title: "¿Estás Seguro que quieres terminar el chat?",
-        text: "Una vez terminado el chat NO podras ver los mensajes de nuevo!",
+        text: "esta acción cerrará el chat a la persona visitante!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Sí, Terminar!",
@@ -7330,7 +7357,7 @@ __webpack_require__.r(__webpack_exports__);
             }
 
             _this11.isLoading = false;
-            swalWithBootstrapButtons.fire("Eliminado!", "El chat ha sido terminado.", "success");
+            swalWithBootstrapButtons.fire("Eliminado!", "El chat ha sido cerrado y se ha guardado el chat.", "success");
           });
         } else if (
         /* Read more about handling dismissals below */
@@ -14783,7 +14810,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".btn-toggleChat {\n  z-index: 100;\n  position: absolute;\n  float: left;\n  left: 13px;\n  top: 11px;\n}\n.chat-header {\n  width: 100%;\n  background: #2d7d46d6;\n  margin: 0px 0px 0px 0px;\n  position: relative;\n  box-shadow: 0px 2px 6px #9c8e8e;\n  color: white;\n}\n.text-noMessages {\n  margin-top: 15px;\n  text-align: center;\n  font-family: \"dosis\", sans-serif;\n  font-weight: 500;\n  font-size: 1.2rem;\n}\nimg {\n  max-width: 40px;\n}\n.inbox_people {\n  background: #f8f8f8 none repeat scroll 0 0;\n  float: left;\n  width: 40%;\n  border-right: 1px solid #c4c4c4;\n}\n.inbox_msg {\n  border: 1px solid #c4c4c4;\n  clear: both;\n}\n.top_spac {\n  margin: 20px 0 0;\n}\n.recent_heading {\n  float: left;\n  width: 100%;\n}\n.headind_srch {\n  background: #4e9163;\n  text-align: center;\n}\n.srch_bar {\n  display: inline-block;\n  text-align: right;\n  width: 60%;\n}\n.btn-tosel {\n  padding: 0;\n  text-align: inherit;\n}\n.recent_heading h4 {\n  top: 10px;\n  color: white;\n  font-size: 21px;\n  margin: auto;\n  position: relative;\n}\n.send-btn {\n  position: relative;\n  float: right;\n  top: -15px;\n}\n.srch_bar input {\n  border: 1px solid #cdcdcd;\n  border-width: 0 0 1px 0;\n  width: 80%;\n  padding: 2px 0 4px 6px;\n  background: none;\n}\n.srch_bar .input-group-addon button {\n  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n  border: medium none;\n  padding: 0;\n  color: #707070;\n  font-size: 18px;\n}\n.srch_bar .input-group-addon {\n  margin: 0 0 0 -27px;\n}\n.chat_ib h5 {\n  font-size: 15px;\n  color: #464646;\n  margin: 0 0 8px 0;\n}\n.chat_ib h5 span {\n  font-size: 13px;\n  float: right;\n}\n.chat_ib p {\n  font-size: 14px;\n  color: #989898;\n  margin: auto;\n}\n.chat_img {\n  float: left;\n  width: 10%;\n  cursor: pointer;\n}\n.chat_ib {\n  float: left;\n  padding: 0 0 0 20px;\n  width: 88%;\n}\n.chat_people {\n  overflow: hidden;\n  clear: both;\n}\n.inbox_chat::-webkit-scrollbar-track {\n  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);\n  background-color: #f5f5f5;\n}\n.inbox_chat::-webkit-scrollbar {\n  width: 5px;\n  background-color: #f5f5f5;\n}\n.inbox_chat::-webkit-scrollbar-thumb {\n  background-color: #001f3f;\n}\n.msg_history::-webkit-scrollbar-track {\n  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);\n  background-color: #f5f5f5;\n}\n.msg_history::-webkit-scrollbar {\n  width: 5px;\n  background-color: #f5f5f5;\n}\n.msg_history::-webkit-scrollbar-thumb {\n  background-color: #001f3f;\n}\n.chat_list {\n  border-bottom: 1px solid #c4c4c4;\n  margin: 0;\n  padding: 18px 16px 10px;\n}\n.inbox_chat {\n  height: 481px;\n  overflow-y: auto;\n}\n.active_chat {\n  background: #ebebeb;\n}\n.incoming_msg_img {\n  display: inline-block;\n  width: 6%;\n}\n.received_msg {\n  display: inline-block;\n  padding: 0 0 0 10px;\n  vertical-align: top;\n  width: 92%;\n}\n.received_withd_msg p {\n  background: #00000063;\n  padding: 10px 15px 10px 15px;\n  color: white;\n  max-width: 60%;\n  float: left;\n  margin: 0;\n  position: relative;\n  border-radius: 30px;\n  word-wrap: break-word;\n  white-space: normal;\n}\n.time_date {\n  color: #747474;\n  display: block;\n  font-size: 12px;\n  margin: 0;\n  width: 100%;\n}\n.received_withd_msg {\n  width: 99%;\n}\n.mesgs {\n  float: left;\n  width: 60%;\n}\n.sent_msg p {\n  float: right;\n  background: #09904bb8;\n  color: white;\n}\n.outgoing_msg {\n  overflow: hidden;\n  margin: 8px 0 8px;\n}\n.sent_msg {\n  float: right;\n  width: 100%;\n}\n.input_msg_write input {\n  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n  border: medium none;\n  color: #4c4c4c;\n  font-size: 15px;\n  min-height: 30px;\n  width: 85%;\n  top: -17px;\n  position: absolute;\n  margin: 13px 0px -1px 3px;\n  height: 14px;\n  border-bottom: 1px solid #a9a1a1;\n}\n.input_msg_write input:focus {\n  outline: none;\n}\n.type_msg {\n  position: relative;\n  bottom: -8px;\n}\n.msg_send_btn {\n  background: #05728f none repeat scroll 0 0;\n  border: medium none;\n  border-radius: 50%;\n  color: #fff;\n  cursor: pointer;\n  font-size: 17px;\n  height: 33px;\n  position: absolute;\n  right: 0;\n  top: 11px;\n  width: 33px;\n}\n.messaging {\n  padding: 0 0 50px 0;\n}\n.msg_history {\n  overflow-y: auto;\n  overflow-x: hidden;\n}\n\n/* .msg_history::after {\r\n  content: \"\";\r\n  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAgOCkiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PGNpcmNsZSBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIgY3g9IjE3NiIgY3k9IjEyIiByPSI0Ii8+PHBhdGggZD0iTTIwLjUuNWwyMyAxMW0tMjkgODRsLTMuNzkgMTAuMzc3TTI3LjAzNyAxMzEuNGw1Ljg5OCAyLjIwMy0zLjQ2IDUuOTQ3IDYuMDcyIDIuMzkyLTMuOTMzIDUuNzU4bTEyOC43MzMgMzUuMzdsLjY5My05LjMxNiAxMC4yOTIuMDUyLjQxNi05LjIyMiA5LjI3NC4zMzJNLjUgNDguNXM2LjEzMSA2LjQxMyA2Ljg0NyAxNC44MDVjLjcxNSA4LjM5My0yLjUyIDE0LjgwNi0yLjUyIDE0LjgwNk0xMjQuNTU1IDkwcy03LjQ0NCAwLTEzLjY3IDYuMTkyYy02LjIyNyA2LjE5Mi00LjgzOCAxMi4wMTItNC44MzggMTIuMDEybTIuMjQgNjguNjI2cy00LjAyNi05LjAyNS0xOC4xNDUtOS4wMjUtMTguMTQ1IDUuNy0xOC4xNDUgNS43IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTg1LjcxNiAzNi4xNDZsNS4yNDMtOS41MjFoMTEuMDkzbDUuNDE2IDkuNTIxLTUuNDEgOS4xODVIOTAuOTUzbC01LjIzNy05LjE4NXptNjMuOTA5IDE1LjQ3OWgxMC43NXYxMC43NWgtMTAuNzV6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIvPjxjaXJjbGUgZmlsbD0iIzAwMCIgY3g9IjcxLjUiIGN5PSI3LjUiIHI9IjEuNSIvPjxjaXJjbGUgZmlsbD0iIzAwMCIgY3g9IjE3MC41IiBjeT0iOTUuNSIgcj0iMS41Ii8+PGNpcmNsZSBmaWxsPSIjMDAwIiBjeD0iODEuNSIgY3k9IjEzNC41IiByPSIxLjUiLz48Y2lyY2xlIGZpbGw9IiMwMDAiIGN4PSIxMy41IiBjeT0iMjMuNSIgcj0iMS41Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTkzIDcxaDN2M2gtM3ptMzMgODRoM3YzaC0zem0tODUgMThoM3YzaC0zeiIvPjxwYXRoIGQ9Ik0zOS4zODQgNTEuMTIybDUuNzU4LTQuNDU0IDYuNDUzIDQuMjA1LTIuMjk0IDcuMzYzaC03Ljc5bC0yLjEyNy03LjExNHpNMTMwLjE5NSA0LjAzbDEzLjgzIDUuMDYyLTEwLjA5IDcuMDQ4LTMuNzQtMTIuMTF6bS04MyA5NWwxNC44MyA1LjQyOS0xMC44MiA3LjU1Ny00LjAxLTEyLjk4N3pNNS4yMTMgMTYxLjQ5NWwxMS4zMjggMjAuODk3TDIuMjY1IDE4MGwyLjk0OC0xOC41MDV6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIvPjxwYXRoIGQ9Ik0xNDkuMDUgMTI3LjQ2OHMtLjUxIDIuMTgzLjk5NSAzLjM2NmMxLjU2IDEuMjI2IDguNjQyLTEuODk1IDMuOTY3LTcuNzg1LTIuMzY3LTIuNDc3LTYuNS0zLjIyNi05LjMzIDAtNS4yMDggNS45MzYgMCAxNy41MSAxMS42MSAxMy43MyAxMi40NTgtNi4yNTcgNS42MzMtMjEuNjU2LTUuMDczLTIyLjY1NC02LjYwMi0uNjA2LTE0LjA0MyAxLjc1Ni0xNi4xNTcgMTAuMjY4LTEuNzE4IDYuOTIgMS41ODQgMTcuMzg3IDEyLjQ1IDIwLjQ3NiAxMC44NjYgMy4wOSAxOS4zMzEtNC4zMSAxOS4zMzEtNC4zMSIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjEuMjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvZz48L3N2Zz4=);\r\n  opacity: 0.1;\r\n  top: 0%;\r\n  left: 40%;\r\n  bottom: 0;\r\n  right: 0;\r\n \r\n  position: absolute;\r\n  z-index: 0;\r\n} */\n.fill {\n  position: relative;\n  top: -22px;\n}\n.spantitle {\n  margin-left: 10px;\n  font-weight: 600;\n}\n.pro {\n  margin-left: 5px;\n  margin-top: 4px;\n  box-shadow: 0px 0px 3px;\n}\n.btn-end {\n  float: right;\n  margin: 8px 9px 0px 8px;\n  position: relative;\n}\n.btn-bars {\n  color: black;\n  cursor: pointer;\n  display: none;\n  position: absolute;\n  top: 16px;\n  padding-right: 15px;\n  right: 0;\n}\n.vis {\n  display: block !important;\n  visibility: visible;\n}\n@media (max-width: 785px) {\n.btn-bars {\n    display: block !important;\n}\n.inbox_people {\n    width: 100%;\n}\n.mesgs {\n    display: none;\n    width: 100%;\n}\n.hide {\n    display: none !important;\n    visibility: hidden;\n}\n}\n@media (max-width: 360px) {\n.chat_ib {\n    padding: 0 0 0 33px;\n}\n}\r\n", ""]);
+exports.push([module.i, ".btn-toggleChat {\n  z-index: 100;\n  position: absolute;\n  float: left;\n  left: 13px;\n  top: 11px;\n}\n.chat-header {\n  width: 100%;\n  background: #2d7d46d6;\n  margin: 0px 0px 0px 0px;\n  position: relative;\n  box-shadow: 0px 2px 6px #9c8e8e;\n  color: white;\n}\n.text-noMessages {\n  margin-top: 15px;\n  text-align: center;\n  font-family: \"dosis\", sans-serif;\n  font-weight: 500;\n  font-size: 1.2rem;\n}\nimg {\n  max-width: 40px;\n}\n.inbox_people {\n  background: #f8f8f8 none repeat scroll 0 0;\n  float: left;\n  width: 40%;\n  border-right: 1px solid #c4c4c4;\n}\n.inbox_msg {\n  border: 1px solid #c4c4c4;\n  clear: both;\n}\n.top_spac {\n  margin: 20px 0 0;\n}\n.recent_heading {\n  float: left;\n  width: 100%;\n}\n.headind_srch {\n  background: #4e9163;\n  text-align: center;\n}\n.srch_bar {\n  display: inline-block;\n  text-align: right;\n  width: 60%;\n}\n.btn-tosel {\n  padding: 0;\n  text-align: inherit;\n}\n.recent_heading h4 {\n  top: 10px;\n  color: white;\n  font-size: 21px;\n  margin: auto;\n  position: relative;\n}\n.send-btn {\n  position: relative;\n  float: right;\n  top: -15px;\n}\n.srch_bar input {\n  border: 1px solid #cdcdcd;\n  border-width: 0 0 1px 0;\n  width: 80%;\n  padding: 2px 0 4px 6px;\n  background: none;\n}\n.srch_bar .input-group-addon button {\n  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n  border: medium none;\n  padding: 0;\n  color: #707070;\n  font-size: 18px;\n}\n.srch_bar .input-group-addon {\n  margin: 0 0 0 -27px;\n}\n.chat_ib h5 {\n  font-size: 15px;\n  color: #464646;\n  margin: 0 0 8px 0;\n}\n.chat_ib h5 span {\n  font-size: 13px;\n  float: right;\n}\n.chat_ib p {\n  font-size: 14px;\n  color: #989898;\n  margin: auto;\n}\n.chat_img {\n  float: left;\n  width: 10%;\n  cursor: pointer;\n}\n.chat_ib {\n  float: left;\n  padding: 0 0 0 20px;\n  width: 88%;\n}\n.chat_people {\n  overflow: hidden;\n  clear: both;\n}\n.inbox_chat::-webkit-scrollbar-track {\n  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);\n  background-color: #f5f5f5;\n}\n.inbox_chat::-webkit-scrollbar {\n  width: 5px;\n  background-color: #f5f5f5;\n}\n.inbox_chat::-webkit-scrollbar-thumb {\n  background-color: #001f3f;\n}\n.msg_history::-webkit-scrollbar-track {\n  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);\n  background-color: #f5f5f5;\n}\n.msg_history::-webkit-scrollbar {\n  width: 5px;\n  background-color: #f5f5f5;\n}\n.msg_history::-webkit-scrollbar-thumb {\n  background-color: #001f3f;\n}\n.chat_list {\n  border-bottom: 1px solid #c4c4c4;\n  margin: 0;\n  padding: 18px 16px 10px;\n}\n.inbox_chat {\n  height: 481px;\n  overflow-y: auto;\n}\n.active_chat {\n  background: #ebebeb;\n}\n.incoming_msg_img {\n  display: inline-block;\n  width: 6%;\n}\n.received_msg {\n  display: inline-block;\n  padding: 0 0 0 10px;\n  vertical-align: top;\n  width: 92%;\n}\n.received_withd_msg p {\n  background: #00000063;\n  padding: 10px 15px 10px 15px;\n  color: white;\n  max-width: 60%;\n  float: left;\n  margin: 0;\n  position: relative;\n  border-radius: 30px;\n  word-wrap: break-word;\n  white-space: normal;\n}\n.time_date {\n  color: #747474;\n  display: block;\n  font-size: 12px;\n  margin: 0;\n  width: 100%;\n}\n.received_withd_msg {\n  width: 99%;\n}\n.mesgs {\n  float: left;\n  width: 60%;\n}\n.sent_msg p {\n  float: right;\n  background: #09904bb8;\n  color: white;\n}\n.outgoing_msg {\n  overflow: hidden;\n  margin: 8px 0 8px;\n}\n.sent_msg {\n  float: right;\n  width: 100%;\n}\n.input_msg_write input {\n  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n  border: medium none;\n  color: #4c4c4c;\n  font-size: 15px;\n  min-height: 30px;\n  width: 85%;\n  top: -17px;\n  position: absolute;\n  margin: 13px 0px -1px 3px;\n  height: 14px;\n  border-bottom: 1px solid #a9a1a1;\n}\n.input_msg_write input:focus {\n  outline: none;\n}\n.type_msg {\n  position: relative;\n  bottom: -8px;\n}\n.msg_send_btn {\n  background: #05728f none repeat scroll 0 0;\n  border: medium none;\n  border-radius: 50%;\n  color: #fff;\n  cursor: pointer;\n  font-size: 17px;\n  height: 33px;\n  position: absolute;\n  right: 0;\n  top: 11px;\n  width: 33px;\n}\n.messaging {\n  padding: 0 0 50px 0;\n}\n.msg_history {\n  overflow-y: auto;\n  overflow-x: hidden;\n}\n\n/* .msg_history::after {\r\n  content: \"\";\r\n  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAgOCkiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PGNpcmNsZSBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIgY3g9IjE3NiIgY3k9IjEyIiByPSI0Ii8+PHBhdGggZD0iTTIwLjUuNWwyMyAxMW0tMjkgODRsLTMuNzkgMTAuMzc3TTI3LjAzNyAxMzEuNGw1Ljg5OCAyLjIwMy0zLjQ2IDUuOTQ3IDYuMDcyIDIuMzkyLTMuOTMzIDUuNzU4bTEyOC43MzMgMzUuMzdsLjY5My05LjMxNiAxMC4yOTIuMDUyLjQxNi05LjIyMiA5LjI3NC4zMzJNLjUgNDguNXM2LjEzMSA2LjQxMyA2Ljg0NyAxNC44MDVjLjcxNSA4LjM5My0yLjUyIDE0LjgwNi0yLjUyIDE0LjgwNk0xMjQuNTU1IDkwcy03LjQ0NCAwLTEzLjY3IDYuMTkyYy02LjIyNyA2LjE5Mi00LjgzOCAxMi4wMTItNC44MzggMTIuMDEybTIuMjQgNjguNjI2cy00LjAyNi05LjAyNS0xOC4xNDUtOS4wMjUtMTguMTQ1IDUuNy0xOC4xNDUgNS43IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTg1LjcxNiAzNi4xNDZsNS4yNDMtOS41MjFoMTEuMDkzbDUuNDE2IDkuNTIxLTUuNDEgOS4xODVIOTAuOTUzbC01LjIzNy05LjE4NXptNjMuOTA5IDE1LjQ3OWgxMC43NXYxMC43NWgtMTAuNzV6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIvPjxjaXJjbGUgZmlsbD0iIzAwMCIgY3g9IjcxLjUiIGN5PSI3LjUiIHI9IjEuNSIvPjxjaXJjbGUgZmlsbD0iIzAwMCIgY3g9IjE3MC41IiBjeT0iOTUuNSIgcj0iMS41Ii8+PGNpcmNsZSBmaWxsPSIjMDAwIiBjeD0iODEuNSIgY3k9IjEzNC41IiByPSIxLjUiLz48Y2lyY2xlIGZpbGw9IiMwMDAiIGN4PSIxMy41IiBjeT0iMjMuNSIgcj0iMS41Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTkzIDcxaDN2M2gtM3ptMzMgODRoM3YzaC0zem0tODUgMThoM3YzaC0zeiIvPjxwYXRoIGQ9Ik0zOS4zODQgNTEuMTIybDUuNzU4LTQuNDU0IDYuNDUzIDQuMjA1LTIuMjk0IDcuMzYzaC03Ljc5bC0yLjEyNy03LjExNHpNMTMwLjE5NSA0LjAzbDEzLjgzIDUuMDYyLTEwLjA5IDcuMDQ4LTMuNzQtMTIuMTF6bS04MyA5NWwxNC44MyA1LjQyOS0xMC44MiA3LjU1Ny00LjAxLTEyLjk4N3pNNS4yMTMgMTYxLjQ5NWwxMS4zMjggMjAuODk3TDIuMjY1IDE4MGwyLjk0OC0xOC41MDV6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIvPjxwYXRoIGQ9Ik0xNDkuMDUgMTI3LjQ2OHMtLjUxIDIuMTgzLjk5NSAzLjM2NmMxLjU2IDEuMjI2IDguNjQyLTEuODk1IDMuOTY3LTcuNzg1LTIuMzY3LTIuNDc3LTYuNS0zLjIyNi05LjMzIDAtNS4yMDggNS45MzYgMCAxNy41MSAxMS42MSAxMy43MyAxMi40NTgtNi4yNTcgNS42MzMtMjEuNjU2LTUuMDczLTIyLjY1NC02LjYwMi0uNjA2LTE0LjA0MyAxLjc1Ni0xNi4xNTcgMTAuMjY4LTEuNzE4IDYuOTIgMS41ODQgMTcuMzg3IDEyLjQ1IDIwLjQ3NiAxMC44NjYgMy4wOSAxOS4zMzEtNC4zMSAxOS4zMzEtNC4zMSIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjEuMjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvZz48L3N2Zz4=);\r\n  opacity: 0.1;\r\n  top: 0%;\r\n  left: 40%;\r\n  bottom: 0;\r\n  right: 0;\r\n \r\n  position: absolute;\r\n  z-index: 0;\r\n} */\n.fill {\n  position: relative;\n  top: -22px;\n}\n.spantitle {\n  margin-left: 10px;\n  font-weight: 600;\n}\n.pro {\n  margin-left: 5px;\n  margin-top: 4px;\n  box-shadow: 0px 0px 3px;\n}\n.btn-end {\n  float: right;\n  margin: 8px 9px 0px 8px;\n  position: relative;\n}\n.btn-bars {\n  color: black;\n  cursor: pointer;\n  display: none;\n  position: absolute;\n  top: 16px;\n  padding-right: 15px;\n  right: 0;\n}\n.vis {\n  display: block !important;\n  visibility: visible;\n}\n@media (max-width: 785px) {\n.btn-bars {\n    display: block !important;\n}\n.inbox_people {\n    width: 100%;\n}\n.mesgs {\n    display: none;\n    width: 100%;\n}\n.hide {\n    display: none !important;\n    visibility: hidden;\n}\n}\n.btn-show {\n  position: absolute !important;\n  width: 115px;\n  min-width: 1px;\n  left: 0;\n  top: 14px;\n}\n.btnToggle {\n  z-index: 100;\n  position: absolute;\n  color: white !important;\n  left: 13px;\n  top: -18px;\n}\n.btnToggle:hover {\n  color: black !important;\n}\n@media (max-width: 360px) {\n.chat_ib {\n    padding: 0 0 0 33px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -69432,29 +69459,73 @@ var render = function() {
                       [
                         _c("div", { staticClass: "headind_srch" }, [
                           _c("div", { staticClass: "recent_heading" }, [
-                            _vm.$inertia.page.rol == "Admin"
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn btn-outline-light btn-sm btn-toggleChat",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.toggleChatEvent()
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(_vm.toggleChatfoo()) +
-                                        "\n                      "
-                                    )
-                                  ]
-                                )
-                              : _vm._e(),
+                            _c("h4", [_vm._v("Chat de Soporte")]),
                             _vm._v(" "),
-                            _c("h4", [_vm._v("Chat de Soporte")])
+                            _c("ul", { staticClass: "navbar-nav" }, [
+                              _c(
+                                "li",
+                                {
+                                  staticClass: "nav-item dropdown pointer",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.toggle()
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "btn btn-outline-light btn-sm btn-toggleChat btnToggle"
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-ellipsis-v"
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "btn-show dropdown-menu dropdown-menu-lg dropdown-menu-right",
+                                      class: { show: _vm.expand }
+                                    },
+                                    [
+                                      _c("div"),
+                                      _vm._v(" "),
+                                      _c("div", [
+                                        _vm.$inertia.page.rol == "Admin"
+                                          ? _c(
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "btn btn-light btn-sm",
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.toggleChatEvent()
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                                " +
+                                                    _vm._s(
+                                                      _vm.toggleChatfoo()
+                                                    ) +
+                                                    "\n                              "
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      ])
+                                    ]
+                                  )
+                                ]
+                              )
+                            ])
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "srch_bar" }),
