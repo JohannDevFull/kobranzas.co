@@ -25,7 +25,7 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $arrValues=['cedula_ciudadania','cedula_extrangeria'];
+        $arrValues=['cedula_ciudadania','cedula_extranjeria'];
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,

@@ -3815,12 +3815,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       files: null,
       import_file: "",
-      errors: {}
+      errors: {},
+      loading: false
     };
   },
   methods: {
@@ -3837,6 +3841,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.files) {
         var formData = new FormData();
         formData.append("file", this.files[0]);
+        this.loading = true;
         axios.post("/importar/clientes", formData, {
           headers: {
             "content-type": "multipart/form-data"
@@ -3852,9 +3857,11 @@ __webpack_require__.r(__webpack_exports__);
             _this.errors = {};
             _this.files = null;
             console.log("subido");
+            _this.loading = false;
             $('#ClientModal').modal('hide');
           }
         })["catch"](function (error) {
+          _this.loading = false;
           _this.uploading = false;
           _this.errors = error.response.data;
           console.log("check error: ", _this.errors);
@@ -5924,6 +5931,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["conjunto", "num", "conjuntoinfo"],
@@ -5942,14 +5959,15 @@ __webpack_require__.r(__webpack_exports__);
       import_file: "",
       setTimeoutBuscador: "",
       img: "/storage/" + this.conjunto.profile_photo_path,
-      errors: {}
+      errors: {},
+      loading: false
     };
   },
   methods: {
     buscarResultados: function buscarResultados() {
       var _this = this;
 
-      axios.get('/buscar/clients', {
+      axios.get("/buscar/clients", {
         params: {
           buscar: this.buscar,
           conjunto: this.conjunto.id_building
@@ -5980,6 +5998,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.files) {
         var formData = new FormData();
         formData.append("file", this.files[0]);
+        this.loading = true;
         axios.post("/importar/clientes", formData, {
           headers: {
             "content-type": "multipart/form-data"
@@ -5995,9 +6014,12 @@ __webpack_require__.r(__webpack_exports__);
             });
             _this2.errors = {};
             _this2.files = null;
-            console.log("subido");
+            _this2.loading = false;
+
+            _this2.$inertia.visit("/conjuntos/show/".concat(_this2.conjunto.id_building));
           }
         })["catch"](function (error) {
+          _this2.loading = false;
           _this2.uploading = false;
           _this2.errors = error.response.data;
           console.log("check error: ", _this2.errors);
@@ -64887,14 +64909,22 @@ var render = function() {
                 _c(
                   "div",
                   { staticStyle: { padding: "5px", margin: "auto" } },
-                  _vm._l(_vm.errors.errors, function(error) {
-                    return _c("ul", [
-                      _c("li", { staticClass: "required" }, [
-                        _vm._v(_vm._s(error[0]))
+                  [
+                    _vm.loading
+                      ? _c("div", { staticStyle: { "text-align": "center" } }, [
+                          _c("div", { staticClass: "loader" })
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.errors.errors, function(error) {
+                      return _c("ul", [
+                        _c("li", { staticClass: "required" }, [
+                          _vm._v(_vm._s(error[0]))
+                        ])
                       ])
-                    ])
-                  }),
-                  0
+                    })
+                  ],
+                  2
                 )
               ]),
               _vm._v(" "),
@@ -64912,6 +64942,7 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-success",
+                    class: _vm.loading ? "disabled" : "",
                     attrs: { type: "submit" },
                     on: {
                       click: function($event) {
@@ -68150,6 +68181,7 @@ var render = function() {
                             "button",
                             {
                               staticClass: "btn btn-success",
+                              class: _vm.loading ? "disabled" : "",
                               attrs: { type: "submit" },
                               on: {
                                 click: function($event) {
@@ -68177,10 +68209,18 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                    Descargar plantilla\n                    \n                  "
+                                "\n                    Descargar plantilla\n                  "
                               )
                             ]
                           ),
+                          _vm._v(" "),
+                          _vm.loading
+                            ? _c(
+                                "div",
+                                { staticStyle: { "text-align": "center" } },
+                                [_c("div", { staticClass: "loader" })]
+                              )
+                            : _vm._e(),
                           _vm._v(" "),
                           _vm._l(_vm.errors.errors, function(error) {
                             return _c("ul", [

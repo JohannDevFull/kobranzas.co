@@ -148,7 +148,7 @@ if (isset($_REQUEST['politica-cookies'])) {
             <div class="services sm-margin-bottom-100">
               <div class="services-wrap">
                 <div class="service-body">
-                  <!-- <img src="main/onepage2/img/widgets/icon1.png" alt=""> -->
+                  <img src="{{asset('storage/img/imagen3.jpg')}}" alt=""> 
                 </div>
               </div>
               <h2>Derecho empresarial</h2>
@@ -159,7 +159,7 @@ if (isset($_REQUEST['politica-cookies'])) {
             <div class="services sm-margin-bottom-100">
               <div class="services-wrap">
                 <div class="service-body">
-                  <!-- <img src="main/onepage2/img/widgets/icon2.png" alt=""> -->
+                   <img src="{{asset('storage/img/imagen1.jpg')}}" alt="">
                 </div>
               </div>
               <h2>Ley familiar</h2>
@@ -170,7 +170,7 @@ if (isset($_REQUEST['politica-cookies'])) {
             <div class="services">
               <div class="services-wrap">
                 <div class="service-body">
-                  <!-- <img src="main/onepage2/img/widgets/icon3.png" alt=""> -->
+                  <img src="{{asset('storage/img/imagen2.jpg')}}" alt=""> 
                 </div>
               </div>
               <h2>Juicio civil</h2>

@@ -50,9 +50,11 @@
               class="widget-user-image"
               style="position: absolute; top: 300px"
             >
-          
-              <img class="img-circle" v-bind:src="conjuntoinfo.profile_photo_url" alt="User Avatar" />
-              
+              <img
+                class="img-circle"
+                v-bind:src="conjuntoinfo.profile_photo_url"
+                alt="User Avatar"
+              />
             </div>
           </div>
           <div class="card-footer">
@@ -105,6 +107,8 @@
                       type="submit"
                       class="btn btn-success"
                       @click="importar()"
+                      :class="(loading?'disabled':'')"
+
                     >
                       Cargar clientes
                     </button>
@@ -115,9 +119,10 @@
                       class="btn btn-info"
                     >
                       Descargar plantilla
-                      
                     </button>
-
+                          <div v-if="loading" style="text-align:center;">
+                    <div class="loader"></div>
+                    </div>
                     <ul v-for="error in errors.errors">
                       <li class="required">{{ error[0] }}</li>
                     </ul>
@@ -200,10 +205,15 @@
                   </td>
 
                   <td>
-
-                    <inertia-link class="" :href="route('llamadas.agreement',row.id)" > 
-                        <i class="nav-icon fas fa-eye text-info" style="padding:3px; "></i>  
-                    </inertia-link> 
+                    <inertia-link
+                      class=""
+                      :href="route('llamadas.agreement', row.id)"
+                    >
+                      <i
+                        class="nav-icon fas fa-eye text-info"
+                        style="padding: 3px"
+                      ></i>
+                    </inertia-link>
 
                     <inertia-link
                       class=""
@@ -230,9 +240,9 @@
 </template>
 <script>
 import AppLayout from "@/Layouts/AppLayout";
- 
+
 export default {
-  props: ["conjunto","num","conjuntoinfo"],
+  props: ["conjunto", "num", "conjuntoinfo"],
   components: {
     AppLayout,
   },
@@ -243,39 +253,40 @@ export default {
     return {
       files: null,
       usuariosc: [],
-      clients:[],
+      clients: [],
       buscar: "",
       import_file: "",
       setTimeoutBuscador: "",
       img: "/storage/" + this.conjunto.profile_photo_path,
       errors: {},
+      loading:false
+
     };
   },
   methods: {
-
-    buscarResultados(){
-
-        axios.get('/buscar/clients',{
-          params:{
-            buscar:this.buscar,
-            conjunto:this.conjunto.id_building
-          }
+    buscarResultados() {
+      axios
+        .get("/buscar/clients", {
+          params: {
+            buscar: this.buscar,
+            conjunto: this.conjunto.id_building,
+          },
         })
-        .then( res => { 
-            this.clients=res.data 
+        .then((res) => {
+          this.clients = res.data;
         })
-        .catch( error => {
-            console.log( error.response )
+        .catch((error) => {
+          console.log(error.response);
         });
     },
 
-    buscarKUP(){
-        clearTimeout( this.setTimeoutBuscador )
-        this.setTimeoutBuscador=setTimeout( this.buscarResultados ,360) 
+    buscarKUP() {
+      clearTimeout(this.setTimeoutBuscador);
+      this.setTimeoutBuscador = setTimeout(this.buscarResultados, 360);
     },
-    buscarONC(){
-      this.buscarResultados()
-    }, 
+    buscarONC() {
+      this.buscarResultados();
+    },
     onFileChange(event) {
       this.files = event.target.files;
     },
@@ -287,7 +298,7 @@ export default {
       if (this.files) {
         let formData = new FormData();
         formData.append("file", this.files[0]);
-
+        this.loading=true;
         axios
           .post("/importar/clientes", formData, {
             headers: { "content-type": "multipart/form-data" },
@@ -303,19 +314,22 @@ export default {
               });
               this.errors = {};
               this.files = null;
-              console.log("subido");
+        this.loading=false;
+
+          this.$inertia.visit(`/conjuntos/show/${this.conjunto.id_building}`);
+             
             }
           })
           .catch((error) => {
+        this.loading=false;
+
             this.uploading = false;
             this.errors = error.response.data;
             console.log("check error: ", this.errors);
           });
       } else {
         this.errors = {
-          
-            errors: [["No se ha subido ningún archivo."]],
-          
+          errors: [["No se ha subido ningún archivo."]],
         };
         return;
       }
@@ -338,5 +352,4 @@ export default {
 };
 </script>
 <style lang="css">
-
 </style>

@@ -1218,7 +1218,7 @@ a:focus {
       font-size: 16px;
       color: #8693a7; }
     .service-bg .services .services-wrap {
-      width: 100px;
+      width: 120px;
       height: 100px;
       display: table;
       text-align: center;
@@ -1235,10 +1235,12 @@ a:focus {
         position: absolute;
         border: 1px solid #e8ecf1; }
       .service-bg .services .services-wrap img {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto;
-        text-align: center; }
+        
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 50%; }
     .service-bg .services .service-body {
       height: 100%;
       display: table-cell;

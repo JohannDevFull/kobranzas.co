@@ -72,8 +72,9 @@
                   </div>
 
                   <div style="padding: 5px; margin: auto">
-
-
+                    <div v-if="loading" style="text-align:center;">
+                    <div class="loader"></div>
+                    </div>
 
                     <ul v-for="error in errors.errors">
                       <li class="required">{{ error[0] }}</li>
@@ -92,9 +93,11 @@
               Cancelar
             </button>
                                 <button
+                                
                       type="submit"
                       class="btn btn-success"
                       @click="importar()"
+                      :class="(loading?'disabled':'')"
                       
                     >
                       Cargar clientes
@@ -123,6 +126,7 @@ export default {
       files: null,
       import_file: "",
       errors: {},
+      loading:false
     };
   },
   methods: {
@@ -137,7 +141,7 @@ export default {
     if (this.files) {
       let formData = new FormData();
       formData.append("file", this.files[0]);
-
+      this.loading = true;
       axios
         .post("/importar/clientes", formData, {
           headers: { "content-type": "multipart/form-data" },
@@ -154,10 +158,13 @@ export default {
             this.errors = {};
             this.files = null;
             console.log("subido");
+            this.loading=false;
             $('#ClientModal').modal('hide');
           }
         })
         .catch((error) => {
+            this.loading=false;
+
           this.uploading = false;
           this.errors = error.response.data;
           console.log("check error: ", this.errors);
