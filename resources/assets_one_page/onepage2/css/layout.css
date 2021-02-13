@@ -1568,7 +1568,7 @@ a:focus {
     background-image: none; }
   .carousel .item {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     min-height: 580px; }
   .carousel .carousel-item-one {
     background: url(/storage/img/fondo1.jpg);
@@ -1587,11 +1587,13 @@ a:focus {
   .carousel .carousel-title-v2 {
     color: #fff; }
   .carousel .carousel-title-v3 {
-    color: #bf5757; }
+    color: #009ecf; }
   .carousel .carousel-subtitle-v1 {
-    color: #80d0de; }
+    color: #009ecf; }
   .carousel .carousel-subtitle-v2 {
-    color: #a8c6d6; }
+    margin-top: -50px;
+    color: #009ecf; 
+  }
   .carousel .carousel-subtitle-v3 {
     color: #a8c6d6; }
   .carousel .carousel-position-one {
@@ -1607,7 +1609,7 @@ a:focus {
 @media (max-width: 768px) {
   /* 768px */
   .carousel .carousel-title-v1 {
-    font-size: 40px; }
+    font-size: 26px; }
   .carousel .carousel-title-v2,
   .carousel .carousel-title-v3 {
     font-size: 30px; }
