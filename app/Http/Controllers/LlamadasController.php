@@ -428,12 +428,23 @@ class LlamadasController extends Controller
 
         $gastos_cobranzas=(($request->capital_deuda+$request->intereses)*$conjunto[0]->gastos_cobranzas)/100;
         
-        $call= Movements::create([
+        $gastos= Movements::create([
             'user_id'=>$request->cliente_id, 
             'type_movement_id'=>1,
             'valor_movement'=>$gastos_cobranzas, 
             'description_movement'=>'Gastos cobranzas', 
         ]);
+
+        $iva=($gastos_cobranzas*19)/100;
+
+        $iva_cobranzas= Movements::create([
+            'user_id'=>$request->cliente_id, 
+            'type_movement_id'=>1,
+            'valor_movement'=>$iva, 
+            'description_movement'=>'IVA', 
+        ]);
+
+
 
     }
 
