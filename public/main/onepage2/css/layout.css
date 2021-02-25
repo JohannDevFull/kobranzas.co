@@ -203,8 +203,8 @@ a:focus {
 /* go2top */
 .go2top,
 .go2top:focus {
-  right: 15px;
-  bottom: 104px;
+  left: 4px;
+  bottom: 23px;
   width: 38px;
   height: 38px;
   z-index: 999;
@@ -1617,3 +1617,25 @@ a:focus {
     font-size: 30px; }
   .carousel .carousel-subtitle-v1 {
     font-size: 18px; } }
+    .whatsapp-icon{
+      background: #25d366;
+      position: fixed;
+      z-index: 99999999999;
+      bottom: 111px;
+      border-radius: 50%;
+      font-size: 2.7em;
+      padding: 6px 18px;
+      color: white;
+      right: 17px;
+      z-index: 1;
+      cursor: pointer;
+  }
+  .whatsapp-icon span{
+    display: none;
+  }
+  .whatsapp-icon:hover span{
+    display: block;
+  }
+  .whatsapp-icon i{
+    color: white;
+  }

@@ -106,7 +106,7 @@ if (isset($_REQUEST['politica-cookies'])) {
             <p class="carousel-position-two animate-delay carousel-subtitle-v1" data-animation="animated fadeInDown">
               Ayuda legal asequible y eficaz
             </p>
-            <a href="#contact" class="carousel-position-three animate-delay btn-brd-white" data-animation="animated fadeInUp">Contactenos</a>
+            <a href="#contact" class="carousel-position-three animate-delay btn-brd-white" data-animation="animated fadeInUp">Contáctenos</a>
           </div>
         </div>
 
@@ -116,22 +116,24 @@ if (isset($_REQUEST['politica-cookies'])) {
              LSA
             </h3>
             <p class="carousel-position-three animate-delay carousel-subtitle-v2" data-animation="animated fadeInDown">
-              Asesoria juridica sobre propiedad horizontal.
+              Asesoría jurídica sobre propiedad horizontal.
             </p>
           </div>
         </div>
         <div class="item carousel-item-three">
           <div class="center-block">
             <div class="center-block-wrap">
-              <div class="center-block-body">
-                <h3 class="margin-bottom-20 animate-delay carousel-title-v1" data-animation="animated fadeInDown">
-                  LSA Abogados
-                </h3>
-                <p class="margin-bottom-20 animate-delay carousel-title-v3" data-animation="animated fadeInDown">
-                  Casa de cobranzas
-                </p>
-                <a href="#contact" class="animate-delay btn-brd-white" data-animation="animated fadeInUp">Contactenos</a>
-              </div>
+              <div class="center-block-body" style="background-color: rgba(0,0,0,0.6);">
+                    <h4 class="margin-bottom-20 animate-delay carousel-title-v1 animated fadeInDown" data-animation="animated fadeInDown" style="position: absolute;
+                		top: 140px; left: 40px;color:black;font-size: 39px;">
+                     	LSA Abogados
+                    </h4>
+                
+                    <p class="margin-bottom-20 animate-delay carousel-title-v3 animated fadeInDown" data-animation="animated fadeInDown" style="position: absolute; top: 210px; left: 40px;font-size: 39px;">
+                      Casa de cobranzas
+                    </p>
+                    <a href="#contact" class="animate-delay btn-brd-white animated fadeInUp" data-animation="animated fadeInUp">Contáctenos</a>
+                </div>
             </div>
           </div>
         </div>
@@ -162,7 +164,7 @@ if (isset($_REQUEST['politica-cookies'])) {
                    <img src="{{asset('storage/img/imagen1.jpg')}}" alt="">
                 </div>
               </div>
-              <h2>Ley familiar</h2>
+              <h2>Derecho de familia</h2>
               <p>Los abogados de derecho familiar ayudan a sus clientes a solicitar la separación o el divorcio, la pensión alimenticia o la custodia de los hijos.</p>
             </div>
           </div>
@@ -173,7 +175,7 @@ if (isset($_REQUEST['politica-cookies'])) {
                   <img src="{{asset('storage/img/imagen2.jpg')}}" alt=""> 
                 </div>
               </div>
-              <h2>Juicio civil</h2>
+              <h2>Derecho civil</h2>
               <p>El litigio civil es el proceso en el que los asuntos civiles se resuelven en un tribunal de justicia.</p>
             </div>
           </div>
@@ -193,7 +195,7 @@ if (isset($_REQUEST['politica-cookies'])) {
               <div class="pricing no-right-brd">
                 <img src="main/onepage2/img/widgets/icon4.png" alt="">
                 <h4>Casa de cobranzas</h4>
-                <span>14, 15 y 16 % sobre la deuda.</span>
+                <span></span>
                 <ul class="pricing-features">
                   <!-- <li>1000 Copies</li>
                   <li>Unlimited Data</li>
@@ -206,7 +208,7 @@ if (isset($_REQUEST['politica-cookies'])) {
             <div class="col-md-4">
               <div class="pricing pricing-red">
                 <img src="main/onepage2/img/widgets/icon5.png" alt="">
-                <h4>Asesoria juridica</h4>
+                <h4>Asesoria jurídica</h4>
                 <span>Precios asequibles</span>
                 <ul class="pricing-features">
                   <!-- <li>1000 Copies</li>
@@ -221,7 +223,7 @@ if (isset($_REQUEST['politica-cookies'])) {
               <div class="pricing no-left-brd">
                 <img src="main/onepage2/img/widgets/icon6.png" alt="">
                 <h4>propiedad horizontal</h4>
-                <span>Precios bajos</span>
+                <span></span>
                 <ul class="pricing-features">
                   <!-- <li>1000 Copies</li>
                   <li>Unlimited Data</li>
@@ -389,6 +391,9 @@ if (isset($_REQUEST['politica-cookies'])) {
     Your browser does not support the audio element.
   </audio>
 
+  <div class="whatsapp-icon">
+            <a href="https://api.whatsapp.com/send?phone=573144412784&text=¡Hola !" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
   <div id="chatc">
 
     <div id="main">
@@ -504,7 +509,7 @@ if (isset($_REQUEST['politica-cookies'])) {
         <div>
           <p class="pregunta">
             <span> ¿Aceptas nuestras </span>
-            <a style="color: rgb(0, 158, 207);" href="/politica">política de Cookies</a>?
+            <a style="color: rgb(0, 158, 207);" href="/politica">Política de Cookies</a>?
           </p>
         </div>
 
