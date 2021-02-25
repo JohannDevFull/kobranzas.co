@@ -64,7 +64,7 @@
                     <div class="col-sm-12" v-else>
                        
                       <div class="form-group " >
-                            <label></label>
+                            <label>Descripcion movimiento</label>
                             <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-sort-amount-up-alt"></i></span> 
@@ -91,6 +91,19 @@
                                 <span class="input-group-text"><i class="fas fa-coins"></i></span>
                               </div>
                               <input type="text" class="form-control"  v-model="intereses" >
+                            </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      
+                      <div class="form-group ">
+                            <label>Fecha</label>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-coins"></i></span>
+                              </div>
+                              <input type="date" name="fecha" min="2020-12-01" max="2030-05-26"  />
                             </div>
                       </div>
                     </div>

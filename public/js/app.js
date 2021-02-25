@@ -4283,6 +4283,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['cliente_id'],
@@ -65794,7 +65807,7 @@ var render = function() {
                         ])
                       : _c("div", { staticClass: "col-sm-12" }, [
                           _c("div", { staticClass: "form-group " }, [
-                            _c("label"),
+                            _c("label", [_vm._v("Descripcion movimiento")]),
                             _vm._v(" "),
                             _c("div", { staticClass: "input-group mb-3" }, [
                               _vm._m(3),
@@ -65895,6 +65908,8 @@ var render = function() {
                         ])
                       ])
                     ]),
+                    _vm._v(" "),
+                    _vm._m(5),
                     _vm._v(" "),
                     _vm._l(_vm.errors.errors, function(error) {
                       return _c("ul", [
@@ -66007,6 +66022,33 @@ var staticRenderFns = [
     return _c("div", { staticClass: "input-group-prepend" }, [
       _c("span", { staticClass: "input-group-text" }, [
         _c("i", { staticClass: "fas fa-coins" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "form-group " }, [
+        _c("label", [_vm._v("Fecha")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-group mb-3" }, [
+          _c("div", { staticClass: "input-group-prepend" }, [
+            _c("span", { staticClass: "input-group-text" }, [
+              _c("i", { staticClass: "fas fa-coins" })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            attrs: {
+              type: "date",
+              name: "fecha",
+              min: "2020-12-01",
+              max: "2030-05-26"
+            }
+          })
+        ])
       ])
     ])
   }
