@@ -7,7 +7,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ClientModalLabel">Agregar cuenta</h5>
+            <h5 class="modal-title" id="ClientModalLabel">Agregar Movimiento</h5>
             <button
               type="button"
               class="close"
@@ -179,16 +179,19 @@ export default {
       })
       .then((response)=>{ 
         
-        $(document).Toasts('create',{
-          class: 'bg-success', 
-          title: 'Cuenta',
-          subtitle: 'ok',
-          body: 'Exito al registrar Movimiento.'
-        }); 
+        Swal.fire({
+            icon: "success",
+            title: "Movimiento Creado",
+            text:"Exito al registrar movimiento.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
 
         $("#movementModal").modal('hide');
-        Inertia.reload({ only: ['cuenta'] },);
-        Inertia.visit('/llamadas/agreement/'+this.cliente_id,{ only: ['cuenta'] });
+
+
+        Inertia.reload({ only: ['cuenta','movimientos'] },);
+        Inertia.visit('/llamadas/agreement/'+this.id_cliente,{ preserveScroll: true },{ only: ['cuenta','movimientos'] });
         
       })
       .catch((error) => {

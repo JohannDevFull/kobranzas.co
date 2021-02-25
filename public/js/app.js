@@ -4332,18 +4332,21 @@ __webpack_require__.r(__webpack_exports__);
         valor_moviminto: intereses,
         cliente_id: this.id_cliente
       }).then(function (response) {
-        $(document).Toasts('create', {
-          "class": 'bg-success',
-          title: 'Cuenta',
-          subtitle: 'ok',
-          body: 'Exito al registrar Movimiento.'
+        Swal.fire({
+          icon: "success",
+          title: "Movimiento Creado",
+          text: "Exito al registrar movimiento.",
+          showConfirmButton: false,
+          timer: 1500
         });
         $("#movementModal").modal('hide');
         _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__["Inertia"].reload({
-          only: ['cuenta']
+          only: ['cuenta', 'movimientos']
         });
-        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__["Inertia"].visit('/llamadas/agreement/' + _this.cliente_id, {
-          only: ['cuenta']
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__["Inertia"].visit('/llamadas/agreement/' + _this.id_cliente, {
+          preserveScroll: true
+        }, {
+          only: ['cuenta', 'movimientos']
         });
       })["catch"](function (error) {
         _this.errors = error.response.data;
@@ -65950,7 +65953,7 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "ClientModalLabel" } },
-        [_vm._v("Agregar cuenta")]
+        [_vm._v("Agregar Movimiento")]
       ),
       _vm._v(" "),
       _c(
