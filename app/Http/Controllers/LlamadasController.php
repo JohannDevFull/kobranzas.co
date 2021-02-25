@@ -154,7 +154,7 @@ class LlamadasController extends Controller
             on state.id_state=clients.state_id
             INNER JOIN users
             on users.id=clients.user_id
-            WHERE  users.name like '%".$buscar."%'" );
+            WHERE  users.name like '%".$buscar."%' OR clients.client_code like '%".$buscar."%' LIMIT 50" );
 
         return response()->json($users_cliente);
     }

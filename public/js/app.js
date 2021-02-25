@@ -73661,7 +73661,7 @@ var render = function() {
                   [
                     _c("thead", [
                       _c("tr", [
-                        _c("th", [_vm._v("ID")]),
+                        _c("th", [_vm._v("Apt")]),
                         _vm._v(" "),
                         _c("th", [_vm._v("Nombre ")]),
                         _vm._v(" "),
@@ -73681,8 +73681,8 @@ var render = function() {
                             _c("td", [
                               _vm._v(
                                 " \n                        " +
-                                  _vm._s(row.id) +
-                                  " \n                    "
+                                  _vm._s(row.client_code) +
+                                  "  \n                    "
                               )
                             ]),
                             _vm._v(" "),
