@@ -7,8 +7,8 @@
         <img
           src="/storage/img/AdminLTELogo.png"
           alt="AdminLTE Logo"
-          class="brand-image img-circle elevation-3"
-          style="opacity: 0.8"
+          class="brand-image  elevation-3"
+          style="opacity: 0.8; box-shadow: 0px 0px 0px white !important;"
         />
         <span class="brand-text font-weight-light">LSA Abogados</span>
         <a  id="sidebarbutton" data-widget="pushmenu" role="button" class="btn-togg float-right sidebar-toggle-btn"
@@ -140,6 +140,16 @@
                 </p>
               </a>
               <ul class="nav nav-treeview" style="display: none">
+                <li class="nav-item">
+                  <inertia-link
+                    class="nav-link"
+                    :href="route('recordatorios.index')"
+                    @click="toggle()"
+                  >
+                    <i class="nav-icon far fa-clock text-success"></i>
+                    <p>Recordatorios</p>
+                  </inertia-link>
+                </li>
                 <li class="nav-item">
                   <inertia-link
                     class="nav-link"

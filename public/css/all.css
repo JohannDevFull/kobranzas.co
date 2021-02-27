@@ -31985,6 +31985,29 @@ a.text-muted:hover {
   color: #ffffff;
 }
 /*# sourceMappingURL=adminlte.css.map */
+.cookie-p{
+  position: relative;
+  padding-bottom: 50px;
+  padding-top: 75px;
+}
+.cookie-p .container h3{
+  line-height: 0.88889;
+  font-weight: bold;
+  margin-bottom: 24px;
+    font-size: 45px;
+    color: #000;
+    font-family: '"PT Serif", "Times New Roman", Times, serif';
+}
+.hcookie{
+  font-weight: bold;
+  margin-bottom: 24px;
+    line-height: 1.52;
+    font-size: 25px;
+    color: #000;
+
+    font-family: '"PT Serif", "Times New Roman", Times, serif';
+
+}
 .marketing .col-lg-4 {
 margin-bottom: 1.5rem;
 text-align: center;
