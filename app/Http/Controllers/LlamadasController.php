@@ -335,6 +335,7 @@ class LlamadasController extends Controller
             'deuda_actual'=>'required',
             'cuotas'=>'required',
             'abono'=>'required',
+            'dia_fecha_pago'=>'required',
             'observaciones'=>'required',
 
         ]);
@@ -348,13 +349,28 @@ class LlamadasController extends Controller
             'state_id'=>$request->estado,
         ]); 
         
+        $iva=DB::select("SELECT * FROM movements WHERE  user_id=".$request->cliente." AND description_movement='IVA' ORDER BY id_movement asc limit 1" );
+
+        $gastos_cobranzas=DB::select("SELECT * FROM movements WHERE  user_id=".$request->cliente." AND description_movement='Gastos cobranzas' ORDER BY id_movement asc limit 1" );
+
+        $capital=DB::select("SELECT * FROM movements WHERE  user_id=".$request->cliente." AND description_movement='Capital' ORDER BY id_movement asc limit 1" );
+        
+        $intereses=DB::select("SELECT * FROM movements WHERE  user_id=".$request->cliente." AND description_movement='Intereses' ORDER BY id_movement asc limit 1" );
+
         $agreement=Agreement::create([   
             'user_id'=>$request->cliente,
             'employee_id'=>$request->idempleado,
             'name_employee'=>$request->nombre_empleado,
             'current_debt'=>$request->deuda_actual,
+            'iva'=>$iva[0]->valor_movement,
+            'capital'=>$capital[0]->valor_movement,
+            'intereses'=>$intereses[0]->valor_movement,
+            'administration'=>$request->administracion,
+            'gastos_cobranzas'=>$gastos_cobranzas[0]->valor_movement,
+            'dia_fecha_pagos'=>$request->dia_fecha_pago,
             'credit'=>$request->abono,
             'quotas'=>$request->cuotas,
+            'total_cuota'=>$request->valor_cuota,
             'observations'=>$request->observaciones,
             'state_id'=>$request->estado,
         ]); 
@@ -416,7 +432,7 @@ class LlamadasController extends Controller
             'user_id'=>$request->cliente_id, 
             'type_movement_id'=>1,
             'valor_movement'=>$request->capital_deuda,
-            'description_movement'=>'Saldo inicial', 
+            'description_movement'=>'Capital', 
         ]);
 
         $call= Movements::create([

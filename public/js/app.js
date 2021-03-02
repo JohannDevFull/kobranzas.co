@@ -3253,6 +3253,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['acuerdo', 'ides', 'id', 'boleano', 'cuentaTotal'],
   components: {},
@@ -3265,12 +3314,26 @@ __webpack_require__.r(__webpack_exports__);
       sel: this.id,
       acuerdo_bol: 0,
       total_deuda: 0,
-      administracion: 0,
-      selestado: "",
+      selestado: this.acuerdo[this.id].id_state,
       cuenta_total: ""
     };
   },
   computed: {
+    iva: function iva() {
+      return this.formatear(this.acuerdo[this.id].iva);
+    },
+    dia_pago: function dia_pago() {
+      return this.acuerdo[this.id].dia_fecha_pagos;
+    },
+    gastos: function gastos() {
+      return this.formatear(this.acuerdo[this.id].gastos_cobranzas);
+    },
+    fecha: function fecha() {
+      return this.acuerdo[this.id].created_at;
+    },
+    administracion: function administracion() {
+      return this.formatear(this.acuerdo[this.id].administration);
+    },
     observaciones: function observaciones() {
       return this.acuerdo[this.id].observations;
     },
@@ -3308,13 +3371,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     valor_cuota: function valor_cuota() {
-      if (this.subcuota === 0) {
-        return this.valorCuota = 0;
-      } else {
-        var num = parseFloat(this.subcuota) + parseFloat(this.admin);
-        var n = num.toFixed(2);
-        return this.formatear(String(n));
-      }
+      return this.formatear(this.acuerdo[this.id].total_cuota);
     }
   },
   methods: {
@@ -9942,6 +9999,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -9978,6 +10051,7 @@ __webpack_require__.r(__webpack_exports__);
       acuerdo_bol: 0,
       abono_decimal: 0,
       selestado: "",
+      dia_pago: "",
       cuenta_total: "",
       inde: 0,
       llam: -1,
@@ -10069,9 +10143,12 @@ __webpack_require__.r(__webpack_exports__);
         cliente: this.cliente.id,
         idempleado: this.empleado,
         nombre_empleado: this.nombreempleado,
+        dia_fecha_pago: this.dia_pago,
+        administracion: this.sinFormatNumber(this.admin),
         deuda_actual: this.cuentaTotal,
         cuotas: this.form.cuotas,
         abono: this.form.abono,
+        valor_cuota: this.sinFormatNumber(this.valor_cuota),
         observaciones: this.form.observaciones
       }).then(function (response) {
         Swal.fire({
@@ -64000,10 +64077,110 @@ var render = function() {
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-4" }, [
                             _c("div", { staticClass: "form-group " }, [
-                              _c("label", [_vm._v("Cuotas")]),
+                              _c("label", [_vm._v("Fecha acuerdo")]),
                               _vm._v(" "),
                               _c("div", { staticClass: "input-group mb-3" }, [
                                 _vm._m(4),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.fecha,
+                                      expression: "fecha"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { disabled: "" },
+                                  domProps: { value: _vm.fecha },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.fecha = $event.target.value
+                                    }
+                                  }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-4" }, [
+                            _c("div", { staticClass: "form-group " }, [
+                              _c("label", [
+                                _vm._v(
+                                  "Gastos cobranzas\n                          "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "input-group mb-3" }, [
+                                _vm._m(5),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.gastos,
+                                      expression: "gastos"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { type: "text", disabled: "" },
+                                  domProps: { value: _vm.gastos },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.gastos = $event.target.value
+                                    }
+                                  }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-4" }, [
+                            _c("div", { staticClass: "form-group " }, [
+                              _c("label", [_vm._v("IVA")]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "input-group mb-3" }, [
+                                _vm._m(6),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.iva,
+                                      expression: "iva"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { type: "text", disabled: "" },
+                                  domProps: { value: _vm.iva },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.iva = $event.target.value
+                                    }
+                                  }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-4" }, [
+                            _c("div", { staticClass: "form-group " }, [
+                              _c("label", [_vm._v("Cuotas")]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "input-group mb-3" }, [
+                                _vm._m(7),
                                 _vm._v(" "),
                                 _c("input", {
                                   directives: [
@@ -64040,7 +64217,7 @@ var render = function() {
                               _c("label", [_vm._v("Valor subcuota")]),
                               _vm._v(" "),
                               _c("div", { staticClass: "input-group mb-3" }, [
-                                _vm._m(5),
+                                _vm._m(8),
                                 _vm._v(" "),
                                 _c("input", {
                                   directives: [
@@ -64072,7 +64249,7 @@ var render = function() {
                               _c("label", [_vm._v("Valor administracion")]),
                               _vm._v(" "),
                               _c("div", { staticClass: "input-group mb-3" }, [
-                                _vm._m(6),
+                                _vm._m(9),
                                 _vm._v(" "),
                                 _c("input", {
                                   directives: [
@@ -64099,12 +64276,44 @@ var render = function() {
                             ])
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-sm-6" }, [
+                          _c("div", { staticClass: "col-sm-4" }, [
+                            _c("div", { staticClass: "form-group " }, [
+                              _c("label", [_vm._v("Dia fecha de pagos")]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "input-group mb-3" }, [
+                                _vm._m(10),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.dia_pago,
+                                      expression: "dia_pago"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { disabled: "" },
+                                  domProps: { value: _vm.dia_pago },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.dia_pago = $event.target.value
+                                    }
+                                  }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-4" }, [
                             _c("div", { staticClass: "form-group " }, [
                               _c("label", [_vm._v("Valor total cuota")]),
                               _vm._v(" "),
                               _c("div", { staticClass: "input-group mb-3" }, [
-                                _vm._m(7),
+                                _vm._m(11),
                                 _vm._v(" "),
                                 _c("input", {
                                   directives: [
@@ -64131,7 +64340,7 @@ var render = function() {
                             ])
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-sm-6" }, [
+                          _c("div", { staticClass: "col-sm-4" }, [
                             _c("div", { staticClass: "form-group " }, [
                               _c("label", [_vm._v("Estado")]),
                               _vm._v(" "),
@@ -64151,6 +64360,7 @@ var render = function() {
                                     }
                                   ],
                                   staticClass: "form-control",
+                                  attrs: { disabled: "" },
                                   on: {
                                     change: function($event) {
                                       var $$selectedVal = Array.prototype.filter
@@ -64245,7 +64455,7 @@ var render = function() {
                   )
                 ]),
             _vm._v(" "),
-            _vm._m(8)
+            _vm._m(12)
           ])
         ])
       ]
@@ -64335,6 +64545,46 @@ var staticRenderFns = [
     return _c("div", { staticClass: "input-group-prepend" }, [
       _c("span", { staticClass: "input-group-text" }, [
         _c("i", { staticClass: "fas fa-dollar-sign" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [
+        _c("i", { staticClass: "fas fa-sort-amount-up-alt" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [
+        _c("i", { staticClass: "fas fa-dollar-sign" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [
+        _c("i", { staticClass: "fas fa-dollar-sign" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [
+        _c("i", { staticClass: "fas fa-sort-amount-up-alt" })
       ])
     ])
   },
@@ -73311,13 +73561,17 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(
-                                    " \n                        " +
-                                      _vm._s(row.valor_movement) +
-                                      " \n                    "
-                                  )
-                                ]),
+                                _c(
+                                  "td",
+                                  { staticStyle: { "text-align": "right" } },
+                                  [
+                                    _vm._v(
+                                      " \n                        " +
+                                        _vm._s(row.valor_movement) +
+                                        " \n                    "
+                                    )
+                                  ]
+                                ),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
@@ -74145,25 +74399,46 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("li", { staticClass: "nav-item" }, [
                                       _vm._v(
-                                        " \r\n                              Correo  : " +
-                                          _vm._s(_vm.cliente.email) +
-                                          "\r\n                          "
+                                        " \r\n                              Correo  : \r\n                            "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "mailto:" + _vm.cliente.email
+                                          }
+                                        },
+                                        [_vm._v(_vm._s(_vm.cliente.email))]
                                       )
                                     ]),
                                     _vm._v(" "),
                                     _c("li", { staticClass: "nav-item" }, [
                                       _vm._v(
-                                        " \r\n                              Telefono uno : " +
-                                          _vm._s(_vm.cliente.phone_one) +
-                                          "\r\n                          "
+                                        " \r\n                              Telefono uno : \r\n                            "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "tel:" + _vm.cliente.phone_one
+                                          }
+                                        },
+                                        [_vm._v(_vm._s(_vm.cliente.phone_one))]
                                       )
                                     ]),
                                     _vm._v(" "),
                                     _c("li", { staticClass: "nav-item" }, [
                                       _vm._v(
-                                        " \r\n                              Telefono dos : " +
-                                          _vm._s(_vm.cliente.phone_two) +
-                                          "\r\n                          "
+                                        " \r\n                              Telefono dos : \r\n                            "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "tel:" + _vm.cliente.phone_two
+                                          }
+                                        },
+                                        [_vm._v(_vm._s(_vm.cliente.phone_two))]
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -74374,7 +74649,7 @@ var render = function() {
                                   ])
                                 ]),
                                 _vm._v(" "),
-                                _c("div", { staticClass: "col-sm-4" }, [
+                                _c("div", { staticClass: "col-sm-3" }, [
                                   _c("div", { staticClass: "form-group " }, [
                                     _c("label", [_vm._v("Cuotas")]),
                                     _vm._v(" "),
@@ -74437,7 +74712,81 @@ var render = function() {
                                   ])
                                 ]),
                                 _vm._v(" "),
-                                _c("div", { staticClass: "col-sm-4" }, [
+                                _c("div", { staticClass: "col-sm-3" }, [
+                                  _c("div", { staticClass: "form-group " }, [
+                                    _c("label", [_vm._v("Dia fecha pago")]),
+                                    _vm._v(" "),
+                                    _c("span", { staticClass: "required" }, [
+                                      _vm._v("*")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "select",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.dia_pago,
+                                            expression: "dia_pago"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        on: {
+                                          change: function($event) {
+                                            var $$selectedVal = Array.prototype.filter
+                                              .call(
+                                                $event.target.options,
+                                                function(o) {
+                                                  return o.selected
+                                                }
+                                              )
+                                              .map(function(o) {
+                                                var val =
+                                                  "_value" in o
+                                                    ? o._value
+                                                    : o.value
+                                                return val
+                                              })
+                                            _vm.dia_pago = $event.target
+                                              .multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "option",
+                                          {
+                                            attrs: { value: "", disabled: "" }
+                                          },
+                                          [_vm._v("Seleccione Estado")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "option",
+                                          { attrs: { value: "6" } },
+                                          [_vm._v("6")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "option",
+                                          { attrs: { value: "16" } },
+                                          [_vm._v("16")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "option",
+                                          { attrs: { value: "28" } },
+                                          [_vm._v("28")]
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-sm-3" }, [
                                   _c("div", { staticClass: "form-group " }, [
                                     _c("label", [_vm._v("Valor subcuota")]),
                                     _vm._v(" "),
@@ -74493,7 +74842,7 @@ var render = function() {
                                   ])
                                 ]),
                                 _vm._v(" "),
-                                _c("div", { staticClass: "col-sm-4" }, [
+                                _c("div", { staticClass: "col-sm-3" }, [
                                   _c("div", { staticClass: "form-group " }, [
                                     _c("label", [
                                       _vm._v("Valor administracion")

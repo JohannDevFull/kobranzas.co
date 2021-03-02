@@ -262,10 +262,10 @@
                       <td> 
                           {{ row.description_movement }} 
                       </td>
-                      <td> 
+                      <td style="text-align:right;"> 
                           {{ row.valor_movement }} 
                       </td>
-                      <td> 
+                      <td > 
                           {{ row.updated_at }}  
                       </td>
                       

@@ -22,6 +22,13 @@ class Agreement extends Model implements Auditable
         'credit',
         'quotas',
         'observations',
+        'iva',
+        'capital',
+        'intereses',
+        'administration',
+        'dia_fecha_pagos',
+        'gastos_cobranzas',
+        'total_cuota',
     ];
 
     protected $casts = [ 

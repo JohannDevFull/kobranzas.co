@@ -90,13 +90,16 @@
                               Cedula  : {{ cliente.document }} 
                           </li>
                           <li class="nav-item"> 
-                              Correo  : {{ cliente.email }}
+                              Correo  : 
+                            <a :href="`mailto:${cliente.email}`">{{cliente.email}}</a>
                           </li>
                           <li class="nav-item"> 
-                              Telefono uno : {{ cliente.phone_one }}
+                              Telefono uno : 
+                            <a :href="`tel:${cliente.phone_one}`">{{cliente.phone_one}}</a>
                           </li>
                           <li class="nav-item"> 
-                              Telefono dos : {{ cliente.phone_two }}
+                              Telefono dos : 
+                            <a :href="`tel:${cliente.phone_two}`">{{cliente.phone_two}}</a>
                           </li>
                           <li class="nav-item">
                             <inertia-link class="nav-link" :href="route('llamadas.agreement',cliente.id)">  
@@ -148,7 +151,7 @@
                       </div>
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                       <div class="form-group ">
                             <label>Cuotas</label>
                             <div class="input-group mb-3">
@@ -159,8 +162,21 @@
                             </div>
                       </div>
                     </div>
+                    <div class="col-sm-3">
+                      <div class="form-group " >
+                        <label>Dia fecha pago</label>
+                        <span class="required">*</span>
+                        <select class="form-control" v-model="dia_pago">
+                          <option value="" disabled>Seleccione Estado</option>
+                          <option value="6" >6</option>
+                          <option value="16" >16</option>
+                          <option value="28" >28</option>
+                          
+                        </select>
+                      </div>
+                    </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                       <div class="form-group ">
                             <label>Valor subcuota</label>
                             <div class="input-group mb-3">
@@ -172,7 +188,7 @@
                       </div>
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                       <div class="form-group ">
                             <label>Valor administracion</label>
                             <div class="input-group mb-3">
@@ -388,6 +404,7 @@
         abono_decimal: 0,
 
         selestado:"", 
+        dia_pago:"", 
         cuenta_total:"",
         inde:0,
         llam:-1,
@@ -483,10 +500,13 @@
           cliente: this.cliente.id, 
           idempleado: this.empleado, 
           nombre_empleado: this.nombreempleado, 
+          dia_fecha_pago: this.dia_pago, 
+          administracion: this.sinFormatNumber(this.admin), 
 
           deuda_actual:this.cuentaTotal,
           cuotas:this.form.cuotas,
           abono:this.form.abono,
+          valor_cuota:this.sinFormatNumber(this.valor_cuota),
           observaciones:this.form.observaciones,
 
         })

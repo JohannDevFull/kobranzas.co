@@ -151,7 +151,7 @@
           </div>
         </div>
         <!-- /.widget-user -->
-      </div>
+      </div> 
 
       <div class="col-12">
         <div class="card">
