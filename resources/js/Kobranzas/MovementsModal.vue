@@ -7,7 +7,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ClientModalLabel">Agregar cuenta</h5>
+            <h5 class="modal-title" id="ClientModalLabel">Agregar Movimiento</h5>
             <button
               type="button"
               class="close"
@@ -64,7 +64,7 @@
                     <div class="col-sm-12" v-else>
                        
                       <div class="form-group " >
-                            <label></label>
+                            <label>Descripcion movimiento</label>
                             <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-sort-amount-up-alt"></i></span> 
@@ -91,6 +91,19 @@
                                 <span class="input-group-text"><i class="fas fa-coins"></i></span>
                               </div>
                               <input type="text" class="form-control"  v-model="intereses" >
+                            </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      
+                      <div class="form-group ">
+                            <label>Fecha</label>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-coins"></i></span>
+                              </div>
+                              <input type="date" name="fecha" min="2020-12-01" max="2030-05-26"  />
                             </div>
                       </div>
                     </div>
@@ -179,16 +192,19 @@ export default {
       })
       .then((response)=>{ 
         
-        $(document).Toasts('create',{
-          class: 'bg-success', 
-          title: 'Cuenta',
-          subtitle: 'ok',
-          body: 'Exito al registrar Movimiento.'
-        }); 
+        Swal.fire({
+            icon: "success",
+            title: "Movimiento Creado",
+            text:"Exito al registrar movimiento.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
 
         $("#movementModal").modal('hide');
-        Inertia.reload({ only: ['cuenta'] },);
-        Inertia.visit('/llamadas/agreement/'+this.cliente_id,{ only: ['cuenta'] });
+
+
+        Inertia.reload({ only: ['cuenta','movimientos'] },);
+        Inertia.visit('/llamadas/agreement/'+this.id_cliente,{ preserveScroll: true },{ only: ['cuenta','movimientos'] });
         
       })
       .catch((error) => {

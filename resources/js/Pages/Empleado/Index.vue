@@ -32,7 +32,7 @@
                 <table class="table table-head-fixed text-nowrap">
                   <thead>
                     <tr>
-                      <th>ID</th>
+                      <th>Apt</th>
                       <th>Nombre </th>
                       <th>correo</th>
                       <th>Estado</th>
@@ -43,7 +43,7 @@
                   <tbody>
                     <tr v-for="row in clientes" >
                       <td> 
-                          {{ row.id }} 
+                          {{ row.client_code }}  
                       </td>
                       <td> 
                           {{ row.name }} 

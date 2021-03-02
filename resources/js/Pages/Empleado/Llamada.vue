@@ -115,47 +115,40 @@
                             Apartamento: {{ cliente.client_code }}
                           </h6>
                         </div>
-                        <div class="card-footer p-0">
-                          <ul class="nav flex-column">
-                            <li class="nav-item">
-                              Cedula : {{ cliente.document }}
-                            </li>
-                            <li class="nav-item">
-                              Correo : {{ cliente.email }}
-                            </li>
-                            <li class="nav-item">
-                              Telefono uno : {{ cliente.phone_one }}
-                            </li>
-                            <li class="nav-item">
-                              Telefono dos : {{ cliente.phone_two }}
-                            </li>
-                            <li class="nav-item">
-                              <inertia-link
-                                class="nav-link"
-                                :href="route('llamadas.agreement', cliente.id)"
-                              >
-                                Acuerdo actual
-                                <span
-                                  class="float-right badge bg-danger"
-                                  style="margin-top: 6px"
-                                >
-                                  {{ acuerdo[0].description }}
-                                </span>
-                              </inertia-link>
-                            </li>
-                            <li class="nav-item">
-                              <a href="#" class="nav-link">
-                                Estado cuenta
-                                <span
-                                  class="float-right badge bg-info"
-                                  style="margin-top: 6px"
-                                >
-                                  {{ cuenta_total }}</span
-                                >
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
+                      <div class="card-footer p-0">
+                        <ul class="nav flex-column">
+                          <li class="nav-item"> 
+                              Cedula  : {{ cliente.document }} 
+                          </li>
+                          <li class="nav-item"> 
+                              Correo  : 
+                            <a :href="`mailto:${cliente.email}`">{{cliente.email}}</a>
+                          </li>
+                          <li class="nav-item"> 
+                              Telefono uno : 
+                            <a :href="`tel:${cliente.phone_one}`">{{cliente.phone_one}}</a>
+                          </li>
+                          <li class="nav-item"> 
+                              Telefono dos : 
+                            <a :href="`tel:${cliente.phone_two}`">{{cliente.phone_two}}</a>
+                          </li>
+                          <li class="nav-item">
+                            <inertia-link class="nav-link" :href="route('llamadas.agreement',cliente.id)">  
+                              Acuerdo actual 
+                              <span class="float-right badge bg-danger" style="margin-top:6px ;">
+                               {{ acuerdo[0].description }}
+                              </span>
+                          </inertia-link>
+                             
+                          </li>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link">
+                              Estado cuenta 
+                              <span class="float-right badge bg-info" style="margin-top:6px ;">
+                              {{cuenta_total}}</span>
+                            </a>
+                          </li>
+                        </ul>
                       </div>
                       <!-- /.widget-user -->
                     </div>
@@ -200,6 +193,7 @@
                         </div>
                       </div>
 
+<<<<<<< HEAD
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label>Cuotas</label>
@@ -208,6 +202,16 @@
                               <span class="input-group-text"
                                 ><i class="fas fa-sort-amount-up-alt"></i
                               ></span>
+=======
+                    <div class="col-sm-3">
+                      <div class="form-group ">
+                            <label>Cuotas</label>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-sort-amount-up-alt"></i></span> 
+                              </div>
+                              <input type="number" class="form-control" min="1" max="24"  v-model="form.cuotas" >
+>>>>>>> dev
                             </div>
                             <input
                               type="number"
@@ -219,6 +223,7 @@
                           </div>
                         </div>
                       </div>
+<<<<<<< HEAD
 
                       <div class="col-sm-4">
                         <div class="form-group">
@@ -228,6 +233,31 @@
                               <span class="input-group-text"
                                 ><i class="fas fa-dollar-sign"></i
                               ></span>
+=======
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-group " >
+                        <label>Dia fecha pago</label>
+                        <span class="required">*</span>
+                        <select class="form-control" v-model="dia_pago">
+                          <option value="" disabled>Seleccione Estado</option>
+                          <option value="6" >6</option>
+                          <option value="16" >16</option>
+                          <option value="28" >28</option>
+                          
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                      <div class="form-group ">
+                            <label>Valor subcuota</label>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                              </div>
+                              <input type="text" class="form-control"  v-model="sub_cuota" disabled>
+>>>>>>> dev
                             </div>
                             <input
                               type="text"
@@ -239,6 +269,7 @@
                         </div>
                       </div>
 
+<<<<<<< HEAD
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label>Valor administracion</label>
@@ -247,6 +278,16 @@
                               <span class="input-group-text"
                                 ><i class="fas fa-dollar-sign"></i
                               ></span>
+=======
+                    <div class="col-sm-3">
+                      <div class="form-group ">
+                            <label>Valor administracion</label>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                              </div>
+                              <input type="text" class="form-control" v-model="form.administracion" disabled>
+>>>>>>> dev
                             </div>
                             <input
                               type="text"
@@ -596,6 +637,7 @@ export default {
       this.form.total_deuda = num;
       return total;
     },
+<<<<<<< HEAD
     sub_cuota: function () {
       if (this.form.cuotas === 0) {
         return (this.form.subcuota = 0);
@@ -604,6 +646,48 @@ export default {
         var n = num.toFixed(2);
         this.form.subcuota = n;
         return this.formatear(String(n));
+=======
+    data() {
+      return { 
+        estados:[],  
+        errors:[],  
+        
+        form: {
+
+          name: this.cliente.name,
+          phone: this.cliente.phone_one,
+          texto: null,
+          
+          intereses: null,
+          honorarios: null,
+          observaciones: null, 
+
+          deuda: this.cuentaTotal,
+          total_deuda:0,
+          cuotas: 0,
+          subcuota: 0,
+          administracion: this.admin,
+          valorCuota: 0,
+          abono: 0,
+
+        },
+        acuerdo_bol:0,
+        abono_decimal: 0,
+
+        selestado:"", 
+        dia_pago:"", 
+        cuenta_total:"",
+        inde:0,
+        llam:-1,
+        index:"",
+        state:0,
+        image: "../../storage/img/avatar.png", 
+        nameimg: " avatar user", 
+        empleado:this.empleadoid, 
+        nombreempleado:this.name, 
+        conj:this.conjunto, 
+
+>>>>>>> dev
       }
     },
     valor_cuota: function () {
@@ -681,6 +765,7 @@ export default {
           nombre: this.form.name,
           telefono: this.form.phone,
           descripcion: this.form.texto,
+<<<<<<< HEAD
           estado: this.selestado,
           cliente: this.cliente.id,
           idempleado: this.empleado,
@@ -690,6 +775,21 @@ export default {
           cuotas: this.form.cuotas,
           abono: this.form.abono,
           observaciones: this.form.observaciones,
+=======
+          estado: this.selestado, 
+          cliente: this.cliente.id, 
+          idempleado: this.empleado, 
+          nombre_empleado: this.nombreempleado, 
+          dia_fecha_pago: this.dia_pago, 
+          administracion: this.sinFormatNumber(this.admin), 
+
+          deuda_actual:this.cuentaTotal,
+          cuotas:this.form.cuotas,
+          abono:this.form.abono,
+          valor_cuota:this.sinFormatNumber(this.valor_cuota),
+          observaciones:this.form.observaciones,
+
+>>>>>>> dev
         })
         .then((response) => {
           Swal.fire({

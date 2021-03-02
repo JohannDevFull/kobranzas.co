@@ -133,7 +133,7 @@ class Permisos extends Model
                     }else{
                         $total_deuda=$total_deuda+$movimientos[$k]->valor_movement;
                     }
-
+ 
                      $arregloRP[$k]['id_movement'] = $movimientos[$k]->id_movement;
                      $arregloRP[$k]['created_at'] =$movimientos[$k]->created_at;
                      $arregloRP[$k]['type_movement_id'] = $debito;

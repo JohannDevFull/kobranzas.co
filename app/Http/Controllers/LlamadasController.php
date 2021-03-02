@@ -150,8 +150,7 @@ class LlamadasController extends Controller
             INNER JOIN state
             on state.id_state=clients.state_id
             INNER JOIN users
-            on users.id=clients.user_id
-            WHERE  users.name like '%" . $buscar . "%'");
+            on users.id=clients.user_id WHERE  users.name like '%".$buscar."%' OR clients.client_code like '%".$buscar."%' LIMIT 50" ); 
 
         return response()->json($users_cliente);
     }
@@ -312,6 +311,7 @@ class LlamadasController extends Controller
     {
 
         $this->validate($request, [
+<<<<<<< HEAD
             'cliente' => 'required',
             'nombre' => 'required',
             'telefono' => 'required',
@@ -346,6 +346,58 @@ class LlamadasController extends Controller
         ]);
 
         Clients::where('user_id', $request->cliente)->update([
+=======
+            'cliente'=>'required',
+            'nombre'=>'required',
+            'telefono'=>'required',
+            'idempleado'=>'required',
+            'descripcion'=>'required',
+            'estado'=>'required',
+            'deuda_actual'=>'required',
+            'cuotas'=>'required',
+            'abono'=>'required',
+            'dia_fecha_pago'=>'required',
+            'observaciones'=>'required',
+
+        ]);
+
+        $call= Calls::create([  
+            'client_id'=>$request->cliente,
+            'name_call'=>$request->nombre,
+            'phone_call'=>$request->telefono,
+            'employee_id'=>$request->idempleado,
+            'description'=>$request->descripcion,
+            'state_id'=>$request->estado,
+        ]); 
+        
+        $iva=DB::select("SELECT * FROM movements WHERE  user_id=".$request->cliente." AND description_movement='IVA' ORDER BY id_movement asc limit 1" );
+
+        $gastos_cobranzas=DB::select("SELECT * FROM movements WHERE  user_id=".$request->cliente." AND description_movement='Gastos cobranzas' ORDER BY id_movement asc limit 1" );
+
+        $capital=DB::select("SELECT * FROM movements WHERE  user_id=".$request->cliente." AND description_movement='Capital' ORDER BY id_movement asc limit 1" );
+        
+        $intereses=DB::select("SELECT * FROM movements WHERE  user_id=".$request->cliente." AND description_movement='Intereses' ORDER BY id_movement asc limit 1" );
+
+        $agreement=Agreement::create([   
+            'user_id'=>$request->cliente,
+            'employee_id'=>$request->idempleado,
+            'name_employee'=>$request->nombre_empleado,
+            'current_debt'=>$request->deuda_actual,
+            'iva'=>$iva[0]->valor_movement,
+            'capital'=>$capital[0]->valor_movement,
+            'intereses'=>$intereses[0]->valor_movement,
+            'administration'=>$request->administracion,
+            'gastos_cobranzas'=>$gastos_cobranzas[0]->valor_movement,
+            'dia_fecha_pagos'=>$request->dia_fecha_pago,
+            'credit'=>$request->abono,
+            'quotas'=>$request->cuotas,
+            'total_cuota'=>$request->valor_cuota,
+            'observations'=>$request->observaciones,
+            'state_id'=>$request->estado,
+        ]); 
+
+        Clients::where('user_id',$request->cliente)->update([
+>>>>>>> dev
             'state_id' => $request->estado
         ]);
 
@@ -392,6 +444,7 @@ class LlamadasController extends Controller
             'intereses' => 'required',
         ]);
 
+<<<<<<< HEAD
         $call = Movements::create([
             'user_id' => $request->cliente_id,
             'type_movement_id' => 1,
@@ -414,6 +467,42 @@ class LlamadasController extends Controller
             'valor_movement' => $gastos_cobranzas,
             'description_movement' => 'Gastos cobranzas',
         ]);
+=======
+        $call= Movements::create([
+            'user_id'=>$request->cliente_id, 
+            'type_movement_id'=>1,
+            'valor_movement'=>$request->capital_deuda,
+            'description_movement'=>'Capital', 
+        ]);
+
+        $call= Movements::create([
+            'user_id'=>$request->cliente_id, 
+            'type_movement_id'=>1,
+            'valor_movement'=>$request->intereses, 
+            'description_movement'=>'Intereses', 
+        ]); 
+
+        $gastos_cobranzas=(($request->capital_deuda+$request->intereses)*$conjunto[0]->gastos_cobranzas)/100;
+        
+        $gastos= Movements::create([
+            'user_id'=>$request->cliente_id, 
+            'type_movement_id'=>1,
+            'valor_movement'=>$gastos_cobranzas, 
+            'description_movement'=>'Gastos cobranzas', 
+        ]);
+
+        $iva=($gastos_cobranzas*19)/100;
+
+        $iva_cobranzas= Movements::create([
+            'user_id'=>$request->cliente_id, 
+            'type_movement_id'=>1,
+            'valor_movement'=>$iva, 
+            'description_movement'=>'IVA', 
+        ]);
+
+
+
+>>>>>>> dev
     }
 
     public function createReminder(Request $request)

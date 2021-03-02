@@ -18,7 +18,7 @@ class DescriptionMovementsSeeder extends Seeder
         //
         $debitos=['Multa','Parqueadero','Salon eventos','Intereses mora'];
 
-        $creditos=['Pago','Ajuste',];
+        $creditos=['Pago','Pago acuerdo','Pago cuota','Ajuste'];
 
         $nat_deb=1;
         $nat_cre=2;

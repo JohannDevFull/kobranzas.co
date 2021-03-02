@@ -60,6 +60,43 @@
 
                     <div class="col-sm-4">
                       <div class="form-group ">
+                            <label>Fecha acuerdo</label>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-sort-amount-up-alt"></i></span> 
+                              </div>
+                              <input  class="form-control"   v-model="fecha" disabled="">
+                            </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="form-group ">
+                            <label>Gastos cobranzas
+                            </label>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                              </div>
+                              <input type="text" class="form-control"  v-model="gastos" disabled>
+                            </div>
+                      </div>
+                    </div> 
+
+                    <div class="col-sm-4">
+                      <div class="form-group ">
+                            <label>IVA</label>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                              </div>
+                              <input type="text" class="form-control" v-model="iva" disabled>
+                            </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="form-group ">
                             <label>Cuotas</label>
                             <div class="input-group mb-3">
                               <div class="input-group-prepend">
@@ -80,7 +117,7 @@
                               <input type="text" class="form-control"  v-model="sub_cuota" disabled>
                             </div>
                       </div>
-                    </div>
+                    </div> 
 
                     <div class="col-sm-4">
                       <div class="form-group ">
@@ -94,7 +131,19 @@
                       </div>
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
+                      <div class="form-group ">
+                            <label>Dia fecha de pagos</label>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-sort-amount-up-alt"></i></span> 
+                              </div>
+                              <input  class="form-control"   v-model="dia_pago" disabled="">
+                            </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
                       <div class="form-group ">
                             <label>Valor total cuota</label>
                             <div class="input-group mb-3">
@@ -106,11 +155,11 @@
                       </div>
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                       <div class="form-group " >
                         <label>Estado</label>
                         <span class="required">*</span>
-                        <select class="form-control" v-model="selestado">
+                        <select class="form-control" v-model="selestado" disabled>
                           <option value="" disabled>Seleccione Estado</option>
                           <option v-for="option in estados" v-bind:value="option.id_state">
                             {{ option.description }}
@@ -168,12 +217,30 @@
 
             total_deuda:0,
 
-            administracion:0,
-            selestado:"",  
+            selestado:this.acuerdo[this.id].id_state,  
             cuenta_total:"",
           }
       },
       computed: {
+        iva:function(){
+            return this.formatear(this.acuerdo[this.id].iva);
+
+        },
+        dia_pago:function(){
+            return this.acuerdo[this.id].dia_fecha_pagos;
+
+        },
+        gastos:function(){
+            return this.formatear(this.acuerdo[this.id].gastos_cobranzas);
+
+        },
+        fecha:function(){
+            return this.acuerdo[this.id].created_at;
+        },
+        administracion:function(){
+            return this.formatear(this.acuerdo[this.id].administration);
+
+        },
         observaciones:function(){
 
             return this.acuerdo[this.id].observations; 
@@ -213,13 +280,9 @@
           } 
         },
         valor_cuota: function(){
-          if (this.subcuota===0){
-            return this.valorCuota=0;
-          }else{
-            var num= parseFloat(this.subcuota)+parseFloat(this.admin);
-            var n=num.toFixed(2); 
-            return this.formatear(String(n));
-          }
+           
+            return this.formatear(this.acuerdo[this.id].total_cuota);
+          
 
         },
       },

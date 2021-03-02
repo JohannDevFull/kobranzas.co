@@ -222,7 +222,7 @@ if (isset($_REQUEST['politica-cookies'])) {
             <div class="col-md-4">
               <div class="pricing no-left-brd">
                 <img src="main/onepage2/img/widgets/icon6.png" alt="">
-                <h4>propiedad horizontal</h4>
+                <h4>Propiedad horizontal</h4>
                 <span></span>
                 <ul class="pricing-features">
                   <!-- <li>1000 Copies</li>
@@ -503,7 +503,7 @@ if (isset($_REQUEST['politica-cookies'])) {
       <div class="cookies">
         <!-- Titulo -->
         <div>
-          <h4 class="coo-title">Politica de Cookies</h4>
+          <h4 class="coo-title">Política de Cookies</h4>
         </div>
         <!-- Descripción con enlace -->
         <div>
