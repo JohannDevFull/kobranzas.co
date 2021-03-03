@@ -2,7 +2,7 @@
  <div>
     <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2020-2021 <a href="http://jtwo.tk"  target="_blank">jtwo.tk</a>.</strong>
+    <strong>Copyright &copy; 2020-2021 <a href="http://jtwoweb.tk"  target="_blank">jtwoweb.tk</a>.</strong>
     All rights reserved.
     
     <div class="float-right d-none d-sm-inline-block">

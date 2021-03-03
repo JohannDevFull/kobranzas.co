@@ -311,42 +311,6 @@ class LlamadasController extends Controller
     {
 
         $this->validate($request, [
-<<<<<<< HEAD
-            'cliente' => 'required',
-            'nombre' => 'required',
-            'telefono' => 'required',
-            'idempleado' => 'required',
-            'descripcion' => 'required',
-            'estado' => 'required',
-            'deuda_actual' => 'required',
-            'cuotas' => 'required',
-            'abono' => 'required',
-            'observaciones' => 'required',
-
-        ]);
-
-        $call = Calls::create([
-            'client_id' => $request->cliente,
-            'name_call' => $request->nombre,
-            'phone_call' => $request->telefono,
-            'employee_id' => $request->idempleado,
-            'description' => $request->descripcion,
-            'state_id' => $request->estado,
-        ]);
-
-        $agreement = Agreement::create([
-            'user_id' => $request->cliente,
-            'employee_id' => $request->idempleado,
-            'name_employee' => $request->nombre_empleado,
-            'current_debt' => $request->deuda_actual,
-            'credit' => $request->abono,
-            'quotas' => $request->cuotas,
-            'observations' => $request->observaciones,
-            'state_id' => $request->estado,
-        ]);
-
-        Clients::where('user_id', $request->cliente)->update([
-=======
             'cliente'=>'required',
             'nombre'=>'required',
             'telefono'=>'required',
@@ -397,7 +361,6 @@ class LlamadasController extends Controller
         ]); 
 
         Clients::where('user_id',$request->cliente)->update([
->>>>>>> dev
             'state_id' => $request->estado
         ]);
 
@@ -444,30 +407,6 @@ class LlamadasController extends Controller
             'intereses' => 'required',
         ]);
 
-<<<<<<< HEAD
-        $call = Movements::create([
-            'user_id' => $request->cliente_id,
-            'type_movement_id' => 1,
-            'valor_movement' => $request->capital_deuda,
-            'description_movement' => 'Saldo inicial',
-        ]);
-
-        $call = Movements::create([
-            'user_id' => $request->cliente_id,
-            'type_movement_id' => 1,
-            'valor_movement' => $request->intereses,
-            'description_movement' => 'Intereses',
-        ]);
-
-        $gastos_cobranzas = (($request->capital_deuda + $request->intereses) * $conjunto[0]->gastos_cobranzas) / 100;
-
-        $call = Movements::create([
-            'user_id' => $request->cliente_id,
-            'type_movement_id' => 1,
-            'valor_movement' => $gastos_cobranzas,
-            'description_movement' => 'Gastos cobranzas',
-        ]);
-=======
         $call= Movements::create([
             'user_id'=>$request->cliente_id, 
             'type_movement_id'=>1,
@@ -501,8 +440,6 @@ class LlamadasController extends Controller
         ]);
 
 
-
->>>>>>> dev
     }
 
     public function createReminder(Request $request)

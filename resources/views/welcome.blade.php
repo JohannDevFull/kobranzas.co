@@ -378,7 +378,7 @@ if (isset($_REQUEST['politica-cookies'])) {
             <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
             <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
           </ul>
-          <p>Copyright © 2020-2021 <a href="http://jtwo.tk"  target="_blank">jtwo.tk</a>. All rights reserved.</p>
+          <p>Copyright © 2020-2021 <a href="http://jtwoweb.tk"  target="_blank">jtwoweb.tk</a>. All rights reserved.</p>
         </div>
       </div>
     </section>

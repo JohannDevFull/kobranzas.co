@@ -379,7 +379,26 @@
               <div class="card-footer">
               </div>
             </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Lista de Archivos</h3>
+            <upload-file v-bind:cliente_id="cliente.user_id" />
+
+            <div class="card-tools" v-if="cuenta != 0">
+              <button
+                type="button"
+                class="btn btn-tool"
+                data-card-widget="collapse"
+                style="border: 1px gray solid; height: 100%; margin: 0px"
+              >
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
           </div>
+
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0" style="height: 400px">
             <table class="table table-head-fixed text-nowrap">
@@ -392,7 +411,10 @@
               </thead>
 
               <tbody>
-                <tr v-if="files === 0"></tr>
+                <tr v-if="files === 0">
+                  
+                </tr>
+
                 <tr v-for="row in files" v-else>
                   <td>
                     {{ row.description }}
@@ -420,6 +442,7 @@
         </div>
         <!-- /.card -->
       </div>
+      
       <!-- Modal imagen -->
       <div
         class="modal fade bd-example-modal-lg"
