@@ -1,13 +1,6 @@
 <template>
   <div>
-    <button
-      type="button"
-      class="btn btn-outline-dark float-right"
-      data-toggle="modal"
-      data-target="#UploadModal"
-    >
-      Subir Archivo
-    </button>
+    
 
     <!-- Modal -->
     <div

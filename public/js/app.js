@@ -4822,13 +4822,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["cliente_id"],
   data: function data() {
@@ -9620,6 +9613,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -10445,11 +10452,191 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['cliente', 'empleadoid', 'conjunto', 'admin', 'llamadas', 'acuerdo', 'cuentaTotal', 'name'],
+  props: ["cliente", "empleadoid", "conjunto", "admin", "llamadas", "acuerdo", "cuentaTotal", "name"],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
     CallModal: _Kobranzas_CallModal__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -10461,6 +10648,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      desReminder: "",
+      dateReminder: "",
+      errReminder: [],
       estados: [],
       errors: [],
       form: {
@@ -10529,8 +10719,32 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    guardar: function guardar() {
+    createReminder: function createReminder() {
       var _this = this;
+
+      this.errReminder = [];
+      axios.post("/createReminder", {
+        client_id: this.cliente.id,
+        descripcion: this.desReminder,
+        fecha: this.dateReminder
+      }).then(function () {
+        Swal.fire({
+          icon: "success",
+          title: "Recordatorio Creado",
+          text: "Éxito al Registrar Recotdatorio",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        $("#recordatorio").modal("hide");
+        _this.desReminder = "";
+        _this.dateReminder = "";
+        _this.errReminder = [];
+      })["catch"](function (err) {
+        _this.errReminder = err.response.data;
+      });
+    },
+    guardar: function guardar() {
+      var _this2 = this;
 
       var url = "/llamadas/store";
       axios.post(url, {
@@ -10549,20 +10763,20 @@ __webpack_require__.r(__webpack_exports__);
           timer: 1500
         });
         _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__["Inertia"].reload({
-          only: ['llamadas']
+          only: ["llamadas"]
         });
-        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__["Inertia"].visit('/llamadas/create/' + _this.cliente.id, {
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__["Inertia"].visit("/llamadas/create/" + _this2.cliente.id, {
           preserveScroll: true
         }, {
-          only: ['users']
+          only: ["users"]
         });
       })["catch"](function (error) {
-        _this.errors = error.response.data;
+        _this2.errors = error.response.data;
         console.log("Este es el error" + error.response.data);
       });
     },
     guardar_acuerdo: function guardar_acuerdo() {
-      var _this2 = this;
+      var _this3 = this;
 
       var url = "/llamadas/store_acuerdo";
       axios.post(url, {
@@ -10589,30 +10803,30 @@ __webpack_require__.r(__webpack_exports__);
           timer: 1500
         });
         _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__["Inertia"].reload({
-          only: ['llamadas']
+          only: ["llamadas"]
         });
-        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__["Inertia"].visit('/llamadas/create/' + _this2.cliente.id, {
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__["Inertia"].visit("/llamadas/create/" + _this3.cliente.id, {
           preserveScroll: true
         }, {
-          only: ['users']
+          only: ["users"]
         });
         setTimeout(function () {
-          axios.post('/llamadas/sendEmails', {
+          axios.post("/llamadas/sendEmails", {
             notification: response.data.id
           })["catch"](function (err) {
             console.log(err);
           });
         }, 400);
       })["catch"](function (error) {
-        _this2.errors = error.response.data;
+        _this3.errors = error.response.data;
         console.log("Este es el error" + error.response.data);
       });
     },
     buscarEstados: function buscarEstados() {
-      var _this3 = this;
+      var _this4 = this;
 
-      axios.get('/buscar/estados', {}).then(function (resp) {
-        _this3.estados = resp.data;
+      axios.get("/buscar/estados", {}).then(function (resp) {
+        _this4.estados = resp.data;
       })["catch"](function (error) {
         console.log(error.response);
       });
@@ -67572,19 +67786,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c(
-      "button",
-      {
-        staticClass: "btn btn-outline-dark float-right",
-        attrs: {
-          type: "button",
-          "data-toggle": "modal",
-          "data-target": "#UploadModal"
-        }
-      },
-      [_vm._v("\n    Subir Archivo\n  ")]
-    ),
-    _vm._v(" "),
-    _c(
       "div",
       {
         staticClass: "modal fade",
@@ -74721,7 +74922,7 @@ var render = function() {
                       },
                       [
                         _c("i", { staticClass: "fas fa-plus" }),
-                        _vm._v(" Agregar Movimiento\n                        ")
+                        _vm._v(" Agregar Movimiento\n            ")
                       ]
                     ),
                     _vm._v(" "),
@@ -74779,17 +74980,17 @@ var render = function() {
                               return _c("tr", [
                                 _c("td", [
                                   _vm._v(
-                                    " \n                        " +
+                                    "\n                  " +
                                       _vm._s(row.id_movement) +
-                                      " \n                    "
+                                      "\n                "
                                   )
                                 ]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
-                                    " \n                        " +
+                                    "\n                  " +
                                       _vm._s(row.description_movement) +
-                                      " \n                    "
+                                      "\n                "
                                   )
                                 ]),
                                 _vm._v(" "),
@@ -74798,18 +74999,18 @@ var render = function() {
                                   { staticStyle: { "text-align": "right" } },
                                   [
                                     _vm._v(
-                                      " \n                        " +
+                                      "\n                  " +
                                         _vm._s(row.valor_movement) +
-                                        " \n                    "
+                                        "\n                "
                                     )
                                   ]
                                 ),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
-                                    " \n                        " +
+                                    "\n                  " +
                                       _vm._s(row.updated_at) +
-                                      "  \n                    "
+                                      "\n                "
                                   )
                                 ]),
                                 _vm._v(" "),
@@ -74849,120 +75050,126 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-12" }, [
-          _c("div", { staticClass: "card" }, [
-            _c(
-              "div",
-              { staticClass: "card-header" },
-              [
+          _c(
+            "div",
+            { staticClass: "card" },
+            [
+              _c("div", { staticClass: "card-header" }, [
                 _c("h3", { staticClass: "card-title" }, [
                   _vm._v("Lista de Archivos")
                 ]),
                 _vm._v(" "),
-                _c("upload-file", {
-                  attrs: { cliente_id: _vm.cliente.user_id }
-                }),
-                _vm._v(" "),
-                _vm.cuenta != 0
-                  ? _c("div", { staticClass: "card-tools" }, [
+                _c("div", { staticClass: "card-tools" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-dark float-right",
+                      attrs: {
+                        type: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#UploadModal"
+                      }
+                    },
+                    [_vm._v("\n              Subir Archivo\n            ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-tool",
+                      staticStyle: {
+                        border: "1px gray solid",
+                        height: "100%",
+                        margin: "0px"
+                      },
+                      attrs: { type: "button", "data-card-widget": "collapse" }
+                    },
+                    [_c("i", { staticClass: "fas fa-minus" })]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("upload-file", { attrs: { cliente_id: _vm.cliente.user_id } }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "card-body table-responsive p-0",
+                  staticStyle: { height: "400px" }
+                },
+                [
+                  _c(
+                    "table",
+                    { staticClass: "table table-head-fixed text-nowrap" },
+                    [
+                      _c("thead", [
+                        _c("tr", [
+                          _c("th", [_vm._v("Descripcion")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Fecha")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Vista Previa")])
+                        ])
+                      ]),
+                      _vm._v(" "),
                       _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-tool",
-                          staticStyle: {
-                            border: "1px gray solid",
-                            height: "100%",
-                            margin: "0px"
-                          },
-                          attrs: {
-                            type: "button",
-                            "data-card-widget": "collapse"
-                          }
-                        },
-                        [_c("i", { staticClass: "fas fa-minus" })]
-                      )
-                    ])
-                  : _vm._e()
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "card-body table-responsive p-0",
-                staticStyle: { height: "400px" }
-              },
-              [
-                _c(
-                  "table",
-                  { staticClass: "table table-head-fixed text-nowrap" },
-                  [
-                    _c("thead", [
-                      _c("tr", [
-                        _c("th", [_vm._v("Descripcion")]),
-                        _vm._v(" "),
-                        _c("th", [_vm._v("Fecha")]),
-                        _vm._v(" "),
-                        _c("th", [_vm._v("Vista Previa")])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      [
-                        _vm.files === 0
-                          ? _c("tr")
-                          : _vm._l(_vm.files, function(row) {
-                              return _c("tr", [
-                                _c("td", [
-                                  _vm._v(
-                                    "\n                  " +
-                                      _vm._s(row.description) +
-                                      "\n                "
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(
-                                    "\n                  " +
-                                      _vm._s(
-                                        _vm.toLocaleDateString(row.created_at)
-                                      ) +
-                                      "\n                "
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-primary",
-                                      attrs: {
-                                        type: "button",
-                                        "data-toggle": "modal",
-                                        "data-target": ".bd-example-modal-lg"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.getImage(row.id)
+                        "tbody",
+                        [
+                          _vm.files === 0
+                            ? _c("tr")
+                            : _vm._l(_vm.files, function(row) {
+                                return _c("tr", [
+                                  _c("td", [
+                                    _vm._v(
+                                      "\n                  " +
+                                        _vm._s(row.description) +
+                                        "\n                "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      "\n                  " +
+                                        _vm._s(
+                                          _vm.toLocaleDateString(row.created_at)
+                                        ) +
+                                        "\n                "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-primary",
+                                        attrs: {
+                                          type: "button",
+                                          "data-toggle": "modal",
+                                          "data-target": ".bd-example-modal-lg"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.getImage(row.id)
+                                          }
                                         }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-eye" })]
-                                  )
+                                      },
+                                      [_c("i", { staticClass: "fas fa-eye" })]
+                                    )
+                                  ])
                                 ])
-                              ])
-                            })
-                      ],
-                      2
-                    )
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-footer" })
-          ])
+                              })
+                        ],
+                        2
+                      )
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer" })
+            ],
+            1
+          )
         ]),
         _vm._v(" "),
         _c(
@@ -75512,7 +75719,7 @@ var render = function() {
             _c("div", { staticClass: "card card-default" }, [
               _c("div", { staticClass: "card-header" }, [
                 _c("h3", { staticClass: "card-title" }, [
-                  _vm._v("Registro de llamadas ")
+                  _vm._v("Registro de llamadas")
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-tools" }, [
@@ -75727,9 +75934,9 @@ var render = function() {
                                     { domProps: { value: option.id_state } },
                                     [
                                       _vm._v(
-                                        "\r\n                            " +
+                                        "\n                        " +
                                           _vm._s(option.description) +
-                                          "\r\n                          "
+                                          "\n                      "
                                       )
                                     ]
                                   )
@@ -75751,7 +75958,7 @@ var render = function() {
                                 _c(
                                   "div",
                                   {
-                                    staticClass: "widget-user-header ",
+                                    staticClass: "widget-user-header",
                                     staticStyle: {
                                       "background-color": "#e9ecef"
                                     }
@@ -75774,7 +75981,13 @@ var render = function() {
                                     _c(
                                       "h2",
                                       { staticClass: "widget-user-username" },
-                                      [_vm._v(_vm._s(_vm.cliente.name) + " ")]
+                                      [
+                                        _vm._v(
+                                          "\n                          " +
+                                            _vm._s(_vm.cliente.name) +
+                                            "\n                        "
+                                        )
+                                      ]
                                     ),
                                     _vm._v(" "),
                                     _c(
@@ -75782,9 +75995,9 @@ var render = function() {
                                       { staticClass: "widget-user-desc" },
                                       [
                                         _vm._v(
-                                          "Conjunto : " +
+                                          "\n                          Conjunto : " +
                                             _vm._s(_vm.conj) +
-                                            "  "
+                                            "\n                        "
                                         )
                                       ]
                                     ),
@@ -75794,9 +76007,9 @@ var render = function() {
                                       { staticClass: "widget-user-desc" },
                                       [
                                         _vm._v(
-                                          "Apartamento: " +
+                                          "\n                          Apartamento: " +
                                             _vm._s(_vm.cliente.client_code) +
-                                            " "
+                                            "\n                        "
                                         )
                                       ]
                                     )
@@ -75807,15 +76020,15 @@ var render = function() {
                                   _c("ul", { staticClass: "nav flex-column" }, [
                                     _c("li", { staticClass: "nav-item" }, [
                                       _vm._v(
-                                        " \r\n                              Cedula  : " +
+                                        "\n                            Cedula : " +
                                           _vm._s(_vm.cliente.document) +
-                                          " \r\n                          "
+                                          "\n                          "
                                       )
                                     ]),
                                     _vm._v(" "),
                                     _c("li", { staticClass: "nav-item" }, [
                                       _vm._v(
-                                        " \r\n                              Correo  : \r\n                            "
+                                        "\n                            Correo :\n                            "
                                       ),
                                       _c(
                                         "a",
@@ -75830,7 +76043,7 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("li", { staticClass: "nav-item" }, [
                                       _vm._v(
-                                        " \r\n                              Telefono uno : \r\n                            "
+                                        "\n                            Telefono uno :\n                            "
                                       ),
                                       _c(
                                         "a",
@@ -75845,7 +76058,7 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("li", { staticClass: "nav-item" }, [
                                       _vm._v(
-                                        " \r\n                              Telefono dos : \r\n                            "
+                                        "\n                            Telefono dos :\n                            "
                                       ),
                                       _c(
                                         "a",
@@ -75875,7 +76088,7 @@ var render = function() {
                                           },
                                           [
                                             _vm._v(
-                                              "  \r\n                              Acuerdo actual \r\n                              "
+                                              "\n                              Acuerdo actual\n                              "
                                             ),
                                             _c(
                                               "span",
@@ -75888,11 +76101,11 @@ var render = function() {
                                               },
                                               [
                                                 _vm._v(
-                                                  "\r\n                               " +
+                                                  "\n                                " +
                                                     _vm._s(
                                                       _vm.acuerdo[0].description
                                                     ) +
-                                                    "\r\n                              "
+                                                    "\n                              "
                                                 )
                                               ]
                                             )
@@ -75911,7 +76124,7 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\r\n                              Estado cuenta \r\n                              "
+                                            "\n                              Estado cuenta\n                              "
                                           ),
                                           _c(
                                             "span",
@@ -75924,7 +76137,7 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                              " +
+                                                "\n                                " +
                                                   _vm._s(_vm.cuenta_total)
                                               )
                                             ]
@@ -75954,7 +76167,7 @@ var render = function() {
                               },
                               [
                                 _c("div", { staticClass: "col-sm-6" }, [
-                                  _c("div", { staticClass: "form-group " }, [
+                                  _c("div", { staticClass: "form-group" }, [
                                     _c("label", [_vm._v("Abono")]),
                                     _vm._v(" "),
                                     _c(
@@ -76012,7 +76225,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-sm-6" }, [
-                                  _c("div", { staticClass: "form-group " }, [
+                                  _c("div", { staticClass: "form-group" }, [
                                     _c("label", [_vm._v("Total deuda")]),
                                     _vm._v(" "),
                                     _c(
@@ -76066,7 +76279,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-sm-3" }, [
-                                  _c("div", { staticClass: "form-group " }, [
+                                  _c("div", { staticClass: "form-group" }, [
                                     _c("label", [_vm._v("Cuotas")]),
                                     _vm._v(" "),
                                     _c(
@@ -76129,7 +76342,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-sm-3" }, [
-                                  _c("div", { staticClass: "form-group " }, [
+                                  _c("div", { staticClass: "form-group" }, [
                                     _c("label", [_vm._v("Dia fecha pago")]),
                                     _vm._v(" "),
                                     _c("span", { staticClass: "required" }, [
@@ -76203,7 +76416,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-sm-3" }, [
-                                  _c("div", { staticClass: "form-group " }, [
+                                  _c("div", { staticClass: "form-group" }, [
                                     _c("label", [_vm._v("Valor subcuota")]),
                                     _vm._v(" "),
                                     _c(
@@ -76259,7 +76472,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-sm-3" }, [
-                                  _c("div", { staticClass: "form-group " }, [
+                                  _c("div", { staticClass: "form-group" }, [
                                     _c("label", [
                                       _vm._v("Valor administracion")
                                     ]),
@@ -76322,7 +76535,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-sm-6" }, [
-                                  _c("div", { staticClass: "form-group " }, [
+                                  _c("div", { staticClass: "form-group" }, [
                                     _c("label", [_vm._v("Valor total cuota")]),
                                     _vm._v(" "),
                                     _c(
@@ -76378,7 +76591,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-sm-6" }, [
-                                  _c("div", { staticClass: "form-group " }, [
+                                  _c("div", { staticClass: "form-group" }, [
                                     _c("label", [_vm._v("Estado")]),
                                     _vm._v(" "),
                                     _c("span", { staticClass: "required" }, [
@@ -76439,9 +76652,9 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                            " +
+                                                "\n                            " +
                                                   _vm._s(option.description) +
-                                                  "\r\n                          "
+                                                  "\n                          "
                                               )
                                             ]
                                           )
@@ -76531,13 +76744,13 @@ var render = function() {
                               _c(
                                 "button",
                                 {
-                                  staticClass: "btn  btn-success",
+                                  staticClass: "btn btn-success",
                                   attrs: { type: "submit" },
                                   on: { click: _vm.guardar }
                                 },
                                 [
                                   _vm._v(
-                                    "\r\n                    Guardar llamada\r\n                  "
+                                    "\n                  Guardar llamada\n                "
                                   )
                                 ]
                               ),
@@ -76545,7 +76758,23 @@ var render = function() {
                               _c(
                                 "button",
                                 {
-                                  staticClass: "btn  btn-info ",
+                                  staticClass: "btn btn-warning",
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#recordatorio"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                  Crear Recordatorio\n                "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-info",
                                   attrs: {
                                     type: "button",
                                     "data-toggle": "collapse",
@@ -76557,7 +76786,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\r\n                    Agregar nuevo acuerdo\r\n                  "
+                                    "\n                  Agregar nuevo acuerdo\n                "
                                   )
                                 ]
                               )
@@ -76570,13 +76799,13 @@ var render = function() {
                               _c(
                                 "button",
                                 {
-                                  staticClass: "btn  btn-success",
+                                  staticClass: "btn btn-success",
                                   attrs: { type: "submit" },
                                   on: { click: _vm.guardar_acuerdo }
                                 },
                                 [
                                   _vm._v(
-                                    "\r\n                    Guardar Acuerdo\r\n                  "
+                                    "\n                  Guardar Acuerdo\n                "
                                   )
                                 ]
                               ),
@@ -76584,7 +76813,7 @@ var render = function() {
                               _c(
                                 "button",
                                 {
-                                  staticClass: "btn  btn-danger ",
+                                  staticClass: "btn btn-danger",
                                   attrs: {
                                     type: "button",
                                     "data-toggle": "collapse",
@@ -76596,7 +76825,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\r\n                    Cancelar acuerdo\r\n                  "
+                                    "\n                  Cancelar acuerdo\n                "
                                   )
                                 ]
                               )
@@ -76612,6 +76841,153 @@ var render = function() {
             ])
           ])
         ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "recordatorio",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "recordatorio",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "modal-dialog modal-dialog-centered",
+                attrs: { role: "document" }
+              },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c("h5", { staticClass: "modal-title" }, [
+                      _vm._v("Crear recordatorio")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "close",
+                        attrs: {
+                          type: "button",
+                          "data-dismiss": "modal",
+                          "aria-label": "Close"
+                        }
+                      },
+                      [
+                        _c("span", { attrs: { "aria-hidden": "true" } }, [
+                          _vm._v("×")
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "modal-body" },
+                    [
+                      _c("div", [
+                        _c("label", [_vm._v("Nombre")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control disabled",
+                          attrs: { type: "text", disabled: "true" },
+                          domProps: { value: _vm.form.name }
+                        }),
+                        _vm._v(" "),
+                        _c("label", [_vm._v("Fecha")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.dateReminder,
+                              expression: "dateReminder"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "datetime-local" },
+                          domProps: { value: _vm.dateReminder },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.dateReminder = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("label", [_vm._v("Descripción")]),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.desReminder,
+                              expression: "desReminder"
+                            }
+                          ],
+                          staticClass: "form-control disabled",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.desReminder },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.desReminder = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.errReminder.errors, function(error) {
+                        return _c("ul", [
+                          _c("li", { staticClass: "required" }, [
+                            _vm._v(_vm._s(error[0]))
+                          ])
+                        ])
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.createReminder()
+                          }
+                        }
+                      },
+                      [_vm._v("\n              Guardar\n            ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("\n              Cancelar\n            ")]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        ),
         _vm._v(" "),
         _c(
           "section",
@@ -76641,7 +77017,7 @@ var render = function() {
                         [
                           _c("thead", [
                             _c("tr", [
-                              _c("th", [_vm._v("ID ")]),
+                              _c("th", [_vm._v("ID")]),
                               _vm._v(" "),
                               _c("th", [_vm._v("Persona llamada")]),
                               _vm._v(" "),
@@ -76664,9 +77040,7 @@ var render = function() {
                                 ? _c("tr")
                                 : _vm._l(_vm.llamadas, function(row, index) {
                                     return _c("tr", [
-                                      _c("td", [
-                                        _vm._v(" " + _vm._s(row.id_call) + " ")
-                                      ]),
+                                      _c("td", [_vm._v(_vm._s(row.id_call))]),
                                       _vm._v(" "),
                                       _c(
                                         "td",
@@ -76682,9 +77056,9 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                        " +
+                                                "\n                        " +
                                                   _vm._s(row.name_call) +
-                                                  " \r\n                        "
+                                                  "\n                      "
                                               )
                                             ]
                                           )
@@ -76692,17 +77066,15 @@ var render = function() {
                                       ),
                                       _vm._v(" "),
                                       _c("td", [
-                                        _vm._v(
-                                          " " + _vm._s(row.phone_call) + " "
-                                        )
+                                        _vm._v(_vm._s(row.phone_call))
                                       ]),
                                       _vm._v(" "),
                                       _c("td", [
-                                        _vm._v(_vm._s(row.created_at) + " ")
+                                        _vm._v(_vm._s(row.created_at))
                                       ]),
                                       _vm._v(" "),
                                       _c("td", [
-                                        _vm._v(_vm._s(row.employee_id) + " ")
+                                        _vm._v(_vm._s(row.employee_id))
                                       ]),
                                       _vm._v(" "),
                                       _c(
@@ -76719,9 +77091,9 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                            " +
+                                                "\n                        " +
                                                   _vm._s(row.description) +
-                                                  "\r\n                        "
+                                                  "\n                      "
                                               )
                                             ]
                                           )
@@ -76746,7 +77118,7 @@ var render = function() {
                                           [
                                             _c("i", {
                                               staticClass:
-                                                "nav-icon fas fa-eye text-info"
+                                                "nav-icon fas fa-eye "
                                             })
                                           ]
                                         )
@@ -102566,8 +102938,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "",
-  cluster: "mt1",
+  key: "7f92a28260a2b4581fb5",
+  cluster: "us2",
   forceTLS: true
 });
 

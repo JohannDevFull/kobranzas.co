@@ -316,78 +316,17 @@
         <!-- /.card -->
       </div>
       <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Lista de Movimientos</h3>
-
-                <div class="card-tools" v-if="cuenta != 0"> 
-                      
-                          <button class="btn btn-dark float" @click="abrirCrearMovimiento()" >
-                            <i class="fas fa-plus"></i> Agregar Movimiento
-                          </button> 
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" style="border: 1px gray solid ;height: 100%;margin:0px; ">
-                      <i class="fas fa-minus"></i>
-                    </button> 
-                </div>
-
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0" style="height: 400px;">
-                <table class="table table-head-fixed text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>ID movimiento</th>
-                      <th>Descripcion movimiento</th>
-                      <th>Valor</th>
-                      <th>Fecha</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  
-                  <tbody> 
-                    <tr v-if="movimientos===0">  
-
-                    </tr>
-                    <tr v-for="(row,index) in movimientos" v-else>
-                      <td> 
-                          {{ row.id_movement }} 
-                      </td>
-                      <td> 
-                          {{ row.description_movement }} 
-                      </td>
-                      <td style="text-align:right;"> 
-                          {{ row.valor_movement }} 
-                      </td>
-                      <td > 
-                          {{ row.updated_at }}  
-                      </td>
-                      
-
-                      <td> 
-                        <button type="button" style="margin-top:-4px" class="btn btn-success" @click="verMovimiento(index)"  >
-                            <i class="nav-icon fas fa-eye text-info"  ></i>         
-                        </button>
-                      </td>
-
-                      
-                    </tr>
-                  </tbody>
-                </table>
-
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer">
-              </div>
-            </div>
-      </div>
-
-      <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Lista de Archivos</h3>
-            <upload-file v-bind:cliente_id="cliente.user_id" />
+            <h3 class="card-title">Lista de Movimientos</h3>
 
             <div class="card-tools" v-if="cuenta != 0">
+              <button
+                class="btn btn-dark float"
+                @click="abrirCrearMovimiento()"
+              >
+                <i class="fas fa-plus"></i> Agregar Movimiento
+              </button>
               <button
                 type="button"
                 class="btn btn-tool"
@@ -398,6 +337,80 @@
               </button>
             </div>
           </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0" style="height: 400px">
+            <table class="table table-head-fixed text-nowrap">
+              <thead>
+                <tr>
+                  <th>ID movimiento</th>
+                  <th>Descripcion movimiento</th>
+                  <th>Valor</th>
+                  <th>Fecha</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr v-if="movimientos === 0"></tr>
+                <tr v-for="(row, index) in movimientos" v-else>
+                  <td>
+                    {{ row.id_movement }}
+                  </td>
+                  <td>
+                    {{ row.description_movement }}
+                  </td>
+                  <td style="text-align: right">
+                    {{ row.valor_movement }}
+                  </td>
+                  <td>
+                    {{ row.updated_at }}
+                  </td>
+
+                  <td>
+                    <button
+                      type="button"
+                      style="margin-top: -4px"
+                      class="btn btn-success"
+                      @click="verMovimiento(index)"
+                    >
+                      <i class="nav-icon fas fa-eye text-info"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer"></div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Lista de Archivos</h3>
+
+            <div class="card-tools" >
+              <button
+                type="button"
+                class="btn btn-outline-dark float-right"
+                data-toggle="modal"
+                data-target="#UploadModal"
+              >
+                Subir Archivo
+              </button> 
+              <button
+                type="button"
+                class="btn btn-tool"
+                data-card-widget="collapse"
+                style="border: 1px gray solid; height: 100%; margin: 0px"
+              >
+                <i class="fas fa-minus"></i>
+              </button>
+              
+            </div>
+          </div>
+            <upload-file v-bind:cliente_id="cliente.user_id" />
 
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0" style="height: 400px">
@@ -411,9 +424,7 @@
               </thead>
 
               <tbody>
-                <tr v-if="files === 0">
-                  
-                </tr>
+                <tr v-if="files === 0"></tr>
 
                 <tr v-for="row in files" v-else>
                   <td>
@@ -442,26 +453,29 @@
         </div>
         <!-- /.card -->
       </div>
-      
+
       <!-- Modal imagen -->
       <div
         class="modal fade bd-example-modal-lg"
         tabindex="-1"
-        style="margin-top:1px;"
+        style="margin-top: 1px"
         role="dialog"
         aria-labelledby="myLargeModalLabel"
         aria-hidden="true"
       >
         <div class="modal-dialog modal-lg">
-          <div class="modal-content" style="border:none; box-shadow:none; background:transparent;">
-            <div class="modal-header" style="border-bottom:none;" >
+          <div
+            class="modal-content"
+            style="border: none; box-shadow: none; background: transparent"
+          >
+            <div class="modal-header" style="border-bottom: none">
               <button
                 type="button"
                 class="close"
                 data-dismiss="modal"
                 aria-label="Close"
               >
-                <span style="color:white;" aria-hidden="true">&times;</span>
+                <span style="color: white" aria-hidden="true">&times;</span>
               </button>
             </div>
           </div>
