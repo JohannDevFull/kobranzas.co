@@ -19,6 +19,7 @@ class CreateMovementsTable extends Migration
             $table->foreignId('type_movement_id')->references('id_type_movement')->on('type_movement');
             $table->decimal('valor_movement', $precision = 13, $scale = 2);  
             $table->string('description_movement');  
+            $table->dateTime('date');
             $table->timestamps();
         });
     }

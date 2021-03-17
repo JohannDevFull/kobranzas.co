@@ -17,6 +17,7 @@ class Movements extends Model implements Auditable
         'user_id',
         'type_movement_id',
         'valor_movement', 
+        'date',
         'description_movement', 
     ];
 

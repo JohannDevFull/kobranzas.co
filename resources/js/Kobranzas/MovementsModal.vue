@@ -103,7 +103,11 @@
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-coins"></i></span>
                               </div>
-                              <input type="date" name="fecha" min="2020-12-01" max="2030-05-26"  />
+                              <input
+                                class="form-control"
+                                type="datetime-local"
+                                v-model="dateReminder"
+                              />
                             </div>
                       </div>
                     </div>
@@ -188,6 +192,7 @@ export default {
         tipo_movimiento:this.seles, 
         descripcion_movimiento:this.selestado, 
         valor_moviminto:intereses, 
+        fecha: this.dateReminder,
         cliente_id: this.id_cliente, 
       })
       .then((response)=>{ 

@@ -71,6 +71,7 @@ class ClientsController extends Controller
         $sta = DB::table('state')->get();
         return response()->json($sta);
     }
+    
     public function descripcion_movimiento_cargue(Request $request)
     {
         $res = DB::table('description_movements')->where('nature_movement', '1')->get();
@@ -96,12 +97,14 @@ class ClientsController extends Controller
             'tipo_movimiento' => 'required',
             'descripcion_movimiento' => 'required',
             'valor_moviminto' => 'required',
+            'fecha' => 'required',
         ]);
 
         $mov = Movements::create([
             'user_id' => $request->cliente_id,
             'type_movement_id' => $request->tipo_movimiento,
             'valor_movement' => $request->valor_moviminto,
+            'date' => $request->fecha,
             'description_movement' => $request->descripcion_movimiento,
         ]);
     }

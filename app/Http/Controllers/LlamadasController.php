@@ -400,7 +400,7 @@ class LlamadasController extends Controller
     {
         $id_building = DB::select('SELECT building_id FROM clients where user_id=' . $request->cliente_id);
         $conjunto = DB::select('SELECT * FROM buildings where id_building=' . $id_building[0]->building_id);
-
+        $fecha=Carbon::now()->toDateTimeString();
         $this->validate($request, [
             'cliente_id' => 'required',
             'capital_deuda' => 'required',
@@ -411,6 +411,7 @@ class LlamadasController extends Controller
             'user_id'=>$request->cliente_id, 
             'type_movement_id'=>1,
             'valor_movement'=>$request->capital_deuda,
+            'date'=>$fecha,
             'description_movement'=>'Capital', 
         ]);
 
@@ -418,6 +419,7 @@ class LlamadasController extends Controller
             'user_id'=>$request->cliente_id, 
             'type_movement_id'=>1,
             'valor_movement'=>$request->intereses, 
+            'date'=>$fecha, 
             'description_movement'=>'Intereses', 
         ]); 
 
@@ -427,6 +429,7 @@ class LlamadasController extends Controller
             'user_id'=>$request->cliente_id, 
             'type_movement_id'=>1,
             'valor_movement'=>$gastos_cobranzas, 
+            'date'=>$fecha, 
             'description_movement'=>'Gastos cobranzas', 
         ]);
 
@@ -436,6 +439,7 @@ class LlamadasController extends Controller
             'user_id'=>$request->cliente_id, 
             'type_movement_id'=>1,
             'valor_movement'=>$iva, 
+            'date'=>$fecha, 
             'description_movement'=>'IVA', 
         ]);
 
