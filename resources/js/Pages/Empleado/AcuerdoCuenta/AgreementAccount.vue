@@ -289,81 +289,11 @@
                   <td>
                     {{ row.description_movement }}
                   </td>
-                  <td>
-                    {{ row.valor_movement }}
-                  </td>
-                  <td>
-                    {{ row.updated_at }}
-                  </td>
-
-                  <td>
-                    <button
-                      type="button"
-                      style="margin-top: -4px"
-                      class="btn btn-success"
-                      @click="verMovimiento(index)"
-                    >
-                      <i class="nav-icon fas fa-eye text-info"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <!-- /.card-body -->
-          <div class="card-footer"></div>
-        </div>
-        <!-- /.card -->
-      </div>
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Lista de Movimientos</h3>
-
-            <div class="card-tools" v-if="cuenta != 0">
-              <button
-                class="btn btn-dark float"
-                @click="abrirCrearMovimiento()"
-              >
-                <i class="fas fa-plus"></i> Agregar Movimiento
-              </button>
-              <button
-                type="button"
-                class="btn btn-tool"
-                data-card-widget="collapse"
-                style="border: 1px gray solid; height: 100%; margin: 0px"
-              >
-                <i class="fas fa-minus"></i>
-              </button>
-            </div>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body table-responsive p-0" style="height: 400px">
-            <table class="table table-head-fixed text-nowrap">
-              <thead>
-                <tr>
-                  <th>ID movimiento</th>
-                  <th>Descripcion movimiento</th>
-                  <th>Valor</th>
-                  <th>Fecha</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr v-if="movimientos === 0"></tr>
-                <tr v-for="(row, index) in movimientos" v-else>
-                  <td>
-                    {{ row.id_movement }}
-                  </td>
-                  <td>
-                    {{ row.description_movement }}
-                  </td>
                   <td style="text-align: right">
                     {{ row.valor_movement }}
                   </td>
                   <td>
-                    {{ row.updated_at }}
+                    {{ row.date }}
                   </td>
 
                   <td>
