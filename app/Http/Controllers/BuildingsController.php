@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\Buildings\MultiSheetTemplate;
+use App\Exports\Reportes\Reporte;
 use App\Models\Buildings;
 use App\Models\Clients;
 use App\Models\User;
@@ -186,6 +187,32 @@ class BuildingsController extends Controller
         //
 
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function reporte($id)
+    {
+        $buscar=$id; 
+
+        $conjunto=Buildings::find($buscar);  
+
+        return Inertia::render('Extractos/Reporte',[
+            'conjunto' => $conjunto,
+            'id' => $id,
+        ]);
+
+    }
+
+    public function exportReporte()
+    {
+        
+        return Excel::download(new Reporte, 'reporte.xlsx');
+    }
+
     public function exportTemplate()
     {
         

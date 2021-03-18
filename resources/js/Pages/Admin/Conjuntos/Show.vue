@@ -87,8 +87,9 @@
                         @change="onFileChange"
                         accept="xls,xlsx"
                       />
-                      <span class="file-info" v-if="!files || !files.length"
-                        >Ningún Archivo Seleccionado...</span
+                      <span class="file-info" v-if="!files || !files.length">
+                        Ningún Archivo Seleccionado...
+                      </span
                       >
                       <div v-else>
                         <span
@@ -139,12 +140,18 @@
 
               <!-- /.col -->
               <div class="col-sm-4">
+
+                <inertia-link
+                  class=""
+                  :href="route('conjuntos.reporte', conjunto.id_building)"
+                >
                 <div class="description-block">
                   <h5 class="description-header">x</h5>
-                  <span class="description-text">Pendientes</span>
+                  <span class="description-text">Reporte</span>
                 </div>
+                </inertia-link>
                 <!-- /.description-block -->
-              </div>
+              </div> 
               <!-- /.col -->
             </div>
             <!-- /.row -->

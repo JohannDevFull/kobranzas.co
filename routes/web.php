@@ -192,6 +192,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/conjuntos', [BuildingsController::class, 'index'])
         ->name('conjuntos');
 
+    Route::get('/reporte/{id}', [PermisosController::class, 'reporte']);
+    
+    Route::get('/conjuntos/reporte/{id}', [BuildingsController::class, 'reporte'])
+        ->name('conjuntos.reporte');
+
     Route::get('conjuntos/show/{id}', [BuildingsController::class, 'show'])
         ->name('conjuntos.show');
 
@@ -214,6 +219,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('conjuntos.restore');
     Route::get('conjuntos/template', [BuildingsController::class, 'exportTemplate'])
         ->middleware('permission:conjuntos.export');
+    Route::get('conjuntos/reporte', [BuildingsController::class, 'exportReporte']);
 });
 
 
