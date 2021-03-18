@@ -431,6 +431,7 @@
                   type="datetime-local"
                   v-model="dateReminder"
                 />
+                
                 <label>Descripción</label>
                 <textarea
                   class="form-control disabled"
