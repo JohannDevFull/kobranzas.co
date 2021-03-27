@@ -198,6 +198,12 @@ class Permisos extends Model
                 
                 default:
                     $idp=$clients[$i]->id;
+
+                    $gc = DB::select("SELECT * FROM movements WHERE  user_id='".$idp."' AND description_movement='Gastos cobranzas' LIMIT 1");
+                    $igc = DB::select("SELECT * FROM movements WHERE  user_id='".$idp."' AND description_movement='IVA' LIMIT 1");
+                    
+                    $honorarios=$gc[0]->valor_movement+$igc[0]->valor_movement;
+
                     $debito = DB::select("SELECT SUM(valor_movement) AS 'debito' FROM movements 
                                 WHERE  type_movement_id=1 AND `user_id`=" . $idp);
                     $credito = DB::select("SELECT SUM(valor_movement) AS 'credito' FROM movements 
@@ -207,12 +213,12 @@ class Permisos extends Model
                     $arregloRP[$i]['codigo'] = $clients[$i]->client_code;
                     $arregloRP[$i]['nombre'] =$clients[$i]->name;
                     $arregloRP[$i]['estado'] =$clients[$i]->estado;
-                    $arregloRP[$i]['honorarios'] =0;
+                    $arregloRP[$i]['honorarios'] =$honorarios;
                     $arregloRP[$i]['fecha_pago'] = $clients[$i]->fecha;
-                    $arregloRP[$i]['valor_pago'] = 0;
-                    $arregloRP[$i]['gastos_cobranzas'] = 0;
-                    $arregloRP[$i]['iva'] = 0;
-                    $arregloRP[$i]['total_cobranzas'] = 0;
+                    $arregloRP[$i]['valor_pago'] = '0';
+                    $arregloRP[$i]['gastos_cobranzas'] = '0';
+                    $arregloRP[$i]['iva'] = '0';
+                    $arregloRP[$i]['total_cobranzas'] = '0';
                     $arregloRP[$i]['saldo_honorarios'] = $clients[$i]->name;
                     $arregloRP[$i]['saldo_total'] = $cuenta;
                 break;
@@ -221,7 +227,7 @@ class Permisos extends Model
             
         } 
 
-        return response()->json($arregloRP);
+        return $arregloRP;
         
     }
 

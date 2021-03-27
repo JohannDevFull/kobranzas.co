@@ -139,8 +139,8 @@ export default {
     onFileChange(event) {
       this.files = event.target.files;
     },
-    exportar() {
-      var page = window.location.origin + "/conjuntos/reporte";
+    exportar(id) {
+      var page = window.location.origin + "/conjuntos/reporte/"+id;
       window.open(page);
     },
     

@@ -15,7 +15,7 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->bigIncrements('id_client');
-            $table->string('client_code')->unique();
+            $table->string('client_code');
             $table->string('contract_number');
             $table->foreignId('state_id')->references('id_state')->on('state');
             $table->foreignId('user_id')

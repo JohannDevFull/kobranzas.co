@@ -106,13 +106,15 @@
 
                           <!-- /.widget-user-image -->
                           <h2 class="widget-user-username">
+                            
                             {{ cliente.name }}
+
                           </h2>
                           <h4 class="widget-user-desc">
                             Conjunto : {{ conj }}
                           </h4>
                           <h6 class="widget-user-desc">
-                            Apartamento: {{ cliente.client_code }}
+                            Apartamento: {{ apt }}
                           </h6>
                         </div>
                         <div class="card-footer p-0">
@@ -555,6 +557,7 @@ export default {
     "acuerdo",
     "cuentaTotal",
     "name",
+    "apt",
   ],
 
   components: {

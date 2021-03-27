@@ -203,14 +203,14 @@ class BuildingsController extends Controller
         return Inertia::render('Extractos/Reporte',[
             'conjunto' => $conjunto,
             'id' => $id,
-        ]);
+        ]); 
 
     }
 
-    public function exportReporte()
+    public function exportReporte($id)
     {
         
-        return Excel::download(new Reporte, 'reporte.xlsx');
+        return Excel::download(new Reporte($id), 'reporte.xlsx');
     }
 
     public function exportTemplate()

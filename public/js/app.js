@@ -10575,11 +10575,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["cliente", "empleadoid", "conjunto", "admin", "llamadas", "acuerdo", "cuentaTotal", "name"],
+  props: ["cliente", "empleadoid", "conjunto", "admin", "llamadas", "acuerdo", "cuentaTotal", "name", "apt"],
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
     CallModal: _Kobranzas_CallModal__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -11729,8 +11731,8 @@ __webpack_require__.r(__webpack_exports__);
     onFileChange: function onFileChange(event) {
       this.files = event.target.files;
     },
-    exportar: function exportar() {
-      var page = window.location.origin + "/conjuntos/reporte";
+    exportar: function exportar(id) {
+      var page = window.location.origin + "/conjuntos/reporte/" + id;
       window.open(page);
     }
   },
@@ -70065,7 +70067,7 @@ var render = function() {
                 [
                   _c("thead", [
                     _c("tr", [
-                      _c("th", [_vm._v("ID usuario")]),
+                      _c("th", [_vm._v("Apt")]),
                       _vm._v(" "),
                       _c("th", [_vm._v("Nombre")]),
                       _vm._v(" "),
@@ -70085,7 +70087,7 @@ var render = function() {
                           _c("td", [
                             _vm._v(
                               "\n                  " +
-                                _vm._s(row.id) +
+                                _vm._s(row.client_code) +
                                 "\n                "
                             )
                           ]),
@@ -75982,9 +75984,9 @@ var render = function() {
                                       { staticClass: "widget-user-username" },
                                       [
                                         _vm._v(
-                                          "\n                          " +
+                                          "\n                          \n                          " +
                                             _vm._s(_vm.cliente.name) +
-                                            "\n                        "
+                                            "\n\n                        "
                                         )
                                       ]
                                     ),
@@ -76007,7 +76009,7 @@ var render = function() {
                                       [
                                         _vm._v(
                                           "\n                          Apartamento: " +
-                                            _vm._s(_vm.cliente.client_code) +
+                                            _vm._s(_vm.apt) +
                                             "\n                        "
                                         )
                                       ]

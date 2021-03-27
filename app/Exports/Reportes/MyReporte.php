@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Illuminate\Support\Collection;
 
 class MyReporte implements FromCollection,WithStyles,WithEvents,WithHeadings,ShouldAutoSize,WithTitle
 {
@@ -21,17 +22,17 @@ class MyReporte implements FromCollection,WithStyles,WithEvents,WithHeadings,Sho
     public function collection()
     {
     
-        $state = Permisos::reporte(1);
-        $this->lenght=$state->count()+2;
-        return $state;
+        $state = Permisos::reporte(3);
+        $collection = collect($state);
+        $this->lenght=$collection->count()+1;
+        return $collection;
     }
 
 
     public function headings(): array
     {
         return [
-            ["Reporte general"],
-            ["Identificador", "Descripción"]
+            ["CODIGO", "NOMBRE","ESTADO","HONORARIOS","FECHA PAGO", "VALOR PAGO","GASTOS COBRANZAS","IVA 19%","SALDO G. COBRANZAS","NOMBRE","SALDO DEUDA"]
         ];
     }
 
@@ -46,9 +47,8 @@ class MyReporte implements FromCollection,WithStyles,WithEvents,WithHeadings,Sho
     {
         return [
 
-            'A1:B1'  => ['merge' => ['bold' => true]],
 
-            'A2:B2' => ['font' => ['bold' => true]],
+            'A1:K1' => ['font' => ['bold' => true]],
 
 
         ];
@@ -60,7 +60,7 @@ class MyReporte implements FromCollection,WithStyles,WithEvents,WithHeadings,Sho
         return  [
 
             AfterSheet::class => function (AfterSheet $event) {
-                $event->sheet->getDelegate()->mergeCells('A1:B1')->getStyle('A1:B1')->applyFromArray([
+                $event->sheet->getDelegate()->getStyle('A1:K1')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'color' => ['rgb' => '02022D'],
@@ -72,7 +72,7 @@ class MyReporte implements FromCollection,WithStyles,WithEvents,WithHeadings,Sho
 
 
                 ]);
-                $event->sheet->getStyle('A1:B' . $this->lenght)->applyFromArray([
+                $event->sheet->getStyle('A1:k1' . $this->lenght)->applyFromArray([
                     'font' => [
 
                         'color' => ['rgb' => '02022D'],
