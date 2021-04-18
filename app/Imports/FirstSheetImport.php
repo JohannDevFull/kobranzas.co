@@ -66,8 +66,8 @@ class FirstSheetImport implements ToCollection, WithStartRow, WithValidation
             '*.3' => 'unique:users,document',
             '*.4' => 'required',
             '*.6' => 'required',
-            '*.7' => 'unique:clients,client_code',
-            '*.8' => 'unique:clients,contract_number',
+            '*.7' => 'required',
+            '*.8' => 'required',
             '*.9' => 'required',
             '*.10' => 'required'
         ];

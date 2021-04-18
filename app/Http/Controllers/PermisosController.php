@@ -111,6 +111,7 @@ class PermisosController extends Controller
     public function updatePermiso(Request $request, $id)
     {
         //
+
     }
 
     /**
@@ -122,16 +123,17 @@ class PermisosController extends Controller
     public function destroy($id)
     {
         //
+
     }
 
     public function iframe(Request $request,$value='')
     {
-           return Inertia::render('SuperAdmin/Iframe');
+        return Inertia::render('SuperAdmin/Iframe');
     }
      public function ventana(Request $request,$value='')
     {
         echo "holaaaas";
-           return Inertia::render('SuperAdmin/VentanaLlamada');
+        return Inertia::render('SuperAdmin/VentanaLlamada');
     }
 
     public static function reporte(Request $request,$id='')
@@ -169,57 +171,48 @@ class PermisosController extends Controller
 
 
                     $valor_pago = DB::select("SELECT * FROM movements WHERE  `user_id`=".$clients[$i]->id." AND description_movement='Pago acuerdo' LIMIT 1");
-
-                    $arregloRP[$i]['codigo'] = $clients[$i]->client_code;
-                    $arregloRP[$i]['nombre'] =$clients[$i]->name;
-                    $arregloRP[$i]['estado'] =$clients[$i]->estado;
-                    $arregloRP[$i]['honorarios'] = $clients[$i]->name;
-                    $arregloRP[$i]['fecha_pago'] = $clients[$i]->name;
-                    $arregloRP[$i]['valor_pago'] = $clients[$i]->id;
-                    $arregloRP[$i]['gastos_cobranzas'] = $clients[$i]->name;
-                    $arregloRP[$i]['iva'] = $clients[$i]->name;
-                    $arregloRP[$i]['total_cobranzas'] = $clients[$i]->name;
-                    $arregloRP[$i]['saldo_honorarios'] = $clients[$i]->name;
-                    $arregloRP[$i]['saldo_total'] = $clients[$i]->name;
+                    $arregloRP[$i]= $clients[$i]->client_code;
+                    $arregloRP[$i]=$clients[$i]->name;
+                    $arregloRP[$i] =$clients[$i]->estado;
+                    $arregloRP[$i]= $clients[$i]->name;
+                    $arregloRP[$i]= $clients[$i]->name;
+                    $arregloRP[$i]= $clients[$i]->id;
+                    $arregloRP[$i]= $clients[$i]->name;
+                    $arregloRP[$i]= $clients[$i]->name;
+                    $arregloRP[$i]= $clients[$i]->name;
+                    $arregloRP[$i]= $clients[$i]->name;
+                    $arregloRP[$i]= $clients[$i]->name;
                 break;
 
-                case '2':
-                    $arregloRP[$i]['codigo'] = $clients[$i]->client_code;
-                    $arregloRP[$i]['nombre'] =$clients[$i]->name;
-                    $arregloRP[$i]['estado'] =$clients[$i]->estado;
-                    $arregloRP[$i]['honorarios'] = $clients[$i]->name;
-                    $arregloRP[$i]['fecha_pago'] = $clients[$i]->name;
-                    $arregloRP[$i]['valor_pago'] = $clients[$i]->id;
-                    $arregloRP[$i]['gastos_cobranzas'] = $clients[$i]->name;
-                    $arregloRP[$i]['iva'] = $clients[$i]->name;
-                    $arregloRP[$i]['total_cobranzas'] = $clients[$i]->name;
-                    $arregloRP[$i]['saldo_honorarios'] = $clients[$i]->name;
-                    $arregloRP[$i]['saldo_total'] = $clients[$i]->name;
-                break;
                 
                 default:
-                    $arregloRP[$i]['codigo'] = $clients[$i]->client_code;
-                    $arregloRP[$i]['nombre'] =$clients[$i]->name;
-                    $arregloRP[$i]['estado'] =$clients[$i]->estado;
-                    $arregloRP[$i]['honorarios'] =0;
-                    $arregloRP[$i]['fecha_pago'] = $clients[$i]->fecha;
-                    $arregloRP[$i]['valor_pago'] = $clients[$i]->id;
-                    $arregloRP[$i]['gastos_cobranzas'] = 0;
-                    $arregloRP[$i]['iva'] = 0;
-                    $arregloRP[$i]['total_cobranzas'] = 0;
-                    $arregloRP[$i]['saldo_honorarios'] = $clients[$i]->name;
-                    $arregloRP[$i]['saldo_total'] = $clients[$i]->name;
+                    $arregloRP[$i]= $clients[$i]->client_code;
+                    $arregloRP[$i]=$clients[$i]->name;
+                    $arregloRP[$i]=$clients[$i]->estado;
+                    $arregloRP[$i]=0;
+                    $arregloRP[$i]= $clients[$i]->fecha;
+                    $arregloRP[$i]= $clients[$i]->id;
+                    $arregloRP[$i]= 0;
+                    $arregloRP[$i]= 0;
+                    $arregloRP[$i]= 0;
+                    $arregloRP[$i]= $clients[$i]->name;
+                    $arregloRP[$i]= $clients[$i]->name;
                 break;
+
             }
             
             
         } 
 
         
-        $fecha_actual = Carbon::now();
-        $day = $fecha_actual->format('m');
-        print_r($day);
-        // return response()->json($arregloRP);
+        // $fecha_actual = Carbon::now();
+        // $day = $fecha_actual->format('m');
+        // print_r($day);
+
+        echo "-------------------";
+        // return $arregloRP;
+        print_r($arregloRP);
+
     } 
         
     /**

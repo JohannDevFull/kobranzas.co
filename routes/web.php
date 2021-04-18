@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BuildController;
 use App\Http\Controllers\BuildingsController;
+use App\Http\Controllers\InformeController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ConjuntosController;
@@ -196,6 +197,9 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/conjuntos/reporte/{id}', [BuildingsController::class, 'reporte'])
         ->name('conjuntos.reporte');
+
+    Route::get('/conjunto/informe/{id}', [InformeController::class, 'informe'])
+        ->name('conjunto.informe');
 
     Route::get('conjuntos/show/{id}', [BuildingsController::class, 'show'])
         ->name('conjuntos.show');

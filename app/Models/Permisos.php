@@ -168,7 +168,7 @@ class Permisos extends Model
                     $arregloRP[$i]['saldo_total'] = $cuenta;
                 break;
 
-                case '2':
+                case '52':
                     $idp=$clients[$i]->id;
 
                     $valor_pago = DB::select("SELECT * FROM movements WHERE  user_id='".$idp."' AND description_movement='Pago cuota' ORDER BY id_movement DESC LIMIT 1");

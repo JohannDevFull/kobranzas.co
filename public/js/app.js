@@ -11732,7 +11732,7 @@ __webpack_require__.r(__webpack_exports__);
       this.files = event.target.files;
     },
     exportar: function exportar(id) {
-      var page = window.location.origin + "/conjuntos/reporte/" + id;
+      var page = window.location.origin + "/conjunto/informe/" + this.id;
       window.open(page);
     }
   },

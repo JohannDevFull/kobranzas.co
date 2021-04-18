@@ -140,9 +140,9 @@ export default {
       this.files = event.target.files;
     },
     exportar(id) {
-      var page = window.location.origin + "/conjuntos/reporte/"+id;
+      var page = window.location.origin + "/conjunto/informe/"+this.id;
       window.open(page);
-    },
+    }, 
     
   },
   computed: {
